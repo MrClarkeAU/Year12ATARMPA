@@ -16,6 +16,7 @@
   --accent-dim: #3d5af1;
   --gold: #e8c547;
   --green: #4caf7d;
+  --teal: #3db8a0;
   --text: #e0e0ec;
   --text-dim: #a0a0b8;
   --text-muted: #7a7a94;
@@ -39,7 +40,6 @@ body::before {
   opacity: 0.35;
 }
 
-/* ── HEADER ── */
 .hero {
   position: relative;
   padding: 4rem 2rem 3.5rem;
@@ -83,18 +83,16 @@ body::before {
   color: var(--text-dim);
   font-weight: 300;
   position: relative;
-  max-width: 520px;
+  max-width: 540px;
   margin: 0 auto;
 }
 
-/* ── MAIN ── */
 .main {
-  max-width: 820px;
+  max-width: 860px;
   margin: 0 auto;
   padding: 2.5rem 2rem 4rem;
 }
 
-/* ── SECTION LABEL ── */
 .section-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.65rem;
@@ -105,14 +103,15 @@ body::before {
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--border);
 }
+.section-label .unit-tag { color: var(--accent); }
 
-/* ── RESOURCE CARDS ── */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 1rem;
   margin-bottom: 2.5rem;
 }
+
 .resource-card {
   display: block;
   background: var(--bg-card);
@@ -132,40 +131,47 @@ body::before {
   left: 0;
   width: 4px;
   height: 100%;
-  background: var(--accent);
   opacity: 0;
   transition: opacity 0.3s;
 }
-.resource-card:hover {
+.resource-card:not(.coming-soon):hover {
   border-color: rgba(91,127,245,0.35);
   background: var(--bg-card-hover);
   transform: translateY(-2px);
   box-shadow: 0 8px 30px rgba(0,0,0,0.3);
 }
-.resource-card:hover::after { opacity: 1; }
-.resource-card:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
+.resource-card:not(.coming-soon):hover::after { opacity: 1; }
+.resource-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.resource-card[data-type="quiz"]::after { background: var(--accent); }
+.resource-card[data-type="essay"]::after { background: var(--teal); }
+.resource-card[data-type="short-response"]::after { background: var(--gold); }
+.resource-card[data-type="exam-revision"]::after { background: #c084fc; }
+.resource-card[data-type="exam-guide"]::after { background: #f472b6; }
 
 .card-tag {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.6rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--accent);
   margin-bottom: 0.6rem;
 }
+.card-tag.quiz { color: var(--accent); }
+.card-tag.essay { color: var(--teal); }
+.card-tag.short-response { color: var(--gold); }
+.card-tag.exam-revision { color: #c084fc; }
+.card-tag.exam-guide { color: #f472b6; }
+
 .card-title {
   font-family: 'Playfair Display', serif;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: #fff;
   margin-bottom: 0.4rem;
   line-height: 1.35;
 }
 .card-desc {
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   color: var(--text-dim);
   font-weight: 300;
   line-height: 1.65;
@@ -178,26 +184,38 @@ body::before {
   letter-spacing: 0.1em;
 }
 
-/* ── COMING SOON CARD ── */
 .resource-card.coming-soon {
-  opacity: 0.45;
+  opacity: 0.4;
   pointer-events: none;
 }
 .resource-card.coming-soon .card-tag { color: var(--text-muted); }
 .coming-badge {
   display: inline-block;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.58rem;
+  font-size: 0.55rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--gold);
   background: rgba(232,197,71,0.1);
-  padding: 0.2rem 0.5rem;
+  padding: 0.15rem 0.45rem;
   border-radius: 3px;
-  margin-left: 0.5rem;
+  margin-left: 0.4rem;
+  vertical-align: middle;
+}
+.summative-badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+  background: rgba(76,175,125,0.1);
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+  margin-left: 0.4rem;
+  vertical-align: middle;
 }
 
-/* ── TEACHER NOTE ── */
 .teacher-note {
   max-width: 620px;
   margin: 0 auto;
@@ -214,7 +232,6 @@ body::before {
   line-height: 1.7;
 }
 
-/* ── FOOTER ── */
 .footer {
   text-align: center;
   padding: 2rem;
@@ -225,16 +242,15 @@ body::before {
   border-top: 1px solid var(--border);
 }
 
-/* ── ANIMATIONS ── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(18px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.resource-card { animation: fadeUp 0.5s ease both; }
-.resource-card:nth-child(1) { animation-delay: 0.1s; }
-.resource-card:nth-child(2) { animation-delay: 0.18s; }
-.resource-card:nth-child(3) { animation-delay: 0.26s; }
-.resource-card:nth-child(4) { animation-delay: 0.34s; }
+.card-grid .resource-card { animation: fadeUp 0.5s ease both; }
+.card-grid .resource-card:nth-child(1) { animation-delay: 0.08s; }
+.card-grid .resource-card:nth-child(2) { animation-delay: 0.14s; }
+.card-grid .resource-card:nth-child(3) { animation-delay: 0.20s; }
+.card-grid .resource-card:nth-child(4) { animation-delay: 0.26s; }
 
 @media (max-width: 600px) {
   .hero { padding: 3rem 1.2rem 2.5rem; }
@@ -248,41 +264,115 @@ body::before {
 <header class="hero">
   <div class="hero-label">Year 12 ATAR &middot; Media Production &amp; Analysis</div>
   <h1><span>Revision Hub</span></h1>
-  <p class="hero-sub">Your central resource for quiz reviews, terminology guides, and exam revision throughout 2026.</p>
+  <p class="hero-sub">Your central resource for quiz reviews, assessment guides, and exam revision throughout 2026.</p>
 </header>
 
 <main class="main">
 
-  <div class="section-label">Journal Entry Quiz Guides</div>
+  <!-- ════════════════════════════════════════ -->
+  <!-- UNIT 3: MEDIA ARTS                      -->
+  <!-- ════════════════════════════════════════ -->
+
+  <div class="section-label"><span class="unit-tag">Unit 3</span> &mdash; Media Arts</div>
   <div class="card-grid">
-    <a href="journal-entry-1.html" class="resource-card">
-      <div class="card-tag">Quiz Answer Guide</div>
-      <div class="card-title">Journal Entry 1: Core Concepts &amp; Theories</div>
-      <div class="card-desc">Semiotic constructivism, encoding/decoding, representation, Classical Hollywood, cultural context, and more. 11 key terms with full definitions.</div>
+
+    <a href="journal-entry-1.html" class="resource-card" data-type="quiz">
+      <div class="card-tag quiz">Quiz Answer Guide</div>
+      <div class="card-title">Theories &amp; Concepts: Art Film and Media Concepts</div>
+      <div class="card-desc">Semiotic constructivism, encoding/decoding, representation, Classical Hollywood, cultural context, active audience, and more.</div>
       <div class="card-meta">11 terms &middot; Reveal + Self-Quiz + Flashcards</div>
     </a>
-    <a href="journal-entry-2.html" class="resource-card">
-      <div class="card-tag">Quiz Answer Guide</div>
-      <div class="card-title">Journal Entry 2: Terminology &amp; Concepts</div>
+
+    <a href="journal-entry-2.html" class="resource-card" data-type="quiz">
+      <div class="card-tag quiz">Quiz Answer Guide</div>
+      <div class="card-title">Theories &amp; Concepts: Film Movements, Styles and Concepts</div>
       <div class="card-desc">Cult film, art house, film noir, auteur theory, Kuleshov Effect, intertextuality, Italian Neo-Realism, and more.</div>
       <div class="card-meta">15 questions &middot; Reveal + Self-Quiz + Flashcards</div>
     </a>
+
+    <div class="resource-card coming-soon" data-type="essay">
+      <div class="card-tag essay">Essay Guide <span class="coming-badge">After marking</span></div>
+      <div class="card-title">Samson and Delilah &ndash; Essay Guide</div>
+      <div class="card-desc">Australian films, aesthetic realism, narrative and/or themes and/or values.</div>
+      <div class="card-meta">TBC</div>
+    </div>
+
+    <div class="resource-card coming-soon" data-type="essay">
+      <div class="card-tag essay">Essay Guide <span class="summative-badge">Summative</span> <span class="coming-badge">After marking</span></div>
+      <div class="card-title">Spirited Away or Samson and Delilah &ndash; Essay Guide</div>
+      <div class="card-desc">Cultural context, media art, audience theory.</div>
+      <div class="card-meta">TBC</div>
+    </div>
+
   </div>
 
-  <div class="section-label">Coming Later</div>
+  <!-- ════════════════════════════════════════ -->
+  <!-- UNIT 4: POWER AND PERSUASION            -->
+  <!-- ════════════════════════════════════════ -->
+
+  <div class="section-label"><span class="unit-tag">Unit 4</span> &mdash; Power and Persuasion</div>
   <div class="card-grid">
-    <div class="resource-card coming-soon">
-      <div class="card-tag">Quiz Answer Guide <span class="coming-badge">Coming soon</span></div>
-      <div class="card-title">Journal Entry 3</div>
-      <div class="card-desc">This guide will be added after the next in-class quiz.</div>
+
+    <div class="resource-card coming-soon" data-type="short-response">
+      <div class="card-tag short-response">Short Response Guide <span class="coming-badge">After marking</span></div>
+      <div class="card-title">Wartime Propaganda &ndash; Short Responses</div>
+      <div class="card-desc">Persuasive techniques, codes and conventions, selection and omission, point of view, representation, audience theory.</div>
       <div class="card-meta">TBC</div>
     </div>
-    <div class="resource-card coming-soon">
-      <div class="card-tag">Revision Tool <span class="coming-badge">Coming soon</span></div>
-      <div class="card-title">Exam Revision &amp; Practice</div>
-      <div class="card-desc">Comprehensive revision resource for the end-of-semester examination.</div>
+
+    <div class="resource-card coming-soon" data-type="essay">
+      <div class="card-tag essay">Essay Guide <span class="summative-badge">Summative</span> <span class="coming-badge">After marking</span></div>
+      <div class="card-title">Bowling for Columbine or Waltz with Bashir &ndash; Essay Guide</div>
+      <div class="card-desc">Media as rhetorical form, persuasive techniques, cultural context, representations, audience perceptions, institutions.</div>
       <div class="card-meta">TBC</div>
     </div>
+
+  </div>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- SEMESTER 1 EXAMS                        -->
+  <!-- ════════════════════════════════════════ -->
+
+  <div class="section-label"><span class="unit-tag">Exams</span> &mdash; Semester 1</div>
+  <div class="card-grid">
+
+    <div class="resource-card coming-soon" data-type="exam-revision">
+      <div class="card-tag exam-revision">Exam Revision <span class="coming-badge">Coming soon</span></div>
+      <div class="card-title">Semester 1 Exam Revision</div>
+      <div class="card-desc">Comprehensive revision resource covering Unit 3 content for the Semester 1 examination.</div>
+      <div class="card-meta">TBC</div>
+    </div>
+
+    <div class="resource-card coming-soon" data-type="exam-guide">
+      <div class="card-tag exam-guide">Exam Guide <span class="coming-badge">Coming soon</span></div>
+      <div class="card-title">Semester 1 Exam Guide</div>
+      <div class="card-desc">Post-exam guide with model answers and examiner feedback.</div>
+      <div class="card-meta">TBC</div>
+    </div>
+
+  </div>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- SEMESTER 2 EXAMS                        -->
+  <!-- ════════════════════════════════════════ -->
+
+  <div class="section-label"><span class="unit-tag">Exams</span> &mdash; Semester 2</div>
+  <div class="card-grid">
+
+    <div class="resource-card coming-soon" data-type="exam-revision">
+      <div class="card-tag exam-revision">Exam Revision <span class="coming-badge">Coming soon</span></div>
+      <div class="card-title">Semester 2 Exam Revision</div>
+      <div class="card-desc">Comprehensive revision resource covering Units 3 &amp; 4 content for the Semester 2 examination.</div>
+      <div class="card-meta">TBC</div>
+    </div>
+
+    <div class="resource-card coming-soon" data-type="exam-guide">
+      <div class="card-tag exam-guide">Exam Guide <span class="coming-badge">Coming soon</span></div>
+      <div class="card-title">Semester 2 Exam Guide</div>
+      <div class="card-desc">Post-exam guide with model answers and examiner feedback.</div>
+      <div class="card-meta">TBC</div>
+    </div>
+
   </div>
 
   <div class="teacher-note">

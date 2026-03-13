@@ -242,6 +242,58 @@ body::before {
   border-top: 1px solid var(--border);
 }
 
+/* ── WELCOME AUDIO ── */
+.welcome-audio {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 2rem 1.5rem;
+}
+.welcome-card {
+  background: linear-gradient(135deg, rgba(91,127,245,0.05) 0%, rgba(232,197,71,0.03) 100%);
+  border: 1px solid rgba(91,127,245,0.15);
+  border-radius: 10px;
+  padding: 1.3rem 1.5rem;
+  position: relative;
+}
+.welcome-card::before {
+  content: '\01F44B';
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: var(--bg-deep);
+  padding: 0 6px;
+  font-size: 1.1rem;
+}
+.welcome-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.3rem;
+}
+.welcome-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.4rem;
+  line-height: 1.35;
+}
+.welcome-desc {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  font-weight: 300;
+  line-height: 1.65;
+  margin-bottom: 0.9rem;
+}
+.welcome-player {
+  width: 100%;
+  height: 42px;
+  border-radius: 6px;
+  outline: none;
+}
+
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(18px); }
   to { opacity: 1; transform: translateY(0); }
@@ -255,6 +307,7 @@ body::before {
 @media (max-width: 600px) {
   .hero { padding: 3rem 1.2rem 2.5rem; }
   .main { padding: 1.5rem 1.2rem 3rem; }
+  .welcome-audio { padding: 0 1.2rem 1.5rem; }
   .card-grid { grid-template-columns: 1fr; }
 }
 </style>
@@ -268,6 +321,19 @@ body::before {
 </header>
 
 <main class="main">
+
+  <!-- WELCOME AUDIO -->
+  <div class="welcome-audio">
+    <div class="welcome-card">
+      <div class="welcome-label">Welcome &middot; Mr Clarke</div>
+      <div class="welcome-title">Welcome to the Revision Hub</div>
+      <p class="welcome-desc">First time here? Have a listen &ndash; I&rsquo;ll walk you through what&rsquo;s on this site and how to get the most out of it.</p>
+      <audio class="welcome-player" controls preload="metadata">
+        <source src="MrCLARKEwelcome.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  </div>
 
   <!-- ════════════════════════════════════════ -->
   <!-- UNIT 3: MEDIA ARTS                      -->

@@ -232,6 +232,53 @@ body::before {
   line-height: 1.7;
 }
 
+/* ── GAME SECTION ── */
+.game-section {
+  margin-bottom: 2.5rem;
+}
+.game-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.game-header-info {
+  padding: 1.5rem 1.6rem 1rem;
+}
+.game-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.game-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.4rem;
+  line-height: 1.35;
+}
+.game-desc {
+  font-size: 0.84rem;
+  color: var(--text-dim);
+  font-weight: 300;
+  line-height: 1.65;
+}
+.game-frame-wrapper {
+  width: 100%;
+  padding: 0 1rem 1rem;
+}
+.game-frame {
+  width: 100%;
+  height: 340px;
+  border: none;
+  border-radius: 6px;
+  background: #0a0a0f;
+}
+
 .footer {
   text-align: center;
   padding: 2rem;
@@ -439,6 +486,24 @@ body::before {
       <div class="card-meta">TBC</div>
     </div>
 
+  </div>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- BRAIN BREAK                             -->
+  <!-- ════════════════════════════════════════ -->
+
+  <div class="section-label"><span class="unit-tag" style="color: var(--gold);">&#127918;</span> &mdash; Brain Break</div>
+  <div class="game-section">
+    <div class="game-card">
+      <div class="game-header-info">
+        <div class="game-tag">Mini Game</div>
+        <div class="game-title">Mr Clarke&rsquo;s Art Film Deadline Dash</div>
+        <p class="game-desc">Need a break from revision? Jump over tripods, duck under boom mics, and try to beat your classmates&rsquo; high scores. Space to jump, down arrow to duck.</p>
+      </div>
+      <div class="game-frame-wrapper">
+        <iframe src="deadline-dash.html" class="game-frame" title="Deadline Dash game" scrolling="no" loading="lazy"></iframe>
+      </div>
+    </div>
   </div>
 
   <div class="teacher-note">

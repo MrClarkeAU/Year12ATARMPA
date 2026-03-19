@@ -35,7 +35,7 @@
   }
 
   #game-header h1 {
-    font-size: 11px;
+    font-size: 9px;
     color: #7b9aff;
     letter-spacing: 1px;
   }
@@ -54,6 +54,22 @@
     image-rendering: pixelated;
     image-rendering: crisp-edges;
     cursor: pointer;
+  }
+
+  #game-canvas.shake {
+    animation: shakeAnim 0.4s ease-out;
+  }
+
+  @keyframes shakeAnim {
+    0%  { transform: translateX(0) translateY(0); }
+    10% { transform: translateX(-6px) translateY(2px); }
+    20% { transform: translateX(5px) translateY(-3px); }
+    30% { transform: translateX(-4px) translateY(1px); }
+    40% { transform: translateX(3px) translateY(-2px); }
+    50% { transform: translateX(-2px) translateY(1px); }
+    60% { transform: translateX(2px) translateY(-1px); }
+    70% { transform: translateX(-1px) translateY(0); }
+    100%{ transform: translateX(0) translateY(0); }
   }
 
   #leaderboard-panel {
@@ -210,26 +226,20 @@ const COL = '#c0c0d4';
 const COL_LIGHT = '#5a5a72';
 
 // ===== GAME STATE =====
-let gameState = 'idle'; // idle | running | dead
+let gameState = 'idle';
 let score = 0;
 let highScore = parseInt(localStorage.getItem('dd_highscore') || '0');
 let frameCount = 0;
 let baseSpeed = 5;
 let gameSpeed = 5;
 let lastObstacleX = W;
+let canRestart = false;
 
 // ===== PLAYER =====
 const player = {
-  x: 60,
-  y: GROUND_Y,
-  w: 28,
-  h: 40,
-  vy: 0,
-  jumping: false,
-  ducking: false,
-  runFrame: 0,
-  runTimer: 0,
-  grounded: true
+  x: 60, y: GROUND_Y, w: 28, h: 40,
+  vy: 0, jumping: false, ducking: false,
+  runFrame: 0, runTimer: 0, grounded: true
 };
 
 const GRAVITY = 0.55;
@@ -239,7 +249,6 @@ const DUCK_H = 24;
 // ===== OBSTACLES =====
 let obstacles = [];
 
-// Ground obstacles — must jump over
 const GROUND_OBSTACLES = [
   { name: 'tripod',        w: 22, h: 38, draw: drawTripod },
   { name: 'assignment',    w: 24, h: 26, draw: drawAssignment },
@@ -249,45 +258,103 @@ const GROUND_OBSTACLES = [
   { name: 'textbook',      w: 20, h: 32, draw: drawTextbookStack },
 ];
 
-// Aerial obstacles — must duck under
 const AERIAL_OBSTACLES = [
   { name: 'boom_mic',      w: 50, h: 14, draw: drawBoomMic },
   { name: 'flying_papers', w: 36, h: 16, draw: drawFlyingPapers },
   { name: 'drone',         w: 32, h: 18, draw: drawDrone },
 ];
 
-// ===== CLOUDS & GROUND DETAILS =====
+// ===== DIRECTOR QUOTES =====
+const DIRECTOR_QUOTES = [
+  { text: "The enemy of art is the absence of limitations.", author: "Orson Welles" },
+  { text: "Cinema is a matter of what's in the frame and what's out.", author: "Martin Scorsese" },
+  { text: "If it can be written, or thought, it can be filmed.", author: "Stanley Kubrick" },
+  { text: "Every single art form is involved in film, in a way.", author: "Sydney Pollack" },
+  { text: "A story should have a beginning, a middle, and an end, but not necessarily in that order.", author: "Jean-Luc Godard" },
+  { text: "The more you limit yourself, the more fertile you become in invention.", author: "Lars von Trier" },
+  { text: "Film is a battleground.", author: "Samuel Fuller" },
+  { text: "All I need to make a comedy is a park, a policeman and a pretty girl.", author: "Charlie Chaplin" },
+  { text: "I steal from every movie ever made.", author: "Quentin Tarantino" },
+  { text: "There are no rules in filmmaking. Only sins.", author: "Frank Capra" },
+  { text: "The length of a film should be directly related to the endurance of the human bladder.", author: "Alfred Hitchcock" },
+  { text: "Every great film should seem new every time you see it.", author: "Roger Ebert" },
+  { text: "Filmmaking is a chance to live many lifetimes.", author: "Robert Altman" },
+  { text: "The screen is a magic medium.", author: "Stanley Kubrick" },
+  { text: "Art is never finished, only abandoned.", author: "Leonardo da Vinci" },
+  { text: "To make a great film you need three things: the script, the script and the script.", author: "Alfred Hitchcock" },
+  { text: "You don't make a film just to make money. You make money to make more films.", author: "Walt Disney" },
+  { text: "A film is a petrified fountain of thought.", author: "Jean Cocteau" },
+  { text: "The cinema is truth twenty-four times per second.", author: "Jean-Luc Godard" },
+  { text: "Photography is truth. The cinema is truth twenty-four times per second.", author: "Jean-Luc Godard" },
+];
+
+let activeQuote = null;
+let quoteTimer = 0;
+const QUOTE_INTERVAL = 420;
+const QUOTE_DURATION = 240;
+const QUOTE_FADE = 40;
+
+// ===== MILESTONE CALLOUTS =====
+const MILESTONES = {
+  100:  "KEEP ROLLING!",
+  200:  "LOOKING SHARP!",
+  300:  "ROUGH CUT DONE!",
+  400:  "COLOUR GRADED!",
+  500:  "FINAL CUT APPROACHING!",
+  750:  "FESTIVAL WORTHY!",
+  1000: "MASTERPIECE STATUS!",
+  1500: "KUBRICK WHO?!",
+  2000: "LEGENDARY RUN!",
+  3000: "IMMORTAL!",
+};
+
+let activeMilestone = null;
+let lastMilestoneHit = 0;
+
+// ===== NEAR-MISS SPARKS =====
+let sparks = [];
+let nearMissText = null;
+
+// ===== DUCK TUTORIAL =====
+let firstAerialSeen = false;
+let duckPrompt = null;
+
+// ===== BACKGROUND SILHOUETTES =====
+let silhouettes = [];
+
+function initSilhouettes() {
+  silhouettes = [];
+  const types = ['school', 'tree', 'studio', 'tree', 'school', 'tree', 'studio', 'tree'];
+  for (let i = 0; i < types.length; i++) {
+    silhouettes.push({
+      x: i * 130 + Math.random() * 40,
+      type: types[i],
+      h: types[i] === 'tree' ? 25 + Math.random() * 15 : 35 + Math.random() * 15
+    });
+  }
+}
+
+// ===== CLOUDS & GROUND =====
 let clouds = [];
 let groundOffset = 0;
+let silhouetteOffset = 0;
 let groundBumps = [];
 
 function initGroundBumps() {
   groundBumps = [];
   for (let i = 0; i < 30; i++) {
-    groundBumps.push({
-      x: Math.random() * W,
-      type: Math.random() < 0.5 ? 'dot' : 'dash'
-    });
+    groundBumps.push({ x: Math.random() * W, type: Math.random() < 0.5 ? 'dot' : 'dash' });
   }
 }
 
 function initClouds() {
   clouds = [];
   for (let i = 0; i < 4; i++) {
-    clouds.push({
-      x: 150 + Math.random() * 700,
-      y: 20 + Math.random() * 50,
-      w: 40 + Math.random() * 30,
-      speed: 0.3 + Math.random() * 0.4
-    });
+    clouds.push({ x: 150 + Math.random() * 700, y: 20 + Math.random() * 50, w: 40 + Math.random() * 30, speed: 0.3 + Math.random() * 0.4 });
   }
 }
 
-// ===== PIXEL DRAWING HELPERS =====
-function px(x, y, s = 2) {
-  ctx.fillRect(Math.round(x), Math.round(y), s, s);
-}
-
+// ===== PIXEL HELPERS =====
 function pxRect(x, y, w, h) {
   ctx.fillRect(Math.round(x), Math.round(y), w, h);
 }
@@ -295,339 +362,231 @@ function pxRect(x, y, w, h) {
 // ===== DRAW PLAYER =====
 function drawPlayer() {
   const bx = player.x;
-  const by = player.ducking
-    ? GROUND_Y - DUCK_H
-    : player.y - player.h;
-
+  const by = player.ducking ? GROUND_Y - DUCK_H : player.y - player.h;
   ctx.fillStyle = COL;
 
   if (player.ducking) {
-    // Ducking pose — wider, shorter
-    // Head
     pxRect(bx+4, by, 12, 8);
-    // Eye
-    ctx.fillStyle = '#0a0a0f';
-    pxRect(bx+12, by+2, 2, 2);
-    ctx.fillStyle = COL;
-    // Body (wider, low)
+    ctx.fillStyle = '#0a0a0f'; pxRect(bx+12, by+2, 2, 2); ctx.fillStyle = COL;
     pxRect(bx, by+8, 22, 8);
-    // Legs (shuffling)
-    const legOff = player.runFrame === 0 ? 0 : 4;
-    pxRect(bx+4+legOff, by+16, 4, 6);
-    pxRect(bx+14-legOff, by+16, 4, 6);
-    // Backpack bump
+    const lo = player.runFrame === 0 ? 0 : 4;
+    pxRect(bx+4+lo, by+16, 4, 6); pxRect(bx+14-lo, by+16, 4, 6);
     pxRect(bx, by+2, 4, 6);
   } else {
-    // Head
     pxRect(bx+6, by, 14, 12);
-    // Eye
-    ctx.fillStyle = '#0a0a0f';
-    pxRect(bx+16, by+4, 2, 3);
-    ctx.fillStyle = COL;
-    // Hair / cap
-    pxRect(bx+6, by-2, 14, 3);
-    pxRect(bx+18, by-2, 4, 2);
-    // Body
+    ctx.fillStyle = '#0a0a0f'; pxRect(bx+16, by+4, 2, 3); ctx.fillStyle = COL;
+    pxRect(bx+6, by-2, 14, 3); pxRect(bx+18, by-2, 4, 2);
     pxRect(bx+4, by+12, 16, 12);
-    // Backpack
     pxRect(bx, by+10, 6, 12);
-    // Arms
     if (gameState === 'running') {
-      const armOff = player.runFrame === 0 ? -2 : 2;
-      pxRect(bx+18, by+14+armOff, 4, 8);
-      pxRect(bx+2, by+22-armOff, 4, 4);
-    } else {
-      pxRect(bx+18, by+14, 4, 8);
-    }
-    // Legs (animated run)
+      const ao = player.runFrame === 0 ? -2 : 2;
+      pxRect(bx+18, by+14+ao, 4, 8); pxRect(bx+2, by+22-ao, 4, 4);
+    } else { pxRect(bx+18, by+14, 4, 8); }
     if (gameState === 'running' && player.grounded) {
       if (player.runFrame === 0) {
-        pxRect(bx+6, by+24, 4, 10);
-        pxRect(bx+14, by+24, 4, 8);
-        pxRect(bx+6, by+34, 6, 3);
-        pxRect(bx+14, by+32, 6, 3);
+        pxRect(bx+6, by+24, 4, 10); pxRect(bx+14, by+24, 4, 8);
+        pxRect(bx+6, by+34, 6, 3); pxRect(bx+14, by+32, 6, 3);
       } else {
-        pxRect(bx+6, by+24, 4, 8);
-        pxRect(bx+14, by+24, 4, 10);
-        pxRect(bx+6, by+32, 6, 3);
-        pxRect(bx+14, by+34, 6, 3);
+        pxRect(bx+6, by+24, 4, 8); pxRect(bx+14, by+24, 4, 10);
+        pxRect(bx+6, by+32, 6, 3); pxRect(bx+14, by+34, 6, 3);
       }
     } else {
-      // Standing / jumping
-      pxRect(bx+6, by+24, 4, 10);
-      pxRect(bx+14, by+24, 4, 10);
-      pxRect(bx+6, by+34, 6, 3);
-      pxRect(bx+14, by+34, 6, 3);
+      pxRect(bx+6, by+24, 4, 10); pxRect(bx+14, by+24, 4, 10);
+      pxRect(bx+6, by+34, 6, 3); pxRect(bx+14, by+34, 6, 3);
     }
   }
 }
 
-// ===== DRAW GROUND OBSTACLES =====
+// ===== GROUND OBSTACLES =====
 function drawTripod(x, y, w, h) {
   ctx.fillStyle = COL;
   pxRect(x+w/2-1, y, 2, h);
-  // Camera head
-  pxRect(x+4, y, w-8, 10);
-  pxRect(x+2, y+2, 2, 6);
-  // Lens dot
-  ctx.fillStyle = COL_LIGHT;
-  pxRect(x+w-6, y+3, 3, 3);
-  ctx.fillStyle = COL;
-  // Left leg
-  pxRect(x, y+h-2, 2, 4);
-  pxRect(x+2, y+h-8, 2, 8);
-  pxRect(x+4, y+h-14, 2, 8);
-  // Right leg
-  pxRect(x+w-2, y+h-2, 2, 4);
-  pxRect(x+w-4, y+h-8, 2, 8);
-  pxRect(x+w-6, y+h-14, 2, 8);
-  // Base bar
+  pxRect(x+4, y, w-8, 10); pxRect(x+2, y+2, 2, 6);
+  ctx.fillStyle = COL_LIGHT; pxRect(x+w-6, y+3, 3, 3); ctx.fillStyle = COL;
+  pxRect(x, y+h-2, 2, 4); pxRect(x+2, y+h-8, 2, 8); pxRect(x+4, y+h-14, 2, 8);
+  pxRect(x+w-2, y+h-2, 2, 4); pxRect(x+w-4, y+h-8, 2, 8); pxRect(x+w-6, y+h-14, 2, 8);
   pxRect(x, y+h-2, w, 2);
 }
 
 function drawAssignment(x, y, w, h) {
   ctx.fillStyle = COL;
-  // Stack of papers
-  pxRect(x+2, y+2, w-2, h-2);
-  pxRect(x, y, w-2, h-2);
-  // Lines on paper
+  pxRect(x+2, y+2, w-2, h-2); pxRect(x, y, w-2, h-2);
   ctx.fillStyle = COL_LIGHT;
-  for (let i = 0; i < 4; i++) {
-    pxRect(x+4, y+5+i*5, w-10, 1);
-  }
-  ctx.fillStyle = COL;
-  // "F" grade or deadline stamp
-  pxRect(x+w-10, y+3, 6, 8);
+  for (let i = 0; i < 4; i++) pxRect(x+4, y+5+i*5, w-10, 1);
+  ctx.fillStyle = COL; pxRect(x+w-10, y+3, 6, 8);
   ctx.fillStyle = '#0a0a0f';
-  pxRect(x+w-9, y+4, 1, 6);
-  pxRect(x+w-9, y+4, 3, 1);
-  pxRect(x+w-9, y+7, 2, 1);
+  pxRect(x+w-9, y+4, 1, 6); pxRect(x+w-9, y+4, 3, 1); pxRect(x+w-9, y+7, 2, 1);
 }
 
 function drawLaptop(x, y, w, h) {
-  ctx.fillStyle = COL;
-  // Screen
-  pxRect(x+2, y, w-4, h-6);
-  ctx.fillStyle = COL_LIGHT;
-  pxRect(x+4, y+2, w-8, h-10);
-  ctx.fillStyle = COL;
-  // Base
-  pxRect(x, y+h-6, w, 4);
-  pxRect(x+2, y+h-2, w-4, 2);
+  ctx.fillStyle = COL; pxRect(x+2, y, w-4, h-6);
+  ctx.fillStyle = COL_LIGHT; pxRect(x+4, y+2, w-8, h-10);
+  ctx.fillStyle = COL; pxRect(x, y+h-6, w, 4); pxRect(x+2, y+h-2, w-4, 2);
 }
 
 function drawCoffee(x, y, w, h) {
   ctx.fillStyle = COL;
-  // Cup body
-  pxRect(x+2, y+6, w-4, h-6);
-  // Rim
-  pxRect(x, y+4, w, 4);
-  // Handle
-  pxRect(x+w-2, y+10, 4, 8);
-  pxRect(x+w-2, y+18, 4, 2);
-  pxRect(x+w, y+10, 2, 2);
-  // Steam
-  ctx.fillStyle = COL_LIGHT;
-  pxRect(x+4, y, 2, 4);
-  pxRect(x+8, y-2, 2, 4);
+  pxRect(x+2, y+6, w-4, h-6); pxRect(x, y+4, w, 4);
+  pxRect(x+w-2, y+10, 4, 8); pxRect(x+w-2, y+18, 4, 2); pxRect(x+w, y+10, 2, 2);
+  ctx.fillStyle = COL_LIGHT; pxRect(x+4, y, 2, 4); pxRect(x+8, y-2, 2, 4);
 }
 
 function drawClapperboard(x, y, w, h) {
-  ctx.fillStyle = COL;
-  // Board body
-  pxRect(x, y+8, w, h-8);
-  // Clapper top
-  pxRect(x, y, w, 10);
-  // Stripes
+  ctx.fillStyle = COL; pxRect(x, y+8, w, h-8); pxRect(x, y, w, 10);
   ctx.fillStyle = '#0a0a0f';
-  pxRect(x+4, y+1, 4, 8);
-  pxRect(x+12, y+1, 4, 8);
-  pxRect(x+20, y+1, 4, 8);
-  ctx.fillStyle = COL;
-  // Text lines
+  pxRect(x+4, y+1, 4, 8); pxRect(x+12, y+1, 4, 8); pxRect(x+20, y+1, 4, 8);
   ctx.fillStyle = COL_LIGHT;
-  pxRect(x+3, y+14, w-6, 1);
-  pxRect(x+3, y+18, w-6, 1);
-  pxRect(x+3, y+22, w-8, 1);
+  pxRect(x+3, y+14, w-6, 1); pxRect(x+3, y+18, w-6, 1); pxRect(x+3, y+22, w-8, 1);
 }
 
 function drawTextbookStack(x, y, w, h) {
-  ctx.fillStyle = COL;
-  // Bottom book
-  pxRect(x, y+h-10, w, 10);
-  // Middle book
+  ctx.fillStyle = COL; pxRect(x, y+h-10, w, 10);
   pxRect(x+2, y+h-20, w-2, 10);
-  ctx.fillStyle = COL_LIGHT;
-  pxRect(x+4, y+h-18, w-8, 1);
-  ctx.fillStyle = COL;
-  // Top book
-  pxRect(x+1, y, w-2, 12);
-  // Spine lines
-  ctx.fillStyle = COL_LIGHT;
-  pxRect(x+1, y+h-9, 1, 8);
-  pxRect(x+1, y+1, 1, 10);
+  ctx.fillStyle = COL_LIGHT; pxRect(x+4, y+h-18, w-8, 1);
+  ctx.fillStyle = COL; pxRect(x+1, y, w-2, 12);
+  ctx.fillStyle = COL_LIGHT; pxRect(x+1, y+h-9, 1, 8); pxRect(x+1, y+1, 1, 10);
 }
 
-// ===== DRAW AERIAL OBSTACLES =====
+// ===== AERIAL OBSTACLES =====
 function drawBoomMic(x, y, w, h) {
   ctx.fillStyle = COL;
-  // Long pole
-  pxRect(x, y+6, w, 3);
-  // Mic head (fuzzy windscreen) at the end
-  pxRect(x+w-14, y, 14, h);
-  // Fuzzy texture on windscreen
+  pxRect(x, y+6, w, 3); pxRect(x+w-14, y, 14, h);
   ctx.fillStyle = COL_LIGHT;
-  pxRect(x+w-12, y+2, 2, 2);
-  pxRect(x+w-8, y+4, 2, 2);
-  pxRect(x+w-5, y+1, 2, 2);
-  pxRect(x+w-10, y+h-4, 2, 2);
-  pxRect(x+w-4, y+h-3, 2, 2);
-  ctx.fillStyle = COL;
-  // Grip / mount at back
-  pxRect(x, y+4, 6, 6);
-  // Small angle indicator line
-  pxRect(x+6, y+8, 4, 2);
+  pxRect(x+w-12, y+2, 2, 2); pxRect(x+w-8, y+4, 2, 2);
+  pxRect(x+w-5, y+1, 2, 2); pxRect(x+w-10, y+h-4, 2, 2); pxRect(x+w-4, y+h-3, 2, 2);
+  ctx.fillStyle = COL; pxRect(x, y+4, 6, 6); pxRect(x+6, y+8, 4, 2);
 }
 
 function drawFlyingPapers(x, y, w, h) {
-  ctx.fillStyle = COL;
-  // Paper 1 — slightly tilted
-  pxRect(x, y+4, 14, 12);
-  ctx.fillStyle = '#0a0a0f';
-  pxRect(x+2, y+7, 8, 1);
-  pxRect(x+2, y+10, 6, 1);
-  pxRect(x+2, y+13, 9, 1);
-  ctx.fillStyle = COL;
-  // Paper 2 — overlapping, offset
-  pxRect(x+12, y, 14, 12);
-  ctx.fillStyle = '#0a0a0f';
-  pxRect(x+14, y+3, 8, 1);
-  pxRect(x+14, y+6, 6, 1);
-  pxRect(x+14, y+9, 9, 1);
-  ctx.fillStyle = COL;
-  // Paper 3 — trailing
-  pxRect(x+22, y+6, 12, 10);
-  ctx.fillStyle = '#0a0a0f';
-  pxRect(x+24, y+9, 7, 1);
-  pxRect(x+24, y+12, 5, 1);
-  ctx.fillStyle = COL;
-  // Motion lines
+  ctx.fillStyle = COL; pxRect(x, y+4, 14, 12);
+  ctx.fillStyle = '#0a0a0f'; pxRect(x+2, y+7, 8, 1); pxRect(x+2, y+10, 6, 1); pxRect(x+2, y+13, 9, 1);
+  ctx.fillStyle = COL; pxRect(x+12, y, 14, 12);
+  ctx.fillStyle = '#0a0a0f'; pxRect(x+14, y+3, 8, 1); pxRect(x+14, y+6, 6, 1); pxRect(x+14, y+9, 9, 1);
+  ctx.fillStyle = COL; pxRect(x+22, y+6, 12, 10);
+  ctx.fillStyle = '#0a0a0f'; pxRect(x+24, y+9, 7, 1); pxRect(x+24, y+12, 5, 1);
   ctx.fillStyle = COL_LIGHT;
-  pxRect(x-6, y+7, 4, 1);
-  pxRect(x-8, y+11, 6, 1);
-  pxRect(x-4, y+14, 3, 1);
+  pxRect(x-6, y+7, 4, 1); pxRect(x-8, y+11, 6, 1); pxRect(x-4, y+14, 3, 1);
 }
 
 function drawDrone(x, y, w, h) {
-  ctx.fillStyle = COL;
-  // Central body
-  pxRect(x+10, y+6, 12, 8);
-  // Camera lens underneath
-  ctx.fillStyle = COL_LIGHT;
-  pxRect(x+14, y+12, 4, 4);
-  ctx.fillStyle = COL;
-  pxRect(x+15, y+13, 2, 2);
-  // Arms extending out
-  pxRect(x+4, y+8, 8, 2);
-  pxRect(x+20, y+8, 8, 2);
-  // Propellers (spinning — frame alternation)
+  ctx.fillStyle = COL; pxRect(x+10, y+6, 12, 8);
+  ctx.fillStyle = COL_LIGHT; pxRect(x+14, y+12, 4, 4);
+  ctx.fillStyle = COL; pxRect(x+15, y+13, 2, 2);
+  pxRect(x+4, y+8, 8, 2); pxRect(x+20, y+8, 8, 2);
   const spin = Math.floor(frameCount / 3) % 2;
-  if (spin === 0) {
-    pxRect(x, y, 10, 2);
-    pxRect(x+22, y, 10, 2);
-  } else {
-    pxRect(x+2, y+1, 6, 2);
-    pxRect(x+24, y+1, 6, 2);
-  }
-  // Rotor hubs
-  pxRect(x+4, y+2, 2, 6);
-  pxRect(x+26, y+2, 2, 6);
-  // Landing skids
-  pxRect(x+8, y+h-2, 6, 2);
-  pxRect(x+18, y+h-2, 6, 2);
+  if (spin === 0) { pxRect(x, y, 10, 2); pxRect(x+22, y, 10, 2); }
+  else { pxRect(x+2, y+1, 6, 2); pxRect(x+24, y+1, 6, 2); }
+  pxRect(x+4, y+2, 2, 6); pxRect(x+26, y+2, 2, 6);
+  pxRect(x+8, y+h-2, 6, 2); pxRect(x+18, y+h-2, 6, 2);
 }
 
-// ===== DRAW CLOUD =====
+// ===== BACKGROUND SILHOUETTES =====
+function drawSilhouettes() {
+  for (const s of silhouettes) {
+    const sx = ((s.x - silhouetteOffset) % (W + 200) + W + 200) % (W + 200) - 100;
+    const sy = GROUND_Y + 2 - s.h;
+
+    if (s.type === 'school') {
+      ctx.fillStyle = '#e0e0e0';
+      pxRect(sx, sy, 50, s.h);
+      pxRect(sx+18, sy-12, 14, 12);
+      ctx.fillStyle = '#d0d0d0';
+      pxRect(sx+6, sy+8, 6, 6); pxRect(sx+18, sy+8, 6, 6); pxRect(sx+34, sy+8, 6, 6);
+      pxRect(sx+6, sy+20, 6, 6); pxRect(sx+18, sy+20, 6, 6); pxRect(sx+34, sy+20, 6, 6);
+      pxRect(sx+22, sy+s.h-10, 8, 10);
+    } else if (s.type === 'studio') {
+      ctx.fillStyle = '#e0e0e0';
+      pxRect(sx, sy+6, 45, s.h-6);
+      ctx.beginPath();
+      ctx.moveTo(sx-2, sy+6); ctx.lineTo(sx+22, sy-4); ctx.lineTo(sx+47, sy+6);
+      ctx.fill();
+      ctx.fillStyle = '#d0d0d0';
+      pxRect(sx+12, sy+s.h-18, 20, 18);
+      pxRect(sx+30, sy+10, 8, 8);
+    } else {
+      ctx.fillStyle = '#e0e0e0';
+      pxRect(sx+4, sy+s.h-12, 4, 12);
+      pxRect(sx, sy, 12, s.h-10);
+      pxRect(sx-2, sy+4, 16, s.h-16);
+    }
+  }
+}
+
+// ===== CLOUD & GROUND =====
 function drawCloud(cx, cy, w) {
   ctx.fillStyle = COL_LIGHT;
-  pxRect(cx, cy, w, 6);
-  pxRect(cx+4, cy-4, w-8, 4);
-  pxRect(cx+w*0.3, cy-6, w*0.4, 2);
+  pxRect(cx, cy, w, 6); pxRect(cx+4, cy-4, w-8, 4); pxRect(cx+w*0.3, cy-6, w*0.4, 2);
 }
 
-// ===== DRAW GROUND =====
 function drawGround() {
-  ctx.fillStyle = COL;
-  pxRect(0, GROUND_Y+2, W, 1);
-
-  // Ground texture bumps
+  ctx.fillStyle = COL; pxRect(0, GROUND_Y+2, W, 1);
   ctx.fillStyle = COL_LIGHT;
   for (const b of groundBumps) {
     const bx = ((b.x - groundOffset) % (W + 40) + W + 40) % (W + 40) - 20;
-    if (b.type === 'dot') {
-      pxRect(bx, GROUND_Y + 6 + Math.sin(b.x)*3, 2, 2);
-    } else {
-      pxRect(bx, GROUND_Y + 8 + Math.cos(b.x)*2, 4, 1);
-    }
+    if (b.type === 'dot') pxRect(bx, GROUND_Y + 6 + Math.sin(b.x)*3, 2, 2);
+    else pxRect(bx, GROUND_Y + 8 + Math.cos(b.x)*2, 4, 1);
   }
-
-  // Small ground line details
-  ctx.fillStyle = '#ccc';
+  ctx.fillStyle = '#2a2a3a';
   for (let i = 0; i < 8; i++) {
     const gx = ((i * 110 + 20 - groundOffset * 0.5) % (W + 60) + W + 60) % (W + 60) - 30;
     pxRect(gx, GROUND_Y + 4, 6 + (i % 3) * 4, 1);
   }
 }
 
-// ===== SPAWN OBSTACLE =====
+// ===== SPAWN =====
 function spawnObstacle() {
-  // Minimum gap decreases with speed
   const minGap = Math.max(200, 350 - (gameSpeed - baseSpeed) * 12);
   const gap = minGap + Math.random() * 180;
-
-  // Decide: aerial or ground?
-  // Aerial obstacles start appearing after score 150, increasing probability
   const aerialChance = score > 150 ? Math.min(0.35, (score - 150) / 800) : 0;
   const isAerial = Math.random() < aerialChance;
 
   if (isAerial) {
     const type = AERIAL_OBSTACLES[Math.floor(Math.random() * AERIAL_OBSTACLES.length)];
-    // Aerial obstacles hover at a height the player must duck under
-    // Player standing top = GROUND_Y - player.h = 130
-    // Player ducking top = GROUND_Y - DUCK_H = 146
-    // So aerial obstacle bottom must be above ducking height but overlap standing height
-    const aerialY = GROUND_Y - player.h - 4; // top of standing player area, with a little buffer
-
-    obstacles.push({
-      x: lastObstacleX + gap,
-      y: aerialY,
-      w: type.w,
-      h: type.h,
-      draw: type.draw,
-      name: type.name,
-      aerial: true
-    });
+    const aerialY = GROUND_Y - player.h - 4;
+    obstacles.push({ x: lastObstacleX + gap, y: aerialY, w: type.w, h: type.h, draw: type.draw, name: type.name, aerial: true });
     lastObstacleX = obstacles[obstacles.length - 1].x;
+    if (!firstAerialSeen) { firstAerialSeen = true; duckPrompt = { timer: 120 }; }
   } else {
     const type = GROUND_OBSTACLES[Math.floor(Math.random() * GROUND_OBSTACLES.length)];
-
-    // Occasionally spawn a double at higher speeds
     const count = (gameSpeed > 7 && Math.random() < 0.25) ? 2 : 1;
-
     for (let i = 0; i < count; i++) {
-      const t = (i === 1)
-        ? GROUND_OBSTACLES[Math.floor(Math.random() * GROUND_OBSTACLES.length)]
-        : type;
-      obstacles.push({
-        x: lastObstacleX + gap + i * (t.w + 12),
-        y: GROUND_Y + 2 - t.h,
-        w: t.w,
-        h: t.h,
-        draw: t.draw,
-        name: t.name,
-        aerial: false
-      });
+      const t = (i === 1) ? GROUND_OBSTACLES[Math.floor(Math.random() * GROUND_OBSTACLES.length)] : type;
+      obstacles.push({ x: lastObstacleX + gap + i * (t.w + 12), y: GROUND_Y + 2 - t.h, w: t.w, h: t.h, draw: t.draw, name: t.name, aerial: false });
       lastObstacleX = obstacles[obstacles.length - 1].x;
+    }
+  }
+}
+
+// ===== NEAR-MISS =====
+function checkNearMiss() {
+  const ph = player.ducking ? DUCK_H : player.h;
+  const py = player.ducking ? GROUND_Y - DUCK_H : player.y - player.h;
+  const px0 = player.x + 6;
+  const px1 = player.x + player.w - 4;
+  const py0 = py + 4;
+  const py1 = py + ph - 2;
+
+  for (const ob of obstacles) {
+    if (ob._nearMissed) continue;
+    const ox1 = ob.x + ob.w - 2;
+    const oy0 = ob.y + 2;
+    const oy1 = ob.y + ob.h;
+    const justPassed = ox1 > px0 - 8 && ox1 < px0 + 4;
+    if (!justPassed) continue;
+
+    let verticalGap;
+    if (ob.aerial) { verticalGap = py0 - oy1; }
+    else { verticalGap = oy0 - py1; }
+
+    if (verticalGap > 0 && verticalGap < 14) {
+      ob._nearMissed = true;
+      score += 5;
+      const sparkX = ob.aerial ? player.x + player.w/2 : ob.x + ob.w/2;
+      const sparkY = ob.aerial ? oy1 + 4 : oy0 - 4;
+      for (let i = 0; i < 6; i++) {
+        sparks.push({ x: sparkX, y: sparkY, vx: (Math.random()-0.5)*4, vy: (Math.random()-0.5)*3-1, life: 20+Math.random()*15 });
+      }
+      nearMissText = { x: sparkX, y: sparkY - 10, timer: 35 };
     }
   }
 }
@@ -642,26 +601,18 @@ function checkCollision() {
   const py1 = py + ph - 2;
 
   for (const ob of obstacles) {
-    const ox0 = ob.x + 2;
-    const ox1 = ob.x + ob.w - 2;
-    const oy0 = ob.y + 2;
-    const oy1 = ob.y + ob.h;
-
-    if (px1 > ox0 && px0 < ox1 && py1 > oy0 && py0 < oy1) {
-      return true;
-    }
+    const ox0 = ob.x + 2; const ox1 = ob.x + ob.w - 2;
+    const oy0 = ob.y + 2; const oy1 = ob.y + ob.h;
+    if (px1 > ox0 && px0 < ox1 && py1 > oy0 && py0 < oy1) return true;
   }
   return false;
 }
 
-// ===== SCORE =====
-function formatScore(s) {
-  return String(Math.floor(s)).padStart(5, '0');
-}
+// ===== SCORE & LEADERBOARD =====
+function formatScore(s) { return String(Math.floor(s)).padStart(5, '0'); }
 
 function updateScoreDisplay() {
-  document.getElementById('score-display').textContent =
-    `HI ${formatScore(highScore)}  ${formatScore(score)}`;
+  document.getElementById('score-display').textContent = `HI ${formatScore(highScore)}  ${formatScore(score)}`;
 }
 
 // ===== FIREBASE SETUP =====
@@ -681,45 +632,29 @@ const lbRef = db.ref('leaderboard');
 // Local cache of leaderboard
 let leaderboardCache = [];
 
-// ===== LEADERBOARD =====
 // Listen for real-time updates
 lbRef.orderByChild('score').limitToLast(10).on('value', (snapshot) => {
   const entries = [];
-  snapshot.forEach((child) => {
-    entries.push(child.val());
-  });
-  // Sort descending (Firebase limitToLast gives ascending)
+  snapshot.forEach((child) => { entries.push(child.val()); });
   entries.sort((a, b) => b.score - a.score);
   leaderboardCache = entries;
   renderLeaderboard();
 });
 
-function addToLeaderboard(name, finalScore) {
-  const entry = {
-    name: name.toUpperCase(),
-    score: Math.floor(finalScore),
-    timestamp: Date.now()
-  };
+function addToLeaderboard(name, s) {
+  const entry = { name: name.toUpperCase(), score: Math.floor(s), timestamp: Date.now() };
   lbRef.push(entry).then(() => {
-    // Clean up: keep only top 10
     lbRef.orderByChild('score').once('value', (snapshot) => {
       const all = [];
-      snapshot.forEach((child) => {
-        all.push({ key: child.key, score: child.val().score });
-      });
+      snapshot.forEach((child) => { all.push({ key: child.key, score: child.val().score }); });
       all.sort((a, b) => a.score - b.score);
-      // Remove entries beyond top 10
-      while (all.length > 10) {
-        const toRemove = all.shift();
-        lbRef.child(toRemove.key).remove();
-      }
+      while (all.length > 10) { const toRemove = all.shift(); lbRef.child(toRemove.key).remove(); }
     });
   });
 }
 
 function isLeaderboardWorthy(s) {
-  if (leaderboardCache.length < 10) return true;
-  return Math.floor(s) > leaderboardCache[leaderboardCache.length - 1].score;
+  return leaderboardCache.length < 10 || Math.floor(s) > leaderboardCache[leaderboardCache.length - 1].score;
 }
 
 function renderLeaderboard() {
@@ -729,117 +664,172 @@ function renderLeaderboard() {
     list.innerHTML = '<li style="justify-content:center;color:#7a7a94;">No scores yet \u2014 get running!</li>';
     return;
   }
-  list.innerHTML = lb.map((entry, i) =>
-    `<li><span class="lb-rank">${i + 1}.</span><span class="lb-name">${entry.name}</span><span class="lb-score">${formatScore(entry.score)}</span></li>`
+  list.innerHTML = lb.map((e, i) =>
+    `<li><span class="lb-rank">${i+1}.</span><span class="lb-name">${e.name}</span><span class="lb-score">${formatScore(e.score)}</span></li>`
   ).join('');
 }
 
-// ===== GAME OVER SCREEN =====
-function drawGameOver() {
-  ctx.fillStyle = COL;
-  ctx.font = '16px "Press Start 2P"';
-  ctx.textAlign = 'center';
-  ctx.fillText('G A M E   O V E R', W / 2, 70);
+// ===== DRAW OVERLAYS =====
+function drawQuote() {
+  if (!activeQuote) return;
+  const q = activeQuote;
+  let opacity;
+  if (q.timer < QUOTE_FADE) opacity = q.timer / QUOTE_FADE;
+  else if (q.timer > QUOTE_DURATION - QUOTE_FADE) opacity = (QUOTE_DURATION - q.timer) / QUOTE_FADE;
+  else opacity = 1;
+  opacity = Math.max(0, Math.min(1, opacity)) * 0.4;
 
-  // Restart icon
-  ctx.strokeStyle = COL;
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.arc(W / 2, 110, 12, 0, Math.PI * 1.6);
-  ctx.stroke();
-  // Arrow head
-  const ax = W / 2 + 10, ay = 100;
-  ctx.beginPath();
-  ctx.moveTo(ax - 4, ay - 2);
-  ctx.lineTo(ax + 2, ay + 4);
-  ctx.lineTo(ax - 2, ay + 6);
-  ctx.fill();
+  ctx.save(); ctx.globalAlpha = opacity;
+  ctx.fillStyle = COL; ctx.font = '7px "Press Start 2P"'; ctx.textAlign = 'center';
+  const maxW = 500;
+  const words = q.text.split(' ');
+  let lines = [], line = '';
+  for (const word of words) {
+    const test = line ? line + ' ' + word : word;
+    if (ctx.measureText(test).width > maxW) { lines.push(line); line = word; } else { line = test; }
+  }
+  if (line) lines.push(line);
+  const startY = 22;
+  for (let i = 0; i < lines.length; i++) ctx.fillText(lines[i], W / 2, startY + i * 12);
+  ctx.font = '6px "Press Start 2P"'; ctx.fillStyle = COL_LIGHT;
+  ctx.fillText('— ' + q.author, W / 2, startY + lines.length * 12 + 6);
+  ctx.restore();
 }
 
-// ===== IDLE / START SCREEN =====
-function drawIdleScreen() {
-  drawPlayer();
-  drawGround();
+function drawMilestone() {
+  if (!activeMilestone) return;
+  const m = activeMilestone;
+  const progress = m.timer / 90;
+  const opacity = progress < 0.2 ? progress / 0.2 : progress > 0.7 ? (1 - progress) / 0.3 : 1;
+  const yOff = (1 - Math.min(1, opacity)) * 8;
+  ctx.save(); ctx.globalAlpha = Math.max(0, opacity);
+  ctx.fillStyle = COL; ctx.font = '12px "Press Start 2P"'; ctx.textAlign = 'center';
+  ctx.fillText(m.text, W / 2, 95 - yOff);
+  ctx.restore();
+}
 
+function drawSparks() {
   ctx.fillStyle = COL;
-  ctx.font = '10px "Press Start 2P"';
-  ctx.textAlign = 'center';
-  ctx.fillText('PRESS SPACE OR TAP TO START', W / 2, 80);
+  for (const s of sparks) {
+    const sz = s.life > 10 ? 3 : 2;
+    pxRect(s.x, s.y, sz, sz);
+  }
+  if (nearMissText) {
+    ctx.save(); ctx.globalAlpha = nearMissText.timer / 35;
+    ctx.fillStyle = COL; ctx.font = '8px "Press Start 2P"'; ctx.textAlign = 'center';
+    ctx.fillText('+5 CLOSE!', nearMissText.x, nearMissText.y - (35 - nearMissText.timer) * 0.6);
+    ctx.restore();
+  }
+}
 
-  ctx.fillStyle = COL_LIGHT;
-  ctx.font = '8px "Press Start 2P"';
-  ctx.fillText('Jump over obstacles — duck under boom mics!', W / 2, 100);
+function drawDuckPrompt() {
+  if (!duckPrompt) return;
+  const opacity = Math.min(1, duckPrompt.timer / 20) * (duckPrompt.timer > 80 ? (120 - duckPrompt.timer) / 40 : 1);
+  ctx.save(); ctx.globalAlpha = Math.max(0, opacity) * 0.9;
+  if (Math.floor(frameCount / 8) % 2) {
+    ctx.fillStyle = COL; ctx.font = '14px "Press Start 2P"'; ctx.textAlign = 'center';
+    ctx.fillText('\u2193 DUCK! \u2193', W / 2, 90);
+  }
+  ctx.restore();
+}
+
+// ===== GAME OVER / IDLE =====
+function drawGameOver() {
+  ctx.fillStyle = COL; ctx.font = '16px "Press Start 2P"'; ctx.textAlign = 'center';
+  ctx.fillText('G A M E   O V E R', W / 2, 70);
+  ctx.strokeStyle = COL; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.arc(W / 2, 110, 12, 0, Math.PI * 1.6); ctx.stroke();
+  const ax = W / 2 + 10, ay = 100;
+  ctx.fillStyle = COL;
+  ctx.beginPath(); ctx.moveTo(ax-4, ay-2); ctx.lineTo(ax+2, ay+4); ctx.lineTo(ax-2, ay+6); ctx.fill();
+}
+
+function drawIdleScreen() {
+  drawPlayer(); drawGround();
+  ctx.fillStyle = COL; ctx.font = '10px "Press Start 2P"'; ctx.textAlign = 'center';
+  ctx.fillText('PRESS SPACE OR TAP TO START', W / 2, 75);
+  ctx.fillStyle = COL_LIGHT; ctx.font = '7px "Press Start 2P"';
+  ctx.fillText('Jump over obstacles — duck under boom mics!', W / 2, 95);
+  ctx.fillText('Near misses earn bonus points.', W / 2, 110);
+}
+
+// ===== SCREEN SHAKE =====
+function triggerShake() {
+  canvas.classList.remove('shake');
+  void canvas.offsetWidth;
+  canvas.classList.add('shake');
+  setTimeout(() => canvas.classList.remove('shake'), 400);
 }
 
 // ===== MAIN LOOP =====
 function reset() {
-  player.y = GROUND_Y;
-  player.vy = 0;
-  player.jumping = false;
-  player.ducking = false;
-  player.grounded = true;
-  player.runFrame = 0;
-  obstacles = [];
-  score = 0;
-  frameCount = 0;
-  gameSpeed = baseSpeed;
-  lastObstacleX = W;
-  groundOffset = 0;
-  initClouds();
-  initGroundBumps();
+  player.y = GROUND_Y; player.vy = 0; player.jumping = false;
+  player.ducking = false; player.grounded = true; player.runFrame = 0; player.runTimer = 0;
+  obstacles = []; sparks = []; nearMissText = null;
+  activeQuote = null; activeMilestone = null; duckPrompt = null; firstAerialSeen = false;
+  score = 0; frameCount = 0; gameSpeed = baseSpeed;
+  lastObstacleX = W; lastMilestoneHit = 0;
+  groundOffset = 0; silhouetteOffset = 0; quoteTimer = 0; canRestart = false;
+  initClouds(); initGroundBumps(); initSilhouettes();
 }
 
 function update() {
   if (gameState !== 'running') return;
-
   frameCount++;
 
-  // Ramp difficulty
   gameSpeed = baseSpeed + Math.floor(score / 100) * 0.3;
   if (gameSpeed > 14) gameSpeed = 14;
 
-  // Player physics
+  // Physics
   if (!player.grounded) {
-    player.vy += GRAVITY;
-    player.y += player.vy;
-    if (player.y >= GROUND_Y) {
-      player.y = GROUND_Y;
-      player.vy = 0;
-      player.jumping = false;
-      player.grounded = true;
-    }
+    player.vy += GRAVITY; player.y += player.vy;
+    if (player.y >= GROUND_Y) { player.y = GROUND_Y; player.vy = 0; player.jumping = false; player.grounded = true; }
   }
 
-  // Run animation
+  // Run anim
   player.runTimer++;
-  if (player.runTimer > 6) {
-    player.runFrame = 1 - player.runFrame;
-    player.runTimer = 0;
-  }
+  if (player.runTimer > 6) { player.runFrame = 1 - player.runFrame; player.runTimer = 0; }
 
-  // Move obstacles
-  for (const ob of obstacles) {
-    ob.x -= gameSpeed;
-  }
+  // Obstacles
+  for (const ob of obstacles) ob.x -= gameSpeed;
   obstacles = obstacles.filter(o => o.x + o.w > -60);
-
-  // Spawn — check if there's enough room for a new obstacle
   const rightmost = obstacles.length > 0 ? Math.max(...obstacles.map(o => o.x + o.w)) : 0;
-  if (rightmost < W - 100) {
-    spawnObstacle();
+  if (rightmost < W - 100) spawnObstacle();
+
+  // Near-miss
+  checkNearMiss();
+
+  // Sparks
+  for (const s of sparks) { s.x += s.vx; s.y += s.vy; s.life--; }
+  sparks = sparks.filter(s => s.life > 0);
+  if (nearMissText) { nearMissText.timer--; if (nearMissText.timer <= 0) nearMissText = null; }
+
+  // Duck prompt
+  if (duckPrompt) { duckPrompt.timer--; if (duckPrompt.timer <= 0) duckPrompt = null; }
+
+  // Quotes
+  quoteTimer++;
+  if (quoteTimer >= QUOTE_INTERVAL && !activeQuote && score > 50) {
+    quoteTimer = 0;
+    const q = DIRECTOR_QUOTES[Math.floor(Math.random() * DIRECTOR_QUOTES.length)];
+    activeQuote = { text: q.text, author: q.author, timer: 0 };
   }
+  if (activeQuote) { activeQuote.timer++; if (activeQuote.timer >= QUOTE_DURATION) activeQuote = null; }
+
+  // Milestones
+  const sf = Math.floor(score);
+  for (const [threshold, text] of Object.entries(MILESTONES)) {
+    const t = parseInt(threshold);
+    if (sf >= t && lastMilestoneHit < t) { activeMilestone = { text, timer: 0 }; lastMilestoneHit = t; }
+  }
+  if (activeMilestone) { activeMilestone.timer++; if (activeMilestone.timer >= 90) activeMilestone = null; }
 
   // Clouds
-  for (const c of clouds) {
-    c.x -= c.speed;
-    if (c.x + c.w < 0) {
-      c.x = W + Math.random() * 100;
-      c.y = 15 + Math.random() * 55;
-    }
-  }
+  for (const c of clouds) { c.x -= c.speed; if (c.x + c.w < 0) { c.x = W + Math.random() * 100; c.y = 15 + Math.random() * 55; } }
 
-  // Ground scroll
+  // Scroll
   groundOffset += gameSpeed;
+  silhouetteOffset += gameSpeed * 0.25;
 
   // Score
   score += gameSpeed * 0.1;
@@ -847,140 +837,75 @@ function update() {
   // Collision
   if (checkCollision()) {
     gameState = 'dead';
-    if (score > highScore) {
-      highScore = Math.floor(score);
-      localStorage.setItem('dd_highscore', String(highScore));
-    }
+    triggerShake();
+    if (score > highScore) { highScore = Math.floor(score); localStorage.setItem('dd_highscore', String(highScore)); }
     updateScoreDisplay();
-
-    // Check leaderboard
+    canRestart = false;
+    setTimeout(() => { canRestart = true; }, 300);
     if (isLeaderboardWorthy(score)) {
       setTimeout(() => {
         document.getElementById('overlay-score').textContent = formatScore(score);
         document.getElementById('name-input-overlay').classList.add('visible');
         document.getElementById('player-name').value = '';
         document.getElementById('player-name').focus();
-      }, 400);
+      }, 350);
     }
   }
-
   updateScoreDisplay();
 }
 
 function draw() {
   ctx.clearRect(0, 0, W, H);
+  if (gameState === 'idle') { drawIdleScreen(); return; }
 
-  if (gameState === 'idle') {
-    drawIdleScreen();
-    return;
-  }
-
-  // Clouds
-  for (const c of clouds) {
-    drawCloud(c.x, c.y, c.w);
-  }
-
-  // Ground
+  drawSilhouettes();
+  for (const c of clouds) drawCloud(c.x, c.y, c.w);
   drawGround();
-
-  // Obstacles
-  for (const ob of obstacles) {
-    ob.draw(ob.x, ob.y, ob.w, ob.h);
-  }
-
-  // Player
+  for (const ob of obstacles) ob.draw(ob.x, ob.y, ob.w, ob.h);
   drawPlayer();
+  drawSparks();
+  drawQuote();
+  drawMilestone();
+  drawDuckPrompt();
 
-  // Score milestone flash
   if (gameState === 'running' && Math.floor(score) % 100 < 2 && score > 10) {
-    ctx.fillStyle = 'rgba(91,127,245,0.06)';
-    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = 'rgba(91,127,245,0.06)'; ctx.fillRect(0, 0, W, H);
   }
-
-  if (gameState === 'dead') {
-    drawGameOver();
-  }
+  if (gameState === 'dead') drawGameOver();
 }
 
-function gameLoop() {
-  update();
-  draw();
-  requestAnimationFrame(gameLoop);
-}
+function gameLoop() { update(); draw(); requestAnimationFrame(gameLoop); }
 
 // ===== INPUT =====
 function jump() {
-  if (gameState === 'idle') {
-    gameState = 'running';
-    reset();
-    return;
-  }
+  if (gameState === 'idle') { gameState = 'running'; reset(); return; }
   if (gameState === 'dead') {
     if (document.getElementById('name-input-overlay').classList.contains('visible')) return;
-    gameState = 'running';
-    reset();
-    return;
+    if (!canRestart) return;
+    gameState = 'running'; reset(); return;
   }
-  if (player.grounded && !player.jumping) {
-    player.vy = JUMP_FORCE;
-    player.grounded = false;
-    player.jumping = true;
-  }
+  if (player.grounded && !player.jumping) { player.vy = JUMP_FORCE; player.grounded = false; player.jumping = true; }
 }
 
 function duckStart() {
-  if (gameState === 'running') {
-    player.ducking = true;
-    // Fast fall if in air
-    if (!player.grounded) {
-      player.vy += 4;
-    }
-  }
+  if (gameState === 'running') { player.ducking = true; if (!player.grounded) player.vy += 4; }
 }
-
-function duckEnd() {
-  player.ducking = false;
-}
+function duckEnd() { player.ducking = false; }
 
 document.addEventListener('keydown', (e) => {
-  if (e.code === 'Space' || e.code === 'ArrowUp') {
-    e.preventDefault();
-    jump();
-  }
-  if (e.code === 'ArrowDown') {
-    e.preventDefault();
-    duckStart();
-  }
+  if (e.code === 'Space' || e.code === 'ArrowUp') { e.preventDefault(); jump(); }
+  if (e.code === 'ArrowDown') { e.preventDefault(); duckStart(); }
 });
+document.addEventListener('keyup', (e) => { if (e.code === 'ArrowDown') duckEnd(); });
 
-document.addEventListener('keyup', (e) => {
-  if (e.code === 'ArrowDown') {
-    duckEnd();
-  }
-});
-
-// Touch support
 canvas.addEventListener('touchstart', (e) => {
   e.preventDefault();
-  const touch = e.touches[0];
-  const rect = canvas.getBoundingClientRect();
-  const ty = touch.clientY - rect.top;
-  if (ty > rect.height * 0.6) {
-    duckStart();
-  } else {
-    jump();
-  }
+  const ty = e.touches[0].clientY - canvas.getBoundingClientRect().top;
+  if (ty > canvas.getBoundingClientRect().height * 0.6) duckStart(); else jump();
 });
+canvas.addEventListener('touchend', () => duckEnd());
+canvas.addEventListener('click', () => jump());
 
-canvas.addEventListener('touchend', (e) => {
-  duckEnd();
-});
-
-canvas.addEventListener('click', (e) => {
-  jump();
-});
-
-// Name input
 document.getElementById('submit-name').addEventListener('click', () => {
   const name = document.getElementById('player-name').value.trim();
   if (name) {
@@ -989,28 +914,17 @@ document.getElementById('submit-name').addEventListener('click', () => {
     document.getElementById('leaderboard-panel').classList.add('visible');
   }
 });
-
 document.getElementById('player-name').addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
-    document.getElementById('submit-name').click();
-  }
+  if (e.key === 'Enter') document.getElementById('submit-name').click();
   e.stopPropagation();
 });
-
-// Leaderboard toggle
 document.getElementById('toggle-leaderboard').addEventListener('click', () => {
-  const panel = document.getElementById('leaderboard-panel');
-  panel.classList.toggle('visible');
+  document.getElementById('leaderboard-panel').classList.toggle('visible');
   renderLeaderboard();
 });
 
 // ===== INIT =====
-reset();
-initClouds();
-initGroundBumps();
-updateScoreDisplay();
-// Leaderboard renders automatically via Firebase listener
-gameLoop();
+reset(); updateScoreDisplay(); gameLoop();
 </script>
 </body>
 </html>

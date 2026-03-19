@@ -487,24 +487,24 @@ function drawSilhouettes() {
     const sy = GROUND_Y + 2 - s.h;
 
     if (s.type === 'school') {
-      ctx.fillStyle = '#e0e0e0';
+      ctx.fillStyle = '#181824';
       pxRect(sx, sy, 50, s.h);
       pxRect(sx+18, sy-12, 14, 12);
-      ctx.fillStyle = '#d0d0d0';
+      ctx.fillStyle = '#141420';
       pxRect(sx+6, sy+8, 6, 6); pxRect(sx+18, sy+8, 6, 6); pxRect(sx+34, sy+8, 6, 6);
       pxRect(sx+6, sy+20, 6, 6); pxRect(sx+18, sy+20, 6, 6); pxRect(sx+34, sy+20, 6, 6);
       pxRect(sx+22, sy+s.h-10, 8, 10);
     } else if (s.type === 'studio') {
-      ctx.fillStyle = '#e0e0e0';
+      ctx.fillStyle = '#181824';
       pxRect(sx, sy+6, 45, s.h-6);
       ctx.beginPath();
       ctx.moveTo(sx-2, sy+6); ctx.lineTo(sx+22, sy-4); ctx.lineTo(sx+47, sy+6);
       ctx.fill();
-      ctx.fillStyle = '#d0d0d0';
+      ctx.fillStyle = '#141420';
       pxRect(sx+12, sy+s.h-18, 20, 18);
       pxRect(sx+30, sy+10, 8, 8);
     } else {
-      ctx.fillStyle = '#e0e0e0';
+      ctx.fillStyle = '#181824';
       pxRect(sx+4, sy+s.h-12, 4, 12);
       pxRect(sx, sy, 12, s.h-10);
       pxRect(sx-2, sy+4, 16, s.h-16);

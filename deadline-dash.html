@@ -79,6 +79,10 @@ function pc(k){if(phaseProg<=0||curPhase===tgtPhase)return PHASES[curPhase][k];r
 let gameState='idle', score=0, highScore=parseInt(localStorage.getItem('dd_highscore')||'0');
 let frameCount=0, baseSpeed=5, gameSpeed=5, lastObX=W, deathTimer=0, shakeTimer=0, shakeInt=0;
 
+// ===== CHEAT CODE =====
+let cheatBuffer='', invincible=false, invincibleFlash=0;
+const CHEAT_CODE='tenpintsplease', INVINCIBLE_UNTIL=20100;
+
 // ===== PLAYER =====
 const P={x:60,y:GROUND_Y,w:28,h:40,vy:0,jumping:false,ducking:false,rf:0,rt:0,grounded:true};
 const GRAV=0.55, JFORCE=-10.5, DUCK_H=24;
@@ -137,6 +141,12 @@ function pr(x,y,w,h){ctx.fillRect(Math.round(x),Math.round(y),w,h);}
 
 // ===== DRAW PLAYER =====
 function drawPlayer(){
+  if(invincible){
+    const nearExpiry=score>=INVINCIBLE_UNTIL-2000;
+    const flashRate=nearExpiry?2:4;
+    if(Math.floor(frameCount/flashRate)%2===0){ctx.save();ctx.globalAlpha=0.35;}
+    else{ctx.save();ctx.globalAlpha=1;}
+  }
   const bx=P.x, by=P.ducking?GROUND_Y-DUCK_H:P.y-P.h;
   ctx.fillStyle=pc('col');
   if(P.ducking){
@@ -151,6 +161,7 @@ function drawPlayer(){
       else{pr(bx+6,by+24,4,8);pr(bx+14,by+24,4,10);pr(bx+6,by+32,6,3);pr(bx+14,by+34,6,3);}
     } else {pr(bx+6,by+24,4,10);pr(bx+14,by+24,4,10);pr(bx+6,by+34,6,3);pr(bx+14,by+34,6,3);}
   }
+  if(invincible)ctx.restore();
 }
 
 // ===== OBSTACLE DRAW FUNCTIONS =====
@@ -314,7 +325,7 @@ function reset(){
   obstacles=[];sparks=[];nmText=null;activeQuote=null;activeMile=null;duckPrompt=null;phaseAnn=null;
   hasSeenAerial=false;lastQScore=0;lastMileHit=0;score=0;frameCount=0;gameSpeed=baseSpeed;
   lastObX=W;groundOff=0;bgOff=0;deathTimer=0;shakeTimer=0;lightning=0;lynchFlicker=0;
-  curPhase=0;tgtPhase=0;phaseProg=0;
+  curPhase=0;tgtPhase=0;phaseProg=0;invincible=false;cheatBuffer='';
   initClouds();initBumps();initBuilds();initStorm();
   canvas.style.background=PHASES[0].cvBg;document.body.style.background=PHASES[0].bg;
 }
@@ -370,7 +381,11 @@ function update(){
   if(duckPrompt){duckPrompt.timer--;if(duckPrompt.timer<20)duckPrompt.alpha=duckPrompt.timer/20;if(duckPrompt.timer<=0)duckPrompt=null;}
 
   // Collision
-  if(hitTest()){
+  // Invincibility expiry
+  if(invincible&&score>=INVINCIBLE_UNTIL){invincible=false;activeMile={text:'INVINCIBILITY EXPIRED!',alpha:1,timer:90};}
+  if(invincible&&score>=INVINCIBLE_UNTIL-2000&&Math.floor(frameCount/6)%2===0)invincibleFlash=1;else if(invincible)invincibleFlash=0;
+
+  if(hitTest()&&!invincible){
     gameState='dead';deathTimer=0;shakeTimer=12;shakeInt=6;
     if(score>highScore){highScore=Math.floor(score);localStorage.setItem('dd_highscore',String(highScore));}
     updScore();
@@ -406,7 +421,16 @@ function jump(){
 function dkS(){if(gameState==='running'){P.ducking=true;if(!P.grounded)P.vy+=4;}}
 function dkE(){P.ducking=false;}
 
-document.addEventListener('keydown',e=>{if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();jump();}if(e.code==='ArrowDown'){e.preventDefault();dkS();}});
+document.addEventListener('keydown',e=>{
+  if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();jump();}
+  if(e.code==='ArrowDown'){e.preventDefault();dkS();}
+  // Cheat code detection
+  if(e.key.length===1&&!e.ctrlKey&&!e.metaKey){
+    cheatBuffer+=e.key.toLowerCase();
+    if(cheatBuffer.length>CHEAT_CODE.length)cheatBuffer=cheatBuffer.slice(-CHEAT_CODE.length);
+    if(cheatBuffer===CHEAT_CODE&&!invincible){invincible=true;activeMile={text:'🍺 INVINCIBLE! 🍺',alpha:1,timer:120};}
+  }
+});
 document.addEventListener('keyup',e=>{if(e.code==='ArrowDown')dkE();});
 canvas.addEventListener('touchstart',e=>{e.preventDefault();const r=canvas.getBoundingClientRect();if(e.touches[0].clientY-r.top>r.height*0.6)dkS();else jump();});
 canvas.addEventListener('touchend',()=>dkE());

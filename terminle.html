@@ -215,6 +215,7 @@
     color: var(--text);
     transition: border-color 0.1s;
     user-select: none;
+    cursor: pointer;
   }
 
   .tile.active {
@@ -954,10 +955,17 @@ function buildBoard() {
       const tile = document.createElement('div');
       tile.className = 'tile';
       tile.id = `tile-${r}-${c}`;
+      tile.addEventListener('click', () => selectTile(r, c));
       row.appendChild(tile);
     }
     board.appendChild(row);
   }
+}
+
+function selectTile(row, col) {
+  if (gameOver || row !== currentRow) return;
+  currentCol = col;
+  updateActiveTile();
 }
 
 const KB_ROWS = [
@@ -995,26 +1003,65 @@ function handleKey(k) {
   if (gameOver) return;
   if (k === '⌫' || k === 'BACKSPACE') return deleteLetter();
   if (k === 'ENTER') return submitGuess();
-  if (/^[A-Z]$/.test(k) && currentCol < 5) addLetter(k);
+  if (/^[A-Z]$/.test(k)) addLetter(k);
 }
 
 function addLetter(letter) {
+  // If current tile is already filled, find the next empty tile
+  if (boardState[currentRow][currentCol] !== '') {
+    const next = findNextEmpty(currentCol);
+    if (next === -1) return; // row is full
+    currentCol = next;
+  }
+
   boardState[currentRow][currentCol] = letter;
   const tile = document.getElementById(`tile-${currentRow}-${currentCol}`);
   tile.textContent = letter;
   tile.classList.add('filled');
-  currentCol++;
+
+  // Advance to next empty tile
+  const next = findNextEmpty(currentCol + 1);
+  if (next !== -1) {
+    currentCol = next;
+  } else {
+    // No empty tiles after — try from the start
+    const wrap = findNextEmpty(0);
+    currentCol = wrap !== -1 ? wrap : 5; // 5 means row is full
+  }
   updateActiveTile();
 }
 
 function deleteLetter() {
-  if (currentCol === 0) return;
-  currentCol--;
-  boardState[currentRow][currentCol] = '';
-  const tile = document.getElementById(`tile-${currentRow}-${currentCol}`);
+  // If current tile has a letter, clear it
+  if (currentCol < 5 && boardState[currentRow][currentCol] !== '') {
+    boardState[currentRow][currentCol] = '';
+    const tile = document.getElementById(`tile-${currentRow}-${currentCol}`);
+    tile.textContent = '';
+    tile.classList.remove('filled');
+    updateActiveTile();
+    return;
+  }
+
+  // Otherwise find the last filled tile and clear it
+  let last = -1;
+  for (let c = 4; c >= 0; c--) {
+    if (boardState[currentRow][c] !== '') { last = c; break; }
+  }
+  if (last === -1) return; // row is empty
+
+  boardState[currentRow][last] = '';
+  const tile = document.getElementById(`tile-${currentRow}-${last}`);
   tile.textContent = '';
   tile.classList.remove('filled');
+  currentCol = last;
   updateActiveTile();
+}
+
+function findNextEmpty(from) {
+  for (let c = from; c < 5; c++) {
+    if (boardState[currentRow][c] === '') return c;
+  }
+  return -1;
 }
 
 function updateActiveTile() {
@@ -1028,7 +1075,8 @@ function updateActiveTile() {
 }
 
 function submitGuess() {
-  if (currentCol < 5) {
+  const rowFilled = boardState[currentRow].every(c => c !== '');
+  if (!rowFilled) {
     shakeRow(currentRow);
     showToast('Not enough letters');
     return;

@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terminle — A Wordle for Media Terms</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Instrument+Sans:wght@400;500;600;700&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131a;
+    --surface-raised: #1a1a24;
+    --border: #2a2a3a;
+    --text: #e8e6e3;
+    --text-dim: #7a7a8a;
+    --text-muted: #4a4a5a;
+    --correct: #538d4e;
+    --correct-glow: rgba(83, 141, 78, 0.3);
+    --present: #b59f3b;
+    --present-glow: rgba(181, 159, 59, 0.3);
+    --absent: #3a3a4a;
+    --accent: #c9a84c;
+    --accent-dim: rgba(201, 168, 76, 0.15);
+    --danger: #e74c3c;
+    --tile-size: 58px;
+    --tile-gap: 6px;
+    --key-height: 52px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Instrument Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+  }
+
+  /* --- HEADER --- */
+  .header {
+    width: 100%;
+    max-width: 520px;
+    padding: 16px 20px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+
+  .logo-icon {
+    width: 28px;
+    height: 28px;
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    display: grid;
+    place-items: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .title {
+    font-family: 'Space Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .subtitle {
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .header-controls {
+    position: absolute;
+    right: 20px;
+    top: 16px;
+    display: flex;
+    gap: 8px;
+  }
+
+  .icon-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-dim);
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 16px;
+  }
+
+  .icon-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* --- CLUE BANNER --- */
+  .clue-banner {
+    width: 100%;
+    max-width: 520px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent-dim);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+  }
+
+  .clue-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .clue-text {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* --- TOAST --- */
+  .toast-container {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    pointer-events: none;
+  }
+
+  .toast {
+    background: var(--text);
+    color: var(--bg);
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    animation: toastIn 0.2s ease, toastOut 0.3s ease 1.2s forwards;
+    white-space: nowrap;
+  }
+
+  @keyframes toastIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes toastOut {
+    to { opacity: 0; transform: translateY(-10px); }
+  }
+
+  /* --- GAME BOARD --- */
+  .board-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 0;
+    width: 100%;
+    max-width: 520px;
+  }
+
+  .board {
+    display: grid;
+    grid-template-rows: repeat(6, var(--tile-size));
+    gap: var(--tile-gap);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: repeat(5, var(--tile-size));
+    gap: var(--tile-gap);
+  }
+
+  .tile {
+    width: var(--tile-size);
+    height: var(--tile-size);
+    display: grid;
+    place-items: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--text);
+    transition: border-color 0.1s;
+    user-select: none;
+  }
+
+  .tile.filled {
+    border-color: var(--text-dim);
+    animation: pop 0.08s ease;
+  }
+
+  .tile.current-row-active {
+    border-color: var(--text-dim);
+  }
+
+  @keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+  }
+
+  .tile.reveal {
+    animation: flipIn 0.3s ease forwards;
+  }
+
+  @keyframes flipIn {
+    0% { transform: rotateX(0deg); }
+    50% { transform: rotateX(90deg); }
+    100% { transform: rotateX(0deg); }
+  }
+
+  .tile.correct {
+    background: var(--correct);
+    border-color: var(--correct);
+    color: #fff;
+    box-shadow: 0 0 12px var(--correct-glow);
+  }
+
+  .tile.present {
+    background: var(--present);
+    border-color: var(--present);
+    color: #fff;
+    box-shadow: 0 0 12px var(--present-glow);
+  }
+
+  .tile.absent {
+    background: var(--absent);
+    border-color: var(--absent);
+    color: var(--text-dim);
+  }
+
+  .tile.shake {
+    animation: shake 0.4s ease;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+
+  .tile.bounce {
+    animation: bounce 0.6s ease;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-16px); }
+    60% { transform: translateY(-8px); }
+  }
+
+  /* --- KEYBOARD --- */
+  .keyboard {
+    width: 100%;
+    max-width: 520px;
+    padding: 8px 6px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .kb-row {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .key {
+    height: var(--key-height);
+    min-width: 34px;
+    padding: 0 8px;
+    border: none;
+    border-radius: 5px;
+    background: var(--surface-raised);
+    color: var(--text);
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: all 0.15s;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .key:active {
+    transform: scale(0.95);
+  }
+
+  .key.wide {
+    min-width: 58px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  .key.correct {
+    background: var(--correct);
+    color: #fff;
+  }
+
+  .key.present {
+    background: var(--present);
+    color: #fff;
+  }
+
+  .key.absent {
+    background: #1a1a20;
+    color: var(--text-muted);
+  }
+
+  /* --- RESULT PANEL --- */
+  .result-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 5, 10, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 50;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .result-overlay.active {
+    display: flex;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .result-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
+    max-width: 380px;
+    width: 100%;
+    animation: slideUp 0.4s ease;
+    text-align: center;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+  }
+
+  .result-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .result-word {
+    font-family: 'Space Mono', monospace;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin: 12px 0;
+  }
+
+  .result-category {
+    font-size: 12px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+  }
+
+  .result-definition {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--surface-raised);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin: 16px 0;
+    text-align: left;
+    border-left: 3px solid var(--accent);
+  }
+
+  .result-stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin: 16px 0;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stat-value {
+    font-family: 'Space Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 28px;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 8px;
+  }
+
+  .btn-primary:hover {
+    background: #d4b35a;
+    transform: translateY(-1px);
+  }
+
+  /* --- HELP MODAL --- */
+  .help-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 5, 10, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 60;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .help-overlay.active {
+    display: flex;
+  }
+
+  .help-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 400px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease;
+  }
+
+  .help-card h2 {
+    font-family: 'Space Mono', monospace;
+    font-size: 16px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .help-card p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .help-examples {
+    display: flex;
+    gap: 6px;
+    margin: 12px 0;
+    justify-content: center;
+  }
+
+  .help-tile {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 4px;
+    color: #fff;
+  }
+
+  .help-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 16px 0;
+  }
+
+  .help-close {
+    display: block;
+    margin: 16px auto 0;
+    background: var(--surface-raised);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .help-close:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 400px) {
+    :root {
+      --tile-size: 50px;
+      --tile-gap: 5px;
+      --key-height: 48px;
+    }
+    .tile { font-size: 20px; }
+    .key { min-width: 28px; font-size: 12px; padding: 0 5px; }
+    .key.wide { min-width: 48px; font-size: 10px; }
+    .title { font-size: 18px; letter-spacing: 2px; }
+  }
+
+  @media (max-height: 680px) {
+    :root {
+      --tile-size: 48px;
+      --key-height: 44px;
+    }
+    .board-area { padding: 8px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div class="logo-icon">T</div>
+    <div class="title">Terminle</div>
+  </div>
+  <div class="subtitle">Year 12 ATAR MPA — Media Terminology</div>
+  <div class="header-controls">
+    <button class="icon-btn" id="helpBtn" aria-label="How to play">?</button>
+  </div>
+</div>
+
+<!-- CLUE -->
+<div class="clue-banner">
+  <span class="clue-label">Clue</span>
+  <span class="clue-text" id="clueText">Loading…</span>
+</div>
+
+<!-- TOAST -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- BOARD -->
+<div class="board-area">
+  <div class="board" id="board"></div>
+</div>
+
+<!-- KEYBOARD -->
+<div class="keyboard" id="keyboard"></div>
+
+<!-- RESULT PANEL -->
+<div class="result-overlay" id="resultOverlay">
+  <div class="result-card">
+    <div class="result-icon" id="resultIcon"></div>
+    <div class="result-title" id="resultTitle"></div>
+    <div class="result-word" id="resultWord"></div>
+    <div class="result-category" id="resultCategory"></div>
+    <div class="result-definition" id="resultDefinition"></div>
+    <div class="result-stats">
+      <div class="stat">
+        <div class="stat-value" id="statPlayed">0</div>
+        <div class="stat-label">Played</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="statWon">0</div>
+        <div class="stat-label">Won</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="statStreak">0</div>
+        <div class="stat-label">Streak</div>
+      </div>
+    </div>
+    <button class="btn-primary" id="playAgainBtn">
+      <span>▶</span> Play Again
+    </button>
+  </div>
+</div>
+
+<!-- HELP MODAL -->
+<div class="help-overlay" id="helpOverlay">
+  <div class="help-card">
+    <h2>How to Play</h2>
+    <p>Guess the five-letter <strong>media term</strong> in 6 tries. Each guess must be a valid term from the MPA syllabus word bank.</p>
+    <p>A <strong>category clue</strong> is shown at the top to help you think in syllabus terms.</p>
+    <div class="help-divider"></div>
+    <p><strong>After each guess, tiles change colour:</strong></p>
+    <div class="help-examples">
+      <div class="help-tile" style="background:var(--correct);">F</div>
+      <div class="help-tile" style="background:var(--absent);">R</div>
+      <div class="help-tile" style="background:var(--absent);">A</div>
+      <div class="help-tile" style="background:var(--absent);">M</div>
+      <div class="help-tile" style="background:var(--present);">E</div>
+    </div>
+    <p><span style="color:var(--correct);font-weight:700;">Green</span> — correct letter, correct position.<br>
+    <span style="color:var(--present);font-weight:700;">Gold</span> — correct letter, wrong position.<br>
+    <span style="color:var(--text-dim);">Dark</span> — letter not in the word.</p>
+    <div class="help-divider"></div>
+    <p style="color:var(--text-dim);font-size:12px;">Built for Sacred Heart College Year 12 ATAR MPA revision. Terms drawn from Units 3 &amp; 4 syllabus content.</p>
+    <button class="help-close" id="helpCloseBtn">Got it</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// TERMINLE — WORD BANK (28 five-letter MPA terms)
+// ============================================================
+const WORD_BANK = [
+  {
+    word: "CODES",
+    category: "Semiotics / Textual analysis",
+    clue: "A semiotics concept — systems of meaning in media texts",
+    definition: "Systems of signs and conventions used to construct and communicate meaning in media texts. Includes technical, symbolic, written, and audio codes that audiences decode to interpret messages."
+  },
+  {
+    word: "GENRE",
+    category: "Institutional context",
+    clue: "A classification system — how texts are grouped",
+    definition: "A category or type of media text classified by shared conventions, themes, and stylistic elements. Genres create audience expectations and provide an institutional framework for production and marketing."
+  },
+  {
+    word: "FRAME",
+    category: "Technical / Camera",
+    clue: "A camera term — what the lens captures",
+    definition: "The boundary of the visual image as captured by the camera. Framing determines what is included or excluded from the audience's view, guiding their attention and shaping meaning."
+  },
+  {
+    word: "SCENE",
+    category: "Narrative / Editing",
+    clue: "A unit of narrative — action in one location",
+    definition: "A continuous block of storytelling set in a single time and location. Scenes are the building blocks of sequences and are assembled through editing to construct the narrative."
+  },
+  {
+    word: "ANGLE",
+    category: "Technical / Camera",
+    clue: "A camera term — the position of the lens relative to the subject",
+    definition: "The position from which the camera views the subject (e.g. high, low, eye-level, canted). Camera angles encode power dynamics, perspective, and emotional tone within a shot."
+  },
+  {
+    word: "DOLLY",
+    category: "Technical / Camera movement",
+    clue: "A camera movement — the whole camera travels",
+    definition: "A wheeled platform that allows the camera to move smoothly toward, away from, or alongside the subject. Dolly movements create a sense of depth and immersion distinct from a zoom."
+  },
+  {
+    word: "MOTIF",
+    category: "Narrative / Symbolic codes",
+    clue: "A recurring element — pattern that builds meaning",
+    definition: "A recurring visual, aural, or thematic element that develops symbolic significance throughout a text. Motifs reinforce themes and create cohesion across the narrative."
+  },
+  {
+    word: "TROPE",
+    category: "Narrative / Genre conventions",
+    clue: "A storytelling device — a familiar convention",
+    definition: "A commonly recurring literary or rhetorical device, convention, or theme within a genre. Tropes create shorthand meaning for audiences familiar with genre expectations."
+  },
+  {
+    word: "SCORE",
+    category: "Audio codes",
+    clue: "An audio element — composed for the text",
+    definition: "Original music composed specifically for a media text to underscore mood, emotion, and narrative tension. The score functions as an audio code that guides audience response."
+  },
+  {
+    word: "SIGNS",
+    category: "Semiotics",
+    clue: "A semiotics concept — the basic units of meaning",
+    definition: "The fundamental units of communication in semiotics, comprising a signifier (the form) and a signified (the concept). Media texts are constructed from signs that audiences read and interpret."
+  },
+  {
+    word: "STYLE",
+    category: "Auteur / Aesthetics",
+    clue: "An auteur concept — a director's visual signature",
+    definition: "The distinctive aesthetic and technical approach of a media maker, encompassing choices in cinematography, editing, mise en scène, and sound. Style is central to auteur theory."
+  },
+  {
+    word: "CANON",
+    category: "Institutional context",
+    clue: "An institutional concept — the 'accepted greats'",
+    definition: "The body of works considered to be the most important and influential within a medium or genre. The canon reflects institutional values and is subject to critical debate about inclusion and representation."
+  },
+  {
+    word: "CRANE",
+    category: "Technical / Camera movement",
+    clue: "A camera movement — rises above the action",
+    definition: "A camera platform mounted on a mechanical arm that enables sweeping vertical and horizontal movements. Crane shots create dramatic reveals, establish scale, and convey grandeur."
+  },
+  {
+    word: "PITCH",
+    category: "Production / Institutional",
+    clue: "A production term — selling your idea",
+    definition: "A concise verbal or written presentation proposing a media production concept to stakeholders, producers, or financiers. The pitch distills narrative, audience, and market appeal."
+  },
+  {
+    word: "DRAFT",
+    category: "Production / Scriptwriting",
+    clue: "A scriptwriting term — a version of the text",
+    definition: "A version of a screenplay or script at a particular stage of development. Multiple drafts are produced through iterative revision from initial concept to shooting script."
+  },
+  {
+    word: "INDIE",
+    category: "Institutional context",
+    clue: "An institutional category — outside the major studios",
+    definition: "Short for independent; refers to media production and distribution outside the major studio system. Indie productions typically operate with lower budgets and greater creative autonomy."
+  },
+  {
+    word: "DEPTH",
+    category: "Technical / Cinematography",
+    clue: "A cinematography concept — layers within the image",
+    definition: "The perception of three-dimensional space within the two-dimensional frame. Depth of field, staging in layers, and lens choices control how foreground, midground, and background relate."
+  },
+  {
+    word: "TEMPO",
+    category: "Editing / Pacing",
+    clue: "An editing concept — the rhythm of the cuts",
+    definition: "The perceived speed and rhythm of a media text, controlled through editing pace, shot duration, music, and narrative structure. Tempo shapes audience engagement and emotional intensity."
+  },
+  {
+    word: "TONAL",
+    category: "Aesthetics / Mood",
+    clue: "An aesthetic quality — the overall feeling of a text",
+    definition: "Relating to the overall mood, feeling, or atmosphere conveyed by a media text through the combined effect of its technical, symbolic, and audio codes."
+  },
+  {
+    word: "FOLEY",
+    category: "Audio / Post-production",
+    clue: "An audio term — recreated sound effects",
+    definition: "The reproduction of everyday sound effects added to media in post-production to enhance audio realism. Foley artists perform and record sounds synchronised to the visual action."
+  },
+  {
+    word: "EDITS",
+    category: "Post-production",
+    clue: "A post-production process — the cuts that shape a text",
+    definition: "The individual cuts, joins, and transitions made during post-production to assemble the final version of a media text. Edits shape narrative, pacing, meaning, and audience engagement."
+  },
+  {
+    word: "VOICE",
+    category: "Narrative / Auteur",
+    clue: "An auteur concept — a creator's distinctive perspective",
+    definition: "The distinctive creative perspective and thematic preoccupations of a media maker. Voice encompasses the personal, cultural, and philosophical dimensions of authorship."
+  },
+  {
+    word: "TITLE",
+    category: "Written codes / Post-production",
+    clue: "A written code — text overlaid on the image",
+    definition: "On-screen text used to convey information including the name of the production, credits, location identifiers, and intertitles. Titles function as written codes shaping audience understanding."
+  },
+  {
+    word: "TRACK",
+    category: "Technical / Camera movement",
+    clue: "A camera movement — lateral travel alongside the subject",
+    definition: "A camera movement in which the camera moves laterally, usually on rails, to follow or reveal the subject. Tracking shots create a dynamic relationship between the camera and the mise en scène."
+  },
+  {
+    word: "GAZES",
+    category: "Theory / Audience",
+    clue: "A theory concept — how the camera positions the viewer to look",
+    definition: "The ways in which a media text positions the audience to look at subjects on screen. Gaze theory examines power dynamics in visual representation, including the male gaze (Mulvey) and the oppositional gaze (hooks)."
+  },
+  {
+    word: "RECUT",
+    category: "Post-production / Editing",
+    clue: "A post-production term — re-editing existing material",
+    definition: "The process of re-editing previously assembled footage to create a new version or alternative interpretation of a media text. A director's cut is a common form of recut."
+  },
+  {
+    word: "TAKES",
+    category: "Production",
+    clue: "A production term — repeated recordings of a shot",
+    definition: "Individual recorded performances of a single shot during production. Multiple takes allow the director to refine performance and technical execution before selecting the best version for editing."
+  },
+  {
+    word: "RECAP",
+    category: "Narrative / Television",
+    clue: "A narrative device — reminding the audience of prior events",
+    definition: "A summary of previous narrative events typically placed at the beginning of a serial text. Recaps re-establish story context and help maintain audience engagement across episodes."
+  }
+];
+
+// Additional valid guesses (acceptable 5-letter media terms not in the answer pool)
+const EXTRA_VALID = [
+  "AUDIO","CLIPS","CLOSE","EDITS","EXTRA","FINAL",
+  "LIGHT","MEDIA","MIXER","MOVIE","MUTED","NOISE",
+  "PILOT","PRINT","PROPS","RADIO","RATED","REACT",
+  "ROLES","ROUGH","SETUP","SHOOT","SHORT","SOUND",
+  "SPEED","STAGE","STUNT","SYNTH","THEME","TONAL",
+  "TRAIL","VIDEO","VIOLA","VIRAL","WIDER","WRITE",
+  "ACTOR","CABLE","COLOR","CURVE","DANCE","DRAMA",
+  "FABLE","FILMY","FLASH","FOCUS","IMAGE","LAYER",
+  "LEVEL","MOUNT","MUSIC","PANEL","PLATE","POWER",
+  "PRIME","PRINT","PROBE","PUNCH","RANGE","SCENE",
+  "SCOPE","SLATE","SPOOL","STEAL","STORY","SUITE",
+  "SUPER","SWEEP","SWING","TEASE","TWIST","UNITY",
+  "VERSE","VIGOR","WATCH","WIDER","YIELD","ZOOMS"
+];
+
+// Build valid guess set
+const VALID_GUESSES = new Set([
+  ...WORD_BANK.map(w => w.word),
+  ...EXTRA_VALID
+]);
+
+// ============================================================
+// GAME STATE
+// ============================================================
+let answer, answerData, currentRow, currentCol, gameOver, guesses, boardState;
+let keyStates = {};
+let stats = JSON.parse(localStorage.getItem('terminle-stats') || '{"played":0,"won":0,"streak":0,"best":0}');
+
+function pickWord() {
+  const idx = Math.floor(Math.random() * WORD_BANK.length);
+  answerData = WORD_BANK[idx];
+  answer = answerData.word;
+}
+
+function initGame() {
+  pickWord();
+  currentRow = 0;
+  currentCol = 0;
+  gameOver = false;
+  guesses = [];
+  boardState = Array.from({ length: 6 }, () => Array(5).fill(''));
+  keyStates = {};
+  buildBoard();
+  buildKeyboard();
+  updateClue();
+  document.getElementById('resultOverlay').classList.remove('active');
+}
+
+// ============================================================
+// UI BUILD
+// ============================================================
+function buildBoard() {
+  const board = document.getElementById('board');
+  board.innerHTML = '';
+  for (let r = 0; r < 6; r++) {
+    const row = document.createElement('div');
+    row.className = 'row';
+    row.id = `row-${r}`;
+    for (let c = 0; c < 5; c++) {
+      const tile = document.createElement('div');
+      tile.className = 'tile';
+      tile.id = `tile-${r}-${c}`;
+      row.appendChild(tile);
+    }
+    board.appendChild(row);
+  }
+}
+
+const KB_ROWS = [
+  ['Q','W','E','R','T','Y','U','I','O','P'],
+  ['A','S','D','F','G','H','J','K','L'],
+  ['ENTER','Z','X','C','V','B','N','M','⌫']
+];
+
+function buildKeyboard() {
+  const kb = document.getElementById('keyboard');
+  kb.innerHTML = '';
+  KB_ROWS.forEach(row => {
+    const rowEl = document.createElement('div');
+    rowEl.className = 'kb-row';
+    row.forEach(k => {
+      const btn = document.createElement('button');
+      btn.className = 'key' + (k.length > 1 ? ' wide' : '');
+      btn.textContent = k;
+      btn.id = `key-${k}`;
+      btn.addEventListener('click', () => handleKey(k));
+      rowEl.appendChild(btn);
+    });
+    kb.appendChild(rowEl);
+  });
+}
+
+function updateClue() {
+  document.getElementById('clueText').textContent = answerData.clue;
+}
+
+// ============================================================
+// INPUT HANDLING
+// ============================================================
+function handleKey(k) {
+  if (gameOver) return;
+  if (k === '⌫' || k === 'BACKSPACE') return deleteLetter();
+  if (k === 'ENTER') return submitGuess();
+  if (/^[A-Z]$/.test(k) && currentCol < 5) addLetter(k);
+}
+
+function addLetter(letter) {
+  boardState[currentRow][currentCol] = letter;
+  const tile = document.getElementById(`tile-${currentRow}-${currentCol}`);
+  tile.textContent = letter;
+  tile.classList.add('filled');
+  currentCol++;
+}
+
+function deleteLetter() {
+  if (currentCol === 0) return;
+  currentCol--;
+  boardState[currentRow][currentCol] = '';
+  const tile = document.getElementById(`tile-${currentRow}-${currentCol}`);
+  tile.textContent = '';
+  tile.classList.remove('filled');
+}
+
+function submitGuess() {
+  if (currentCol < 5) {
+    shakeRow(currentRow);
+    showToast('Not enough letters');
+    return;
+  }
+
+  const guess = boardState[currentRow].join('');
+
+  if (!VALID_GUESSES.has(guess)) {
+    shakeRow(currentRow);
+    showToast('Not a valid media term');
+    return;
+  }
+
+  const result = evaluateGuess(guess);
+  revealRow(currentRow, result, guess);
+  guesses.push(guess);
+
+  if (guess === answer) {
+    gameOver = true;
+    setTimeout(() => bounceRow(currentRow), 1600);
+    setTimeout(() => showResult(true), 2200);
+    stats.played++;
+    stats.won++;
+    stats.streak++;
+    if (stats.streak > stats.best) stats.best = stats.streak;
+    saveStats();
+    return;
+  }
+
+  currentRow++;
+
+  if (currentRow === 6) {
+    gameOver = true;
+    setTimeout(() => showResult(false), 1800);
+    stats.played++;
+    stats.streak = 0;
+    saveStats();
+    return;
+  }
+}
+
+function evaluateGuess(guess) {
+  const result = Array(5).fill('absent');
+  const answerArr = answer.split('');
+  const guessArr = guess.split('');
+  const used = Array(5).fill(false);
+
+  // Green pass
+  for (let i = 0; i < 5; i++) {
+    if (guessArr[i] === answerArr[i]) {
+      result[i] = 'correct';
+      used[i] = true;
+      guessArr[i] = null;
+    }
+  }
+
+  // Gold pass
+  for (let i = 0; i < 5; i++) {
+    if (guessArr[i] === null) continue;
+    for (let j = 0; j < 5; j++) {
+      if (!used[j] && guessArr[i] === answerArr[j]) {
+        result[i] = 'present';
+        used[j] = true;
+        break;
+      }
+    }
+  }
+
+  return result;
+}
+
+// ============================================================
+// ANIMATIONS
+// ============================================================
+function revealRow(row, result, guess) {
+  for (let c = 0; c < 5; c++) {
+    const tile = document.getElementById(`tile-${row}-${c}`);
+    const delay = c * 280;
+
+    setTimeout(() => {
+      tile.classList.add('reveal');
+      setTimeout(() => {
+        tile.classList.add(result[c]);
+        tile.classList.remove('reveal');
+      }, 150);
+    }, delay);
+
+    // Update keyboard
+    setTimeout(() => {
+      const letter = guess[c];
+      const current = keyStates[letter];
+      const newState = result[c];
+      if (current === 'correct') return;
+      if (current === 'present' && newState !== 'correct') return;
+      keyStates[letter] = newState;
+      const keyEl = document.getElementById(`key-${letter}`);
+      if (keyEl) {
+        keyEl.classList.remove('correct', 'present', 'absent');
+        keyEl.classList.add(newState);
+      }
+    }, delay + 200);
+  }
+}
+
+function shakeRow(row) {
+  const rowEl = document.getElementById(`row-${row}`);
+  for (let c = 0; c < 5; c++) {
+    const tile = document.getElementById(`tile-${row}-${c}`);
+    tile.classList.add('shake');
+    setTimeout(() => tile.classList.remove('shake'), 500);
+  }
+}
+
+function bounceRow(row) {
+  for (let c = 0; c < 5; c++) {
+    const tile = document.getElementById(`tile-${row}-${c}`);
+    setTimeout(() => tile.classList.add('bounce'), c * 80);
+    setTimeout(() => tile.classList.remove('bounce'), c * 80 + 600);
+  }
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg) {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = msg;
+  container.appendChild(toast);
+  setTimeout(() => toast.remove(), 1600);
+}
+
+// ============================================================
+// RESULT PANEL
+// ============================================================
+function showResult(won) {
+  document.getElementById('resultIcon').textContent = won ? '🎬' : '📽️';
+  document.getElementById('resultTitle').textContent = won ? 'Brilliant!' : 'Not Quite';
+  document.getElementById('resultWord').textContent = answer;
+  document.getElementById('resultCategory').textContent = answerData.category;
+  document.getElementById('resultDefinition').textContent = answerData.definition;
+  document.getElementById('statPlayed').textContent = stats.played;
+  document.getElementById('statWon').textContent = stats.won;
+  document.getElementById('statStreak').textContent = stats.streak;
+  document.getElementById('resultOverlay').classList.add('active');
+}
+
+// ============================================================
+// STATS
+// ============================================================
+function saveStats() {
+  localStorage.setItem('terminle-stats', JSON.stringify(stats));
+}
+
+// ============================================================
+// EVENTS
+// ============================================================
+document.addEventListener('keydown', e => {
+  if (document.getElementById('helpOverlay').classList.contains('active')) {
+    if (e.key === 'Escape') document.getElementById('helpOverlay').classList.remove('active');
+    return;
+  }
+  if (document.getElementById('resultOverlay').classList.contains('active')) {
+    if (e.key === 'Enter' || e.key === 'Escape') initGame();
+    return;
+  }
+
+  const key = e.key.toUpperCase();
+  if (key === 'ENTER') handleKey('ENTER');
+  else if (key === 'BACKSPACE') handleKey('BACKSPACE');
+  else if (/^[A-Z]$/.test(key)) handleKey(key);
+});
+
+document.getElementById('helpBtn').addEventListener('click', () => {
+  document.getElementById('helpOverlay').classList.add('active');
+});
+
+document.getElementById('helpCloseBtn').addEventListener('click', () => {
+  document.getElementById('helpOverlay').classList.remove('active');
+});
+
+document.getElementById('helpOverlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) e.currentTarget.classList.remove('active');
+});
+
+document.getElementById('resultOverlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) initGame();
+});
+
+document.getElementById('playAgainBtn').addEventListener('click', () => initGame());
+
+// ============================================================
+// INIT
+// ============================================================
+initGame();
+</script>
+
+</body>
+</html>

@@ -217,6 +217,11 @@
     user-select: none;
   }
 
+  .tile.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 8px rgba(201, 168, 76, 0.25);
+  }
+
   .tile.filled {
     border-color: var(--text-dim);
     animation: pop 0.08s ease;
@@ -932,6 +937,7 @@ function initGame() {
   buildKeyboard();
   updateClue();
   document.getElementById('resultOverlay').classList.remove('active');
+  updateActiveTile();
 }
 
 // ============================================================
@@ -998,6 +1004,7 @@ function addLetter(letter) {
   tile.textContent = letter;
   tile.classList.add('filled');
   currentCol++;
+  updateActiveTile();
 }
 
 function deleteLetter() {
@@ -1007,6 +1014,17 @@ function deleteLetter() {
   const tile = document.getElementById(`tile-${currentRow}-${currentCol}`);
   tile.textContent = '';
   tile.classList.remove('filled');
+  updateActiveTile();
+}
+
+function updateActiveTile() {
+  // Clear all active highlights
+  document.querySelectorAll('.tile.active').forEach(t => t.classList.remove('active'));
+  // Highlight current tile if game is still in play
+  if (!gameOver && currentCol < 5) {
+    const tile = document.getElementById(`tile-${currentRow}-${currentCol}`);
+    if (tile) tile.classList.add('active');
+  }
 }
 
 function submitGuess() {
@@ -1030,6 +1048,7 @@ function submitGuess() {
 
   if (guess === answer) {
     gameOver = true;
+    updateActiveTile();
     setTimeout(() => bounceRow(currentRow), 1600);
     setTimeout(() => showResult(true), 2200);
     stats.played++;
@@ -1041,6 +1060,8 @@ function submitGuess() {
   }
 
   currentRow++;
+  currentCol = 0;
+  updateActiveTile();
 
   if (currentRow === 6) {
     gameOver = true;

@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Cracker — MPA Connections Game</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface-raised: #1a1a24;
+    --border: #2a2a3a;
+    --text: #e8e6e3;
+    --text-dim: #8a8a9a;
+    --text-muted: #4a4a5a;
+    --accent: #c9a84c;
+    --accent-dim: rgba(201, 168, 76, 0.12);
+
+    /* Category colours — each group gets its own identity */
+    --cat-1: #4a90d9;
+    --cat-1-bg: rgba(74, 144, 217, 0.12);
+    --cat-1-solid: #1a2a42;
+    --cat-2: #5bb878;
+    --cat-2-bg: rgba(91, 184, 120, 0.12);
+    --cat-2-solid: #1a3224;
+    --cat-3: #d4a843;
+    --cat-3-bg: rgba(212, 168, 67, 0.12);
+    --cat-3-solid: #2e2510;
+    --cat-4: #c76b6b;
+    --cat-4-bg: rgba(199, 107, 107, 0.12);
+    --cat-4-solid: #321a1a;
+
+    --tile-gap: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+  }
+
+  /* --- HEADER --- */
+  .header {
+    width: 100%;
+    max-width: 560px;
+    padding: 14px 20px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin-bottom: 4px;
+  }
+
+  .logo-brackets {
+    font-family: 'DM Mono', monospace;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--accent);
+  }
+
+  .title {
+    font-family: 'DM Mono', monospace;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .subtitle {
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .header-controls {
+    position: absolute;
+    right: 20px;
+    top: 14px;
+    display: flex;
+    gap: 8px;
+  }
+
+  .icon-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-dim);
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 16px;
+  }
+
+  .icon-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* --- INSTRUCTION BANNER --- */
+  .instruction {
+    width: 100%;
+    max-width: 560px;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .instruction strong { color: var(--text); }
+
+  /* --- MISTAKES --- */
+  .mistakes-bar {
+    width: 100%;
+    max-width: 560px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .mistakes-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .mistake-dots {
+    display: flex;
+    gap: 5px;
+  }
+
+  .mistake-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    transition: all 0.3s;
+  }
+
+  .mistake-dot.used {
+    background: var(--text-muted);
+    opacity: 0.3;
+  }
+
+  /* --- SOLVED GROUPS --- */
+  .solved-area {
+    width: 100%;
+    max-width: 560px;
+    padding: 0 12px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--tile-gap);
+  }
+
+  .solved-group {
+    border-radius: 8px;
+    padding: 14px 16px;
+    text-align: center;
+    animation: solvedReveal 0.5s ease;
+  }
+
+  @keyframes solvedReveal {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .solved-group.cat-1 { background: var(--cat-1-bg); border: 1px solid rgba(74, 144, 217, 0.25); }
+  .solved-group.cat-2 { background: var(--cat-2-bg); border: 1px solid rgba(91, 184, 120, 0.25); }
+  .solved-group.cat-3 { background: var(--cat-3-bg); border: 1px solid rgba(212, 168, 67, 0.25); }
+  .solved-group.cat-4 { background: var(--cat-4-bg); border: 1px solid rgba(199, 107, 107, 0.25); }
+
+  .solved-category {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .cat-1 .solved-category { color: var(--cat-1); }
+  .cat-2 .solved-category { color: var(--cat-2); }
+  .cat-3 .solved-category { color: var(--cat-3); }
+  .cat-4 .solved-category { color: var(--cat-4); }
+
+  .solved-words {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0.5px;
+  }
+
+  /* --- GAME GRID --- */
+  .grid-area {
+    width: 100%;
+    max-width: 560px;
+    padding: 0 12px;
+  }
+
+  .game-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--tile-gap);
+  }
+
+  .word-tile {
+    background: var(--surface-raised);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 5px;
+    text-align: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    line-height: 1.2;
+    word-break: break-word;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .word-tile:hover {
+    background: var(--surface);
+    border-color: var(--text-dim);
+  }
+
+  .word-tile.selected {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+    transform: scale(1.03);
+    box-shadow: 0 4px 16px rgba(201, 168, 76, 0.25);
+  }
+
+  .word-tile.shake {
+    animation: tileShake 0.4s ease;
+  }
+
+  @keyframes tileShake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-4px); }
+    40% { transform: translateX(4px); }
+    60% { transform: translateX(-3px); }
+    80% { transform: translateX(3px); }
+  }
+
+  .word-tile.almost {
+    animation: almostPulse 0.6s ease;
+  }
+
+  @keyframes almostPulse {
+    0% { box-shadow: none; }
+    50% { box-shadow: 0 0 20px rgba(212, 168, 67, 0.4); }
+    100% { box-shadow: none; }
+  }
+
+  /* --- CONTROLS --- */
+  .controls {
+    width: 100%;
+    max-width: 560px;
+    padding: 12px 12px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .btn {
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+
+  .btn-secondary {
+    background: var(--surface-raised);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--text-dim);
+    color: var(--text);
+  }
+
+  .btn-secondary:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  .btn-primary:hover {
+    background: #d4b35a;
+    transform: translateY(-1px);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.3;
+    cursor: default;
+    transform: none;
+  }
+
+  /* --- TOAST --- */
+  .toast-container {
+    position: fixed;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    pointer-events: none;
+  }
+
+  .toast {
+    background: var(--text);
+    color: var(--bg);
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    animation: toastIn 0.2s ease, toastOut 0.3s ease 1.5s forwards;
+    white-space: nowrap;
+  }
+
+  @keyframes toastIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes toastOut {
+    to { opacity: 0; transform: translateY(-10px); }
+  }
+
+  /* --- RESULT OVERLAY --- */
+  .result-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 5, 10, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 50;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .result-overlay.active { display: flex; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .result-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
+    max-width: 400px;
+    width: 100%;
+    animation: slideUp 0.4s ease;
+    text-align: center;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-icon { font-size: 40px; margin-bottom: 12px; }
+
+  .result-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .result-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  .result-group {
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+  }
+
+  .result-group-name {
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+
+  .result-group-words {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .result-group.cat-1 { background: var(--cat-1-bg); }
+  .result-group.cat-1 .result-group-name { color: var(--cat-1); }
+  .result-group.cat-2 { background: var(--cat-2-bg); }
+  .result-group.cat-2 .result-group-name { color: var(--cat-2); }
+  .result-group.cat-3 { background: var(--cat-3-bg); }
+  .result-group.cat-3 .result-group-name { color: var(--cat-3); }
+  .result-group.cat-4 { background: var(--cat-4-bg); }
+  .result-group.cat-4 .result-group-name { color: var(--cat-4); }
+
+  .result-stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin: 16px 0;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stat-value {
+    font-family: 'DM Mono', monospace;
+    font-size: 22px;
+    font-weight: 500;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  .btn-play-again {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 28px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 4px;
+  }
+
+  .btn-play-again:hover {
+    background: #d4b35a;
+    transform: translateY(-1px);
+  }
+
+  /* --- HELP MODAL --- */
+  .help-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 5, 10, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 60;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .help-overlay.active { display: flex; }
+
+  .help-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 400px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease;
+  }
+
+  .help-card h2 {
+    font-family: 'DM Mono', monospace;
+    font-size: 16px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .help-card p {
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .help-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 16px 0;
+  }
+
+  .help-close {
+    display: block;
+    margin: 16px auto 0;
+    background: var(--surface-raised);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .help-close:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 420px) {
+    .header { padding: 10px 16px 8px; }
+    .title { font-size: 18px; letter-spacing: 2px; }
+    .logo-brackets { font-size: 18px; }
+    .subtitle { font-size: 10px; }
+    .instruction { font-size: 12px; padding: 8px 16px; }
+    .word-tile { padding: 9px 3px; font-size: 10px; min-height: 42px; }
+    .controls { padding: 8px 12px; gap: 8px; }
+    .btn { padding: 9px 16px; font-size: 12px; }
+    .solved-group { padding: 10px 12px; }
+    .solved-category { font-size: 11px; }
+    .solved-words { font-size: 12px; }
+  }
+
+  @media (max-height: 600px) {
+    .header { padding: 6px 12px 4px; }
+    .subtitle { display: none; }
+    .instruction { padding: 6px 12px; font-size: 11px; }
+    .mistakes-bar { padding: 6px 12px; }
+    .word-tile { padding: 9px 4px; font-size: 11px; }
+    .controls { padding: 6px 12px; }
+    .solved-group { padding: 8px 10px; }
+    :root { --tile-gap: 5px; }
+  }
+
+  @media (max-height: 500px) {
+    .header { padding: 4px 10px 2px; }
+    .header-top { margin-bottom: 0; }
+    .instruction { padding: 4px 10px; font-size: 10px; }
+    .mistakes-bar { padding: 4px 10px; }
+    .word-tile { padding: 7px 3px; font-size: 10px; }
+    .controls { padding: 4px 10px; }
+    .btn { padding: 7px 14px; font-size: 11px; }
+    :root { --tile-gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <span class="logo-brackets">{</span>
+    <div class="title">Code Cracker</div>
+    <span class="logo-brackets">}</span>
+  </div>
+  <div class="subtitle">Year 12 ATAR MPA — Categorise the Concepts</div>
+  <div class="header-controls">
+    <button class="icon-btn" id="helpBtn" aria-label="How to play">?</button>
+  </div>
+</div>
+
+<!-- INSTRUCTION -->
+<div class="instruction">
+  Select <strong>4 terms</strong> that belong to the same category, then submit.
+</div>
+
+<!-- MISTAKES -->
+<div class="mistakes-bar">
+  <span class="mistakes-label">Mistakes remaining</span>
+  <div class="mistake-dots" id="mistakeDots">
+    <div class="mistake-dot" id="dot-0"></div>
+    <div class="mistake-dot" id="dot-1"></div>
+    <div class="mistake-dot" id="dot-2"></div>
+    <div class="mistake-dot" id="dot-3"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- SOLVED GROUPS -->
+<div class="solved-area" id="solvedArea"></div>
+
+<!-- GAME GRID -->
+<div class="grid-area">
+  <div class="game-grid" id="gameGrid"></div>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <button class="btn btn-secondary" id="shuffleBtn">Shuffle</button>
+  <button class="btn btn-secondary" id="deselectBtn" disabled>Deselect</button>
+  <button class="btn btn-primary" id="submitBtn" disabled>Submit</button>
+</div>
+
+<!-- RESULT OVERLAY -->
+<div class="result-overlay" id="resultOverlay">
+  <div class="result-card">
+    <div class="result-icon" id="resultIcon"></div>
+    <div class="result-title" id="resultTitle"></div>
+    <div class="result-groups" id="resultGroups"></div>
+    <div class="result-stats">
+      <div class="stat">
+        <div class="stat-value" id="statPlayed">0</div>
+        <div class="stat-label">Played</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="statWon">0</div>
+        <div class="stat-label">Won</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="statStreak">0</div>
+        <div class="stat-label">Streak</div>
+      </div>
+    </div>
+    <button class="btn-play-again" id="playAgainBtn"><span>▶</span> Play Again</button>
+  </div>
+</div>
+
+<!-- HELP MODAL -->
+<div class="help-overlay" id="helpOverlay">
+  <div class="help-card">
+    <h2>How to Play</h2>
+    <p>Find <strong>four groups of four</strong> related media terms from the Year 12 MPA syllabus.</p>
+    <p>Tap four terms you think belong to the same category, then press <strong>Submit</strong>. If you're correct, the group is revealed. If not, you lose a life.</p>
+    <p>You have <strong>4 mistakes</strong> allowed. If three of your four selections are correct, you'll get an <strong>"One away…"</strong> hint.</p>
+    <div class="help-divider"></div>
+    <p>Groups are colour-coded by difficulty: <span style="color:var(--cat-1);font-weight:700;">Blue</span> is the most straightforward, then <span style="color:var(--cat-2);font-weight:700;">Green</span>, <span style="color:var(--cat-3);font-weight:700;">Gold</span>, and <span style="color:var(--cat-4);font-weight:700;">Red</span> is the trickiest.</p>
+    <div class="help-divider"></div>
+    <p>Use <strong>Shuffle</strong> to rearrange the tiles — sometimes a fresh layout helps you spot connections. Use <strong>Deselect</strong> to clear your current selection.</p>
+    <div class="help-divider"></div>
+    <p style="color:var(--text-dim);font-size:12px;">Built for Sacred Heart College Year 12 ATAR MPA revision. Terms drawn from Units 3 &amp; 4 syllabus content.</p>
+    <button class="help-close" id="helpCloseBtn">Got it</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// CODE CRACKER — PUZZLE SETS
+// Each puzzle has 4 groups ordered by difficulty:
+//   color 1 (Blue)  = most straightforward
+//   color 2 (Green) = moderate
+//   color 3 (Gold)  = tricky — terms could feel cross-category
+//   color 4 (Red)   = hardest — requires precise syllabus knowledge
+//
+// ALL terms sourced from or directly adjacent to the
+// Year 12 ATAR MPA Units 3 & 4 terminology list.
+// No hyphens. Every term sits unambiguously in its group.
+// ============================================================
+const PUZZLES = [
+  {
+    // Puzzle 1
+    groups: [
+      { category: "Representation Categories", words: ["CLASS", "GENDER", "RACE", "STEREOTYPE"], color: 1 },
+      { category: "Semiotics", words: ["SIGN", "SIGNIFIER", "SIGNIFIED", "CODES"], color: 2 },
+      { category: "Audience Readings", words: ["DOMINANT", "NEGOTIATED", "RESISTANT", "PREFERRED"], color: 3 },
+      { category: "Postmodern Concepts", words: ["PASTICHE", "PARODY", "BRICOLAGE", "SIMULACRA"], color: 4 }
+    ]
+  },
+  {
+    // Puzzle 2
+    groups: [
+      { category: "Camera Movements", words: ["DOLLY", "CRANE", "TRACK", "TILT"], color: 1 },
+      { category: "Audio Codes", words: ["SCORE", "FOLEY", "DIEGETIC", "SOUND"], color: 2 },
+      { category: "Film Movements", words: ["NOIR", "REALISM", "EXPRESSIONISM", "SURREALISM"], color: 3 },
+      { category: "Cultural Theory", words: ["HEGEMONY", "IDEOLOGY", "FEMINISM", "DISCOURSE"], color: 4 }
+    ]
+  },
+  {
+    // Puzzle 3
+    groups: [
+      { category: "Semiotic Analysis", words: ["DENOTATION", "CONNOTATION", "ANCHORAGE", "POLYSEMIC"], color: 1 },
+      { category: "Editing Techniques", words: ["MONTAGE", "DISSOLVE", "JUXTAPOSITION", "PARALLEL"], color: 2 },
+      { category: "Persuasion and Rhetoric", words: ["PROPAGANDA", "RHETORIC", "PERSUASION", "TRANSFER"], color: 3 },
+      { category: "Audience Types", words: ["NICHE", "MAINSTREAM", "DEMOGRAPHIC", "CONSUMER"], color: 4 }
+    ]
+  },
+  {
+    // Puzzle 4
+    groups: [
+      { category: "Narrative Structure", words: ["PROTAGONIST", "ANTAGONIST", "EXPOSITION", "ENIGMA"], color: 1 },
+      { category: "Mise en Scene Elements", words: ["ICONOGRAPHY", "SYMBOL", "METAPHOR", "METONYMY"], color: 2 },
+      { category: "Institutional Context", words: ["GENRE", "CENSORSHIP", "BRANDING", "PROMOTION"], color: 3 },
+      { category: "Viewing Positions", words: ["VOYEUR", "CATHARSIS", "ACTIVE", "PASSIVE"], color: 4 }
+    ]
+  },
+  {
+    // Puzzle 5
+    groups: [
+      { category: "Sound in Media", words: ["DIEGETIC", "SCORE", "FOLEY", "SOUND"], color: 1 },
+      { category: "Auteur Theory", words: ["AUTEUR", "STYLE", "VOICE", "MOTIF"], color: 2 },
+      { category: "Global Media Concepts", words: ["GLOBALISATION", "CONVERGENCE", "BROADCAST", "SATURATION"], color: 3 },
+      { category: "Ideology and Power", words: ["HEGEMONY", "IDEOLOGY", "PROPAGANDA", "DISCOURSE"], color: 4 }
+    ]
+  },
+  {
+    // Puzzle 6
+    groups: [
+      { category: "Representation Issues", words: ["STEREOTYPE", "GENDER", "CLASS", "RACE"], color: 1 },
+      { category: "Narrative Devices", words: ["ENIGMA", "IRONY", "NARRATOR", "CATHARSIS"], color: 2 },
+      { category: "Media Regulation", words: ["CENSORSHIP", "CONTROLS", "CONSTRAINTS", "REGULATION"], color: 3 },
+      { category: "Textual Readings", words: ["DOMINANT", "NEGOTIATED", "RESISTANT", "POLYSEMIC"], color: 4 }
+    ]
+  },
+  {
+    // Puzzle 7
+    groups: [
+      { category: "Genre Conventions", words: ["GENRE", "ICONOGRAPHY", "HOMAGE", "TROPE"], color: 1 },
+      { category: "Signs and Meaning", words: ["SIGN", "CODES", "CONNOTATION", "DENOTATION"], color: 2 },
+      { category: "Postmodern Textuality", words: ["PARODY", "PASTICHE", "INTERTEXTUALITY", "MIMICRY"], color: 3 },
+      { category: "Audience Engagement", words: ["ACTIVE", "PASSIVE", "VOYEUR", "CONSUMER"], color: 4 }
+    ]
+  },
+  {
+    // Puzzle 8
+    groups: [
+      { category: "Film Styles", words: ["NOIR", "CULT", "AUTEUR", "REALISM"], color: 1 },
+      { category: "Rhetorical Techniques", words: ["RHETORIC", "PROPAGANDA", "PERSUASION", "ANCHORAGE"], color: 2 },
+      { category: "Narrative Theory", words: ["LINEAR", "PROTAGONIST", "ANTAGONIST", "EXPOSITION"], color: 3 },
+      { category: "Layers of Meaning", words: ["CONNOTATION", "METAPHOR", "METONYMY", "IRONY"], color: 4 }
+    ]
+  },
+  {
+    // Puzzle 9
+    groups: [
+      { category: "Camera and Framing", words: ["ANGLE", "FRAME", "DEPTH", "TRACK"], color: 1 },
+      { category: "Cultural Context", words: ["FEMINISM", "IDEOLOGY", "HEGEMONY", "DISCOURSE"], color: 2 },
+      { category: "Industry and Production", words: ["PRODUCER", "DIRECTOR", "INDIE", "PROMOTION"], color: 3 },
+      { category: "Symbolic Codes", words: ["SYMBOL", "MOTIF", "METAPHOR", "ICONOGRAPHY"], color: 4 }
+    ]
+  },
+  {
+    // Puzzle 10
+    groups: [
+      { category: "Editing and Pacing", words: ["MONTAGE", "DISSOLVE", "JUXTAPOSITION", "TEMPO"], color: 1 },
+      { category: "Audience and Reception", words: ["NICHE", "MAINSTREAM", "DEMOGRAPHIC", "READINGS"], color: 2 },
+      { category: "Representation and Identity", words: ["STEREOTYPE", "GENDER", "MISOGYNISTIC", "CLASS"], color: 3 },
+      { category: "Semiotic Theory", words: ["SIGNIFIER", "SIGNIFIED", "ANCHORAGE", "POLYSEMIC"], color: 4 }
+    ]
+  },
+  {
+    // Puzzle 11
+    groups: [
+      { category: "Narrative Elements", words: ["PROTAGONIST", "ANTAGONIST", "NARRATOR", "ENIGMA"], color: 1 },
+      { category: "Postmodern Ideas", words: ["SIMULACRA", "BRICOLAGE", "PASTICHE", "INTERTEXTUALITY"], color: 2 },
+      { category: "Sound Design", words: ["DIEGETIC", "FOLEY", "SCORE", "SOUND"], color: 3 },
+      { category: "Media and Globalisation", words: ["CONVERGENCE", "BROADCAST", "GLOBALISATION", "SATURATION"], color: 4 }
+    ]
+  },
+  {
+    // Puzzle 12
+    groups: [
+      { category: "Camera Techniques", words: ["DOLLY", "CRANE", "TILT", "ANGLE"], color: 1 },
+      { category: "Auteur and Style", words: ["AUTEUR", "STYLE", "VOICE", "MOTIF"], color: 2 },
+      { category: "Persuasion in Media", words: ["PROPAGANDA", "RHETORIC", "TRANSFER", "PERSUASION"], color: 3 },
+      { category: "Film Movements and Styles", words: ["EXPRESSIONISM", "SURREALISM", "REALISM", "NOIR"], color: 4 }
+    ]
+  }
+];
+
+// ============================================================
+// GAME STATE
+// ============================================================
+let currentPuzzle, currentPuzzleIndex, remainingWords, selected;
+let solvedGroups, mistakes, gameOver, previousGuesses;
+let playedPuzzles = JSON.parse(localStorage.getItem('codecracker-played') || '[]');
+let stats = JSON.parse(localStorage.getItem('codecracker-stats') || '{"played":0,"won":0,"streak":0}');
+
+function pickPuzzle() {
+  // Filter out recently played puzzles (keep last 8 to ensure variety)
+  let available = PUZZLES.map((_, i) => i).filter(i => !playedPuzzles.includes(i));
+
+  // If all puzzles played, reset the tracker
+  if (available.length === 0) {
+    playedPuzzles = [];
+    available = PUZZLES.map((_, i) => i);
+  }
+
+  currentPuzzleIndex = available[Math.floor(Math.random() * available.length)];
+  currentPuzzle = PUZZLES[currentPuzzleIndex];
+
+  // Track this puzzle as played
+  playedPuzzles.push(currentPuzzleIndex);
+  // Keep only the last 8 to allow eventual replay
+  if (playedPuzzles.length > 8) playedPuzzles = playedPuzzles.slice(-8);
+  localStorage.setItem('codecracker-played', JSON.stringify(playedPuzzles));
+}
+
+function initGame() {
+  pickPuzzle();
+  selected = [];
+  solvedGroups = [];
+  mistakes = 0;
+  gameOver = false;
+  previousGuesses = [];
+
+  // Flatten and shuffle all 16 words
+  remainingWords = [];
+  currentPuzzle.groups.forEach(g => {
+    g.words.forEach(w => remainingWords.push(w));
+  });
+  shuffle(remainingWords);
+
+  renderGrid();
+  renderSolved();
+  updateMistakes();
+  updateButtons();
+  document.getElementById('resultOverlay').classList.remove('active');
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// ============================================================
+// RENDERING
+// ============================================================
+function renderGrid() {
+  const grid = document.getElementById('gameGrid');
+  grid.innerHTML = '';
+  remainingWords.forEach(word => {
+    const tile = document.createElement('div');
+    tile.className = 'word-tile' + (selected.includes(word) ? ' selected' : '');
+    tile.textContent = word;
+    tile.addEventListener('click', () => toggleWord(word));
+    grid.appendChild(tile);
+  });
+}
+
+function renderSolved() {
+  const area = document.getElementById('solvedArea');
+  area.innerHTML = '';
+  solvedGroups.forEach(g => {
+    const div = document.createElement('div');
+    div.className = `solved-group cat-${g.color}`;
+    div.innerHTML = `
+      <div class="solved-category">${g.category}</div>
+      <div class="solved-words">${g.words.join(' &nbsp;·&nbsp; ')}</div>
+    `;
+    area.appendChild(div);
+  });
+}
+
+function updateMistakes() {
+  for (let i = 0; i < 4; i++) {
+    const dot = document.getElementById(`dot-${i}`);
+    dot.classList.toggle('used', i < mistakes);
+  }
+}
+
+function updateButtons() {
+  document.getElementById('deselectBtn').disabled = selected.length === 0;
+  document.getElementById('submitBtn').disabled = selected.length !== 4;
+}
+
+// ============================================================
+// INTERACTION
+// ============================================================
+function toggleWord(word) {
+  if (gameOver) return;
+
+  const idx = selected.indexOf(word);
+  if (idx > -1) {
+    selected.splice(idx, 1);
+  } else {
+    if (selected.length >= 4) return;
+    selected.push(word);
+  }
+
+  renderGrid();
+  updateButtons();
+}
+
+function submitGuess() {
+  if (selected.length !== 4 || gameOver) return;
+
+  // Check for duplicate guess
+  const key = [...selected].sort().join(',');
+  if (previousGuesses.includes(key)) {
+    showToast('Already guessed that combination');
+    return;
+  }
+  previousGuesses.push(key);
+
+  // Check against each unsolved group
+  for (const group of currentPuzzle.groups) {
+    if (solvedGroups.includes(group)) continue;
+    const match = group.words.every(w => selected.includes(w)) &&
+                  selected.every(w => group.words.includes(w));
+    if (match) {
+      // Correct!
+      solvedGroups.push(group);
+      remainingWords = remainingWords.filter(w => !group.words.includes(w));
+      selected = [];
+      renderSolved();
+      renderGrid();
+      updateButtons();
+
+      if (solvedGroups.length === 4) {
+        gameOver = true;
+        stats.played++;
+        stats.won++;
+        stats.streak++;
+        saveStats();
+        setTimeout(() => showResult(true), 600);
+      }
+      return;
+    }
+  }
+
+  // Check if one away
+  let oneAway = false;
+  for (const group of currentPuzzle.groups) {
+    if (solvedGroups.includes(group)) continue;
+    const overlap = selected.filter(w => group.words.includes(w)).length;
+    if (overlap === 3) {
+      oneAway = true;
+      break;
+    }
+  }
+
+  // Wrong guess
+  mistakes++;
+  updateMistakes();
+
+  if (oneAway) {
+    showToast('One away…');
+    // Pulse the tiles before clearing selection
+    document.querySelectorAll('.word-tile.selected').forEach(t => {
+      t.classList.add('almost');
+      setTimeout(() => t.classList.remove('almost'), 700);
+    });
+  } else {
+    // Shake the tiles before clearing selection
+    document.querySelectorAll('.word-tile.selected').forEach(t => {
+      t.classList.add('shake');
+      setTimeout(() => t.classList.remove('shake'), 500);
+    });
+  }
+
+  // Clear selection after wrong guess (with short delay so animation plays)
+  setTimeout(() => {
+    selected = [];
+    renderGrid();
+    updateButtons();
+  }, 600);
+
+  if (mistakes >= 4) {
+    gameOver = true;
+    stats.played++;
+    stats.streak = 0;
+    saveStats();
+
+    // Reveal remaining groups
+    setTimeout(() => {
+      currentPuzzle.groups.forEach(g => {
+        if (!solvedGroups.includes(g)) {
+          solvedGroups.push(g);
+          remainingWords = remainingWords.filter(w => !g.words.includes(w));
+        }
+      });
+      selected = [];
+      renderSolved();
+      renderGrid();
+      updateButtons();
+      setTimeout(() => showResult(false), 500);
+    }, 900);
+  }
+}
+
+function deselectAll() {
+  selected = [];
+  renderGrid();
+  updateButtons();
+}
+
+function shuffleRemaining() {
+  shuffle(remainingWords);
+  renderGrid();
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg) {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = msg;
+  container.appendChild(toast);
+  setTimeout(() => toast.remove(), 2000);
+}
+
+// ============================================================
+// RESULT
+// ============================================================
+function showResult(won) {
+  document.getElementById('resultIcon').textContent = won ? '🎬' : '📽️';
+  document.getElementById('resultTitle').textContent = won ? 'All Cracked!' : 'Not This Time';
+
+  const groupsEl = document.getElementById('resultGroups');
+  groupsEl.innerHTML = '';
+  // Show groups in difficulty order (1–4)
+  const sorted = [...currentPuzzle.groups].sort((a, b) => a.color - b.color);
+  sorted.forEach(g => {
+    const div = document.createElement('div');
+    div.className = `result-group cat-${g.color}`;
+    div.innerHTML = `
+      <div class="result-group-name">${g.category}</div>
+      <div class="result-group-words">${g.words.join(' · ')}</div>
+    `;
+    groupsEl.appendChild(div);
+  });
+
+  document.getElementById('statPlayed').textContent = stats.played;
+  document.getElementById('statWon').textContent = stats.won;
+  document.getElementById('statStreak').textContent = stats.streak;
+
+  document.getElementById('resultOverlay').classList.add('active');
+}
+
+function saveStats() {
+  localStorage.setItem('codecracker-stats', JSON.stringify(stats));
+}
+
+// ============================================================
+// EVENTS
+// ============================================================
+document.getElementById('submitBtn').addEventListener('click', submitGuess);
+document.getElementById('deselectBtn').addEventListener('click', deselectAll);
+document.getElementById('shuffleBtn').addEventListener('click', shuffleRemaining);
+document.getElementById('playAgainBtn').addEventListener('click', initGame);
+
+document.getElementById('helpBtn').addEventListener('click', () => {
+  document.getElementById('helpOverlay').classList.add('active');
+});
+document.getElementById('helpCloseBtn').addEventListener('click', () => {
+  document.getElementById('helpOverlay').classList.remove('active');
+});
+document.getElementById('helpOverlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) e.currentTarget.classList.remove('active');
+});
+document.getElementById('resultOverlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) initGame();
+});
+
+// Keyboard shortcut — Enter to submit
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !gameOver && selected.length === 4) submitGuess();
+  if (e.key === 'Escape') {
+    document.getElementById('helpOverlay').classList.remove('active');
+    if (document.getElementById('resultOverlay').classList.contains('active')) initGame();
+  }
+});
+
+// ============================================================
+// INIT
+// ============================================================
+initGame();
+</script>
+
+</body>
+</html>

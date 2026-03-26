@@ -21,6 +21,7 @@
   --text-dim: #a0a0b8;
   --text-muted: #7a7a94;
   --film-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  --error: #f06565;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -38,6 +39,121 @@ body::before {
   pointer-events: none;
   z-index: 9999;
   opacity: 0.35;
+}
+
+/* ── LOGIN OVERLAY ── */
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--bg-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.login-overlay::before {
+  content: '';
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(ellipse, rgba(91,127,245,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.login-overlay.hidden {
+  display: none;
+}
+.login-box {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2.5rem 2.2rem 2rem;
+  width: 90%;
+  max-width: 380px;
+  text-align: center;
+  animation: fadeUp 0.5s ease both;
+}
+.login-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+.login-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.35rem;
+}
+.login-sub {
+  font-size: 0.84rem;
+  color: var(--text-dim);
+  font-weight: 300;
+  margin-bottom: 1.6rem;
+}
+.login-field {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  margin-bottom: 0.75rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.92rem;
+  outline: none;
+  transition: border-color 0.25s;
+}
+.login-field::placeholder {
+  color: var(--text-muted);
+  font-weight: 300;
+}
+.login-field:focus {
+  border-color: var(--accent);
+}
+.login-btn {
+  width: 100%;
+  padding: 0.72rem 1rem;
+  margin-top: 0.5rem;
+  background: var(--accent-dim);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.25s;
+  letter-spacing: 0.02em;
+}
+.login-btn:hover {
+  background: var(--accent);
+}
+.login-error {
+  font-size: 0.78rem;
+  color: var(--error);
+  margin-top: 0.7rem;
+  min-height: 1.2em;
+  font-weight: 400;
+  transition: opacity 0.3s;
+}
+.login-error.hidden {
+  opacity: 0;
+}
+
+/* ── SITE CONTENT (hidden until auth) ── */
+.site-content {
+  display: none;
+}
+.site-content.visible {
+  display: block;
 }
 
 .hero {
@@ -356,10 +472,31 @@ body::before {
   .main { padding: 1.5rem 1.2rem 3rem; }
   .welcome-audio { padding: 0 1.2rem 1.5rem; }
   .card-grid { grid-template-columns: 1fr; }
+  .login-box { padding: 2rem 1.5rem 1.5rem; }
 }
 </style>
 </head>
 <body>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- LOGIN OVERLAY                             -->
+<!-- ══════════════════════════════════════════ -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <div class="login-label">Year 12 ATAR &middot; Media Production &amp; Analysis</div>
+    <div class="login-title">Revision Hub</div>
+    <p class="login-sub">Enter the credentials provided by Mr&nbsp;Clarke to access your revision resources.</p>
+    <input type="text" class="login-field" id="loginUser" placeholder="Username" autocomplete="off" spellcheck="false">
+    <input type="password" class="login-field" id="loginPass" placeholder="Password" autocomplete="off">
+    <button class="login-btn" id="loginBtn">Enter</button>
+    <div class="login-error hidden" id="loginError">Incorrect username or password. Try again.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SITE CONTENT (hidden until authenticated) -->
+<!-- ══════════════════════════════════════════ -->
+<div class="site-content" id="siteContent">
 
 <header class="hero">
   <div class="hero-label">Year 12 ATAR &middot; Media Production &amp; Analysis</div>
@@ -539,6 +676,72 @@ body::before {
   Year 12 ATAR MPA &middot; Sacred Heart College &middot; 2026<br>
   <span style="color: #5a5a6e;">Resources developed by David Clarke &middot; Media Production &amp; Analysis</span>
 </footer>
+
+</div><!-- end .site-content -->
+
+<!-- ══════════════════════════════════════════ -->
+<!-- AUTH SCRIPT – SHA-256 hashed credentials  -->
+<!-- ══════════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  // SHA-256 hashes – the actual username and password never appear in source
+  const VALID_USER_HASH = 'd5506c3f045a27380f2508acbd828833f4d247e7aefa5ba08555169df92bcebf';
+  const VALID_PASS_HASH = '410caa78609084c279d26bc9185da6d2c3c793d9948e1361b7c31415f930cbb7';
+  const STORAGE_KEY = 'mpa_auth';
+
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  const overlay  = document.getElementById('loginOverlay');
+  const content  = document.getElementById('siteContent');
+  const userIn   = document.getElementById('loginUser');
+  const passIn   = document.getElementById('loginPass');
+  const btn      = document.getElementById('loginBtn');
+  const errMsg   = document.getElementById('loginError');
+
+  function unlock() {
+    overlay.classList.add('hidden');
+    content.classList.add('visible');
+    localStorage.setItem(STORAGE_KEY, 'true');
+  }
+
+  // If already authenticated on this device, skip the login
+  if (localStorage.getItem(STORAGE_KEY) === 'true') {
+    unlock();
+  }
+
+  async function attempt() {
+    const userHash = await sha256(userIn.value);
+    const passHash = await sha256(passIn.value);
+
+    if (userHash === VALID_USER_HASH && passHash === VALID_PASS_HASH) {
+      unlock();
+    } else {
+      errMsg.classList.remove('hidden');
+      passIn.value = '';
+      passIn.focus();
+    }
+  }
+
+  btn.addEventListener('click', attempt);
+
+  // Allow Enter key to submit from either field
+  userIn.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { passIn.focus(); }
+  });
+  passIn.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { attempt(); }
+  });
+
+  // Clear error when user starts typing again
+  userIn.addEventListener('input', function () { errMsg.classList.add('hidden'); });
+  passIn.addEventListener('input', function () { errMsg.classList.add('hidden'); });
+})();
+</script>
 
 </body>
 </html>

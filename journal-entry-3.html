@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Journal Entry 3 – Samson and Delilah Essay Guide | Year 12 ATAR MPA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #0a0a0f;
+  --bg-card: #12121a;
+  --bg-card-hover: #1a1a26;
+  --bg-elevated: #181822;
+  --border: #2a2a3a;
+  --border-light: #3a3a4a;
+  --accent: #5b7ff5;
+  --accent-bright: #7b9aff;
+  --accent-dim: #3d5af1;
+  --gold: #e8c547;
+  --green: #4caf7d;
+  --teal: #3db8a0;
+  --purple: #a073d9;
+  --red: #e57373;
+  --text: #e0e0ec;
+  --text-dim: #a0a0b8;
+  --text-muted: #7a7a94;
+  --film-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  --error: #f06565;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: var(--film-grain);
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.35;
+}
+
+/* ═════════ LOGIN OVERLAY ═════════ */
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--bg-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2rem;
+}
+.login-overlay.hidden { display: none; }
+.login-overlay::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  height: 900px;
+  max-width: 100vw;
+  max-height: 100vh;
+  background: radial-gradient(ellipse, rgba(91,127,245,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.login-box {
+  position: relative;
+  z-index: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 2.5rem;
+  max-width: 440px;
+  width: 100%;
+}
+.login-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+.login-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.login-hint {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+.login-field {
+  margin-bottom: 1rem;
+}
+.login-field label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.05em;
+}
+.login-field input {
+  width: 100%;
+  background: var(--bg-deep);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 1rem;
+}
+.login-field input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.login-btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.8rem 1.5rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+.login-btn:hover { background: var(--accent-bright); }
+.login-error {
+  color: var(--error);
+  font-size: 0.85rem;
+  margin-top: 0.8rem;
+  text-align: center;
+}
+.login-error.hidden { display: none; }
+
+.site-content { display: none; }
+.site-content.visible { display: block; }
+
+/* ═════════ BACK NAV ═════════ */
+.back-nav {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  padding: 0.8rem 2rem;
+}
+.back-link {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.15s;
+}
+.back-link:hover { color: var(--accent-bright); }
+
+/* ═════════ HERO ═════════ */
+.hero {
+  position: relative;
+  padding: 3.5rem 2rem 3rem;
+  text-align: center;
+  background: linear-gradient(180deg, #10101a 0%, var(--bg-deep) 100%);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 900px;
+  background: radial-gradient(ellipse, rgba(91,127,245,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+  position: relative;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 0.8rem;
+  position: relative;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent-bright);
+}
+.hero-sub {
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* ═════════ MESSAGE FROM MR CLARKE ═════════ */
+.message-box {
+  max-width: 800px;
+  margin: 2rem auto 0;
+  padding: 1.6rem 1.8rem;
+  background: linear-gradient(135deg, rgba(160,115,217,0.08) 0%, rgba(91,127,245,0.05) 100%);
+  border-left: 3px solid var(--purple);
+  border-radius: 6px;
+}
+.message-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 0.5rem;
+}
+.message-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+.message-text {
+  color: var(--text-dim);
+  font-size: 0.98rem;
+}
+
+/* ═════════ CONFIDENCE TRACKER ═════════ */
+.progress-section {
+  max-width: 800px;
+  margin: 2rem auto 0;
+  padding: 1.3rem 1.8rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.7rem;
+}
+.progress-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.progress-count {
+  font-size: 0.9rem;
+  color: var(--accent-bright);
+  font-weight: 500;
+}
+.progress-track {
+  height: 6px;
+  background: var(--bg-deep);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-dim), var(--accent-bright));
+  width: 0%;
+  transition: width 0.4s;
+}
+.progress-done {
+  text-align: center;
+  color: var(--green);
+  font-size: 0.9rem;
+  margin-top: 0.7rem;
+  display: none;
+}
+.progress-done.visible { display: block; }
+
+/* ═════════ MODE TABS ═════════ */
+.mode-tabs {
+  max-width: 800px;
+  margin: 2rem auto 0;
+  display: flex;
+  gap: 0.5rem;
+  background: var(--bg-card);
+  padding: 0.35rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.mode-tab {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  padding: 0.7rem 1rem;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.mode-tab:hover { color: var(--text); }
+.mode-tab.active {
+  background: var(--accent);
+  color: white;
+}
+
+.expand-controls {
+  max-width: 800px;
+  margin: 1.2rem auto 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+.expand-btn {
+  background: transparent;
+  border: 1px solid var(--border-light);
+  color: var(--text-dim);
+  padding: 0.4rem 0.9rem;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.expand-btn:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+/* ═════════ MAIN CONTAINER ═════════ */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 3rem 0 0.3rem;
+  color: var(--text);
+}
+.section-sub {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+.section-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 3rem 0 2rem;
+}
+
+/* ═════════ ACCORDION CARDS ═════════ */
+.guide-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+.guide-card:hover { border-color: var(--border-light); }
+.guide-card.locked-in {
+  border-left: 3px solid var(--green);
+}
+
+.card-head {
+  padding: 1.2rem 1.5rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  user-select: none;
+  transition: background 0.15s;
+}
+.card-head:hover { background: var(--bg-card-hover); }
+.card-head:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.card-head-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+  min-width: 0;
+}
+.card-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+  min-width: 2.5rem;
+}
+.card-head-text {
+  font-size: 1.02rem;
+  font-weight: 500;
+  color: var(--text);
+}
+.card-marks {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--gold);
+  padding: 0.2rem 0.55rem;
+  background: rgba(232,197,71,0.1);
+  border-radius: 3px;
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+}
+.card-toggle {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  transition: transform 0.25s;
+  flex-shrink: 0;
+}
+.guide-card.open .card-toggle { transform: rotate(90deg); }
+
+.card-body {
+  display: none;
+  padding: 0 1.5rem 1.5rem;
+  border-top: 1px solid var(--border);
+}
+.guide-card.open .card-body { display: block; }
+
+.card-body h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent-bright);
+  margin: 1.5rem 0 0.7rem;
+}
+.card-body h3:first-child { margin-top: 1.2rem; }
+.card-body p {
+  color: var(--text);
+  margin-bottom: 0.9rem;
+  font-size: 0.98rem;
+}
+.card-body p.muted { color: var(--text-dim); }
+.card-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 1rem;
+}
+.card-body ul li {
+  position: relative;
+  padding: 0.3rem 0 0.3rem 1.5rem;
+  color: var(--text);
+  font-size: 0.96rem;
+}
+.card-body ul li::before {
+  content: '';
+  position: absolute;
+  left: 0.3rem;
+  top: 1rem;
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.card-body strong { color: var(--text); font-weight: 600; }
+.card-body em { color: var(--accent-bright); font-style: italic; }
+
+/* ═════════ EMBEDDED BOXES (exemplar, pitfall, etc.) ═════════ */
+.inline-box {
+  padding: 1.2rem 1.3rem;
+  border-radius: 6px;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+.inline-box .box-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+  font-weight: 500;
+}
+.inline-box .box-title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+.box-exemplar {
+  background: rgba(76,175,125,0.08);
+  border-left: 3px solid var(--green);
+}
+.box-exemplar .box-label { color: var(--green); }
+.box-exemplar .exemplar-text {
+  color: var(--text);
+  font-style: italic;
+  line-height: 1.7;
+}
+.box-exemplar .exemplar-text em { font-style: normal; color: var(--accent-bright); font-weight: 500; }
+
+.box-pitfall {
+  background: rgba(229,115,115,0.08);
+  border-left: 3px solid var(--red);
+}
+.box-pitfall .box-label { color: var(--red); }
+
+.box-callout {
+  background: rgba(91,127,245,0.08);
+  border-left: 3px solid var(--accent);
+}
+.box-callout .box-label { color: var(--accent-bright); }
+
+.box-advanced {
+  background: rgba(160,115,217,0.08);
+  border-left: 3px solid var(--purple);
+}
+.box-advanced .box-label { color: var(--purple); }
+
+.comparison {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.8rem;
+  margin: 1rem 0;
+}
+.comparison-item {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem 1.2rem;
+}
+.comparison-item.before { border-left: 3px solid var(--red); }
+.comparison-item.after { border-left: 3px solid var(--green); }
+.comparison-item .tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+.comparison-item.before .tag { color: var(--red); }
+.comparison-item.after .tag { color: var(--green); }
+.comparison-item .content { color: var(--text); font-size: 0.95rem; }
+.comparison-item .content em { color: var(--accent-bright); font-style: italic; }
+
+/* ═════════ LOCK-IN BUTTON ═════════ */
+.lock-in-row {
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.lock-in-btn {
+  background: transparent;
+  border: 1px solid var(--border-light);
+  color: var(--text-dim);
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.lock-in-btn:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+.lock-in-btn.locked {
+  background: rgba(76,175,125,0.12);
+  border-color: var(--green);
+  color: var(--green);
+}
+.lock-in-btn.locked::before { content: '✓'; }
+
+.confidence-note {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* ═════════ SELF-QUIZ MODE ═════════ */
+.quiz-prompt {
+  background: rgba(91,127,245,0.08);
+  border: 1px solid rgba(91,127,245,0.2);
+  border-radius: 6px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+}
+.quiz-prompt-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-bright);
+  margin-bottom: 0.4rem;
+}
+.quiz-prompt-text { color: var(--text); font-size: 0.95rem; }
+
+.quiz-textarea {
+  width: 100%;
+  background: var(--bg-deep);
+  border: 1px solid var(--border-light);
+  border-radius: 5px;
+  padding: 0.9rem 1rem;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 140px;
+  margin-bottom: 0.8rem;
+}
+.quiz-textarea:focus { outline: none; border-color: var(--accent); }
+
+.quiz-reveal-btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.6rem 1.2rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+.quiz-reveal-btn:hover { background: var(--accent-bright); }
+
+.quiz-content { display: none; }
+.quiz-content.revealed { display: block; }
+
+/* ═════════ CHECKLIST (self-quiz mode) ═════════ */
+.checklist {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem 1.2rem;
+  margin-top: 1rem;
+}
+.checklist-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+}
+.checklist-score { color: var(--accent-bright); }
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.4rem 0;
+  cursor: pointer;
+  color: var(--text);
+  font-size: 0.93rem;
+}
+.checklist-item input {
+  margin-top: 0.35rem;
+  accent-color: var(--accent);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* ═════════ VOCAB TABLE ═════════ */
+.vocab-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+.vocab-cell {
+  background: var(--bg-card);
+  padding: 0.75rem 1rem;
+  font-size: 0.92rem;
+  color: var(--text);
+}
+.vocab-cell.header {
+  background: var(--bg-elevated);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-weight: 500;
+}
+.vocab-cell.simple { color: var(--text-dim); }
+.vocab-cell.advanced { color: var(--accent-bright); }
+
+/* ═════════ TIME TABLE ═════════ */
+.time-table {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr 1.5fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+.time-cell {
+  background: var(--bg-card);
+  padding: 0.6rem 0.8rem;
+  color: var(--text);
+}
+.time-cell.header {
+  background: var(--bg-elevated);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-weight: 500;
+}
+
+/* ═════════ FOOTER ═════════ */
+.footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--border);
+  margin-top: 4rem;
+}
+
+@media (max-width: 640px) {
+  .hero h1 { font-size: 1.7rem; }
+  .hero { padding: 2.5rem 1.2rem 2.2rem; }
+  .container { padding: 0 1.2rem; }
+  .time-table { grid-template-columns: 1.5fr 1fr 1fr; font-size: 0.82rem; }
+  .time-table .time-cell:nth-child(4n) { display: none; }
+  .vocab-table { font-size: 0.85rem; }
+  .card-head { padding: 1rem 1.1rem; }
+  .card-body { padding: 0 1.1rem 1.2rem; }
+  .card-head-text { font-size: 0.96rem; }
+  .section-title { font-size: 1.5rem; }
+  .message-box { margin-left: 1.2rem; margin-right: 1.2rem; }
+  .progress-section { margin-left: 1.2rem; margin-right: 1.2rem; }
+  .mode-tabs { margin-left: 1.2rem; margin-right: 1.2rem; }
+  .expand-controls { margin-left: 1.2rem; margin-right: 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═════════ LOGIN OVERLAY ═════════ -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <div class="login-label">Year 12 ATAR · MPA</div>
+    <div class="login-title">Revision Hub</div>
+    <div class="login-hint">Enter the credentials provided by Mr Clarke to access the essay guide.</div>
+    <div class="login-field">
+      <label for="loginUser">Username</label>
+      <input type="text" id="loginUser" autocomplete="off" autocapitalize="off" autocorrect="off">
+    </div>
+    <div class="login-field">
+      <label for="loginPass">Password</label>
+      <input type="password" id="loginPass" autocomplete="off">
+    </div>
+    <button class="login-btn" id="loginBtn">Enter</button>
+    <div class="login-error hidden" id="loginError">Incorrect username or password. Try again.</div>
+  </div>
+</div>
+
+<!-- ═════════ SITE CONTENT ═════════ -->
+<div class="site-content" id="siteContent">
+
+<!-- BACK NAV -->
+<div class="back-nav">
+  <a href="index.html" class="back-link">← Back to Revision Hub</a>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-label">Year 12 ATAR · Journal Entry 3</div>
+  <h1>The <em>Samson and Delilah</em> Essay Guide</h1>
+  <p class="hero-sub">How to approach the 20-mark extended response on cultural context, director's agenda, aesthetics and themes.</p>
+</header>
+
+<!-- MR CLARKE MESSAGE -->
+<div class="message-box">
+  <div class="message-label">A message from Mr Clarke</div>
+  <div class="message-title">This is your roadmap for Journal Entry 3</div>
+  <p class="message-text">This guide walks you through the whole essay — one dot point at a time — so you know exactly what each criterion rewards and how <em>Samson and Delilah</em> gives you everything you need to reach the top band. Use Reveal mode to read the full guide; switch to Self-Quiz mode to draft your own paragraph first, then compare. Be honest about the gaps. That's how you close them before the exam. – Mr Clarke</p>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-section">
+  <div class="progress-header">
+    <span class="progress-label">Your confidence</span>
+    <span class="progress-count" id="progressCount">0 / 8 locked in</span>
+  </div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+  <div class="progress-done" id="progressDone">All 8 locked in — you're essay-ready. Go back over the ones you found tricky.</div>
+</div>
+
+<!-- MODE TABS -->
+<div class="mode-tabs" role="tablist">
+  <button class="mode-tab active" data-mode="reveal" onclick="setMode('reveal')">📖 Reveal Guide</button>
+  <button class="mode-tab" data-mode="quiz" onclick="setMode('quiz')">✍️ Self-Quiz</button>
+</div>
+
+<div class="expand-controls">
+  <button class="expand-btn" onclick="expandAll()">Expand all</button>
+  <button class="expand-btn" onclick="collapseAll()">Collapse all</button>
+</div>
+
+<!-- ═════════ PART 1 — PROCESS ═════════ -->
+<div class="container">
+  <h2 class="section-title">Part 1 — How to approach the response</h2>
+  <p class="section-sub">Before you touch the individual dot points, get the frame right.</p>
+  <div id="part1Container"></div>
+</div>
+
+<div class="section-divider" style="max-width: 800px; margin-left: auto; margin-right: auto;"></div>
+
+<!-- ═════════ PART 2 — CRITERION DEEP-DIVES ═════════ -->
+<div class="container">
+  <h2 class="section-title">Part 2 — Working through each criterion</h2>
+  <p class="section-sub">Every dot point, unpacked — what it demands, and how to get there.</p>
+  <div id="part2Container"></div>
+</div>
+
+<div class="section-divider" style="max-width: 800px; margin-left: auto; margin-right: auto;"></div>
+
+<!-- ═════════ PART 3 — CHECKLIST + VOCAB ═════════ -->
+<div class="container">
+  <h2 class="section-title">Part 3 — Checklist, vocabulary, common errors</h2>
+  <p class="section-sub">The final polish before you hand in.</p>
+  <div id="part3Container"></div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  Year 12 ATAR MPA · Sacred Heart College · 2026<br>
+  <span style="color: #5a5a6e;">Journal Entry 3 Essay Guide · <em>Samson and Delilah</em> (Warwick Thornton, 2009)</span>
+</footer>
+
+</div><!-- end .site-content -->
+
+<!-- ═════════ DATA ═════════ -->
+<script>
+// Eight cards total — three in Part 1, four in Part 2, one in Part 3 (which will unfold into checklist, vocabulary, errors)
+const cards = [
+  // ─── PART 1 ───
+  {
+    part: 1,
+    id: 'question-decoded',
+    num: '1.1',
+    title: 'The question, decoded',
+    quizPrompt: 'What is the single argument you need to sustain across all four dot points? Write it in your own words.',
+    html: `
+      <p>The question is <strong>one statement with four dot points</strong>. Don't write four mini-essays — sustain one argument across all four. The question statement is the umbrella that joins them: every paragraph must trace back to it.</p>
+      <div class="inline-box box-callout">
+        <div class="box-label">The umbrella — keep returning to this</div>
+        <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">Cultural context and a director's agenda influence the choice of aesthetics to convey themes.</p>
+        <p style="margin-bottom: 0;">If a paragraph does not show how context or agenda shapes aesthetic choice to convey theme, it is off-topic.</p>
+      </div>
+      <h3>The four verbs — and what they demand</h3>
+      <ul>
+        <li><strong>Construct an overview</strong> (3) — a purposeful introduction, not plot summary.</li>
+        <li><strong>Describe the themes</strong> (4) — name them, define them, keep them distinct from issues.</li>
+        <li><strong>Analyse</strong> the agenda → aesthetics → theme relationship (6) — show the mechanism.</li>
+        <li><strong>Evaluate</strong> the context → aesthetics → theme relationship (7) — make a judgement, don't just describe.</li>
+      </ul>
+    `
+  },
+  {
+    part: 1,
+    id: 'structure-time',
+    num: '1.2',
+    title: 'Structure and time',
+    quizPrompt: 'You have 50 minutes. How would you split that time across the four dot points? Why?',
+    html: `
+      <p>You have 50 minutes (plus 7 if you have extra time). The marks cluster heavily in the last two dot points — <strong>13 of 20</strong>. Plan your time to reflect that. Running out at the evaluation stage is the single most common failure mode.</p>
+      <div class="time-table">
+        <div class="time-cell header">Dot point</div>
+        <div class="time-cell header">Marks</div>
+        <div class="time-cell header">Time</div>
+        <div class="time-cell header">Length</div>
+        <div class="time-cell">Overview</div>
+        <div class="time-cell">3</div>
+        <div class="time-cell">~7 min</div>
+        <div class="time-cell">~¾ page</div>
+        <div class="time-cell">Themes</div>
+        <div class="time-cell">4</div>
+        <div class="time-cell">~6 min</div>
+        <div class="time-cell">~½ page</div>
+        <div class="time-cell">Agenda (analyse)</div>
+        <div class="time-cell">6</div>
+        <div class="time-cell">~15 min</div>
+        <div class="time-cell">~1½ pages</div>
+        <div class="time-cell">Context (evaluate)</div>
+        <div class="time-cell">7</div>
+        <div class="time-cell">~18 min</div>
+        <div class="time-cell">~1½–2 pages</div>
+        <div class="time-cell">Brief conclusion</div>
+        <div class="time-cell">—</div>
+        <div class="time-cell">~4 min</div>
+        <div class="time-cell">~3–4 lines</div>
+      </div>
+      <div class="inline-box box-pitfall">
+        <div class="box-label">Time-management rule</div>
+        <p style="margin-bottom: 0;">If you hit 25 minutes and haven't started the agenda section, <strong>stop whatever you're doing and start it</strong>. Unfinished 6- and 7-mark sections cost more than an underdeveloped overview.</p>
+      </div>
+    `
+  },
+  {
+    part: 1,
+    id: 'three-critical-things',
+    num: '1.3',
+    title: 'Three things that cost marks last year',
+    quizPrompt: 'What three habits most commonly cost students marks on this kind of question? Why does each one hurt?',
+    html: `
+      <p>Before you go any further, know these three:</p>
+      <ul>
+        <li><strong>Spelling.</strong> Warwick Thornton, <em>Samson and Delilah</em> (2009), Rowan McNamara, Marissa Gibson. Every time. Misspelling erodes examiner confidence in your research.</li>
+        <li><strong>Themes are not issues.</strong> Petrol sniffing is an issue. Substance dependency as the interior landscape of dispossession is a theme. Use the word <em>theme</em> precisely.</li>
+        <li><strong>Cultural context = around the film's production.</strong> Not the context inside the narrative. Not the audience's context. This distinction cost marks last year.</li>
+      </ul>
+    `
+  },
+  // ─── PART 2 ───
+  {
+    part: 2,
+    id: 'overview',
+    num: '2.1',
+    title: 'Overview',
+    marks: '3',
+    quizPrompt: 'Write a draft overview paragraph for Samson and Delilah. Remember — not a plot summary.',
+    html: `
+      <p>An overview is not a plot summary. It is a controlled introduction that positions the film in its moment, names the director's agenda, identifies the overall aesthetic, and signals the themes you'll discuss.</p>
+      <h3>The top-band move: open conceptually, then pivot to the film</h3>
+      <p>The strongest overviews do not begin with the film. They begin with a <strong>conceptual claim</strong> about how cultural context and a director's agenda shape aesthetic choices in any media work, and <em>then</em> present <em>Samson and Delilah</em> as an exemplary case. This lifts your response into the top band immediately, because it shows you understand the question's <em>premise</em>, not just its topic.</p>
+      <div class="inline-box box-exemplar">
+        <div class="box-label">Exemplar overview — conceptual opener, then film</div>
+        <p class="exemplar-text">The cultural context of a time, and the particular agenda of a director, together dictate the kind of film a work can be — shaping not only what it depicts but how it is aesthetically constructed and who its truths are addressed to. Warwick Thornton's <em>Samson and Delilah</em> (2009) is exemplary of this relationship. Made in the year following Kevin Rudd's 2008 National Apology to the Stolen Generations, and released into a climate in which white Australia was invited to treat reconciliation as accomplished, Thornton's film operates as a deliberate refusal of that complacency. As an Indigenous auteur — writing, directing and shooting the film himself — Thornton mobilises the conventions of Australian social realism and its neorealist inheritance to foreground the continuing dispossession the Apology did not interrupt. Through hand-held observational cinematography, the withholding of dialogue, amplified diegetic sound, and the use of non-professional local actors, he allows the themes of cultural imperialism, inequality, isolation and the endurance of love to emerge from lived texture rather than exposition. This response will argue that Thornton's agenda and the post-Apology cultural context shape these aesthetic choices in directly linked ways, so that form itself becomes the carrier of meaning.</p>
+      </div>
+      <h3>The five moves that make this 3/3</h3>
+      <ul>
+        <li><strong>Conceptual opener</strong> — how context and agenda shape aesthetics generally.</li>
+        <li><strong>Pivot to the film</strong> as exemplary of the relationship.</li>
+        <li><strong>Cultural moment named</strong> — post-Apology 2008.</li>
+        <li><strong>Director's agenda signalled</strong> — Indigenous auteur refusing complacency.</li>
+        <li><strong>Aesthetic elements and themes previewed</strong> — so the rest of the essay has direction.</li>
+      </ul>
+    `
+  },
+  {
+    part: 2,
+    id: 'themes',
+    num: '2.2',
+    title: 'Describe the themes',
+    marks: '4',
+    quizPrompt: 'Name three themes of Samson and Delilah and describe each one in a single sentence. Be careful — describe the theme, not the issue.',
+    html: `
+      <p>This is the paragraph where the most marks are lost for the least reason. The fix is a single discipline: <strong>describe themes, do not list issues</strong>.</p>
+      <div class="inline-box box-pitfall">
+        <div class="box-label">Themes vs issues — the move that lifts the paragraph</div>
+        <p>An issue is a real-world problem the film engages with. A theme is an abstract idea the film explores. Issues can give rise to themes — but the paragraph must name the <em>theme</em>, not the issue.</p>
+        <p style="margin-bottom: 0.5rem;"><strong>Worked conversions:</strong></p>
+        <div class="comparison">
+          <div class="comparison-item before">
+            <span class="tag">Issue (don't stop here)</span>
+            <div class="content">Petrol sniffing.</div>
+          </div>
+          <div class="comparison-item after">
+            <span class="tag">Theme (the lift)</span>
+            <div class="content">Substance dependency as the interior landscape of marginalisation.</div>
+          </div>
+        </div>
+        <div class="comparison">
+          <div class="comparison-item before">
+            <span class="tag">Issue</span>
+            <div class="content">Homelessness.</div>
+          </div>
+          <div class="comparison-item after">
+            <span class="tag">Theme</span>
+            <div class="content">Dispossession as cyclical condition.</div>
+          </div>
+        </div>
+        <div class="comparison">
+          <div class="comparison-item before">
+            <span class="tag">Issue</span>
+            <div class="content">Exploitation of Indigenous art.</div>
+          </div>
+          <div class="comparison-item after">
+            <span class="tag">Theme</span>
+            <div class="content">Cultural imperialism and the economic extraction of Indigenous labour.</div>
+          </div>
+        </div>
+      </div>
+      <h3>Four strong themes you can develop</h3>
+      <ul>
+        <li><strong>Cultural imperialism</strong> — the ongoing imposition of white Australian systems (the art market, the supermarket, the church, the petrol economy itself) on Indigenous life.</li>
+        <li><strong>Inequality</strong> — the structural distance between Indigenous and non-Indigenous Australians; not incidents in the film but the climate the characters breathe.</li>
+        <li><strong>Alienation / isolation</strong> — the vast separation of remote communities from mainstream Australia, and the psychological isolation of the protagonists within that separation.</li>
+        <li><strong>Love</strong> — the quiet, tenacious bond between Samson and Delilah; not romantic idealism but presence, care and survival.</li>
+      </ul>
+      <p>Choose two or three you can sustain with evidence. Name each theme, define it, and give it a short specific grounding in the film. <strong>That is a 4/4 themes paragraph.</strong></p>
+    `
+  },
+  {
+    part: 2,
+    id: 'agenda',
+    num: '2.3',
+    title: 'Analyse the director\'s agenda',
+    marks: '6',
+    quizPrompt: 'Pick one aspect of Thornton\'s agenda. Name one aesthetic choice it produces, one scene as evidence, and explain how the choice conveys a theme.',
+    html: `
+      <p>The analysis criterion rewards you for showing <strong>the mechanism</strong>: how Thornton's agenda as an auteur drives specific aesthetic decisions, which in turn carry the themes.</p>
+      <h3>Thornton's agenda — what you need to know</h3>
+      <p class="muted">Don't guess. These are Thornton's documented agendas, drawn from his interviews and the 'making of' documentary:</p>
+      <ul>
+        <li><strong>To speak back to the 2008 Apology.</strong> Thornton has said: <em>'sorry doesn't fill fridges… for the Samson and Delilahs of the world it doesn't mean shit.'</em> The film is a direct intervention into a political moment that treated reconciliation as declared.</li>
+        <li><strong>To tell an Indigenous story from an Indigenous standpoint.</strong> Thornton writes, directs and photographs the film himself — he rejects the settler/postcolonial gaze that has dominated Australian cinema's depictions of Indigenous Australians.</li>
+        <li><strong>To dismantle stereotypes of Indigenous young people.</strong> Thornton refuses to reduce Indigenous adolescence to violence or pathology. He insists on love and humour alongside harm.</li>
+        <li><strong>To give audiences access to a place they hadn't seen.</strong> In his own words: <em>'we gave Australians access to a place they'd never been before.'</em></li>
+      </ul>
+      <div class="inline-box box-advanced">
+        <div class="box-label">Auteur theory — the connective concept</div>
+        <p>An auteur is a director whose personal vision is visible across every formal element of a film. Thornton is the paradigm of the auteur: he controls script, cinematography and direction, producing a film in which every aesthetic choice carries his authorial agenda.</p>
+        <p style="margin-bottom: 0;">Thornton's authorial control over form is not decorative; it is the mechanism by which his agenda reaches the screen. A director without this authorial control — a studio hire filming a producer's script — could not make <em>Samson and Delilah</em>. The film's aesthetic choices are legible as Thornton's choices, and that is what auteurism describes.</p>
+      </div>
+      <h3>The aesthetic inheritance Thornton mobilises</h3>
+      <p>Thornton's overall aesthetic is <strong>Australian social realism</strong>, which inherits directly from <strong>Italian Neorealism</strong>. Naming this tradition lifts your response because it shows you understand Thornton's aesthetic as a considered choice — not as absence of style.</p>
+      <ul>
+        <li><strong>Slice of life</strong> — everyday life in a remote Indigenous community, unglamourised.</li>
+        <li><strong>Non-professional actors</strong> — Rowan McNamara and Marissa Gibson, both from Alice Springs, with no previous acting experience.</li>
+        <li><strong>Location shooting</strong> — filmed on location in Central Australia, not reconstructed on a set.</li>
+        <li><strong>Natural dialogue, often withheld</strong> — sparing speech, with Warlpiri used at points without subtitling.</li>
+        <li><strong>Cinéma vérité cinematography</strong> — hand-held, observational, fly-on-the-wall; the bumpy tracking shot after Delilah is hit by the car is a prime example.</li>
+      </ul>
+      <h3>A paragraph engine for the agenda section</h3>
+      <ul>
+        <li>Name a specific aspect of Thornton's agenda.</li>
+        <li>Identify the aesthetic choice it produces (ideally citing the social realist / neorealist inheritance where relevant).</li>
+        <li>Give specific textual evidence — a named scene.</li>
+        <li>Explain how the aesthetic choice conveys the theme.</li>
+        <li>Close with an analytical observation: what does this configuration achieve that a different choice would not?</li>
+      </ul>
+      <div class="inline-box box-exemplar">
+        <div class="box-label">Exemplar analysis paragraph</div>
+        <p class="exemplar-text">Thornton's agenda to tell an Indigenous story from within rather than about produces one of the film's foundational aesthetic decisions: non-professional casting drawn from Central Desert communities, combined with the deliberate withholding of dialogue. Across the film's first act, Samson and Delilah share almost no words, yet Thornton holds the camera on them in sustained observational takes, amplifying the diegetic sounds of wind, flies and distant engines rather than underscoring with music. This choice sits squarely inside the Australian social realist inheritance from Italian Neorealism, which treats non-professional performance and ambient sound as ethical commitments rather than stylistic quirks. Because McNamara and Gibson are not performing Indigeneity for a settler audience but inhabiting space in front of Thornton's camera, the film's aesthetic silence conveys the theme of the endurance of love without the mediation of romantic convention. The dancing scene around the 20-minute mark demonstrates this precisely: as Delilah watches Samson dance by the fire, her music takes over the soundtrack while his fades, and a close-up of her face — lit by the red of the firelight — registers desire without a word spoken. A trained cast performing scripted dialogue would have required the audience to consume the relationship through familiar generic codes; Thornton's casting and sound design together refuse that mediation. What his agenda as auteur produces, in other words, is not a representation of love but an aesthetic condition in which love is permitted to be seen.</p>
+      </div>
+      <p>This paragraph works at <strong>6/6</strong> because it starts from the agenda (not the technique), names the auteurist control and the neorealist style, ties two aesthetic decisions together, anchors in a specific scene, and closes with an analytical claim about what the configuration achieves.</p>
+    `
+  },
+  {
+    part: 2,
+    id: 'context',
+    num: '2.4',
+    title: 'Evaluate cultural context',
+    marks: '7',
+    quizPrompt: 'Draft one evaluative sentence about how the 2008 Apology shapes one of Thornton\'s aesthetic choices. Make a judgement — don\'t just describe the relationship.',
+    html: `
+      <p>Evaluation is the hardest verb on the paper. Analyse <em>describes</em> the relationship between context and aesthetic; evaluate makes a <em>judgement</em> about it — how strong, how necessary, how successful.</p>
+      <h3>What cultural context means here</h3>
+      <p>Cultural context refers to the cultural, political and historical conditions <strong>surrounding the film's production</strong> — not the context inside the narrative, not the audience's context. For <em>Samson and Delilah</em>, the key elements are:</p>
+      <ul>
+        <li><strong>The 2008 National Apology</strong> to the Stolen Generations and its post-Apology climate of declared reconciliation.</li>
+        <li><strong>Entrenched structural inequality</strong> between Indigenous and non-Indigenous Australians — measurable in health, housing, education, life expectancy.</li>
+        <li><strong>The Australian cinematic tradition</strong> of telling Indigenous stories predominantly from non-Indigenous standpoints — the postcolonial settler gaze Thornton refuses.</li>
+        <li><strong>The aesthetic inheritance</strong> of Italian Neorealism and Australian social realism — traditions that treat duration, ambient sound and non-professional performance as ethical commitments.</li>
+      </ul>
+      <h3>Evaluate vs analyse — the sentence-level difference</h3>
+      <div class="comparison">
+        <div class="comparison-item before">
+          <span class="tag">Analyse (caps at 5/7)</span>
+          <div class="content"><em>'The 2008 Apology shaped Thornton's use of long takes of Samson sniffing petrol, conveying the theme of cultural imperialism because the Apology did not solve the conditions producing that behaviour.'</em></div>
+        </div>
+        <div class="comparison-item after">
+          <span class="tag">Evaluate (reaches 7/7)</span>
+          <div class="content"><em>'The post-Apology context does not merely shape Thornton's long takes of petrol sniffing; it determines the aesthetic risk he takes in holding them past the audience's comfort. A shorter take would signal the issue; Thornton's durational choice forces the non-Indigenous viewer to sit inside the temporal texture of the dispossession the Apology did not undo. The power of the aesthetic decision is inseparable from the political moment that made it necessary — which is precisely why the film functions as social realism rather than as illustration.'</em></div>
+        </div>
+      </div>
+      <h3>Two evaluative moves you can make</h3>
+      <ul>
+        <li><strong>Move 1 — the necessity of Thornton's aesthetic choices.</strong> Don't just say Thornton's choices <em>suit</em> the cultural moment. Argue that they are the only aesthetic choices that could make the theme legible at all. A three-act construction would reinforce the Apology's own logic of resolution; Thornton's refusal of spectacle is not stylistic preference but political necessity.</li>
+        <li><strong>Move 2 (top-band) — audience decoding.</strong> Acknowledge that while cultural context shapes Thornton's aesthetic choices, audiences also bring their own cultural positioning to the film. An Indigenous viewer and a non-Indigenous viewer do not decode the same film — and Thornton's aesthetic choices open rather than close that multiplicity of readings. This moves your response from a one-way analysis into a genuinely evaluative stance that recognises the film as an invitation to ethical response rather than a message delivered.</li>
+      </ul>
+      <div class="inline-box box-advanced">
+        <div class="box-label">A note on the second move</div>
+        <p style="margin-bottom: 0;">You don't need to teach communication theory in your response. A single sentence acknowledging that cultural context shapes not only production but reception — and that Thornton's aesthetic choices invite rather than instruct — is enough to show you understand the relationship is bidirectional. This is a genuine top-band move.</p>
+      </div>
+      <h3>A paragraph engine for the evaluation</h3>
+      <ul>
+        <li>Open with an evaluative claim about the relationship between a specific context and a specific aesthetic choice.</li>
+        <li>Establish the context (year, event, tradition).</li>
+        <li>Name the aesthetic choice, give specific textual evidence.</li>
+        <li>Explain how the choice conveys the theme.</li>
+        <li>Make the evaluative judgement — how necessary, how successful, would a different choice carry the meaning? If there's room, acknowledge that audiences decode from their own cultural positioning.</li>
+      </ul>
+      <div class="inline-box box-exemplar">
+        <div class="box-label">Exemplar evaluation paragraph</div>
+        <p class="exemplar-text">The decisive cultural context for Thornton's aesthetic choices is not simply the 2008 Apology itself but the gap the Apology opened between political rhetoric and material reality. In the months following Rudd's speech, Australian public discourse treated reconciliation as accomplished — a moral debt declared settled. <em>Samson and Delilah</em> was made inside that climate, and its aesthetic choices are calibrated against it. Thornton's use of optical framing in the ice-cream scene at roughly 1:01:48 — where the camera pulls focus from two white schoolgirls laughing in the foreground to Delilah sitting alone behind them — conveys the theme of inequality not through incident but through composition itself. The two girls eat ice-cream in clean uniforms; Delilah sits in the same clothes she has worn throughout the film. A different aesthetic choice — a line of dialogue, a confrontation, a cut between wider shots — would have located the inequality as an event. Thornton's pull-focus locates it inside a single frame, as the ambient condition of the characters' world. The evaluative point is this: a conventional social-issue film, or a three-act construction insisting on intervention and recovery, would have reinforced the Apology's own logic — that to name a problem is to begin to solve it. Thornton refuses to separate the two girls into different scenes, because separation is exactly what the national conversation has already performed. The inheritance of Italian Neorealism and Australian social realism gives Thornton the aesthetic vocabulary he needs to make that refusal stick. And while the post-Apology context shapes these choices, Thornton also leaves the work of response to the viewer: the film invites rather than instructs, and audiences decoding it from different cultural positions will bring different readings to the same frame.</p>
+      </div>
+    `
+  },
+  // ─── PART 3 ───
+  {
+    part: 3,
+    id: 'checklist-vocab',
+    num: '3.0',
+    title: 'Checklist, vocabulary & common errors',
+    quizPrompt: 'List three things you most need to remember the next time you write this essay. Be specific about what you will do differently.',
+    html: `
+      <h3>Pre-flight checklist</h3>
+      <ul>
+        <li>Thornton / <em>Samson and Delilah</em> (2009) / Rowan McNamara / Marissa Gibson all spelled correctly.</li>
+        <li>The overview opens conceptually and then pivots to the film as exemplary — not a plot summary.</li>
+        <li>Themes are described (not listed) and kept distinct from issues.</li>
+        <li>The agenda section names Thornton as auteur and invokes the Australian social realist / neorealist inheritance.</li>
+        <li>At least one direct Thornton quotation or close paraphrase is used to ground the agenda.</li>
+        <li>The evaluation section makes a genuine evaluative judgement — not a description in stronger language.</li>
+        <li>At least one named scene (with timecode if known) anchors each analytical paragraph.</li>
+        <li>Every body paragraph traces back to the umbrella clause.</li>
+        <li>Response is at least 4 pages; evaluation section is the longest section.</li>
+      </ul>
+      <h3>Vocabulary — aim for the top band</h3>
+      <p class="muted">The gap between a 5 and a 6 on the analysis criterion is often terminology. Upgrade where you can.</p>
+      <div class="vocab-table">
+        <div class="vocab-cell header">Simple / appropriate</div>
+        <div class="vocab-cell header">Advanced / sophisticated</div>
+        <div class="vocab-cell simple">the director</div>
+        <div class="vocab-cell advanced">Thornton as auteur; his authorial agenda</div>
+        <div class="vocab-cell simple">the film feels real</div>
+        <div class="vocab-cell advanced">aesthetic realism; Australian social realism's neorealist inheritance</div>
+        <div class="vocab-cell simple">hand-held camera</div>
+        <div class="vocab-cell advanced">observational cinéma vérité cinematography</div>
+        <div class="vocab-cell simple">the Sorry speech</div>
+        <div class="vocab-cell advanced">the 2008 National Apology to the Stolen Generations</div>
+        <div class="vocab-cell simple">racism</div>
+        <div class="vocab-cell advanced">structural inequality; the post-Apology gap between rhetoric and reality</div>
+        <div class="vocab-cell simple">tells an Indigenous story</div>
+        <div class="vocab-cell advanced">foregrounds Indigenous ways of knowing; refuses the settler gaze</div>
+        <div class="vocab-cell simple">quiet scene</div>
+        <div class="vocab-cell advanced">the withholding of dialogue; amplified ambient / diegetic sound</div>
+        <div class="vocab-cell simple">long take</div>
+        <div class="vocab-cell advanced">sustained duration held past narrative necessity; durational refusal</div>
+        <div class="vocab-cell simple">juxtaposition</div>
+        <div class="vocab-cell advanced">pull-focus; aesthetic compression within a single frame</div>
+      </div>
+      <div class="inline-box box-advanced">
+        <div class="box-label">Top-band concepts — use sparingly, only if you understand them</div>
+        <ul style="margin-top: 0.5rem;">
+          <li><strong>Untimely</strong> — Thornton refuses to place Indigeneity in the past (the 'noble savage') or in urban decline. He locates it in the contemporary present.</li>
+          <li><strong>Cultural interface</strong> — the film constructs a space where Indigenous and non-Indigenous ways of knowing meet dialogically, rather than one translating itself for the other.</li>
+          <li><strong>Indigenous knowing</strong> — the quiet confidence animating the film's use of language, silence, music and humour — Thornton's aesthetic grounded in his own cultural epistemology.</li>
+        </ul>
+      </div>
+      <h3>Common errors — the cohort-level ones</h3>
+      <ul>
+        <li><strong>Listing techniques.</strong> 'Thornton uses close-ups, long shots, natural lighting…' caps you at the middle band. Engage with theory (agenda, context, aesthetic tradition), <em>then</em> use techniques as evidence.</li>
+        <li><strong>Theme/issue drift.</strong> Describing 'homelessness and stealing' when you mean cultural imperialism and dispossession. Name the theme.</li>
+        <li><strong>Unresearched agenda.</strong> 'Thornton wanted to tell a real story' isn't an agenda — it's a generic claim. Use what he actually said and what he actually did as auteur.</li>
+        <li><strong>Running out of time.</strong> Mark against the clock. Budget 18 minutes for the evaluation. A strong overview with a blank evaluation is a fail condition.</li>
+        <li><strong>Cultural context confusion.</strong> The context is around the film's production (2008–09 Australia), not inside the narrative.</li>
+      </ul>
+      <h3>Where to go next</h3>
+      <p>Before the next in-class response, revisit these on OneNote: the 'making of' documentary and Thornton interviews (primary source material on his agenda); readings on Italian Neorealism and Australian Social Realism; the 'Shades of Indigenous Belonging' article. Practise the overview and themes paragraphs under timed conditions — ten minutes, no notes. Your fluency on those two paragraphs buys you the time to develop the 6- and 7-mark sections, which is where the marks you're chasing actually live.</p>
+    `
+  }
+];
+
+// ═════════ STATE ═════════
+const STORAGE_KEY = 'mpa_je3_essay_guide';
+let state = {
+  mode: 'reveal',
+  openCards: {},     // id → bool
+  lockedIn: {},      // id → bool
+  quizAnswers: {},   // id → string
+  quizRevealed: {}   // id → bool
+};
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) state = { ...state, ...JSON.parse(saved) };
+  } catch (e) { /* ignore */ }
+}
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+}
+
+// ═════════ RENDER ═════════
+function renderCards() {
+  const p1 = document.getElementById('part1Container');
+  const p2 = document.getElementById('part2Container');
+  const p3 = document.getElementById('part3Container');
+  p1.innerHTML = ''; p2.innerHTML = ''; p3.innerHTML = '';
+
+  cards.forEach(card => {
+    const el = document.createElement('div');
+    el.className = 'guide-card' + (state.openCards[card.id] ? ' open' : '') + (state.lockedIn[card.id] ? ' locked-in' : '');
+    el.id = 'card-' + card.id;
+
+    const marksHTML = card.marks ? `<span class="card-marks">${card.marks} marks</span>` : '';
+    const headInner = `
+      <div class="card-head-left">
+        <span class="card-num">${card.num}</span>
+        <span class="card-head-text">${card.title}</span>
+      </div>
+      ${marksHTML}
+      <span class="card-toggle">›</span>
+    `;
+
+    const head = document.createElement('div');
+    head.className = 'card-head';
+    head.setAttribute('role', 'button');
+    head.setAttribute('tabindex', '0');
+    head.setAttribute('aria-expanded', !!state.openCards[card.id]);
+    head.innerHTML = headInner;
+    head.onclick = () => toggleCard(card.id);
+    head.onkeydown = (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleCard(card.id); }
+    };
+
+    const body = document.createElement('div');
+    body.className = 'card-body';
+
+    if (state.mode === 'quiz' && card.quizPrompt) {
+      const revealed = !!state.quizRevealed[card.id];
+      const answer = state.quizAnswers[card.id] || '';
+      body.innerHTML = `
+        <div class="quiz-prompt">
+          <div class="quiz-prompt-label">Try first · Self-Quiz</div>
+          <div class="quiz-prompt-text">${card.quizPrompt}</div>
+        </div>
+        <textarea class="quiz-textarea" placeholder="Draft your response here..." data-card="${card.id}">${escapeHtml(answer)}</textarea>
+        <button class="quiz-reveal-btn" data-card="${card.id}">${revealed ? '↻ Hide guide' : '📖 Reveal guide'}</button>
+        <div class="quiz-content${revealed ? ' revealed' : ''}" id="quiz-content-${card.id}">${card.html}</div>
+        <div class="lock-in-row">
+          <button class="lock-in-btn${state.lockedIn[card.id] ? ' locked' : ''}" data-lock="${card.id}">
+            ${state.lockedIn[card.id] ? 'Locked in' : 'Mark as locked in'}
+          </button>
+          <span class="confidence-note">Use this when you're confident with this criterion.</span>
+        </div>
+      `;
+    } else {
+      body.innerHTML = `
+        ${card.html}
+        <div class="lock-in-row">
+          <button class="lock-in-btn${state.lockedIn[card.id] ? ' locked' : ''}" data-lock="${card.id}">
+            ${state.lockedIn[card.id] ? 'Locked in' : 'Mark as locked in'}
+          </button>
+          <span class="confidence-note">Use this when you're confident with this criterion.</span>
+        </div>
+      `;
+    }
+
+    el.appendChild(head);
+    el.appendChild(body);
+
+    if (card.part === 1) p1.appendChild(el);
+    else if (card.part === 2) p2.appendChild(el);
+    else p3.appendChild(el);
+  });
+
+  // wire up textarea + quiz + lock-in listeners
+  document.querySelectorAll('.quiz-textarea').forEach(t => {
+    t.addEventListener('input', (e) => {
+      state.quizAnswers[t.dataset.card] = t.value;
+      saveState();
+    });
+  });
+  document.querySelectorAll('.quiz-reveal-btn').forEach(b => {
+    b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = b.dataset.card;
+      state.quizRevealed[id] = !state.quizRevealed[id];
+      saveState();
+      renderCards();
+      // reopen the card after re-render so it doesn't collapse
+      const card = document.getElementById('card-' + id);
+      if (card && !state.openCards[id]) {
+        state.openCards[id] = true;
+        saveState();
+        card.classList.add('open');
+      }
+    });
+  });
+  document.querySelectorAll('.lock-in-btn').forEach(b => {
+    b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = b.dataset.lock;
+      state.lockedIn[id] = !state.lockedIn[id];
+      saveState();
+      renderCards();
+      updateProgress();
+    });
+  });
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+function toggleCard(id) {
+  state.openCards[id] = !state.openCards[id];
+  saveState();
+  const card = document.getElementById('card-' + id);
+  if (card) {
+    card.classList.toggle('open', !!state.openCards[id]);
+    card.querySelector('.card-head').setAttribute('aria-expanded', !!state.openCards[id]);
+  }
+}
+
+function setMode(mode) {
+  state.mode = mode;
+  saveState();
+  document.querySelectorAll('.mode-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.mode === mode);
+  });
+  renderCards();
+}
+
+function expandAll() {
+  cards.forEach(c => { state.openCards[c.id] = true; });
+  saveState();
+  renderCards();
+}
+function collapseAll() {
+  cards.forEach(c => { state.openCards[c.id] = false; });
+  saveState();
+  renderCards();
+}
+
+function updateProgress() {
+  const total = cards.length;
+  const locked = cards.filter(c => state.lockedIn[c.id]).length;
+  document.getElementById('progressCount').textContent = `${locked} / ${total} locked in`;
+  document.getElementById('progressFill').style.width = `${(locked / total) * 100}%`;
+  document.getElementById('progressDone').classList.toggle('visible', locked === total);
+}
+
+// ═════════ AUTH ═════════
+(function () {
+  'use strict';
+  const VALID_USER_HASH = 'd5506c3f045a27380f2508acbd828833f4d247e7aefa5ba08555169df92bcebf';
+  const VALID_PASS_HASH = '410caa78609084c279d26bc9185da6d2c3c793d9948e1361b7c31415f930cbb7';
+  const SESSION_KEY = 'mpa_auth';
+
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  const overlay  = document.getElementById('loginOverlay');
+  const content  = document.getElementById('siteContent');
+  const userIn   = document.getElementById('loginUser');
+  const passIn   = document.getElementById('loginPass');
+  const btn      = document.getElementById('loginBtn');
+  const errMsg   = document.getElementById('loginError');
+
+  function unlock() {
+    overlay.classList.add('hidden');
+    content.classList.add('visible');
+    sessionStorage.setItem(SESSION_KEY, 'true');
+    init();
+  }
+
+  if (sessionStorage.getItem(SESSION_KEY) === 'true') {
+    unlock();
+  }
+
+  async function attempt() {
+    const userHash = await sha256(userIn.value);
+    const passHash = await sha256(passIn.value);
+    if (userHash === VALID_USER_HASH && passHash === VALID_PASS_HASH) {
+      unlock();
+    } else {
+      errMsg.classList.remove('hidden');
+      passIn.value = '';
+      passIn.focus();
+    }
+  }
+
+  btn.addEventListener('click', attempt);
+  userIn.addEventListener('keydown', (e) => { if (e.key === 'Enter') passIn.focus(); });
+  passIn.addEventListener('keydown', (e) => { if (e.key === 'Enter') attempt(); });
+  userIn.addEventListener('input', () => errMsg.classList.add('hidden'));
+  passIn.addEventListener('input', () => errMsg.classList.add('hidden'));
+})();
+
+// ═════════ INIT ═════════
+function init() {
+  loadState();
+  // restore mode tab state
+  document.querySelectorAll('.mode-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.mode === state.mode);
+  });
+  renderCards();
+  updateProgress();
+}
+</script>
+</body>
+</html>

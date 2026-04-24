@@ -149,23 +149,6 @@ body::before {
 .site-content { display: none; }
 .site-content.visible { display: block; }
 
-/* ═════════ BACK NAV ═════════ */
-.back-nav {
-  background: var(--bg-card);
-  border-bottom: 1px solid var(--border);
-  padding: 0.8rem 2rem;
-}
-.back-link {
-  color: var(--text-dim);
-  text-decoration: none;
-  font-size: 0.9rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  transition: color 0.15s;
-}
-.back-link:hover { color: var(--accent-bright); }
-
 /* ═════════ HERO ═════════ */
 .hero {
   position: relative;
@@ -846,13 +829,9 @@ body::before {
 <!-- ═════════ SITE CONTENT ═════════ -->
 <div class="site-content" id="siteContent">
 
-<!-- BACK NAV -->
-<div class="back-nav">
-  <a href="index.html" class="back-link">← Back to Revision Hub</a>
-</div>
-
 <!-- HERO -->
 <header class="hero">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:0.35rem;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;color:#7a7a94;text-decoration:none;margin-bottom:1rem;position:relative;transition:color 0.2s;" onmouseover="this.style.color='#7b9aff'" onmouseout="this.style.color='#7a7a94'">&larr; Back to Revision Hub</a>
   <div class="hero-label">Year 12 ATAR · Journal Entry 3</div>
   <h1>The <em>Samson and Delilah</em> Essay Guide</h1>
   <p class="hero-sub">How to approach the 20-mark extended response on cultural context, director's agenda, aesthetics and themes.</p>

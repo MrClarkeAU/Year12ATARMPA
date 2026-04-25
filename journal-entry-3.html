@@ -1416,7 +1416,7 @@ function updateProgress() {
   'use strict';
   const VALID_USER_HASH = 'd5506c3f045a27380f2508acbd828833f4d247e7aefa5ba08555169df92bcebf';
   const VALID_PASS_HASH = '410caa78609084c279d26bc9185da6d2c3c793d9948e1361b7c31415f930cbb7';
-  const SESSION_KEY = 'mpa_auth';
+  const AUTH_KEY = 'mpa_auth';
 
   async function sha256(str) {
     const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
@@ -1433,11 +1433,12 @@ function updateProgress() {
   function unlock() {
     overlay.classList.add('hidden');
     content.classList.add('visible');
-    sessionStorage.setItem(SESSION_KEY, 'true');
+    localStorage.setItem(AUTH_KEY, 'true');
     init();
   }
 
-  if (sessionStorage.getItem(SESSION_KEY) === 'true') {
+  // If already authenticated on this device (hub or other pages), skip the login
+  if (localStorage.getItem(AUTH_KEY) === 'true') {
     unlock();
   }
 

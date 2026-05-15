@@ -427,12 +427,18 @@ const fbDb = firebase.database();
 const lbRef = fbDb.ref('leaderboard');
 let leaderboardCache = [];
 
+let fbError = false;
 lbRef.orderByChild('score').limitToLast(10).on('value', (snapshot) => {
+  fbError = false;
   const entries = [];
   snapshot.forEach((child) => { entries.push(child.val()); });
   entries.sort((a, b) => b.score - a.score);
   leaderboardCache = entries;
   renLB();
+}, (err) => {
+  fbError = true;
+  renLB();
+  console.error('Firebase read error:', err);
 });
 
 function addLB(name, s) {
@@ -443,11 +449,16 @@ function addLB(name, s) {
       snapshot.forEach((child) => { all.push({ key: child.key, score: child.val().score }); });
       all.sort((a, b) => a.score - b.score);
       while (all.length > 10) { const rm = all.shift(); lbRef.child(rm.key).remove(); }
-    });
+    }, (err) => { console.error('Firebase cleanup error:', err); });
+  }).catch((err) => {
+    console.error('Firebase write error:', err);
+    const el = document.getElementById('leaderboard-list');
+    el.innerHTML = '<li style="justify-content:center;color:#e57373;font-size:8px;">Score not saved \u2014 database rules not set.<br>See Firebase console.</li>';
+    document.getElementById('leaderboard-panel').classList.add('visible');
   });
 }
 function isLBWorthy(s) { return leaderboardCache.length < 10 || Math.floor(s) > leaderboardCache[leaderboardCache.length - 1].score; }
-function renLB() { const lb = leaderboardCache, el = document.getElementById('leaderboard-list'); if (!lb.length) { el.innerHTML = '<li style="justify-content:center;color:#7a7a94;">No scores yet \u2014 get running!</li>'; return; } el.innerHTML = lb.map((e, i) => `<li><span class="lb-rank">${i+1}.</span><span class="lb-name">${e.name}</span><span class="lb-score">${fs(e.score)}</span></li>`).join(''); }
+function renLB() { const lb = leaderboardCache, el = document.getElementById('leaderboard-list'); if (fbError) { el.innerHTML = '<li style="justify-content:center;color:#e57373;font-size:8px;">Cannot reach leaderboard.<br>Firebase rules may need updating.</li>'; return; } if (!lb.length) { el.innerHTML = '<li style="justify-content:center;color:#7a7a94;">No scores yet \u2014 get running!</li>'; return; } el.innerHTML = lb.map((e, i) => `<li><span class="lb-rank">${i+1}.</span><span class="lb-name">${e.name}</span><span class="lb-score">${fs(e.score)}</span></li>`).join(''); }
 
 // ===== HUD =====
 function drawGO(){ctx.fillStyle=pc('col');ctx.font='16px "Press Start 2P"';ctx.textAlign='center';ctx.fillText('G A M E   O V E R',W/2,70);ctx.strokeStyle=pc('col');ctx.lineWidth=2;ctx.beginPath();ctx.arc(W/2,110,12,0,Math.PI*1.6);ctx.stroke();ctx.fillStyle=pc('col');ctx.beginPath();ctx.moveTo(W/2+6,98);ctx.lineTo(W/2+12,104);ctx.lineTo(W/2+8,106);ctx.fill();}

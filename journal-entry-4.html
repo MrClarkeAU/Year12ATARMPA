@@ -25,30 +25,10 @@
   --text-dim: #a0a0b8;
   --text-muted: #7a7a94;
   --film-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  --error: #f06565;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Source Sans 3', sans-serif; background: var(--bg-deep); color: var(--text); line-height: 1.7; min-height: 100vh; }
 body::before { content: ''; position: fixed; inset: 0; background: var(--film-grain); pointer-events: none; z-index: 9999; opacity: 0.35; }
-
-.login-overlay { position: fixed; inset: 0; z-index: 10000; background: var(--bg-deep); display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 2rem; }
-.login-overlay.hidden { display: none; }
-.login-overlay::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 900px; height: 900px; max-width: 100vw; max-height: 100vh; background: radial-gradient(ellipse, rgba(91,127,245,0.08) 0%, transparent 70%); pointer-events: none; }
-.login-box { position: relative; z-index: 1; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 2.5rem; max-width: 440px; width: 100%; }
-.login-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
-.login-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 0.5rem; }
-.login-hint { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 1.5rem; }
-.login-field { margin-bottom: 1rem; }
-.login-field label { display: block; font-size: 0.8rem; color: var(--text-dim); margin-bottom: 0.4rem; letter-spacing: 0.05em; }
-.login-field input { width: 100%; background: var(--bg-deep); border: 1px solid var(--border-light); border-radius: 6px; padding: 0.75rem 1rem; color: var(--text); font-family: inherit; font-size: 1rem; }
-.login-field input:focus { outline: none; border-color: var(--accent); }
-.login-btn { background: var(--accent); color: white; border: none; border-radius: 6px; padding: 0.8rem 1.5rem; font-family: inherit; font-size: 1rem; font-weight: 600; cursor: pointer; width: 100%; margin-top: 0.5rem; }
-.login-btn:hover { background: var(--accent-bright); }
-.login-error { color: var(--error); font-size: 0.85rem; margin-top: 0.8rem; text-align: center; }
-.login-error.hidden { display: none; }
-
-.site-content { display: none; }
-.site-content.visible { display: block; }
 
 .hero { position: relative; padding: 3.5rem 2rem 3rem; text-align: center; background: linear-gradient(180deg, #10101a 0%, var(--bg-deep) 100%); border-bottom: 1px solid var(--border); overflow: hidden; }
 .hero::before { content: ''; position: absolute; top: -50%; left: 50%; transform: translateX(-50%); width: 900px; height: 900px; background: radial-gradient(ellipse, rgba(91,127,245,0.07) 0%, transparent 70%); pointer-events: none; }
@@ -69,7 +49,6 @@ body::before { content: ''; position: fixed; inset: 0; background: var(--film-gr
 .audio-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: #fff; line-height: 1.35; margin-bottom: 0.5rem; }
 .audio-desc { font-size: 0.9rem; color: var(--text-dim); line-height: 1.65; margin-bottom: 0.9rem; }
 .audio-player { width: 100%; height: 42px; border-radius: 6px; outline: none; }
-.audio-pending { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); padding: 0.7rem 0.9rem; background: var(--bg-card); border: 1px dashed var(--border-light); border-radius: 6px; text-align: center; }
 
 .progress-section { max-width: 800px; margin: 2rem auto 0; padding: 1.3rem 1.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; }
 .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.7rem; }
@@ -198,26 +177,6 @@ body::before { content: ''; position: fixed; inset: 0; background: var(--film-gr
 </head>
 <body>
 
-<div class="login-overlay" id="loginOverlay">
-  <div class="login-box">
-    <div class="login-label">Year 12 ATAR · MPA</div>
-    <div class="login-title">Revision Hub</div>
-    <div class="login-hint">Enter the credentials provided by Mr Clarke to access the essay guide.</div>
-    <div class="login-field">
-      <label for="loginUser">Username</label>
-      <input type="text" id="loginUser" autocomplete="off" autocapitalize="off" autocorrect="off">
-    </div>
-    <div class="login-field">
-      <label for="loginPass">Password</label>
-      <input type="password" id="loginPass" autocomplete="off">
-    </div>
-    <button class="login-btn" id="loginBtn">Enter</button>
-    <div class="login-error hidden" id="loginError">Incorrect username or password. Try again.</div>
-  </div>
-</div>
-
-<div class="site-content" id="siteContent">
-
 <header class="hero">
   <a href="index.html" style="display:inline-flex;align-items:center;gap:0.35rem;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;color:#7a7a94;text-decoration:none;margin-bottom:1rem;position:relative;transition:color 0.2s;" onmouseover="this.style.color='#7b9aff'" onmouseout="this.style.color='#7a7a94'">&larr; Back to Revision Hub</a>
   <div class="hero-label">Year 12 ATAR · Journal Entry 4</div>
@@ -236,19 +195,22 @@ body::before { content: ''; position: fixed; inset: 0; background: var(--film-gr
     <div class="audio-label">Podcast · NotebookLM</div>
     <div class="audio-title">Acing the Spirited Away Assessment</div>
     <p class="audio-desc">A discussion walking through the essay question, the marking key, and how to use <em>Spirited Away</em> (or <em>Samson and Delilah</em>) to reach the top band. Ideal if you prefer to learn by listening.</p>
-    <div class="audio-pending">Audio guide coming soon — check back shortly</div>
+    <audio class="audio-player" controls preload="metadata">
+      <source src="Mastering_Reception_for_Journal_Entry_4.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
   </div>
 </div>
 
 <div class="progress-section">
   <div class="progress-header">
     <span class="progress-label">Your confidence</span>
-    <span class="progress-count" id="progressCount">0 / 9 locked in</span>
+    <span class="progress-count" id="progressCount">0 / 7 locked in</span>
   </div>
   <div class="progress-track">
     <div class="progress-fill" id="progressFill"></div>
   </div>
-  <div class="progress-done" id="progressDone">All 9 locked in — you're essay-ready. Go back over the ones you found tricky.</div>
+  <div class="progress-done" id="progressDone">All 7 locked in — you're essay-ready. Go back over the ones you found tricky.</div>
 </div>
 
 <div class="mode-tabs" role="tablist">
@@ -278,7 +240,7 @@ body::before { content: ''; position: fixed; inset: 0; background: var(--film-gr
 <div class="section-divider" style="max-width: 800px; margin-left: auto; margin-right: auto;"></div>
 
 <div class="container">
-  <h2 class="section-title">Part 3 — Checklist, vocabulary & common errors</h2>
+  <h2 class="section-title">Part 3 — Checklist, vocabulary &amp; common errors</h2>
   <p class="section-sub">The final polish before you hand in.</p>
   <div id="part3Container"></div>
 </div>
@@ -287,8 +249,6 @@ body::before { content: ''; position: fixed; inset: 0; background: var(--film-gr
   Year 12 ATAR MPA · Sacred Heart College · 2026<br>
   <span style="color: #5a5a6e;">Journal Entry 4 Essay Guide · <em>Spirited Away</em> (Hayao Miyazaki, 2001)</span>
 </footer>
-
-</div>
 
 <script>
 const cards = [
@@ -552,7 +512,7 @@ const cards = [
     `
   },
   {
-    part: 3, id: 'checklist-vocab', num: '3.0', title: 'Checklist, vocabulary & common errors',
+    part: 3, id: 'checklist-vocab', num: '3.0', title: 'Checklist, vocabulary &amp; common errors',
     quizPrompt: 'List three things you most need to remember the next time you write this essay. Be specific about what you will do differently.',
     html: `
       <h3>Pre-flight checklist</h3>
@@ -738,53 +698,10 @@ function updateProgress() {
   document.getElementById('progressDone').classList.toggle('visible', locked === total);
 }
 
-(function () {
-  'use strict';
-  const VALID_USER_HASH = 'd5506c3f045a27380f2508acbd828833f4d247e7aefa5ba08555169df92bcebf';
-  const VALID_PASS_HASH = '410caa78609084c279d26bc9185da6d2c3c793d9948e1361b7c31415f930cbb7';
-  const AUTH_KEY = 'mpa_auth';
-
-  async function sha256(str) {
-    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-  }
-
-  const overlay = document.getElementById('loginOverlay');
-  const content = document.getElementById('siteContent');
-  const userIn = document.getElementById('loginUser');
-  const passIn = document.getElementById('loginPass');
-  const btn = document.getElementById('loginBtn');
-  const errMsg = document.getElementById('loginError');
-
-  function unlock() {
-    overlay.classList.add('hidden');
-    content.classList.add('visible');
-    localStorage.setItem(AUTH_KEY, 'true');
-    init();
-  }
-
-  if (localStorage.getItem(AUTH_KEY) === 'true') unlock();
-
-  async function attempt() {
-    const userHash = await sha256(userIn.value);
-    const passHash = await sha256(passIn.value);
-    if (userHash === VALID_USER_HASH && passHash === VALID_PASS_HASH) unlock();
-    else { errMsg.classList.remove('hidden'); passIn.value = ''; passIn.focus(); }
-  }
-
-  btn.addEventListener('click', attempt);
-  userIn.addEventListener('keydown', (e) => { if (e.key === 'Enter') passIn.focus(); });
-  passIn.addEventListener('keydown', (e) => { if (e.key === 'Enter') attempt(); });
-  userIn.addEventListener('input', () => errMsg.classList.add('hidden'));
-  passIn.addEventListener('input', () => errMsg.classList.add('hidden'));
-})();
-
-function init() {
-  loadState();
-  document.querySelectorAll('.mode-tab').forEach(t => { t.classList.toggle('active', t.dataset.mode === state.mode); });
-  renderCards();
-  updateProgress();
-}
+loadState();
+document.querySelectorAll('.mode-tab').forEach(t => { t.classList.toggle('active', t.dataset.mode === state.mode); });
+renderCards();
+updateProgress();
 </script>
 </body>
 </html>

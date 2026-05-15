@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Journal Entry 4 – Spirited Away Essay Guide | Year 12 ATAR MPA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #0a0a0f;
+  --bg-card: #12121a;
+  --bg-card-hover: #1a1a26;
+  --bg-elevated: #181822;
+  --border: #2a2a3a;
+  --border-light: #3a3a4a;
+  --accent: #5b7ff5;
+  --accent-bright: #7b9aff;
+  --accent-dim: #3d5af1;
+  --gold: #e8c547;
+  --green: #4caf7d;
+  --teal: #3db8a0;
+  --purple: #a073d9;
+  --red: #e57373;
+  --text: #e0e0ec;
+  --text-dim: #a0a0b8;
+  --text-muted: #7a7a94;
+  --film-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Source Sans 3', sans-serif; background: var(--bg-deep); color: var(--text); line-height: 1.7; min-height: 100vh; }
+body::before { content: ''; position: fixed; inset: 0; background: var(--film-grain); pointer-events: none; z-index: 9999; opacity: 0.35; }
+
+.hero { position: relative; padding: 3.5rem 2rem 3rem; text-align: center; background: linear-gradient(180deg, #10101a 0%, var(--bg-deep) 100%); border-bottom: 1px solid var(--border); overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -50%; left: 50%; transform: translateX(-50%); width: 900px; height: 900px; background: radial-gradient(ellipse, rgba(91,127,245,0.07) 0%, transparent 70%); pointer-events: none; }
+.hero-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; position: relative; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; line-height: 1.15; margin-bottom: 0.8rem; position: relative; }
+.hero h1 em { font-style: italic; color: var(--accent-bright); }
+.hero-sub { color: var(--text-dim); font-size: 1.05rem; max-width: 720px; margin: 0 auto; position: relative; }
+
+.message-box { max-width: 800px; margin: 2rem auto 0; padding: 1.6rem 1.8rem; background: linear-gradient(135deg, rgba(160,115,217,0.08) 0%, rgba(91,127,245,0.05) 100%); border-left: 3px solid var(--purple); border-radius: 6px; }
+.message-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--purple); margin-bottom: 0.5rem; }
+.message-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.6rem; }
+.message-text { color: var(--text-dim); font-size: 0.98rem; }
+
+.audio-section { max-width: 800px; margin: 2rem auto 0; }
+.audio-card { background: linear-gradient(135deg, rgba(91,127,245,0.05) 0%, rgba(232,197,71,0.03) 100%); border: 1px solid rgba(91,127,245,0.15); border-radius: 10px; padding: 1.3rem 1.5rem; position: relative; }
+.audio-card::before { content: '\01F3A7'; position: absolute; top: -12px; left: 20px; background: var(--bg-deep); padding: 0 6px; font-size: 1.1rem; }
+.audio-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem; }
+.audio-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: #fff; line-height: 1.35; margin-bottom: 0.5rem; }
+.audio-desc { font-size: 0.9rem; color: var(--text-dim); line-height: 1.65; margin-bottom: 0.9rem; }
+.audio-player { width: 100%; height: 42px; border-radius: 6px; outline: none; }
+
+.progress-section { max-width: 800px; margin: 2rem auto 0; padding: 1.3rem 1.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; }
+.progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.7rem; }
+.progress-label { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); }
+.progress-count { font-size: 0.9rem; color: var(--accent-bright); font-weight: 500; }
+.progress-track { height: 6px; background: var(--bg-deep); border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-dim), var(--accent-bright)); width: 0%; transition: width 0.4s; }
+.progress-done { text-align: center; color: var(--green); font-size: 0.9rem; margin-top: 0.7rem; display: none; }
+.progress-done.visible { display: block; }
+
+.mode-tabs { max-width: 800px; margin: 2rem auto 0; display: flex; gap: 0.5rem; background: var(--bg-card); padding: 0.35rem; border-radius: 8px; border: 1px solid var(--border); }
+.mode-tab { flex: 1; background: transparent; border: none; color: var(--text-dim); padding: 0.7rem 1rem; border-radius: 5px; font-family: inherit; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: all 0.15s; }
+.mode-tab:hover { color: var(--text); }
+.mode-tab.active { background: var(--accent); color: white; }
+
+.expand-controls { max-width: 800px; margin: 1.2rem auto 0; display: flex; justify-content: flex-end; gap: 0.5rem; }
+.expand-btn { background: transparent; border: 1px solid var(--border-light); color: var(--text-dim); padding: 0.4rem 0.9rem; border-radius: 4px; font-family: inherit; font-size: 0.8rem; cursor: pointer; transition: all 0.15s; }
+.expand-btn:hover { color: var(--text); border-color: var(--accent); }
+
+.container { max-width: 800px; margin: 0 auto; padding: 0 2rem; }
+
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; margin: 3rem 0 0.3rem; color: var(--text); }
+.section-sub { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 1.5rem; }
+.section-divider { height: 1px; background: var(--border); margin: 3rem 0 2rem; }
+
+.guide-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1rem; overflow: hidden; transition: border-color 0.15s; }
+.guide-card:hover { border-color: var(--border-light); }
+.guide-card.locked-in { border-left: 3px solid var(--green); }
+
+.card-head { padding: 1.2rem 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; user-select: none; transition: background 0.15s; }
+.card-head:hover { background: var(--bg-card-hover); }
+.card-head:focus { outline: 2px solid var(--accent); outline-offset: -2px; }
+.card-head-left { display: flex; align-items: center; gap: 1rem; flex: 1; min-width: 0; }
+.card-num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--accent); letter-spacing: 0.1em; flex-shrink: 0; min-width: 2.5rem; }
+.card-head-text { font-size: 1.02rem; font-weight: 500; color: var(--text); }
+.card-marks { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--gold); padding: 0.2rem 0.55rem; background: rgba(232,197,71,0.1); border-radius: 3px; flex-shrink: 0; margin-left: 0.5rem; }
+.card-toggle { color: var(--text-muted); font-size: 1.2rem; transition: transform 0.25s; flex-shrink: 0; }
+.guide-card.open .card-toggle { transform: rotate(90deg); }
+
+.card-body { display: none; padding: 0 1.5rem 1.5rem; border-top: 1px solid var(--border); }
+.guide-card.open .card-body { display: block; }
+.card-body h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--accent-bright); margin: 1.5rem 0 0.7rem; }
+.card-body h3:first-child { margin-top: 1.2rem; }
+.card-body p { color: var(--text); margin-bottom: 0.9rem; font-size: 0.98rem; }
+.card-body p.muted { color: var(--text-dim); }
+.card-body ul { list-style: none; padding: 0; margin: 0.5rem 0 1rem; }
+.card-body ul li { position: relative; padding: 0.3rem 0 0.3rem 1.5rem; color: var(--text); font-size: 0.96rem; }
+.card-body ul li::before { content: ''; position: absolute; left: 0.3rem; top: 1rem; width: 5px; height: 5px; background: var(--accent); border-radius: 50%; }
+.card-body strong { color: var(--text); font-weight: 600; }
+.card-body em { color: var(--accent-bright); font-style: italic; }
+
+.inline-box { padding: 1.2rem 1.3rem; border-radius: 6px; margin: 1.2rem 0; font-size: 0.95rem; line-height: 1.65; }
+.inline-box .box-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.6rem; font-weight: 500; }
+
+.box-exemplar { background: rgba(76,175,125,0.08); border-left: 3px solid var(--green); }
+.box-exemplar .box-label { color: var(--green); }
+.box-exemplar .exemplar-text { color: var(--text); font-style: italic; line-height: 1.7; }
+.box-exemplar .exemplar-text em { font-style: normal; color: var(--accent-bright); font-weight: 500; }
+.exemplar-attrib { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 0.7rem; font-style: normal; }
+.exemplar-analysis { margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed rgba(76,175,125,0.3); }
+.exemplar-analysis-label { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.18em; color: var(--green); text-transform: uppercase; margin-bottom: 0.4rem; font-weight: 500; }
+.exemplar-analysis p { color: var(--text-dim); font-size: 0.92rem; margin-bottom: 0; font-style: normal; }
+
+.box-pitfall { background: rgba(229,115,115,0.08); border-left: 3px solid var(--red); }
+.box-pitfall .box-label { color: var(--red); }
+.box-callout { background: rgba(91,127,245,0.08); border-left: 3px solid var(--accent); }
+.box-callout .box-label { color: var(--accent-bright); }
+.box-advanced { background: rgba(160,115,217,0.08); border-left: 3px solid var(--purple); }
+.box-advanced .box-label { color: var(--purple); }
+.box-pivot { background: rgba(61,184,160,0.08); border-left: 3px solid var(--teal); }
+.box-pivot .box-label { color: var(--teal); }
+
+.comparison { display: grid; grid-template-columns: 1fr; gap: 0.8rem; margin: 1rem 0; }
+.comparison-item { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 6px; padding: 1rem 1.2rem; }
+.comparison-item.before { border-left: 3px solid var(--red); }
+.comparison-item.after { border-left: 3px solid var(--green); }
+.comparison-item .tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.4rem; display: block; }
+.comparison-item.before .tag { color: var(--red); }
+.comparison-item.after .tag { color: var(--green); }
+.comparison-item .content { color: var(--text); font-size: 0.95rem; }
+.comparison-item .content em { color: var(--accent-bright); font-style: italic; }
+
+.lock-in-row { margin-top: 1.5rem; padding-top: 1.2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.lock-in-btn { background: transparent; border: 1px solid var(--border-light); color: var(--text-dim); padding: 0.6rem 1.2rem; border-radius: 5px; font-family: inherit; font-size: 0.88rem; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; gap: 0.5rem; }
+.lock-in-btn:hover { color: var(--text); border-color: var(--accent); }
+.lock-in-btn.locked { background: rgba(76,175,125,0.12); border-color: var(--green); color: var(--green); }
+.lock-in-btn.locked::before { content: '✓'; }
+.confidence-note { font-size: 0.82rem; color: var(--text-muted); }
+
+.quiz-prompt { background: rgba(91,127,245,0.08); border: 1px solid rgba(91,127,245,0.2); border-radius: 6px; padding: 1rem 1.2rem; margin-bottom: 1rem; }
+.quiz-prompt-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-bright); margin-bottom: 0.4rem; }
+.quiz-prompt-text { color: var(--text); font-size: 0.95rem; }
+.quiz-textarea { width: 100%; background: var(--bg-deep); border: 1px solid var(--border-light); border-radius: 5px; padding: 0.9rem 1rem; color: var(--text); font-family: inherit; font-size: 0.95rem; line-height: 1.6; resize: vertical; min-height: 140px; margin-bottom: 0.8rem; }
+.quiz-textarea:focus { outline: none; border-color: var(--accent); }
+.quiz-reveal-btn { background: var(--accent); color: white; border: none; border-radius: 5px; padding: 0.6rem 1.2rem; font-family: inherit; font-size: 0.9rem; cursor: pointer; font-weight: 500; margin-bottom: 1rem; }
+.quiz-reveal-btn:hover { background: var(--accent-bright); }
+.quiz-content { display: none; }
+.quiz-content.revealed { display: block; }
+
+.vocab-table { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin: 1rem 0; }
+.vocab-cell { background: var(--bg-card); padding: 0.75rem 1rem; font-size: 0.92rem; color: var(--text); }
+.vocab-cell.header { background: var(--bg-elevated); font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); font-weight: 500; }
+.vocab-cell.simple { color: var(--text-dim); }
+.vocab-cell.advanced { color: var(--accent-bright); }
+
+.time-table { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1.5fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin: 1rem 0; font-size: 0.9rem; }
+.time-cell { background: var(--bg-card); padding: 0.6rem 0.8rem; color: var(--text); }
+.time-cell.header { background: var(--bg-elevated); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); font-weight: 500; }
+
+.footer { text-align: center; padding: 3rem 2rem; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border); margin-top: 4rem; }
+
+@media (max-width: 640px) {
+  .hero h1 { font-size: 1.7rem; }
+  .hero { padding: 2.5rem 1.2rem 2.2rem; }
+  .container { padding: 0 1.2rem; }
+  .time-table { grid-template-columns: 1.5fr 1fr 1fr; font-size: 0.82rem; }
+  .time-table .time-cell:nth-child(4n) { display: none; }
+  .vocab-table { font-size: 0.85rem; }
+  .card-head { padding: 1rem 1.1rem; }
+  .card-body { padding: 0 1.1rem 1.2rem; }
+  .card-head-text { font-size: 0.96rem; }
+  .section-title { font-size: 1.5rem; }
+  .message-box, .audio-section, .progress-section, .mode-tabs, .expand-controls { margin-left: 1.2rem; margin-right: 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:0.35rem;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;color:#7a7a94;text-decoration:none;margin-bottom:1rem;position:relative;transition:color 0.2s;" onmouseover="this.style.color='#7b9aff'" onmouseout="this.style.color='#7a7a94'">&larr; Back to Revision Hub</a>
+  <div class="hero-label">Year 12 ATAR · Journal Entry 4</div>
+  <h1>The <em>Spirited Away</em> Essay Guide</h1>
+  <p class="hero-sub">How to approach the 23-mark extended response on media art, representations and audience interpretation.</p>
+</header>
+
+<div class="message-box">
+  <div class="message-label">A message from Mr Clarke</div>
+  <div class="message-title">This is your roadmap for Journal Entry 4</div>
+  <p class="message-text">This response is the most conceptually demanding extended task you've sat so far. The shift from Journal Entry 3 is real — you're being asked to think about representations as <em>plural</em> and <em>interpretable</em>, not just constructed by a director. <em>Spirited Away</em> rewards that thinking richly, but the work has to come from you: name the readings, weigh them, and make a judgement about how the film's aesthetics open them up. You'll see exemplar paragraphs from Imogen and Taylor scattered through this guide — these are real responses from your cohort, included with permission, that show what the top band looks like in practice. – Mr Clarke</p>
+</div>
+
+<div class="audio-section">
+  <div class="audio-card">
+    <div class="audio-label">Podcast · NotebookLM</div>
+    <div class="audio-title">Acing the Spirited Away Assessment</div>
+    <p class="audio-desc">A discussion walking through the essay question, the marking key, and how to use <em>Spirited Away</em> (or <em>Samson and Delilah</em>) to reach the top band. Ideal if you prefer to learn by listening.</p>
+    <audio class="audio-player" controls preload="metadata">
+      <source src="Mastering_Reception_for_Journal_Entry_4.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+</div>
+
+<div class="progress-section">
+  <div class="progress-header">
+    <span class="progress-label">Your confidence</span>
+    <span class="progress-count" id="progressCount">0 / 7 locked in</span>
+  </div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+  <div class="progress-done" id="progressDone">All 7 locked in — you're essay-ready. Go back over the ones you found tricky.</div>
+</div>
+
+<div class="mode-tabs" role="tablist">
+  <button class="mode-tab active" data-mode="reveal" onclick="setMode('reveal')">📖 Reveal Guide</button>
+  <button class="mode-tab" data-mode="quiz" onclick="setMode('quiz')">✍️ Self-Quiz</button>
+</div>
+
+<div class="expand-controls">
+  <button class="expand-btn" onclick="expandAll()">Expand all</button>
+  <button class="expand-btn" onclick="collapseAll()">Collapse all</button>
+</div>
+
+<div class="container">
+  <h2 class="section-title">Part 1 — How to approach the response</h2>
+  <p class="section-sub">Before you touch the individual dot points, get the frame right.</p>
+  <div id="part1Container"></div>
+</div>
+
+<div class="section-divider" style="max-width: 800px; margin-left: auto; margin-right: auto;"></div>
+
+<div class="container">
+  <h2 class="section-title">Part 2 — Working through each criterion</h2>
+  <p class="section-sub">Every dot point, unpacked — what it demands, and how to get there.</p>
+  <div id="part2Container"></div>
+</div>
+
+<div class="section-divider" style="max-width: 800px; margin-left: auto; margin-right: auto;"></div>
+
+<div class="container">
+  <h2 class="section-title">Part 3 — Checklist, vocabulary &amp; common errors</h2>
+  <p class="section-sub">The final polish before you hand in.</p>
+  <div id="part3Container"></div>
+</div>
+
+<footer class="footer">
+  Year 12 ATAR MPA · Sacred Heart College · 2026<br>
+  <span style="color: #5a5a6e;">Journal Entry 4 Essay Guide · <em>Spirited Away</em> (Hayao Miyazaki, 2001)</span>
+</footer>
+
+<script>
+const cards = [
+  {
+    part: 1, id: 'question-decoded', num: '1.1', title: 'The question, decoded',
+    quizPrompt: 'What is the single argument you need to sustain across all four dot points? Write it in your own words.',
+    html: `
+      <p>The question is <strong>one statement with four dot points</strong>, worth a total of <strong>23 marks</strong>. Don't write four mini-essays — sustain one argument across all four. The question statement is the umbrella that joins them: every paragraph must trace back to it.</p>
+      <div class="inline-box box-callout">
+        <div class="box-label">The umbrella — keep returning to this</div>
+        <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">Representations in a media art work invite multiple interpretations rather than a single, universal reading.</p>
+        <p style="margin-bottom: 0;">If a paragraph does not show how the film's representations are <em>open</em> to varied readings — or how its aesthetics produce that openness — it is off-topic.</p>
+      </div>
+      <h3>The four verbs — and what they demand</h3>
+      <ul>
+        <li><strong>Construct an overview</strong> (3) — a purposeful introduction that frames representations as plural.</li>
+        <li><strong>Describe the characteristics of media art</strong> (4) — define the mode, not just one film.</li>
+        <li><strong>Analyse</strong> aesthetics → representations (8) — show the mechanism.</li>
+        <li><strong>Evaluate</strong> audience interpretation of representations (8) — make a judgement about <em>how</em> different audiences decode the same text.</li>
+      </ul>
+      <div class="inline-box box-pitfall">
+        <div class="box-label">The conceptual shift from Journal Entry 3</div>
+        <p style="margin-bottom: 0;">JE3 asked you to show how cultural context and a director's agenda <em>produced</em> the film. JE4 asks you to show how a film's representations <em>open up</em> multiple readings. The earlier essay was about production; this one is about <strong>reception</strong>. Don't fall back into JE3 habits — examiners will see it.</p>
+      </div>
+      <div class="inline-box box-pitfall">
+        <div class="box-label">A small but important conceptual point</div>
+        <p style="margin-bottom: 0;">Miyazaki does not <em>use</em> communication theory — <strong>we</strong> use communication theory to read his work. Be careful with phrases like "Miyazaki uses encoding/decoding": the framework is the lens we hold up to the film, not a tool the director deploys. This sounds small, but it signals to the examiner whether you understand what reception theory actually is.</p>
+      </div>
+    `
+  },
+  {
+    part: 1, id: 'structure-time', num: '1.2', title: 'Structure and time',
+    quizPrompt: 'You have 50 minutes for 23 marks. How would you split that time across the four dot points? Why?',
+    html: `
+      <p>You have 50 minutes for 23 marks. The marks cluster heavily in the analyse and evaluate sections — <strong>16 of 23 marks</strong>. The opening two dot points are necessary but not where the marks live. Plan accordingly.</p>
+      <div class="time-table">
+        <div class="time-cell header">Dot point</div>
+        <div class="time-cell header">Marks</div>
+        <div class="time-cell header">Time</div>
+        <div class="time-cell header">Length</div>
+        <div class="time-cell">Overview</div>
+        <div class="time-cell">3</div>
+        <div class="time-cell">~6 min</div>
+        <div class="time-cell">~¾ page</div>
+        <div class="time-cell">Characteristics of media art</div>
+        <div class="time-cell">4</div>
+        <div class="time-cell">~6 min</div>
+        <div class="time-cell">~¾ page</div>
+        <div class="time-cell">Aesthetics &rarr; representations (analyse)</div>
+        <div class="time-cell">8</div>
+        <div class="time-cell">~16 min</div>
+        <div class="time-cell">~1½ pages</div>
+        <div class="time-cell">Audience interpretation (evaluate)</div>
+        <div class="time-cell">8</div>
+        <div class="time-cell">~18 min</div>
+        <div class="time-cell">~1½–2 pages</div>
+        <div class="time-cell">Brief conclusion</div>
+        <div class="time-cell">—</div>
+        <div class="time-cell">~4 min</div>
+        <div class="time-cell">~3–4 lines</div>
+      </div>
+      <div class="inline-box box-pitfall">
+        <div class="box-label">Time-management rule</div>
+        <p style="margin-bottom: 0;">If you hit 28 minutes and haven't started the analyse section, <strong>stop whatever you're doing and start it</strong>. An unfinished 8-mark section is the costliest mistake on the paper — worse than an underdeveloped overview by a wide margin.</p>
+      </div>
+      <div class="inline-box box-callout">
+        <div class="box-label">Plan before you write</div>
+        <p style="margin-bottom: 0;">The single biggest structural error in this kind of essay is putting the right evidence in the wrong dot point. Before you start writing, jot down which scenes / aesthetic features belong to which dot point. <strong>Your best mise-en-scène analysis belongs in dot point 3, not dot point 4.</strong> Dot point 4 needs <em>audience readings</em> of those representations, not the construction of them.</p>
+      </div>
+    `
+  },
+  {
+    part: 1, id: 'choosing-text', num: '1.3', title: 'Choosing your media work',
+    quizPrompt: 'Which media work will you use, and why is it suited to a question about multiple interpretations?',
+    html: `
+      <p>The default focus text is <em>Spirited Away</em> (Hayao Miyazaki, 2001, Studio Ghibli, Japan). It is exceptionally well-suited to this question — its symbolic, allegorical mode and its grounding in Japanese cultural and historical context mean different audiences genuinely produce different readings of the same images. The Yuya bathhouse, No-Face, the gold motif, the train sequence: none of these have a single, universal meaning. That is the point.</p>
+      <p>You may also use <em>Samson and Delilah</em> (Warwick Thornton, 2009) or another media work studied this semester. Both films give you what the question requires — but they require different framing.</p>
+      <div class="inline-box box-pivot">
+        <div class="box-label">Pivot for students using Samson and Delilah</div>
+        <p>The question's focus on multiple interpretations works for <em>Samson and Delilah</em> too — but the framing changes. Where <em>Spirited Away</em>'s representations open through symbol and allegory, <em>Samson and Delilah</em>'s representations open through <strong>cultural positioning</strong>: an Indigenous viewer and a non-Indigenous viewer decode the same film differently. Thornton's silence, his withholding of dialogue, his refusal of three-act spectacle — these are aesthetic decisions that <em>invite</em> response rather than instruct.</p>
+        <p style="margin-bottom: 0;">If you're using <em>S&amp;D</em>, your "characteristics of media art" paragraph should foreground Australian social realism as a mode that operates inside the media art tradition (auteur-driven, niche audience, symbolic over expositional), and your audience interpretation paragraph should foreground Hall's model and the cultural positioning of viewers.</p>
+      </div>
+      <p>Whichever you choose, the rest of this guide treats <em>Spirited Away</em> as the worked example. Where students using <em>S&amp;D</em> would frame the same idea differently, you'll see a teal pivot box like the one above.</p>
+    `
+  },
+  {
+    part: 2, id: 'overview', num: '2.1', title: 'Overview', marks: '3',
+    quizPrompt: 'Draft an overview paragraph. Open conceptually about why media art invites multiple readings — then pivot to your chosen film as exemplary.',
+    html: `
+      <p>The overview is not a plot summary. It is a controlled introduction that positions the film as <strong>an exemplary instance of media art whose representations invite multiple readings</strong>. Three marks, but every word counts — vague overviews leak marks across the whole response.</p>
+      <h3>The top-band move: open conceptually, then pivot to the film</h3>
+      <p>The strongest overviews do not begin with the film. They begin with a <strong>conceptual claim</strong> about what media art does — that its representations are constructed to invite interpretation rather than transmit a fixed meaning — and <em>then</em> present <em>Spirited Away</em> as exemplary. This signals to the examiner that you understand the question's premise.</p>
+      <h3>The five moves that make this 3/3</h3>
+      <ul>
+        <li><strong>Conceptual opener</strong> — media art and the plurality of readings.</li>
+        <li><strong>Pivot to the film</strong> as exemplary, with title, director, year, studio and country.</li>
+        <li><strong>Multiple readings named</strong> — at least two or three, briefly.</li>
+        <li><strong>Auteur and aesthetic signalled</strong> — Miyazaki as auteur, the Japanese cultural frame.</li>
+        <li><strong>Position taken</strong> — a claim about how aesthetics produce openness.</li>
+      </ul>
+      <div class="inline-box box-exemplar">
+        <div class="box-label">Student exemplar — overview</div>
+        <p class="exemplar-text"><em>Spirited Away</em>, produced by Hayao Miyazaki under Studio Ghibli, represents a distinctly unique brand of media art in which meaning is not forced upon audiences, rather offered and allowed to simmer in quietness. The film follows the story of a young girl as she moves to a new house and school, and in this transitionary time becomes stuck in a spirit world in which she must work as a labourer in a bathhouse to save her parents. To many viewers, particularly of a Western background who may not be aware of Japanese culture and spiritual motif, the film can be viewed as a bildungsroman genre media work, contemplating in a fantastical world the realities of growing up. Whilst protagonist Chihiro does acquire a sense of responsibility and wisdom through her experiences, the film can be interpreted as much more thematically complex. This is an example of Stuart Hall's encoding and decoding theory, showing how meaning is not entirely reliant upon director's agenda, but formed in the cross-bridge between intention and interpretation.</p>
+        <div class="exemplar-attrib">— Imogen, 2026 cohort (used with permission)</div>
+        <div class="exemplar-analysis">
+          <div class="exemplar-analysis-label">What this is doing right</div>
+          <p>Director, studio, plot synopsis and statement engagement all present, then Imogen escalates by naming Hall's encoding/decoding theory <em>in the overview itself</em> rather than holding it back for dot point 4. The <em>bildungsroman</em> naming gives the Western reading a precise literary-genre label, and the "cross-bridge between intention and interpretation" framing is the clearest articulation of the multiple-interpretations mechanism. The cultural audience split (Japanese vs Western) is built directly into the framing.</p>
+        </div>
+      </div>
+      <div class="inline-box box-pivot">
+        <div class="box-label">Pivot for Samson and Delilah</div>
+        <p style="margin-bottom: 0;">Same conceptual opener, then: "Warwick Thornton's <em>Samson and Delilah</em> (2009) is exemplary of this — a work of Australian social realism whose representations of Indigenous adolescence, dispossession and quiet love have been read as a post-Apology critique, an Indigenous-standpoint refusal of the settler gaze, a meditation on cultural imperialism, and an invitation to ethical response that Indigenous and non-Indigenous viewers decode differently." Then name Thornton as auteur, name the neorealist aesthetic, and take a position.</p>
+      </div>
+    `
+  },
+  {
+    part: 2, id: 'media-art', num: '2.2', title: 'Describe the characteristics of media art', marks: '4',
+    quizPrompt: 'List four or five characteristics of media art as a mode of filmmaking. For each, write one short sentence defining what it means.',
+    html: `
+      <p>This paragraph is asking you to define <strong>media art as a category</strong>, not to describe one film. Approach it like a definition with examples. Four marks — short, precise, no padding.</p>
+      <div class="inline-box box-pitfall">
+        <div class="box-label">The mistake to avoid</div>
+        <p style="margin-bottom: 0;">Don't jump straight to art film, and don't treat this dot point as more film analysis. <strong>Define the mode first</strong> (media art as the broader category), then briefly illustrate with the film. If the paragraph reads like more film analysis, you're losing the marks the dot point is offering.</p>
+      </div>
+      <h3>Five strong characteristics you can describe</h3>
+      <ul>
+        <li><strong>Auteur-driven, subjective expression</strong> — media art foregrounds a director's worldview and signature style rather than industrial mass-market entertainment.</li>
+        <li><strong>Artistic merit over entertainment-and-profit values</strong> — media art is split into two broad orientations; art films sit firmly in the first, prioritising what the work expresses (universal truth, cultural beliefs, social contexts, enhancement of the commonplace) over commercial return.</li>
+        <li><strong>Distinctive aesthetic and unconventional narrative</strong> — symbolic, allegorical or ambiguous storytelling that resists a single, fixed meaning. Non-linear or episodic structures are common.</li>
+        <li><strong>Storytelling as invitation, not delivery</strong> — media art tells stories in a deliberate mode that leaves room for the audience to interpret. Walter Benjamin describes this as the storyteller's gift: meaning is completed by the listener, not handed to them.</li>
+        <li><strong>Niche or active audiences</strong> — media art targets viewers who engage interpretively rather than receive passively, and who complete the work's meaning through their own cultural and personal frames.</li>
+      </ul>
+      <div class="inline-box box-exemplar">
+        <div class="box-label">Student exemplar — characteristics of media art</div>
+        <p class="exemplar-text">Media art is not something that can be defined with a singular definition, as the concept of art itself and what classifies as such is in its own right incredibly subjective. Media art is often split into categories of artistic merit and values, and entertainment and profit values. In terms of the latter option, <em>Spirited Away</em> is far less informed by this aspect of media art. Whilst Studio Ghibli is, and still was at the time, a renowned animation and production studio, it does not make art for the sake of profit like many others do, but rather many films such as <em>Spirited Away</em> are guided and ensured by the artistic direction and aim of primarily one man, Hayao Miyazaki. In the creation of <em>Spirited Away</em>, Miyazaki paid far more attention to the artistic merit side of media art. The artistic merit aspect is far more focused on what the film is expressing, whether it were made to express the universal truth, religions and societal beliefs, social and cultural contexts, or even enhancing the commonplace. An example of these criterion being met by <em>Spirited Away</em> is in its enhancement of the commonplace. Miyazaki specifically characterised Chihiro as a completely normal ten year old girl. He didn't want his protagonist to be special or unique; rather, he based Chihiro off of his own friend's daughter, so that any other ten year old girl watching could connect to Chihiro and not be bolted from her journey.</p>
+        <div class="exemplar-attrib">— Taylor, 2026 cohort (used with permission)</div>
+        <div class="exemplar-analysis">
+          <div class="exemplar-analysis-label">What this is doing right</div>
+          <p>Taylor does three sophisticated things in sequence. First, she opens with the meta-move that media art resists singular definition — acknowledging the conceptual difficulty signals genuine engagement. Second, she gives us a <strong>taxonomic split</strong> (artistic merit vs entertainment-and-profit values) which is the framework move most students miss; this lets her position <em>Spirited Away</em> within media art rather than just listing characteristics. Third, she names auteur theory explicitly through Miyazaki's "artistic direction and aim" and then applies one characteristic with anchored evidence — the Chihiro-as-Miyazaki's-friend's-daughter detail as evidence for "enhancement of the commonplace." Naming characteristics is easy; <em>showing how a specific characteristic is met by the work with concrete evidence</em> is what pushes into the top band.</p>
+        </div>
+      </div>
+      <div class="inline-box box-pivot">
+        <div class="box-label">Pivot for Samson and Delilah</div>
+        <p style="margin-bottom: 0;">All five characteristics apply equally to <em>S&amp;D</em>: Thornton as auteur with Indigenous-standpoint signatures; Australian social realism sitting firmly on the artistic-merit side; foregrounding of cultural and political concerns (post-Apology dispossession); the withholding of dialogue as an invitation rather than a delivery; an audience expected to bring its own cultural frame to decode. Define the mode first, then briefly anchor in <em>S&amp;D</em>.</p>
+      </div>
+    `
+  },
+  {
+    part: 2, id: 'aesthetics', num: '2.3', title: 'Analyse how aesthetics construct representations', marks: '8',
+    quizPrompt: 'Pick one aesthetic element (mise-en-scène, costume, an iconographic motif). Name one representation it constructs in Spirited Away, and explain how a specific scene shows the construction working.',
+    html: `
+      <p>This is one of the two biggest sections (8 marks). The analysis is asking you to show <strong>the mechanism</strong>: how Miyazaki's aesthetic choices construct representations of place, identity, class, spirit, gender or the natural world. You're not just describing what's on screen — you're explaining how the construction <em>works</em>.</p>
+      <div class="inline-box box-pitfall">
+        <div class="box-label">Read the dot point carefully — it says aesthetics, not narrative</div>
+        <p style="margin-bottom: 0;">It's tempting to reach for narrative-structure frameworks like Kishōtenketsu and walk through the film act by act. But this dot point is asking about <strong>aesthetics</strong> — mise-en-scène, costume, cinematography, lighting, colour, sound, the painterly visual lineage, <em>ma</em>. Narrative structure is a different category. If your paragraph traces the plot rather than analyses aesthetic choices, you're answering the wrong question.</p>
+      </div>
+      <h3>Miyazaki as auteur — the connective concept</h3>
+      <p>Miyazaki is the paradigm of an auteur. The Studio Ghibli signatures — strong young female protagonists, transformation and flight, environmental concern, ambivalence about modernity, the spirit world — run across his body of work. That signature is the connective concept: aesthetic decisions in <em>Spirited Away</em> are legible as Miyazaki's choices, in service of representations the film is constructing.</p>
+      <h3>Aesthetic strands you can work with</h3>
+      <h3 style="margin-top: 1.4rem;">1. The painterly visual lineage — ukiyo-e and Studio Ghibli's craft</h3>
+      <p>The film's hand-drawn 2D animation and watercolour backgrounds draw on the visual aesthetic of <em>ukiyo-e</em> — Edo-period "images of the floating world" that play on the duality of <em>fantasy as pleasure</em> and <em>reality as grief</em>. This lineage matters because it locates the spirit world inside a recognisably Japanese painterly tradition, one that reads differently to audiences accustomed to Disney/Pixar 3D conventions. The aesthetic itself constructs the representation: the spirit world is not exotic, it is inherited.</p>
+      <h3 style="margin-top: 1.4rem;">2. Mise-en-scène — the Yuya bathhouse as layered representation</h3>
+      <p>The Yuya functions simultaneously as three things, all constructed through production design:</p>
+      <ul>
+        <li>A <strong>Shinto place of purification</strong> for tired gods.</li>
+        <li>A <strong>symbol of Meiji-era hybridity</strong> — traditional Edo-period Japanese architecture for the workers (drawn from real-life inspirations including the Edo-Tokyo Open Air Architectural Museum and the Notoyaryokan inn), Westernised carpets, doors and decor reserved for Yubaba's top floor.</li>
+        <li>A <strong>class-stratified workplace</strong> that visually maps a capitalist hierarchy.</li>
+      </ul>
+      <p>The same set is doing three representational jobs at once. Costume reinforces it: workers wear traditional Japanese uniforms while Yubaba wears a Western dress, visualising the West's economic and cultural dominance over Meiji Japan and, by extension, contemporary global capitalism.</p>
+      <h3 style="margin-top: 1.4rem;">3. Iconography — consumption, labour, identity</h3>
+      <p>The film builds its representations through repeated visual motifs:</p>
+      <ul>
+        <li><strong>Consumption</strong> — Chihiro's parents devouring food and being transformed into pigs (their reckless consumption explicitly paralleling Japan's 1980s bubble economy); No-Face producing gold and growing as he consumes greedy workers; piles of gold in Yubaba's office; the bathhouse as a leisure-economy enterprise built on the labour of the underclass.</li>
+        <li><strong>Identity loss</strong> — Yubaba taking Chihiro's name and renaming her Sen; Haku having forgotten his true name. Naming and renaming as the iconography of identity under capitalism.</li>
+        <li><strong>The mask as constructed identity</strong> — No-Face has no face beneath the mask because he has no original self; he is the personification of capitalism, an insatiable appetite that corrupts the values of others through consumption.</li>
+        <li><strong>Costume shift</strong> — Chihiro's transition from Westernised clothes at the beginning to her traditional bathhouse uniform after taking work, visualising the assimilation theme.</li>
+      </ul>
+      <h3>A paragraph engine for the analyse section</h3>
+      <ul>
+        <li>Name a representation the film constructs (e.g. capitalism as appetite; Meiji-era cultural hybridity; identity loss under post-industrial materialism).</li>
+        <li>Identify the aesthetic element doing the constructing (mise-en-scène, costume, iconographic motif, colour palette, animation style).</li>
+        <li>Give specific textual evidence — a named scene or moment.</li>
+        <li>Explain how the aesthetic constructs the representation.</li>
+        <li>Close with an analytical observation: what does this construction make possible that a different aesthetic would not?</li>
+      </ul>
+      <div class="inline-box box-exemplar">
+        <div class="box-label">Student exemplar — aesthetics constructing representations</div>
+        <p class="exemplar-text">A clear example of this is capitalism, consumerism and capitalism as a central critique of <em>Spirited Away</em>. In analysis of one of the opening scenes in which Chihiro and her parents wander through the abandoned theme park, Chihiro's father turns down an alleyway, and is framed directly in the centre of two signs, with Japanese characters translating to 'heaven' and 'hell' on either side of him. In addition to this, layers of discomfort subconsciously infiltrate the viewer as pastel colours of pink, orange and blue deepen into anxiously saturated reds and darker hues upon nightfall. Even more notably, Chihiro's parents being turned into pigs after feasting heavily. This idea of disquiet in characterisation accompanied by the unnerving quality of aesthetics in the scene establishes the concept of something 'wrong' and creates a representation of consumerism and capitalism as a direct comparison to 'heaven' and 'hell' or good and evil. Something morally tinted which even 'credit cards and cash' cannot distil. Japanese spirituality, or in the context of <em>Spirited Away</em> the religion of Shintoism, is massively apparent, as almost all spirits bear massive resemblance to actual spirits of Japanese folklore, such as Yubaba, the river spirit, and Kamaji. Curiously, No-Face is the only spirit who does not — specifically drawn into existence by Miyazaki himself — reinforcing the idea of No-Face as a Western outsider within a distinctly spiritual setting defined by a cleansing of human sin and degradation. However, all spirits are shown with some kind of brokenness of true form. The river spirit, originally viewed as a stink spirit, was enormously polluted by human waste, including a bicycle from Miyazaki's own childhood, inviting an additional reading of the effects of human degradation and greed on the environment.</p>
+        <div class="exemplar-attrib">— Imogen, 2026 cohort (used with permission)</div>
+        <div class="exemplar-analysis">
+          <div class="exemplar-analysis-label">What this is doing right</div>
+          <p>Imogen demonstrates the analytical method cleanly — she names a specific aesthetic feature, anchors it with textual evidence, then links it to the representation it constructs. The opening scene analysis layers <strong>mise-en-scène</strong> (the heaven/hell signs flanking Chihiro's father), <strong>composition</strong> (centred framing), and <strong>colour palette transition</strong> (pastels deepening into saturated reds) to construct the consumerism/capitalism-as-moral-wrong representation. The No-Face-is-the-only-spirit-not-drawn-from-Japanese-folklore observation is the standout analytical move — it reads the aesthetic choice (Miyazaki drawing No-Face from scratch) as the construction of a specific representation (Western capitalist intrusion in a Shinto-defined spiritual world). The bicycle-from-Miyazaki's-childhood detail in the river spirit is the kind of specific textual evidence that distinguishes top responses.</p>
+        </div>
+      </div>
+      <div class="inline-box box-pivot">
+        <div class="box-label">Pivot for Samson and Delilah</div>
+        <p style="margin-bottom: 0;">Same paragraph engine, different evidence: cinéma vérité hand-held cinematography (the bumpy tracking shot after Delilah is hit by the car), the withholding of dialogue (Samson and Delilah barely speak across the first hour), the pull-focus framing in the ice-cream scene (1:01:48), and the durational long take of petrol sniffing (the opening, 0:00:40). Each is an aesthetic choice that constructs a representation — of Indigenous youth, of dispossession, of love expressed without words. Name the representation first, then the aesthetic, then the scene.</p>
+      </div>
+    `
+  },
+  {
+    part: 2, id: 'audience', num: '2.4', title: 'Evaluate how audiences interpret representations', marks: '8',
+    quizPrompt: 'Draft one evaluative sentence about how cultural context shapes a viewer\'s reading of one Spirited Away representation. Make a judgement — don\'t just describe.',
+    html: `
+      <p>This is the hardest section and the one where the conceptual shift from Journal Entry 3 is most visible. You are no longer asking what the film <em>means</em>; you are asking <strong>how different audiences arrive at different readings of the same images</strong>, and making a judgement about that process.</p>
+      <h3>The reception-theory frame — Hall's encoder/decoder model</h3>
+      <p>Stuart Hall's model is your scaffolding. A media work <strong>encodes</strong> meaning through its representations; an audience <strong>decodes</strong> that meaning through their own cultural and personal frames. Hall identifies three reading positions:</p>
+      <ul>
+        <li><strong>Dominant (preferred) reading</strong> — the audience accepts the encoded meaning more or less as intended.</li>
+        <li><strong>Negotiated reading</strong> — the audience accepts parts of the encoded meaning but adapts or rejects others based on their own position.</li>
+        <li><strong>Oppositional reading</strong> — the audience recognises the encoded meaning but reads against it, producing a counter-interpretation.</li>
+      </ul>
+      <div class="inline-box box-callout">
+        <div class="box-label">The single move that lifts this section into the top band</div>
+        <p style="margin-bottom: 0;"><strong>Name Hall explicitly.</strong> The framework exists in your notes — surface it in the response. Then name at least two of the three reading positions (dominant, negotiated, oppositional) and anchor each to specific textual evidence. Discussing audience readings without naming the theoretical apparatus caps the section in the middle band.</p>
+      </div>
+      <h3>Multiple readings of Spirited Away</h3>
+      <h3 style="margin-top: 1.4rem;">Dominant reading — Japanese audience</h3>
+      <p><em>Spirited Away</em> as a Shinto-informed spiritual coming-of-age, with the spirit world, the kami, the bathhouse purification rituals and the importance of names read as culturally familiar and morally instructive. A call to return to traditional Japanese principles. The audience holds the frames; the film slots into them.</p>
+      <h3 style="margin-top: 1.4rem;">Negotiated reading — Western audience</h3>
+      <p><em>Spirited Away</em> as an exotic fantasy adventure and coming-of-age narrative, foregrounding Chihiro's character growth and the spectacle of the spirit world rather than the Shinto framework or Meiji historical context, both of which are often unfamiliar. The Disney English subtitles add an English line at the end of the film — "I think I can handle it" — where there is no equivalent in the original Japanese; this added dialogue narrows the closing exchange toward a Western coming-of-age reading the original does not insist on.</p>
+      <h3 style="margin-top: 1.4rem;">Why the gap exists — iconographic specificity</h3>
+      <p>For audiences unfamiliar with the Meiji period or unable to recognise European architecture, decor and dress as <em>Western</em> iconography, the contrasts encoded in the mise-en-scène may register as merely fantastical rather than critical. The carpets, doors and Western dress in Yubaba's top floor read as "wealth and power" generally — or, as one student in your cohort put it, "normal, if not a bit tacky" — rather than as Western dominance over Japan. Gold registers as a generic fairy-tale signifier of riches rather than a critique of materialist value replacing spiritual value. In Hall's terms, these audiences negotiate the text — accepting the surface narrative while missing the encoded ideological critique.</p>
+      <h3 style="margin-top: 1.4rem;">Alternative readings available across audiences</h3>
+      <ul>
+        <li><strong>Environmentalist critique</strong> — the polluted river spirit; Haku as a dammed river spirit displaced by apartment blocks; the discarded roadside shrines signalling a society that no longer respects the spirits of place.</li>
+        <li><strong>Anti-capitalist / Marxist allegory</strong> — Chihiro forced to exchange her labour for survival; Yubaba as the bourgeoisie owning the means of production; Kamajii and the Susuwatari as proletariat kept alive only to work; No-Face as capitalism itself.</li>
+        <li><strong>Bubble economy reading</strong> — the abandoned theme park constructed during Japan's late-1980s economic boom, when shrines were disregarded to make space for leisure; the parents' "credit cards and cash" line as direct parallel to the era's reckless consumption.</li>
+        <li><strong>Identity-loss reading</strong> — the taking of Chihiro's name (and Haku's) as an allegory for identity dissolution under late capitalism.</li>
+        <li><strong>Feminist reading</strong> — Chihiro as an active, resourceful protagonist who saves herself, her parents and Haku without requiring rescue.</li>
+      </ul>
+      <h3>Evaluate vs analyse — the sentence-level difference</h3>
+      <div class="comparison">
+        <div class="comparison-item before">
+          <span class="tag">Analyse (caps at 5/8)</span>
+          <div class="content"><em>"A Japanese audience reads the bathhouse as a Shinto purification space, while a Western audience reads it as a fantasy setting because they don't share the cultural frame."</em></div>
+        </div>
+        <div class="comparison-item after">
+          <span class="tag">Evaluate (reaches 7–8/8)</span>
+          <div class="content"><em>"The bathhouse is constructed to invite both readings, but the gap between them is not equal: the Japanese audience receives the film's preferred reading more or less intact, while the Western audience negotiates it — accepting the surface fantasy while losing the Shinto frame. This is not a failure of the film; it is the constitutive condition of media art. Miyazaki's refusal to explain the spirit world produces a representation that <em>requires</em> the audience to complete it, and the completion will differ depending on whether the viewer brings the Shinto frame as a given or as a discovery."</em></div>
+        </div>
+      </div>
+      <h3>Two evaluative moves for the top band</h3>
+      <ul>
+        <li><strong>Move 1 — the conditions under which readings differ.</strong> Don't just list the readings. Argue that the gap between them is produced by a specific aesthetic decision (refusal of exposition, symbolic mode, allegorical mise-en-scène) and that the gap is the film's point, not its limit.</li>
+        <li><strong>Move 2 — the limits of a "universal" reading.</strong> Acknowledge that the deliberate Western/Japanese contrasts encoded in Miyazaki's mise-en-scène function as critique <em>only</em> for audiences who hold the cultural frame to recognise them. The Marxist allegory is legible only to viewers who already think in those categories. This makes the film a particularly clear case of media art's reliance on the active, culturally-positioned audience.</li>
+      </ul>
+      <div class="inline-box box-exemplar">
+        <div class="box-label">Student exemplar — evaluating audience interpretation</div>
+        <p class="exemplar-text">Audiences can interpret representations in media art differently depending on their own personal/cultural contexts and experiences. The receptive communication theories of the uses and gratifications model and the encoding/decoding theory, when combined, are able to help communicate and reveal why audiences of <em>Spirited Away</em> vary in their interpretations of the representations of this piece of media art. Miyazaki constructed his piece of media art with the purpose to express his own religious and social beliefs and experiences, as well as Japan's own wider social and cultural contexts. The part of this context that he particularly focuses on is the growing level of globalisation, Americanisation and consumerism in Japan, and his own beliefs around how this is bad as it takes away from traditions such as Shintoism and respecting nature. His construction of Yubaba and specifically the style of her penthouse and her relationship with her son is an exemplar of how different audiences can interpret these representations in different ways, particularly the different audiences of Japanese and Western audiences. These two audiences have different cultural contexts which causes them to interpret media art differently, with Japanese audiences often deriving the dominant reading whilst Western audiences are often deriving a negotiated one. We first see Yubaba's penthouse as a darkly lit space as Chihiro gets dragged through it, with all of its opulence on display with its smoke porcelain vases, opulently textured walls and pillars. A Western audience would see these designs as normal, if not a bit tacky, deriving the negotiated interpretation of the grandness of the capitalist and rich Yubaba compared to her workers. However, Japanese audiences view the cultural context to derive the dominant and intended reading that this capitalist greed is as a result of Westernisation and the globalisation of Japan.</p>
+        <div class="exemplar-attrib">— Taylor, 2026 cohort (used with permission)</div>
+        <div class="exemplar-analysis">
+          <div class="exemplar-analysis-label">What this is doing right</div>
+          <p>Taylor names the theoretical apparatus explicitly and applies it. <strong>Two communication theories</strong> are named (encoding/decoding and uses and gratifications), and <strong>two of Hall's three reading positions</strong> are named (dominant and negotiated). The cultural audience split is built around specific textual evidence — Yubaba's penthouse mise-en-scène (darkly lit space, opulent textured walls and pillars, smoke porcelain vases) — and the mechanism is articulated cleanly: Japanese audiences derive the dominant reading because their cultural context grants access to Miyazaki's encoded critique; Western audiences derive a negotiated reading because the opulence reads as "normal, if not a bit tacky" within their cultural frame. That last observation is particularly precise — it captures the specific way Western audiences would actually misread the iconography, which is harder than just naming the abstract reading position.</p>
+        </div>
+      </div>
+      <div class="inline-box box-pivot">
+        <div class="box-label">Pivot for Samson and Delilah</div>
+        <p style="margin-bottom: 0;">Same Hall scaffolding. An Indigenous viewer brings the dominant reading — Thornton's refusal of the settler gaze is recognised, the silences are read as cultural fluency rather than absence, the pacing as the rhythm of community life. A non-Indigenous viewer typically negotiates — accepting the film's emotional weight while sometimes missing or compressing the cultural frame. Oppositional readings exist too. The evaluative move is the same: the gap between readings is produced by Thornton's aesthetic decisions (cinéma vérité, withheld dialogue, durational refusal), and the gap is the point, not the limit.</p>
+      </div>
+    `
+  },
+  {
+    part: 3, id: 'checklist-vocab', num: '3.0', title: 'Checklist, vocabulary &amp; common errors',
+    quizPrompt: 'List three things you most need to remember the next time you write this essay. Be specific about what you will do differently.',
+    html: `
+      <h3>Pre-flight checklist</h3>
+      <ul>
+        <li>Miyazaki / <em>Spirited Away</em> (2001) / Studio Ghibli / Japan all spelled correctly. (Or Thornton / <em>Samson and Delilah</em> (2009) if using <em>S&amp;D</em>.)</li>
+        <li>The overview opens conceptually with media art and multiple readings — not with the film.</li>
+        <li>The characteristics paragraph <strong>defines media art as a mode</strong> — it does not just describe the film.</li>
+        <li>The analyse section names a representation first, then the aesthetic doing the construction — and the evidence is aesthetic (mise-en-scène, costume, colour, sound) not narrative.</li>
+        <li>Hall's encoder/decoder model is named explicitly in the evaluation, with at least two of dominant / negotiated / oppositional referred to where relevant.</li>
+        <li>At least two distinct readings are evaluated, not just listed.</li>
+        <li>The evaluation makes a genuine judgement about how readings differ — not a description in stronger language.</li>
+        <li>Every body paragraph traces back to the question's umbrella: <em>representations invite multiple interpretations</em>.</li>
+        <li>Your best mise-en-scène evidence is in dot point 3, not dot point 4. Dot point 4 needs <em>audience readings</em> of those representations, not their construction.</li>
+      </ul>
+      <h3>Vocabulary — aim for the top band</h3>
+      <p class="muted">The gap between a 6 and an 8 on the analyse and evaluate criteria is often terminology. Upgrade where you can.</p>
+      <div class="vocab-table">
+        <div class="vocab-cell header">Simple / appropriate</div>
+        <div class="vocab-cell header">Advanced / sophisticated</div>
+        <div class="vocab-cell simple">the director</div>
+        <div class="vocab-cell advanced">Miyazaki as auteur; his authorial signature</div>
+        <div class="vocab-cell simple">animation style</div>
+        <div class="vocab-cell advanced">Studio Ghibli's painterly tradition; the ukiyo-e visual lineage</div>
+        <div class="vocab-cell simple">the bathhouse</div>
+        <div class="vocab-cell advanced">the Yuya as Shinto purification space, Meiji-hybrid symbol, class-stratified workplace</div>
+        <div class="vocab-cell simple">Western clothes / decor</div>
+        <div class="vocab-cell advanced">Meiji-era cultural hybridity; the iconography of Western dominance</div>
+        <div class="vocab-cell simple">quiet moments</div>
+        <div class="vocab-cell advanced">use of <em>ma</em> — negative space, stillness, breath</div>
+        <div class="vocab-cell simple">audience reads it differently</div>
+        <div class="vocab-cell advanced">Hall's dominant / negotiated / oppositional reading positions</div>
+        <div class="vocab-cell simple">the film says something</div>
+        <div class="vocab-cell advanced">the representation encodes; the audience decodes</div>
+        <div class="vocab-cell simple">symbol</div>
+        <div class="vocab-cell advanced">iconography; motif; allegorical mode</div>
+        <div class="vocab-cell simple">capitalism</div>
+        <div class="vocab-cell advanced">the iconography of consumption and capitalist excess; No-Face as the personification of insatiable appetite</div>
+        <div class="vocab-cell simple">coming-of-age</div>
+        <div class="vocab-cell advanced">bildungsroman genre framing</div>
+      </div>
+      <div class="inline-box box-advanced">
+        <div class="box-label">Top-band concepts — use sparingly, only if you understand them</div>
+        <ul style="margin-top: 0.5rem;">
+          <li><strong>Active audience</strong> — the viewer is not a passive receiver but completes the work's meaning through their own cultural frame. Miyazaki's refusal of exposition <em>requires</em> the active audience.</li>
+          <li><strong>Uses and gratifications</strong> — alongside Hall's encoding/decoding, this is the other key reception theory. It describes how audiences select and use media to satisfy specific needs (information, identity, social interaction, escape) — naming it adds theoretical depth to your evaluation.</li>
+          <li><strong>Semiotic constructivism</strong> — the idea that meaning is built through signs and symbols whose readings depend on cultural and historical frames. Useful for No-Face: he is constructed from scratch (no folkloric referent) and therefore reads as a sign rather than a known figure.</li>
+          <li><strong>The storyteller's gift</strong> (Walter Benjamin) — storytelling is valuable for the room it leaves the audience to interpret. Miyazaki's mode is closer to storytelling than to information delivery.</li>
+        </ul>
+      </div>
+      <h3>Common errors</h3>
+      <ul>
+        <li><strong>Treating the characteristics paragraph as more film analysis.</strong> Define the mode, then briefly illustrate. Don't merge the two.</li>
+        <li><strong>Listing readings instead of evaluating them.</strong> "A Japanese audience reads X, a Western audience reads Y" is description. The evaluation is in showing <em>why</em> they differ and <em>what aesthetic decision</em> produces the gap.</li>
+        <li><strong>Reverting to JE3 patterns.</strong> Don't write about cultural context and director's agenda <em>producing</em> the film. Write about how the film's representations <em>open</em> to multiple readings.</li>
+        <li><strong>Saying Miyazaki "uses" communication theory.</strong> Miyazaki doesn't use Hall; we use Hall to read Miyazaki. The framework is our analytical lens, not the director's tool.</li>
+        <li><strong>Using narrative structure where aesthetics are asked for.</strong> Kishōtenketsu is a narrative form, not an aesthetic. It might be a characteristic of media art (in dot point 2) or a feature inviting contemplative reading (in dot point 4), but it does not belong as your spine for dot point 3.</li>
+        <li><strong>Putting your best evidence in the wrong dot point.</strong> Detailed mise-en-scène analysis of Yubaba's Westernised penthouse belongs in dot point 3 (aesthetics constructing representation), not dot point 4 (audience reading of that representation). Plan before you write.</li>
+        <li><strong>Plot summary creep.</strong> Especially in the overview. Name the film, name the readings, take a position — don't narrate Chihiro's journey.</li>
+        <li><strong>Vague terminology.</strong> "Symbol", "fantasy", "deep meaning" don't earn marks. Iconography, allegorical mode, encoded meaning, <em>ma</em> — these do.</li>
+      </ul>
+      <h3>Where to go next</h3>
+      <p>Before the next in-class response, revisit these on OneNote: the readings on Miyazaki and Studio Ghibli; the Meiji-era and bubble-economy context notes; Stuart Hall's encoder/decoder model and the uses and gratifications model. Practise the overview and characteristics paragraphs under timed conditions — ten minutes, no notes. Your fluency on those two paragraphs buys you the time to develop the 8- and 8-mark sections, which is where the bulk of the marks live.</p>
+    `
+  }
+];
+
+const STORAGE_KEY = 'mpa_je4_essay_guide';
+let state = { mode: 'reveal', openCards: {}, lockedIn: {}, quizAnswers: {}, quizRevealed: {} };
+
+function loadState() {
+  try { const saved = localStorage.getItem(STORAGE_KEY); if (saved) state = { ...state, ...JSON.parse(saved) }; } catch (e) {}
+}
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+}
+
+function renderCards() {
+  const p1 = document.getElementById('part1Container');
+  const p2 = document.getElementById('part2Container');
+  const p3 = document.getElementById('part3Container');
+  p1.innerHTML = ''; p2.innerHTML = ''; p3.innerHTML = '';
+
+  cards.forEach(card => {
+    const el = document.createElement('div');
+    el.className = 'guide-card' + (state.openCards[card.id] ? ' open' : '') + (state.lockedIn[card.id] ? ' locked-in' : '');
+    el.id = 'card-' + card.id;
+
+    const marksHTML = card.marks ? `<span class="card-marks">${card.marks} marks</span>` : '';
+    const head = document.createElement('div');
+    head.className = 'card-head';
+    head.setAttribute('role', 'button');
+    head.setAttribute('tabindex', '0');
+    head.setAttribute('aria-expanded', !!state.openCards[card.id]);
+    head.innerHTML = `<div class="card-head-left"><span class="card-num">${card.num}</span><span class="card-head-text">${card.title}</span></div>${marksHTML}<span class="card-toggle">›</span>`;
+    head.onclick = () => toggleCard(card.id);
+    head.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleCard(card.id); } };
+
+    const body = document.createElement('div');
+    body.className = 'card-body';
+
+    if (state.mode === 'quiz' && card.quizPrompt) {
+      const revealed = !!state.quizRevealed[card.id];
+      const answer = state.quizAnswers[card.id] || '';
+      body.innerHTML = `
+        <div class="quiz-prompt">
+          <div class="quiz-prompt-label">Try first · Self-Quiz</div>
+          <div class="quiz-prompt-text">${card.quizPrompt}</div>
+        </div>
+        <textarea class="quiz-textarea" placeholder="Draft your response here..." data-card="${card.id}">${escapeHtml(answer)}</textarea>
+        <button class="quiz-reveal-btn" data-card="${card.id}">${revealed ? '↻ Hide guide' : '📖 Reveal guide'}</button>
+        <div class="quiz-content${revealed ? ' revealed' : ''}" id="quiz-content-${card.id}">${card.html}</div>
+        <div class="lock-in-row">
+          <button class="lock-in-btn${state.lockedIn[card.id] ? ' locked' : ''}" data-lock="${card.id}">${state.lockedIn[card.id] ? 'Locked in' : 'Mark as locked in'}</button>
+          <span class="confidence-note">Use this when you're confident with this criterion.</span>
+        </div>`;
+    } else {
+      body.innerHTML = `
+        ${card.html}
+        <div class="lock-in-row">
+          <button class="lock-in-btn${state.lockedIn[card.id] ? ' locked' : ''}" data-lock="${card.id}">${state.lockedIn[card.id] ? 'Locked in' : 'Mark as locked in'}</button>
+          <span class="confidence-note">Use this when you're confident with this criterion.</span>
+        </div>`;
+    }
+
+    el.appendChild(head); el.appendChild(body);
+    if (card.part === 1) p1.appendChild(el);
+    else if (card.part === 2) p2.appendChild(el);
+    else p3.appendChild(el);
+  });
+
+  document.querySelectorAll('.quiz-textarea').forEach(t => {
+    t.addEventListener('input', () => { state.quizAnswers[t.dataset.card] = t.value; saveState(); });
+  });
+  document.querySelectorAll('.quiz-reveal-btn').forEach(b => {
+    b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = b.dataset.card;
+      state.quizRevealed[id] = !state.quizRevealed[id];
+      saveState();
+      renderCards();
+      const card = document.getElementById('card-' + id);
+      if (card && !state.openCards[id]) { state.openCards[id] = true; saveState(); card.classList.add('open'); }
+    });
+  });
+  document.querySelectorAll('.lock-in-btn').forEach(b => {
+    b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = b.dataset.lock;
+      state.lockedIn[id] = !state.lockedIn[id];
+      saveState();
+      renderCards();
+      updateProgress();
+    });
+  });
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+function toggleCard(id) {
+  state.openCards[id] = !state.openCards[id];
+  saveState();
+  const card = document.getElementById('card-' + id);
+  if (card) { card.classList.toggle('open', !!state.openCards[id]); card.querySelector('.card-head').setAttribute('aria-expanded', !!state.openCards[id]); }
+}
+
+function setMode(mode) {
+  state.mode = mode;
+  saveState();
+  document.querySelectorAll('.mode-tab').forEach(t => { t.classList.toggle('active', t.dataset.mode === mode); });
+  renderCards();
+}
+
+function expandAll() { cards.forEach(c => { state.openCards[c.id] = true; }); saveState(); renderCards(); }
+function collapseAll() { cards.forEach(c => { state.openCards[c.id] = false; }); saveState(); renderCards(); }
+
+function updateProgress() {
+  const total = cards.length;
+  const locked = cards.filter(c => state.lockedIn[c.id]).length;
+  document.getElementById('progressCount').textContent = `${locked} / ${total} locked in`;
+  document.getElementById('progressFill').style.width = `${(locked / total) * 100}%`;
+  document.getElementById('progressDone').classList.toggle('visible', locked === total);
+}
+
+loadState();
+document.querySelectorAll('.mode-tab').forEach(t => { t.classList.toggle('active', t.dataset.mode === state.mode); });
+renderCards();
+updateProgress();
+</script>
+</body>
+</html>

@@ -43,14 +43,16 @@ body::before { content: ''; position: fixed; inset: 0; background: var(--film-gr
 .login-btn:hover { background: var(--accent-bright); }
 .login-error { margin-top: 0.85rem; font-size: 0.85rem; color: var(--red); display: none; }
 .login-error.visible { display: block; }
-.site-content { max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
-.back-link { display: inline-flex; align-items: center; gap: 0.35rem; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--text-muted); text-decoration: none; margin-bottom: 1rem; transition: color 0.2s; }
+.site-content { display: none; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+.site-content.visible { display: block; }
+.back-link { display: inline-flex; align-items: center; gap: 0.35rem; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--text-muted); text-decoration: none; margin-bottom: 1rem; transition: color 0.2s; position: relative; }
 .back-link:hover { color: var(--accent-bright); }
-.hero { padding: 1.5rem 0 2rem; }
-.hero-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.85rem; }
-.hero h1 { font-family: 'Playfair Display', serif; font-size: 2.6rem; line-height: 1.15; color: var(--text); margin-bottom: 0.75rem; font-weight: 700; }
+.hero { position: relative; padding: 3.5rem 2rem 3rem; text-align: center; background: linear-gradient(180deg, #10101a 0%, var(--bg-deep) 100%); border-bottom: 1px solid var(--border); overflow: hidden; margin: 0 -1.5rem 2rem; }
+.hero::before { content: ''; position: absolute; top: -50%; left: 50%; transform: translateX(-50%); width: 900px; height: 900px; background: radial-gradient(ellipse, rgba(91,127,245,0.07) 0%, transparent 70%); pointer-events: none; }
+.hero-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.25em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.8rem; position: relative; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: 2.4rem; line-height: 1.15; color: var(--text); margin-bottom: 0.8rem; font-weight: 700; position: relative; }
 .hero h1 em { font-style: italic; color: var(--accent-bright); }
-.hero-sub { font-size: 1.05rem; color: var(--text-dim); max-width: 720px; }
+.hero-sub { font-size: 1.05rem; color: var(--text-dim); max-width: 720px; margin: 0 auto; position: relative; }
 .message-box { background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 1.4rem 1.6rem; margin: 2rem 0; }
 .message-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.65rem; }
 .message-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--text); margin-bottom: 0.75rem; font-weight: 700; }
@@ -300,7 +302,7 @@ body::before { content: ''; position: fixed; inset: 0; background: var(--film-gr
 .fc-territory { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--purple); letter-spacing: 0.08em; margin-bottom: 0.6rem; text-transform: uppercase; }
 .fc-desc { color: var(--text-dim); font-size: 0.9rem; }
 .footer { text-align: center; padding: 2.5rem 1.5rem 2rem; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.15em; border-top: 1px solid var(--border); margin-top: 3rem; }
-@media (max-width: 600px) { .hero h1 { font-size: 1.9rem; } .section h2 { font-size: 1.6rem; } .site-content { padding: 1.5rem 1rem 3rem; } .sticky-nav { margin-left: -1rem; margin-right: -1rem; padding-left: 1rem; padding-right: 1rem; } }
+@media (max-width: 600px) { .hero h1 { font-size: 1.9rem; } .hero { margin-left: -1rem; margin-right: -1rem; padding: 2.5rem 1rem 2rem; } .section h2 { font-size: 1.6rem; } .site-content { padding: 0 1rem 3rem; } .sticky-nav { margin-left: -1rem; margin-right: -1rem; padding-left: 1rem; padding-right: 1rem; } }
 @media print { .login-overlay, .sticky-nav, .mock, .mock-btn, .playbook-actions, .progress-reset, .acc-head .acc-arrow, .lib-arrow, .back-link { display: none !important; } .acc-body, .lib-body { max-height: none !important; padding: 0 1.2rem 1.2rem !important; } body { background: white; color: black; } }
 </style>
 </head>
@@ -308,6 +310,7 @@ body::before { content: ''; position: fixed; inset: 0; background: var(--film-gr
 
 
 <div class="site-content" id="siteContent">
+
 
 <header class="hero">
   <a href="index.html" class="back-link">← Back to Revision Hub</a>
@@ -1551,6 +1554,7 @@ function setupPlaybookActions() {
 if (localStorage.getItem('mpa_auth') !== 'true') {
   window.location.href = 'index.html';
 } else {
+  document.getElementById('siteContent').classList.add('visible');
   init();
 }
 </script>

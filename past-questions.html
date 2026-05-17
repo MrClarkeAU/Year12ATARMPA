@@ -9,18 +9,14 @@
 :root {
   --bg-deep: #0a0a0f;
   --bg-card: #12121a;
-  --bg-card-hover: #1a1a26;
   --bg-elevated: #181822;
   --border: #2a2a3a;
   --border-light: #3a3a4a;
   --accent: #5b7ff5;
   --accent-bright: #7b9aff;
-  --accent-dim: #3d5af1;
   --gold: #e8c547;
-  --green: #4caf7d;
   --teal: #3db8a0;
   --purple: #a073d9;
-  --red: #e57373;
   --text: #e0e0ec;
   --text-dim: #a0a0b8;
   --text-muted: #7a7a94;
@@ -30,272 +26,338 @@
 body { font-family: 'Source Sans 3', sans-serif; background: var(--bg-deep); color: var(--text); line-height: 1.7; min-height: 100vh; }
 body::before { content: ''; position: fixed; inset: 0; background: var(--film-grain); pointer-events: none; z-index: 9999; opacity: 0.35; }
 
-/* ── LOGIN ── */
-.login-overlay { position: fixed; inset: 0; z-index: 10000; background: var(--bg-deep); display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 2rem; }
-.login-overlay.hidden { display: none; }
-.login-overlay::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 900px; height: 900px; max-width: 100vw; max-height: 100vh; background: radial-gradient(ellipse, rgba(91,127,245,0.08) 0%, transparent 70%); pointer-events: none; }
-.login-box { position: relative; z-index: 1; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 3rem 2.5rem; max-width: 420px; width: 100%; text-align: center; }
-.login-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; }
-.login-title { font-family: 'Playfair Display', serif; font-size: 1.7rem; color: var(--text); margin-bottom: 0.6rem; }
-.login-sub { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.6rem; }
-.login-field { display: block; width: 100%; padding: 0.85rem 1rem; background: var(--bg-deep); border: 1px solid var(--border-light); border-radius: 8px; color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; margin-bottom: 0.85rem; transition: border-color 0.2s; }
-.login-field:focus { outline: none; border-color: var(--accent); }
-.login-btn { display: block; width: 100%; padding: 0.85rem; background: var(--accent); border: none; border-radius: 8px; color: white; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: background 0.2s; }
-.login-btn:hover { background: var(--accent-bright); }
-.login-error { margin-top: 0.85rem; font-size: 0.85rem; color: var(--red); display: none; }
-.login-error.visible { display: block; }
+/* ── SITE CONTENT ── */
+.site-content { display: none; }
+.site-content.visible { display: block; }
 
-/* ── LAYOUT ── */
-.site-content { max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
-.back-link { display: inline-flex; align-items: center; gap: 0.35rem; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--text-muted); text-decoration: none; margin-bottom: 1rem; transition: color 0.2s; }
-.back-link:hover { color: var(--accent-bright); }
-.hero { padding: 1.5rem 0 2rem; }
-.hero-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.85rem; }
-.hero h1 { font-family: 'Playfair Display', serif; font-size: 2.6rem; line-height: 1.15; color: var(--text); margin-bottom: 0.75rem; font-weight: 700; }
+/* ── HERO ── */
+.hero {
+  position: relative;
+  padding: 3.5rem 2rem 3rem;
+  text-align: center;
+  background: linear-gradient(180deg, #10101a 0%, var(--bg-deep) 100%);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: 50%;
+  transform: translateX(-50%);
+  width: 900px; height: 900px;
+  background: radial-gradient(ellipse, rgba(91,127,245,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 0.8rem; position: relative;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem; font-weight: 700; line-height: 1.15;
+  margin-bottom: 0.8rem; position: relative;
+}
 .hero h1 em { font-style: italic; color: var(--accent-bright); }
-.hero-sub { font-size: 1.05rem; color: var(--text-dim); max-width: 720px; }
+.hero-sub {
+  color: var(--text-dim); font-size: 1.05rem;
+  max-width: 680px; margin: 0 auto; position: relative;
+}
+
+/* ── BACK LINK ── */
+.back-link {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+  letter-spacing: 0.1em; color: var(--text-muted);
+  text-decoration: none; position: relative;
+  transition: color 0.2s; margin-bottom: 1rem;
+}
+.back-link:hover { color: var(--accent-bright); }
+
+/* ── INNER CONTAINER ── */
+.inner { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 
 /* ── STICKY NAV ── */
-.sticky-nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0.85rem 0; margin: 1.5rem -1.5rem 1.5rem; padding-left: 1.5rem; padding-right: 1.5rem; }
-.sticky-nav-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
-.sticky-nav button { background: transparent; border: 1px solid var(--border); color: var(--text-dim); padding: 0.5rem 1.1rem; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.08em; cursor: pointer; transition: all 0.2s; text-transform: uppercase; }
+.sticky-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,10,15,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.85rem 0;
+}
+.sticky-nav-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; gap: 0.5rem; flex-wrap: wrap;
+  justify-content: center; padding: 0 1.5rem;
+}
+.sticky-nav button {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--text-muted); padding: 0.5rem 1.1rem;
+  border-radius: 6px; font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem; letter-spacing: 0.08em;
+  cursor: pointer; transition: all 0.2s; text-transform: uppercase;
+}
 .sticky-nav button:hover { color: var(--text); border-color: var(--border-light); }
 .sticky-nav button.active { color: var(--accent-bright); border-color: var(--accent); background: rgba(91,127,245,0.08); }
 
-/* ── FILTER BAR ── */
+/* ── FILTER ── */
 .filter-bar { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2rem; align-items: center; }
-.filter-label { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; margin-right: 0.25rem; }
-.filter-btn { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 0.4rem 0.9rem; border-radius: 5px; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; cursor: pointer; transition: all 0.2s; text-transform: uppercase; }
+.filter-label { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; }
+.filter-btn {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--text-muted); padding: 0.4rem 0.9rem;
+  border-radius: 5px; font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem; letter-spacing: 0.08em;
+  cursor: pointer; transition: all 0.2s; text-transform: uppercase;
+}
 .filter-btn:hover { color: var(--text-dim); border-color: var(--border-light); }
 .filter-btn.active { color: var(--accent-bright); border-color: var(--accent); background: rgba(91,127,245,0.08); }
 
 /* ── YEAR BLOCK ── */
-.year-block { scroll-margin-top: 80px; margin-bottom: 3rem; }
-.year-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.2rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+.year-block { scroll-margin-top: 80px; margin-bottom: 3.5rem; }
+.year-header {
+  display: flex; align-items: baseline; gap: 1rem;
+  padding-bottom: 0.75rem; border-bottom: 1px solid var(--border);
+  margin-bottom: 1.2rem; flex-wrap: wrap;
+}
 .year-title { font-family: 'Playfair Display', serif; font-size: 1.9rem; color: var(--text); font-weight: 700; }
-.year-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; }
-.year-note { font-family: 'Source Sans 3', sans-serif; font-size: 0.88rem; color: var(--text-muted); font-style: italic; margin-left: auto; }
+.year-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; }
 
-/* ── SECTION LABEL ── */
-.section-head { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; margin: 1.4rem 0 0.75rem; display: flex; align-items: center; gap: 0.7rem; }
+/* ── SECTION HEAD ── */
+.section-head {
+  display: flex; align-items: center; gap: 0.75rem;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.67rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  margin: 1.4rem 0 0.75rem;
+}
 .section-head::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 .section-head.s1 { color: var(--teal); }
 .section-head.s2 { color: var(--purple); }
-.marks-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--text-muted); background: var(--bg-elevated); border: 1px solid var(--border); padding: 0.1rem 0.5rem; border-radius: 3px; letter-spacing: 0.08em; white-space: nowrap; }
+.marks-badge {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.63rem;
+  color: var(--text-muted); background: var(--bg-elevated);
+  border: 1px solid var(--border); padding: 0.1rem 0.5rem;
+  border-radius: 3px; white-space: nowrap;
+}
 
-/* ── QUESTION CARD ── */
+/* ── STIMULUS NOTE ── */
+.stimulus-note {
+  background: rgba(61,184,160,0.06); border: 1px solid rgba(61,184,160,0.28);
+  border-left: 2px solid var(--teal); border-radius: 6px;
+  padding: 0.75rem 1rem; margin-bottom: 1rem;
+  font-size: 0.88rem; color: var(--text-dim);
+}
+.stimulus-note strong { color: var(--text); }
+
+/* ── QUESTION CARDS ── */
 .q-list { display: flex; flex-direction: column; gap: 0.5rem; }
-.q-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 0.95rem 1.2rem; display: flex; gap: 1rem; align-items: flex-start; transition: border-color 0.18s; }
+.q-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 0.95rem 1.2rem;
+  display: flex; gap: 1rem; align-items: flex-start;
+  transition: border-color 0.18s;
+}
 .q-card:hover { border-color: var(--border-light); }
 .q-card.s1-card { border-left: 2px solid var(--teal); }
 .q-card.s2-card { border-left: 2px solid var(--purple); }
-.q-num { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); min-width: 1.8rem; flex-shrink: 0; padding-top: 0.1rem; }
+.q-num {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+  font-weight: 700; min-width: 1.6rem; flex-shrink: 0; padding-top: 0.1rem;
+}
 .q-num.s1 { color: var(--teal); }
 .q-num.s2 { color: var(--purple); }
 .q-body { flex: 1; }
 .q-text { color: var(--text); font-size: 0.97rem; line-height: 1.55; }
 .q-sub { margin-top: 0.65rem; padding-left: 0.75rem; border-left: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.4rem; }
 .q-sub-row { display: flex; gap: 0.7rem; align-items: flex-start; font-size: 0.9rem; color: var(--text-dim); }
-.q-sub-marks { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--accent-bright); flex-shrink: 0; min-width: 2.2rem; font-weight: 700; padding-top: 0.05rem; }
-
-/* ── STIMULUS NOTE ── */
-.stimulus-note { background: rgba(61,184,160,0.07); border: 1px solid rgba(61,184,160,0.3); border-left: 2px solid var(--teal); border-radius: 6px; padding: 0.75rem 1rem; margin-bottom: 0.85rem; font-size: 0.88rem; color: var(--text-dim); }
-.stimulus-note strong { color: var(--text); }
+.q-sub-marks { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--accent-bright); flex-shrink: 0; min-width: 2rem; font-weight: 700; padding-top: 0.05rem; }
 
 /* ── FOOTER ── */
-.footer { text-align: center; padding: 2.5rem 1.5rem 2rem; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.15em; border-top: 1px solid var(--border); margin-top: 3rem; }
+.footer {
+  text-align: center; padding: 2.5rem 1.5rem 2rem;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+  color: var(--text-muted); letter-spacing: 0.15em;
+  border-top: 1px solid var(--border); margin-top: 2rem;
+}
 
 @media (max-width: 600px) {
+  .hero { padding: 2.5rem 1rem 2rem; }
   .hero h1 { font-size: 1.9rem; }
-  .site-content { padding: 1.5rem 1rem 3rem; }
-  .sticky-nav { margin-left: -1rem; margin-right: -1rem; padding-left: 1rem; padding-right: 1rem; }
+  .inner { padding: 1.5rem 1rem 3rem; }
 }
 </style>
 </head>
 <body>
 
-
 <div class="site-content" id="siteContent">
 
-<header class="hero">
-  <a href="studyguide.html" class="back-link">← Back to Study Guide</a>
-  <div class="hero-label">Year 12 ATAR · Past Exam Questions</div>
-  <h1>Past <em>Exam Questions</em></h1>
-  <p class="hero-sub">Section One and Section Two questions from 2018 to 2025, organised by year. Pick a question, run it through the framework, mark yourself against the bands.</p>
-</header>
+  <header class="hero">
+    <a href="studyguide.html" class="back-link">&#8592; Back to Study Guide</a>
+    <div class="hero-label">Year 12 ATAR &middot; Past Exam Questions</div>
+    <h1>Past <em>Exam Questions</em></h1>
+    <p class="hero-sub">Section One and Section Two questions from 2018 to 2025, organised by year. Pick a question, run it through the framework, mark yourself against the bands.</p>
+  </header>
 
-<nav class="sticky-nav">
-  <div class="sticky-nav-inner" id="yearNav"></div>
-</nav>
+  <nav class="sticky-nav">
+    <div class="sticky-nav-inner" id="yearNav"></div>
+  </nav>
 
-<div class="filter-bar">
-  <span class="filter-label">Show</span>
-  <button class="filter-btn active" data-filter="all">All</button>
-  <button class="filter-btn" data-filter="s1">Section One only</button>
-  <button class="filter-btn" data-filter="s2">Section Two only</button>
+  <div class="inner">
+    <div class="filter-bar">
+      <span class="filter-label">Show</span>
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="s1">Section One only</button>
+      <button class="filter-btn" data-filter="s2">Section Two only</button>
+    </div>
+    <div id="questionsRoot"></div>
+  </div>
+
 </div>
 
-<div id="questionsRoot"></div>
-
-</div>
-
-<footer class="footer">Year 12 ATAR MPA · Sacred Heart College · 2026</footer>
+<footer class="footer">Year 12 ATAR MPA &middot; Sacred Heart College &middot; 2026</footer>
 
 <script>
-// ── DATA ──
-const years = [
+var years = [
   {
-    id: 'y2025',
-    year: '2025',
-    meta: 'WACE ATAR Examination',
-    s1marks: '12 marks each',
-    s2marks: '23 marks each',
+    id: 'y2025', year: '2025', meta: 'WACE ATAR Examination',
+    s1marks: '12 marks each', s2marks: '23 marks each',
     s1: [
-      { q: 'Discuss how a media producer has constructed propaganda. Use evidence to support your answer.' },
-      { q: 'Discuss the challenges faced by independent media producers when creating media work. Use evidence to support your answer.' },
-      { q: 'Discuss how the influence of media on audiences can be understood by applying media theories. Use evidence to support your answer.' },
-      { q: 'Discuss the naturalisation of stereotypes in a media work you have studied. Use evidence to support your answer.' },
-      { q: 'Discuss the cultural benefits of a media work you have studied. Use evidence to support your answer.' }
+      'Discuss how a media producer has constructed propaganda. Use evidence to support your answer.',
+      'Discuss the challenges faced by independent media producers when creating media work. Use evidence to support your answer.',
+      'Discuss how the influence of media on audiences can be understood by applying media theories. Use evidence to support your answer.',
+      'Discuss the naturalisation of stereotypes in a media work you have studied. Use evidence to support your answer.',
+      'Discuss the cultural benefits of a media work you have studied. Use evidence to support your answer.'
     ],
     s2: [
       { q: 'Construct an overview of media work intended for social or political comment.', sub: [
-        { marks: '3', text: 'Construct an overview of media work that is intended for social or political comment.' },
-        { marks: '4', text: 'Describe the values presented in a specific media work.' },
-        { marks: '8', text: 'Analyse how the media producer may have used selection processes to convey a point of view.' },
-        { marks: '8', text: 'Evaluate audience responses, using a media theory to support your reasoning.' }
+        { m: 3, t: 'Construct an overview of media work that is intended for social or political comment.' },
+        { m: 4, t: 'Describe the values presented in a specific media work.' },
+        { m: 8, t: 'Analyse how the media producer may have used selection processes to convey a point of view.' },
+        { m: 8, t: 'Evaluate audience responses, using a media theory to support your reasoning.' }
       ]},
       { q: 'Construct an overview of a media work that manipulates narrative elements.', sub: [
-        { marks: '3', text: 'Construct an overview of a media work that manipulates narrative elements.' },
-        { marks: '4', text: 'Describe the overall impact of these narrative elements on the meaning conveyed by the media work.' },
-        { marks: '8', text: 'Analyse how media producers manipulate narrative elements in media work.' },
-        { marks: '8', text: 'Evaluate how the manipulation of narrative elements challenges audiences\' expectations.' }
+        { m: 3, t: 'Construct an overview of a media work that manipulates narrative elements.' },
+        { m: 4, t: 'Describe the overall impact of these narrative elements on the meaning conveyed by the media work.' },
+        { m: 8, t: 'Analyse how media producers manipulate narrative elements in media work.' },
+        { m: 8, t: 'Evaluate how the manipulation of narrative elements challenges audiences’ expectations.' }
       ]},
       { q: 'Construct an overview of media trends that have presented new opportunities for audiences to consume media.', sub: [
-        { marks: '3', text: 'Construct an overview of media trends that have presented new opportunities for audiences to consume media.' },
-        { marks: '4', text: 'Describe how media trends have developed over time due to technological change.' },
-        { marks: '8', text: 'Analyse the impact of changing distribution networks on the production of a specific media work.' },
-        { marks: '8', text: 'Evaluate how media trends impact audiences.' }
+        { m: 3, t: 'Construct an overview of media trends that have presented new opportunities for audiences to consume media.' },
+        { m: 4, t: 'Describe how media trends have developed over time due to technological change.' },
+        { m: 8, t: 'Analyse the impact of changing distribution networks on the production of a specific media work.' },
+        { m: 8, t: 'Evaluate how media trends impact audiences.' }
       ]},
-      { q: 'Construct an overview of a media work where an audience\'s interpretation is influenced by their cultural context.', sub: [
-        { marks: '3', text: 'Construct an overview of a media work where an audience\'s interpretation is influenced by their cultural context.' },
-        { marks: '4', text: 'Describe the concept of cultural contexts.' },
-        { marks: '8', text: 'Analyse how cultural contexts can influence the interpretation of media.' },
-        { marks: '8', text: 'Evaluate how media work can challenge or reinforce audience values.' }
+      { q: 'Construct an overview of a media work where an audience’s interpretation is influenced by their cultural context.', sub: [
+        { m: 3, t: 'Construct an overview of a media work where an audience’s interpretation is influenced by their cultural context.' },
+        { m: 4, t: 'Describe the concept of cultural contexts.' },
+        { m: 8, t: 'Analyse how cultural contexts can influence the interpretation of media.' },
+        { m: 8, t: 'Evaluate how media work can challenge or reinforce audience values.' }
       ]},
       { q: 'Construct an overview of a media work that uses persuasive techniques.', sub: [
-        { marks: '3', text: 'Construct an overview of a media work that uses persuasive techniques.' },
-        { marks: '4', text: 'Describe the concept of representation.' },
-        { marks: '8', text: 'Analyse how representations in media work can be constructed to be persuasive.' },
-        { marks: '8', text: 'Evaluate how values associated with representations in media work can impact audiences.' }
+        { m: 3, t: 'Construct an overview of a media work that uses persuasive techniques.' },
+        { m: 4, t: 'Describe the concept of representation.' },
+        { m: 8, t: 'Analyse how representations in media work can be constructed to be persuasive.' },
+        { m: 8, t: 'Evaluate how values associated with representations in media work can impact audiences.' }
       ]}
     ]
   },
   {
-    id: 'y2024',
-    year: '2024',
-    meta: 'WACE ATAR Examination',
-    s1marks: '11 marks each',
-    s2marks: '20 marks each',
+    id: 'y2024', year: '2024', meta: 'WACE ATAR Examination',
+    s1marks: '11 marks each', s2marks: '20 marks each',
     s1: [
-      { q: 'Discuss how the exploration of ideas from other media work could inform your own production.' },
-      { q: 'Discuss how a media work you have studied attempts to reach an intended audience.' },
-      { q: 'Discuss how point of view is constructed in a media work you have studied.' },
-      { q: 'Discuss the impact of cultural influence on a media work you have studied.' },
-      { q: 'Discuss how codes and conventions create meaning in a media work you have studied.' }
+      'Discuss how the exploration of ideas from other media work could inform your own production.',
+      'Discuss how a media work you have studied attempts to reach an intended audience.',
+      'Discuss how point of view is constructed in a media work you have studied.',
+      'Discuss the impact of cultural influence on a media work you have studied.',
+      'Discuss how codes and conventions create meaning in a media work you have studied.'
     ],
     s2: [
-      { q: '"Whoever Controls The Media, Controls The Mind" — Jim Morrison. Analyse this quote with reference to media work you have studied.', sub: [
-        { marks: '3', text: 'Construct an overview of media work that relates appropriately to the quote.' },
-        { marks: '4', text: 'Describe the concept of media ownership or editorial control.' },
-        { marks: '6', text: 'Discuss how media producers construct perceptions of issues or topics.' },
-        { marks: '7', text: 'Evaluate how audience perceptions, values or attitudes are reinforced or challenged by media work.' }
+      { q: '“Whoever Controls The Media, Controls The Mind” — Jim Morrison. Analyse this quote with reference to media work you have studied.', sub: [
+        { m: 3, t: 'Construct an overview of media work that relates appropriately to the quote.' },
+        { m: 4, t: 'Describe the concept of media ownership or editorial control.' },
+        { m: 6, t: 'Discuss how media producers construct perceptions of issues or topics.' },
+        { m: 7, t: 'Evaluate how audience perceptions, values or attitudes are reinforced or challenged by media work.' }
       ]},
       { q: 'Stereotypes are created through the manipulation of codes and conventions in media work and can become naturalised over time. Analyse this statement.', sub: [
-        { marks: '3', text: 'Construct an overview of media work that relates appropriately to the statement.' },
-        { marks: '4', text: 'Describe the purpose of stereotypes.' },
-        { marks: '6', text: 'Discuss how the manipulation of codes and conventions create stereotypes.' },
-        { marks: '7', text: 'Evaluate the impact of the naturalisation of stereotypes.' }
+        { m: 3, t: 'Construct an overview of media work that relates appropriately to the statement.' },
+        { m: 4, t: 'Describe the purpose of stereotypes.' },
+        { m: 6, t: 'Discuss how the manipulation of codes and conventions create stereotypes.' },
+        { m: 7, t: 'Evaluate the impact of the naturalisation of stereotypes.' }
       ]},
       { q: 'The presentation of social or political comments in particular media work is often affected by censorship. Analyse this statement.', sub: [
-        { marks: '3', text: 'Construct an overview of media work that relates appropriately to the statement.' },
-        { marks: '4', text: 'Describe the purpose of censorship.' },
-        { marks: '6', text: 'Discuss the presentation of social or political comment.' },
-        { marks: '7', text: 'Evaluate how formal and informal censorship shapes media work.' }
+        { m: 3, t: 'Construct an overview of media work that relates appropriately to the statement.' },
+        { m: 4, t: 'Describe the purpose of censorship.' },
+        { m: 6, t: 'Discuss the presentation of social or political comment.' },
+        { m: 7, t: 'Evaluate how formal and informal censorship shapes media work.' }
       ]},
       { q: 'Films act as vehicles for auteurs to demonstrate their own personal expression. Analyse this statement.', sub: [
-        { marks: '3', text: 'Construct an overview of media work that relates appropriately to the statement.' },
-        { marks: '4', text: 'Describe the concept of personal expression.' },
-        { marks: '6', text: 'Discuss the aesthetics of an auteur figure.' },
-        { marks: '7', text: 'Evaluate how media producers meet niche audiences\' expectations.' }
+        { m: 3, t: 'Construct an overview of media work that relates appropriately to the statement.' },
+        { m: 4, t: 'Describe the concept of personal expression.' },
+        { m: 6, t: 'Discuss the aesthetics of an auteur figure.' },
+        { m: 7, t: 'Evaluate how media producers meet niche audiences’ expectations.' }
       ]},
       { q: 'The aesthetics and themes of a media work reflect its production context. Analyse this statement.', sub: [
-        { marks: '3', text: 'Construct an overview of media work that relates appropriately to the statement.' },
-        { marks: '4', text: 'Describe the concept of production context.' },
-        { marks: '6', text: 'Discuss media aesthetics within production contexts.' },
-        { marks: '7', text: 'Evaluate media aesthetics and the construction of themes.' }
+        { m: 3, t: 'Construct an overview of media work that relates appropriately to the statement.' },
+        { m: 4, t: 'Describe the concept of production context.' },
+        { m: 6, t: 'Discuss media aesthetics within production contexts.' },
+        { m: 7, t: 'Evaluate media aesthetics and the construction of themes.' }
       ]}
     ]
   },
   {
-    id: 'y2023',
-    year: '2023',
-    meta: 'SCSA Sample Examination',
-    s1marks: '12 marks each · open choice of text',
-    s2marks: '4+4+6+6 marks each',
+    id: 'y2023', year: '2023', meta: 'SCSA Sample Examination',
+    s1marks: 'open choice of text', s2marks: '4 + 4 + 6 + 6 marks each',
     s1: [
-      { q: 'Discuss the construction of theme/s in a media work you have studied.' },
-      { q: 'Analyse the purpose of propaganda with reference to media work you have studied.' },
-      { q: 'Discuss how a representation is constructed in a media work you have studied.' },
-      { q: 'Discuss the impact of changing distribution networks with reference to media work you have studied.' },
-      { q: 'Analyse the challenges faced by independent media producers with reference to media work you have studied.' }
+      'Discuss the construction of theme/s in a media work you have studied.',
+      'Analyse the purpose of propaganda with reference to media work you have studied.',
+      'Discuss how a representation is constructed in a media work you have studied.',
+      'Discuss the impact of changing distribution networks with reference to media work you have studied.',
+      'Analyse the challenges faced by independent media producers with reference to media work you have studied.'
     ],
     s2: [
       { q: 'Cultural contexts and values influence audience interpretation of media work. Analyse this statement with reference to media work you have studied.', sub: [
-        { marks: '4', text: 'Describe the concept of cultural context.' },
-        { marks: '4', text: 'Provide evidence of how cultural context influences interpretation.' },
-        { marks: '6', text: 'Analyse how cultural contexts and values influence audience interpretation.' },
-        { marks: '6', text: 'Evaluate the extent to which cultural context shapes meaning.' }
+        { m: 4, t: 'Describe the concept of cultural context.' },
+        { m: 4, t: 'Provide evidence of how cultural context influences interpretation.' },
+        { m: 6, t: 'Analyse how cultural contexts and values influence audience interpretation.' },
+        { m: 6, t: 'Evaluate the extent to which cultural context shapes meaning.' }
       ]},
       { q: 'Oversimplified representations of people, places or issues can lead to impactful naturalisation of stereotypes. Analyse this statement with reference to media work you have studied.', sub: [
-        { marks: '4', text: 'Describe the concept of representation.' },
-        { marks: '4', text: 'Provide evidence of stereotyping in media work.' },
-        { marks: '6', text: 'Analyse how oversimplified representations lead to naturalisation.' },
-        { marks: '6', text: 'Evaluate the impact of naturalised stereotypes on audiences.' }
+        { m: 4, t: 'Describe the concept of representation.' },
+        { m: 4, t: 'Provide evidence of stereotyping in media work.' },
+        { m: 6, t: 'Analyse how oversimplified representations lead to naturalisation.' },
+        { m: 6, t: 'Evaluate the impact of naturalised stereotypes on audiences.' }
       ]},
       { q: 'Expectations of media work can be challenged through alternative, experimental and innovative use of techniques, codes and conventions. Analyse this statement with reference to media work you have studied.', sub: [
-        { marks: '4', text: 'Describe the concept of codes and conventions.' },
-        { marks: '4', text: 'Provide evidence of experimental technique in media work.' },
-        { marks: '6', text: 'Analyse how experimental use of codes challenges audience expectations.' },
-        { marks: '6', text: 'Evaluate the effectiveness of these experimental techniques.' }
+        { m: 4, t: 'Describe the concept of codes and conventions.' },
+        { m: 4, t: 'Provide evidence of experimental technique in media work.' },
+        { m: 6, t: 'Analyse how experimental use of codes challenges audience expectations.' },
+        { m: 6, t: 'Evaluate the effectiveness of these experimental techniques.' }
       ]},
-      { q: 'Attracting a niche audience and meeting their expectations is often a media producer\'s intention or goal. Analyse this statement with reference to media work you have studied.', sub: [
-        { marks: '4', text: 'Describe the concept of niche audiences.' },
-        { marks: '4', text: 'Provide evidence of niche audience appeal in a media work.' },
-        { marks: '6', text: 'Analyse how a media producer targets and meets niche audience expectations.' },
-        { marks: '6', text: 'Evaluate the success of the media producer in reaching the niche audience.' }
+      { q: 'Attracting a niche audience and meeting their expectations is often a media producer’s intention or goal. Analyse this statement with reference to media work you have studied.', sub: [
+        { m: 4, t: 'Describe the concept of niche audiences.' },
+        { m: 4, t: 'Provide evidence of niche audience appeal in a media work.' },
+        { m: 6, t: 'Analyse how a media producer targets and meets niche audience expectations.' },
+        { m: 6, t: 'Evaluate the success of the media producer in reaching the niche audience.' }
       ]},
       { q: 'Particular media can be purposely used to communicate social or political comment to an intended audience. Analyse this statement with reference to media work you have studied.', sub: [
-        { marks: '4', text: 'Describe the concept of social or political comment in media.' },
-        { marks: '4', text: 'Provide evidence of social or political comment in a media work.' },
-        { marks: '6', text: 'Analyse how the media producer communicates social or political comment.' },
-        { marks: '6', text: 'Evaluate the effectiveness of the social or political comment for the intended audience.' }
+        { m: 4, t: 'Describe the concept of social or political comment in media.' },
+        { m: 4, t: 'Provide evidence of social or political comment in a media work.' },
+        { m: 6, t: 'Analyse how the media producer communicates social or political comment.' },
+        { m: 6, t: 'Evaluate the effectiveness of the social or political comment for the intended audience.' }
       ]}
     ]
   },
   {
-    id: 'y2022',
-    year: '2022',
-    meta: 'WACE ATAR Examination',
-    stimulus: 'Stimulus materials provided: <strong>A Glimpse</strong>, <strong>Freeman</strong>, <strong>Love Death &amp; Robots: All Through the House</strong>, <strong>Everest Glaciology – Truth is in the Ice</strong>',
-    s1marks: '11 marks each',
-    s2marks: '20 marks each',
+    id: 'y2022', year: '2022', meta: 'WACE ATAR Examination',
+    stimulus: 'Stimulus materials: <strong>A Glimpse</strong>, <strong>Freeman</strong>, <strong>Love Death &amp; Robots: All Through the House</strong>, <strong>Everest Glaciology – Truth is in the Ice</strong>',
+    s1marks: '11 marks each', s2marks: '20 marks each',
     s1: [
-      { q: 'Discuss the construction of narrative.' },
-      { q: 'Discuss the use of genre conventions.' },
-      { q: 'Analyse the representation of place.' },
-      { q: 'Analyse how a point of view is constructed.' },
-      { q: 'Discuss the presentation of issues.' },
-      { q: 'Analyse the values presented.' }
+      'Discuss the construction of narrative.',
+      'Discuss the use of genre conventions.',
+      'Analyse the representation of place.',
+      'Analyse how a point of view is constructed.',
+      'Discuss the presentation of issues.',
+      'Analyse the values presented.'
     ],
     s2: [
       { q: 'Analyse how representations are constructed to challenge audience interpretations and values.' },
@@ -306,19 +368,16 @@ const years = [
     ]
   },
   {
-    id: 'y2021',
-    year: '2021',
-    meta: 'WACE ATAR Examination',
-    stimulus: 'Stimulus materials provided: <strong>Death to 2020</strong>, <strong>La La Land</strong>, <strong>The Beach</strong>, <strong>The Shining</strong>',
-    s1marks: '11 marks each',
-    s2marks: '20 marks each',
+    id: 'y2021', year: '2021', meta: 'WACE ATAR Examination',
+    stimulus: 'Stimulus materials: <strong>Death to 2020</strong>, <strong>La La Land</strong>, <strong>The Beach</strong>, <strong>The Shining</strong>',
+    s1marks: '11 marks each', s2marks: '20 marks each',
     s1: [
-      { q: 'Analyse the importance of understanding genre when interpreting a media work.' },
-      { q: 'Explain how a media work reflects cultural values.' },
-      { q: 'Discuss how a representation is constructed.' },
-      { q: 'Discuss the use of persuasive techniques in a media work.' },
-      { q: 'Analyse how a media code is used to create meaning.' },
-      { q: 'Discuss the use of aesthetics in a media work.' }
+      'Analyse the importance of understanding genre when interpreting a media work.',
+      'Explain how a media work reflects cultural values.',
+      'Discuss how a representation is constructed.',
+      'Discuss the use of persuasive techniques in a media work.',
+      'Analyse how a media code is used to create meaning.',
+      'Discuss the use of aesthetics in a media work.'
     ],
     s2: [
       { q: 'Discuss how media theories can be used to understand audience responses or interpretations.' },
@@ -329,21 +388,18 @@ const years = [
     ]
   },
   {
-    id: 'y2020',
-    year: '2020',
-    meta: 'WACE ATAR Examination',
-    s1marks: '11 marks each',
-    s2marks: '20 marks each',
+    id: 'y2020', year: '2020', meta: 'WACE ATAR Examination',
+    s1marks: '11 marks each', s2marks: '20 marks each',
     s1: [
-      { q: 'Discuss the manipulation of narrative structure.' },
-      { q: 'Analyse the use of persuasive techniques.' },
-      { q: 'Analyse the construction of a character.' },
-      { q: 'Analyse how a topic is represented.' },
-      { q: 'Discuss the techniques used to create a media work.' },
-      { q: 'Discuss the representation of culture.' }
+      'Discuss the manipulation of narrative structure.',
+      'Analyse the use of persuasive techniques.',
+      'Analyse the construction of a character.',
+      'Analyse how a topic is represented.',
+      'Discuss the techniques used to create a media work.',
+      'Discuss the representation of culture.'
     ],
     s2: [
-      { q: 'Analyse how an auteur\'s work is influenced by changing audiences and expectations.' },
+      { q: 'Analyse how an auteur’s work is influenced by changing audiences and expectations.' },
       { q: 'Compare the media aesthetics of media work from different cultural or production contexts.' },
       { q: 'Analyse the impact of media trends on mainstream media institutions.' },
       { q: 'Analyse how agenda-setting techniques are used to construct perceptions of issues or topics.' },
@@ -351,18 +407,15 @@ const years = [
     ]
   },
   {
-    id: 'y2019',
-    year: '2019',
-    meta: 'WACE ATAR Examination',
-    s1marks: '11 marks each',
-    s2marks: '20 marks each',
+    id: 'y2019', year: '2019', meta: 'WACE ATAR Examination',
+    s1marks: '11 marks each', s2marks: '20 marks each',
     s1: [
-      { q: 'Analyse how media construct perceptions of an issue.' },
-      { q: 'Analyse how an ideology has been reinforced.' },
-      { q: 'Analyse how media work challenges audience values.' },
-      { q: 'Analyse the use of symbolic codes.' },
-      { q: 'Analyse the impact of media trends.' },
-      { q: 'Analyse representation in media work.' }
+      'Analyse how media construct perceptions of an issue.',
+      'Analyse how an ideology has been reinforced.',
+      'Analyse how media work challenges audience values.',
+      'Analyse the use of symbolic codes.',
+      'Analyse the impact of media trends.',
+      'Analyse representation in media work.'
     ],
     s2: [
       { q: 'Analyse how media theories are used to understand audience interpretations.' },
@@ -373,18 +426,15 @@ const years = [
     ]
   },
   {
-    id: 'y2018',
-    year: '2018',
-    meta: 'WACE ATAR Examination',
-    s1marks: '11 marks each',
-    s2marks: '20 marks each',
+    id: 'y2018', year: '2018', meta: 'WACE ATAR Examination',
+    s1marks: '11 marks each', s2marks: '20 marks each',
     s1: [
-      { q: 'Analyse the representation of gender.' },
-      { q: 'Analyse the use of audio.' },
-      { q: 'Analyse the impact of setting.' },
-      { q: 'Discuss how selection, emphasis or omission are used for effect.' },
-      { q: 'Discuss how media aesthetics are constructed.' },
-      { q: 'Discuss how media work is used to make a social or political comment.' }
+      'Analyse the representation of gender.',
+      'Analyse the use of audio.',
+      'Analyse the impact of setting.',
+      'Discuss how selection, emphasis or omission are used for effect.',
+      'Discuss how media aesthetics are constructed.',
+      'Discuss how media work is used to make a social or political comment.'
     ],
     s2: [
       { q: 'Discuss the artistic benefit of manipulating chronological order in media work.' },
@@ -396,7 +446,123 @@ const years = [
   }
 ];
 
-let currentFilter = 'all';
+function buildNav() {
+  var nav = document.getElementById('yearNav');
+  var html = '';
+  for (var i = 0; i < years.length; i++) {
+    html += '<button data-target="' + years[i].id + '">' + years[i].year + '</button>';
+  }
+  nav.innerHTML = html;
+  nav.firstElementChild.classList.add('active');
+}
+
+function buildSubRows(sub) {
+  var html = '<div class="q-sub">';
+  for (var i = 0; i < sub.length; i++) {
+    html += '<div class="q-sub-row">';
+    html += '<div class="q-sub-marks">(' + sub[i].m + ')</div>';
+    html += '<div>' + sub[i].t + '</div>';
+    html += '</div>';
+  }
+  html += '</div>';
+  return html;
+}
+
+function buildQuestions() {
+  var root = document.getElementById('questionsRoot');
+  var html = '';
+
+  for (var i = 0; i < years.length; i++) {
+    var y = years[i];
+    html += '<div class="year-block" id="' + y.id + '">';
+
+    // Header
+    html += '<div class="year-header">';
+    html += '<div class="year-title">' + y.year + '</div>';
+    html += '<div class="year-meta">' + y.meta + '</div>';
+    html += '</div>';
+
+    // Stimulus note
+    if (y.stimulus) {
+      html += '<div class="stimulus-note">' + y.stimulus + '</div>';
+    }
+
+    // Section One
+    html += '<div class="s1-block">';
+    html += '<div class="section-head s1">Section One — Short Answer <span class="marks-badge">' + y.s1marks + '</span></div>';
+    html += '<div class="q-list">';
+    for (var j = 0; j < y.s1.length; j++) {
+      html += '<div class="q-card s1-card">';
+      html += '<div class="q-num s1">' + (j + 1) + '.</div>';
+      html += '<div class="q-body"><div class="q-text">' + y.s1[j] + '</div></div>';
+      html += '</div>';
+    }
+    html += '</div></div>';
+
+    // Section Two
+    html += '<div class="s2-block">';
+    html += '<div class="section-head s2">Section Two — Extended Answer <span class="marks-badge">' + y.s2marks + '</span></div>';
+    html += '<div class="q-list">';
+    for (var k = 0; k < y.s2.length; k++) {
+      var q = y.s2[k];
+      html += '<div class="q-card s2-card">';
+      html += '<div class="q-num s2">' + (k + 1) + '.</div>';
+      html += '<div class="q-body"><div class="q-text">' + q.q + '</div>';
+      if (q.sub) {
+        html += buildSubRows(q.sub);
+      }
+      html += '</div></div>';
+    }
+    html += '</div></div>';
+
+    html += '</div>'; // year-block
+  }
+
+  root.innerHTML = html;
+}
+
+function setupFilter() {
+  var btns = document.querySelectorAll('.filter-btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener('click', function() {
+      for (var j = 0; j < btns.length; j++) btns[j].classList.remove('active');
+      this.classList.add('active');
+      var f = this.getAttribute('data-filter');
+      var s1 = document.querySelectorAll('.s1-block');
+      var s2 = document.querySelectorAll('.s2-block');
+      for (var k = 0; k < s1.length; k++) s1[k].style.display = (f === 's2') ? 'none' : '';
+      for (var k = 0; k < s2.length; k++) s2[k].style.display = (f === 's1') ? 'none' : '';
+    });
+  }
+}
+
+function setupStickyNav() {
+  var buttons = document.querySelectorAll('#yearNav button');
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', function() {
+      var target = document.getElementById(this.getAttribute('data-target'));
+      if (target) {
+        var top = target.getBoundingClientRect().top + window.pageYOffset - 70;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  }
+  window.addEventListener('scroll', function() {
+    var scrollY = window.pageYOffset + 120;
+    var active = years[0].id;
+    for (var i = 0; i < years.length; i++) {
+      var el = document.getElementById(years[i].id);
+      if (el && el.offsetTop <= scrollY) active = years[i].id;
+    }
+    for (var i = 0; i < buttons.length; i++) {
+      if (buttons[i].getAttribute('data-target') === active) {
+        buttons[i].classList.add('active');
+      } else {
+        buttons[i].classList.remove('active');
+      }
+    }
+  });
+}
 
 function init() {
   buildNav();
@@ -405,104 +571,10 @@ function init() {
   setupStickyNav();
 }
 
-function buildNav() {
-  const nav = document.getElementById('yearNav');
-  nav.innerHTML = years.map(y => `<button data-target="${y.id}">${y.year}</button>`).join('');
-  // activate first
-  nav.querySelector('button').classList.add('active');
-}
-
-function buildQuestions() {
-  const root = document.getElementById('questionsRoot');
-  root.innerHTML = years.map(y => `
-    <div class="year-block" id="${y.id}">
-      <div class="year-header">
-        <div class="year-title">${y.year}</div>
-        <div class="year-meta">${y.meta}</div>
-      </div>
-      ${y.stimulus ? `<div class="stimulus-note">Stimulus materials provided in exam: ${y.stimulus}</div>` : ''}
-      <div class="s1-block">
-        <div class="section-head s1">Section One — Short Answer <span class="marks-badge">${y.s1marks}</span></div>
-        <div class="q-list">
-          ${y.s1.map((q, i) => `
-            <div class="q-card s1-card">
-              <div class="q-num s1">${i + 1}.</div>
-              <div class="q-body">
-                <div class="q-text">${q.q}</div>
-              </div>
-            </div>`).join('')}
-        </div>
-      </div>
-      <div class="s2-block">
-        <div class="section-head s2">Section Two — Extended Answer <span class="marks-badge">${y.s2marks}</span></div>
-        <div class="q-list">
-          ${y.s2.map((q, i) => `
-            <div class="q-card s2-card">
-              <div class="q-num s2">${i + 1}.</div>
-              <div class="q-body">
-                <div class="q-text">${q.q}</div>
-                ${q.sub ? `<div class="q-sub">${q.sub.map(s => `
-                  <div class="q-sub-row">
-                    <div class="q-sub-marks">(${s.marks})</div>
-                    <div>${s.text}</div>
-                  </div>`).join('')}
-                </div>` : ''}
-              </div>
-            </div>`).join('')}
-        </div>
-      </div>
-    </div>`).join('');
-}
-
-function setupFilter() {
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentFilter = btn.dataset.filter;
-      applyFilter();
-    });
-  });
-}
-
-function applyFilter() {
-  document.querySelectorAll('.s1-block').forEach(el => {
-    el.style.display = (currentFilter === 's2') ? 'none' : '';
-  });
-  document.querySelectorAll('.s2-block').forEach(el => {
-    el.style.display = (currentFilter === 's1') ? 'none' : '';
-  });
-}
-
-function setupStickyNav() {
-  const buttons = document.querySelectorAll('#yearNav button');
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = document.getElementById(btn.dataset.target);
-      if (target) {
-        const top = target.getBoundingClientRect().top + window.scrollY - 70;
-        window.scrollTo({ top, behavior: 'smooth' });
-      }
-    });
-  });
-  // scroll spy
-  const ids = years.map(y => y.id);
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY + 120;
-    let active = ids[0];
-    ids.forEach(id => {
-      const el = document.getElementById(id);
-      if (el && el.offsetTop <= scrollY) active = id;
-    });
-    buttons.forEach(b => {
-      b.classList.toggle('active', b.dataset.target === active);
-    });
-  });
-}
-
 if (localStorage.getItem('mpa_auth') !== 'true') {
   window.location.href = 'index.html';
 } else {
+  document.getElementById('siteContent').classList.add('visible');
   init();
 }
 </script>

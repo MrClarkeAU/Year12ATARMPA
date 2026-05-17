@@ -142,12 +142,6 @@ body::before { content: ''; position: fixed; inset: 0; background: var(--film-gr
 <footer class="footer">Year 12 ATAR MPA · Sacred Heart College · 2026</footer>
 
 <script>
-if (localStorage.getItem('mpa_auth') !== 'true') {
-  window.location.href = 'index.html';
-} else {
-  init();
-}
-
 // ── DATA ──
 const years = [
   {
@@ -504,6 +498,12 @@ function setupStickyNav() {
       b.classList.toggle('active', b.dataset.target === active);
     });
   });
+}
+
+if (localStorage.getItem('mpa_auth') !== 'true') {
+  window.location.href = 'index.html';
+} else {
+  init();
 }
 </script>
 </body>

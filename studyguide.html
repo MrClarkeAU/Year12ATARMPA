@@ -907,12 +907,6 @@ body::before { content: ''; position: fixed; inset: 0; background: var(--film-gr
 <footer class="footer">Year 12 ATAR MPA · Sacred Heart College · 2026</footer>
 
 <script>
-if (localStorage.getItem('mpa_auth') !== 'true') {
-  window.location.href = 'index.html';
-} else {
-  init();
-}
-
 const practicePrompts = [
   { id: 'p1', label: 'Practice Prompt 1', concept: 'Cultural context', library: 'Cultural context',
     prompt: 'Discuss how a producer\'s cultural context informs specific aesthetic decisions within a single scene from a media work you have studied. Use evidence to support your answer.',
@@ -1552,6 +1546,12 @@ function setupPlaybookActions() {
       renderPlaybook();
     }
   });
+}
+
+if (localStorage.getItem('mpa_auth') !== 'true') {
+  window.location.href = 'index.html';
+} else {
+  init();
 }
 </script>
 </body>

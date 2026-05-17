@@ -114,17 +114,6 @@ body::before { content: ''; position: fixed; inset: 0; background: var(--film-gr
 </head>
 <body>
 
-<div class="login-overlay" id="loginOverlay">
-  <div class="login-box">
-    <div class="login-label">Year 12 ATAR · Past Questions</div>
-    <div class="login-title">Sign in to continue</div>
-    <p class="login-sub">Enter the class username and password to access the past questions bank.</p>
-    <input type="text" id="loginUser" class="login-field" placeholder="Username" autocomplete="off">
-    <input type="password" id="loginPass" class="login-field" placeholder="Password">
-    <button class="login-btn" id="loginBtn">Continue</button>
-    <div class="login-error" id="loginError">Username or password incorrect. Try again.</div>
-  </div>
-</div>
 
 <div class="site-content" id="siteContent">
 
@@ -153,44 +142,10 @@ body::before { content: ''; position: fixed; inset: 0; background: var(--film-gr
 <footer class="footer">Year 12 ATAR MPA · Sacred Heart College · 2026</footer>
 
 <script>
-const USERNAME = 'ATARMPA';
-const PASSWORD = 'Auteurs26';
-
-async function sha256(text) {
-  const buf = new TextEncoder().encode(text);
-  const hash = await crypto.subtle.digest('SHA-256', buf);
-  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
-(async () => {
-  const stored = localStorage.getItem('mpa_auth');
-  if (stored) {
-    const expected = await sha256(USERNAME + ':' + PASSWORD);
-    if (stored === expected) {
-      document.getElementById('loginOverlay').classList.add('hidden');
-      init();
-      return;
-    }
-  }
-  document.getElementById('loginOverlay').classList.remove('hidden');
-})();
-
-document.getElementById('loginBtn').addEventListener('click', tryLogin);
-document.getElementById('loginPass').addEventListener('keypress', e => { if (e.key === 'Enter') tryLogin(); });
-document.getElementById('loginUser').addEventListener('keypress', e => { if (e.key === 'Enter') tryLogin(); });
-
-async function tryLogin() {
-  const u = document.getElementById('loginUser').value.trim();
-  const p = document.getElementById('loginPass').value;
-  const err = document.getElementById('loginError');
-  if (u === USERNAME && p === PASSWORD) {
-    const hash = await sha256(u + ':' + p);
-    localStorage.setItem('mpa_auth', hash);
-    document.getElementById('loginOverlay').classList.add('hidden');
-    init();
-  } else {
-    err.classList.add('visible');
-  }
+if (localStorage.getItem('mpa_auth') !== 'true') {
+  window.location.href = 'index.html';
+} else {
+  init();
 }
 
 // ── DATA ──

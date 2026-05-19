@@ -53,7 +53,13 @@ body::before { content: ''; position: fixed; inset: 0; background: var(--film-gr
 .hero h1 { font-family: 'Playfair Display', serif; font-size: 2.4rem; line-height: 1.15; color: var(--text); margin-bottom: 0.8rem; font-weight: 700; position: relative; }
 .hero h1 em { font-style: italic; color: var(--accent-bright); }
 .hero-sub { font-size: 1.05rem; color: var(--text-dim); max-width: 720px; margin: 0 auto; position: relative; }
-.message-box { background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 1.4rem 1.6rem; margin: 2rem 0; }
+.audio-section { max-width: 800px; margin: 2rem auto 0; }
+.audio-card { background: linear-gradient(135deg, rgba(91,127,245,0.05) 0%, rgba(232,197,71,0.03) 100%); border: 1px solid rgba(91,127,245,0.15); border-radius: 10px; padding: 1.3rem 1.5rem; position: relative; }
+.audio-card::before { content: '\01F3A7'; position: absolute; top: -12px; left: 20px; background: var(--bg-deep); padding: 0 6px; font-size: 1.1rem; }
+.audio-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem; }
+.audio-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: #fff; line-height: 1.35; margin-bottom: 0.5rem; }
+.audio-desc { font-size: 0.9rem; color: var(--text-dim); line-height: 1.65; margin-bottom: 0.9rem; }
+.audio-player { width: 100%; height: 42px; border-radius: 6px; outline: none; }
 .message-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.65rem; }
 .message-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--text); margin-bottom: 0.75rem; font-weight: 700; }
 .message-text { color: var(--text-dim); font-size: 0.97rem; }
@@ -328,6 +334,18 @@ body::before { content: ''; position: fixed; inset: 0; background: var(--film-gr
     <p>Section Two gets the same treatment. The concept library is your reference: dip in when you're stuck on a particular concept, get a clean definition, look across the texts you know, then come back to whatever you were doing.</p>
     <p><strong>A note about your investigation.</strong> Your investigation text and auteur are exam-ready. You spent time researching them — you know that work and that director better than I do. Some of you will write your strongest responses using your investigation, not <em>Samson and Delilah</em> or <em>Spirited Away</em>. The exemplars in this guide use Thornton, Miyazaki and one investigation auteur as worked cases, but the five-move structure works for any text. Use what you know best.</p>
     <p>Bookmark this page. — Mr Clarke</p>
+  </div>
+</div>
+
+<div class="audio-section">
+  <div class="audio-card">
+    <div class="audio-label">Podcast · NotebookLM</div>
+    <div class="audio-title">The Five-Move Media Exam Blueprint</div>
+    <p class="audio-desc">A discussion of the strategy in this guide — the five-move framework, marking bands, and how to use your texts under exam pressure. Produced using Google NotebookLM. Ideal if you prefer to learn by listening.</p>
+    <audio class="audio-player" controls preload="metadata">
+      <source src="The_five_move_media_exam_blueprint.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
   </div>
 </div>
 

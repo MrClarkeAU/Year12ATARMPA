@@ -1,0 +1,1924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semester One Exam 2026 &ndash; Cohort Feedback | Year 12 ATAR MPA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #0a0a0f;
+  --bg-card: #12121a;
+  --bg-card-hover: #1a1a26;
+  --bg-input: #1e1e2a;
+  --border: #2a2a3a;
+  --border-glow: #3d5af1;
+  --accent: #5b7ff5;
+  --accent-bright: #7b9aff;
+  --accent-dim: #3d5af1;
+  --gold: #e8c547;
+  --gold-dim: #c4a535;
+  --green: #4caf7d;
+  --green-bg: rgba(76,175,125,0.10);
+  --green-border: rgba(76,175,125,0.35);
+  --red: #e05565;
+  --red-bg: rgba(224,85,101,0.08);
+  --red-border: rgba(224,85,101,0.30);
+  --purple: #c084fc;
+  --purple-bg: rgba(192,132,252,0.10);
+  --purple-border: rgba(192,132,252,0.30);
+  --teal: #3db8a0;
+  --text: #e0e0ec;
+  --text-dim: #a0a0b8;
+  --text-muted: #7a7a94;
+  --film-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  --error: #f06565;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: var(--film-grain);
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.35;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   LOGIN OVERLAY (matches the rest of the hub)
+   ───────────────────────────────────────────────────────────────────── */
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--bg-deep);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2rem;
+}
+.login-overlay.visible { display: flex; }
+.login-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(192,132,252,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.login-box {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+.login-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 0.6rem;
+}
+.login-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: #fff;
+  margin-bottom: 0.4rem;
+}
+.login-sub {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  margin-bottom: 1.6rem;
+  font-weight: 300;
+}
+.login-input {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.7rem 0.9rem;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.92rem;
+  border-radius: 4px;
+  margin-bottom: 0.7rem;
+  transition: border-color 0.2s;
+}
+.login-input:focus { outline: none; border-color: var(--purple); }
+.login-btn {
+  width: 100%;
+  background: var(--purple);
+  color: #0a0a0f;
+  border: none;
+  padding: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 0.3rem;
+  transition: background 0.2s, transform 0.1s;
+}
+.login-btn:hover { background: #d4a3ff; }
+.login-btn:active { transform: translateY(1px); }
+.login-error {
+  margin-top: 0.8rem;
+  font-size: 0.78rem;
+  color: var(--error);
+  min-height: 1.1rem;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   HERO
+   ───────────────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  text-align: center;
+  padding: 3.5rem 1.5rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(192,132,252,0.05) 0%, transparent 100%);
+}
+.back-link {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-bottom: 1.6rem;
+  transition: color 0.2s;
+}
+.back-link:hover { color: var(--purple); }
+.hero-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 0.9rem;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.7rem, 4.5vw, 2.6rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+.hero h1 .em {
+  font-style: italic;
+  color: var(--purple);
+  font-weight: 400;
+}
+.hero-sub {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  max-width: 620px;
+  margin: 0 auto 0.5rem;
+  font-weight: 300;
+}
+.hero-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin-top: 0.9rem;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   STICKY QUICK NAV
+   ───────────────────────────────────────────────────────────────────── */
+.quick-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,10,15,0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.7rem 1.5rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+.quick-nav::-webkit-scrollbar { display: none; }
+.quick-nav-inner {
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+.quick-nav a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  transition: all 0.2s;
+}
+.quick-nav a:hover {
+  color: var(--purple);
+  border-color: rgba(192,132,252,0.4);
+  background: var(--purple-bg);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   MAIN LAYOUT
+   ───────────────────────────────────────────────────────────────────── */
+.main {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.part {
+  margin-bottom: 3.2rem;
+  scroll-margin-top: 80px;
+}
+.part-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 0.6rem;
+}
+.part-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem;
+  color: #fff;
+  margin-bottom: 0.4rem;
+  line-height: 1.25;
+}
+.part-intro {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  margin-bottom: 1.8rem;
+  font-weight: 300;
+  max-width: 720px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   CALLOUTS — four styles
+   ───────────────────────────────────────────────────────────────────── */
+.callout {
+  border-left: 3px solid;
+  padding: 1.1rem 1.3rem;
+  border-radius: 0 4px 4px 0;
+  margin: 1.2rem 0;
+  font-size: 0.93rem;
+}
+.callout p + p { margin-top: 0.7rem; }
+.callout-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.callout.info { background: rgba(91,127,245,0.07); border-color: var(--accent); }
+.callout.info .callout-label { color: var(--accent-bright); }
+.callout.pitfall { background: var(--red-bg); border-color: var(--red); }
+.callout.pitfall .callout-label { color: var(--red); }
+.callout.exemplar { background: var(--green-bg); border-color: var(--green); }
+.callout.exemplar .callout-label { color: var(--green); }
+.callout.note { background: var(--purple-bg); border-color: var(--purple); }
+.callout.note .callout-label { color: var(--purple); }
+
+/* ─────────────────────────────────────────────────────────────────────
+   MESSAGE FROM MR CLARKE (top-of-page note callout, decorated)
+   ───────────────────────────────────────────────────────────────────── */
+.message {
+  background: linear-gradient(180deg, rgba(192,132,252,0.10) 0%, rgba(192,132,252,0.04) 100%);
+  border: 1px solid var(--purple-border);
+  border-radius: 6px;
+  padding: 1.8rem 1.8rem 1.6rem;
+  margin-bottom: 3rem;
+  position: relative;
+}
+.message-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 0.7rem;
+}
+.message h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  color: #fff;
+  margin-bottom: 0.8rem;
+  line-height: 1.3;
+}
+.message p {
+  font-size: 0.95rem;
+  color: var(--text);
+  font-weight: 300;
+  margin-bottom: 0.8rem;
+}
+.message p:last-child { margin-bottom: 0; }
+.message .signoff {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--purple);
+  margin-top: 1rem;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   PROGRESS BAR (priorities tracker)
+   ───────────────────────────────────────────────────────────────────── */
+.tracker {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.1rem 1.3rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.tracker-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+.tracker-count {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: var(--purple);
+  font-weight: 700;
+}
+.tracker-bar {
+  flex: 1;
+  min-width: 140px;
+  height: 6px;
+  background: var(--bg-input);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.tracker-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--purple), var(--accent-bright));
+  border-radius: 3px;
+  width: 0%;
+  transition: width 0.4s ease;
+}
+.tracker-reset {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.6rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tracker-reset:hover { color: var(--purple); border-color: var(--purple); }
+
+/* ─────────────────────────────────────────────────────────────────────
+   PRIORITY CARDS
+   ───────────────────────────────────────────────────────────────────── */
+.priority {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.4rem 1.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+  transition: border-color 0.25s, background 0.25s;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem 1.2rem;
+  align-items: start;
+}
+.priority.done {
+  background: linear-gradient(180deg, rgba(192,132,252,0.06) 0%, var(--bg-card) 100%);
+  border-color: rgba(192,132,252,0.35);
+}
+.priority-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--purple);
+  line-height: 1;
+  grid-row: 1 / 3;
+  opacity: 0.85;
+}
+.priority-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.priority h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: #fff;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 0.4rem;
+}
+.priority-tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.6rem;
+}
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  background: rgba(232,197,71,0.10);
+  color: var(--gold);
+  border: 1px solid rgba(232,197,71,0.20);
+}
+.tag.struct { background: rgba(91,127,245,0.10); color: var(--accent-bright); border-color: rgba(91,127,245,0.20); }
+.tag.theory { background: rgba(192,132,252,0.10); color: var(--purple); border-color: rgba(192,132,252,0.25); }
+.tag.evidence { background: rgba(76,175,125,0.10); color: var(--green); border-color: rgba(76,175,125,0.25); }
+.priority-obs {
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  font-style: italic;
+  margin-bottom: 0.7rem;
+  font-weight: 300;
+}
+.priority-fix {
+  color: var(--text);
+  font-size: 0.93rem;
+}
+.priority-check {
+  grid-column: 1 / 3;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+}
+.priority-check input { display: none; }
+.priority-check .box {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
+  background: var(--bg-input);
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.2s;
+}
+.priority-check input:checked + .box {
+  background: var(--purple);
+  border-color: var(--purple);
+}
+.priority-check input:checked + .box::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #0a0a0f;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.priority-check .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+}
+.priority.done .priority-check .label {
+  color: var(--purple);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   ACCORDION (question cards)
+   ───────────────────────────────────────────────────────────────────── */
+.controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+  flex-wrap: wrap;
+}
+.ctrl-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 0.45rem 0.8rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.ctrl-btn:hover {
+  color: var(--purple);
+  border-color: rgba(192,132,252,0.4);
+}
+
+.accordion {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 0.7rem;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.accordion.open { border-color: rgba(192,132,252,0.35); }
+.acc-head {
+  padding: 1.1rem 1.4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  user-select: none;
+  transition: background 0.2s;
+}
+.acc-head:hover { background: var(--bg-card-hover); }
+.acc-titlewrap { flex: 1; min-width: 0; }
+.acc-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 0.3rem;
+}
+.acc-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: #fff;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.acc-marks {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  background: rgba(232,197,71,0.12);
+  color: var(--gold);
+  padding: 0.25rem 0.55rem;
+  border-radius: 3px;
+  border: 1px solid rgba(232,197,71,0.2);
+  flex-shrink: 0;
+}
+.acc-chev {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  position: relative;
+  transition: transform 0.25s;
+  color: var(--text-muted);
+}
+.acc-chev::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 2px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+.accordion.open .acc-chev { transform: rotate(180deg); color: var(--purple); }
+.acc-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+.acc-body-inner {
+  padding: 0 1.4rem 1.4rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.2rem;
+}
+.acc-body-inner p { margin-bottom: 0.8rem; font-size: 0.93rem; }
+.acc-body-inner p:last-child { margin-bottom: 0; }
+.acc-body-inner h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin: 1.2rem 0 0.6rem;
+}
+.acc-body-inner h4:first-child { margin-top: 0; }
+.q-stem {
+  background: var(--bg-input);
+  border-left: 2px solid var(--purple);
+  padding: 0.8rem 1rem;
+  border-radius: 0 4px 4px 0;
+  font-style: italic;
+  color: var(--text);
+  font-size: 0.92rem;
+  margin-bottom: 1rem;
+}
+.q-stats {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   EXEMPLAR BANK
+   ───────────────────────────────────────────────────────────────────── */
+.filter-bar {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.85rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn:hover {
+  color: var(--purple);
+  border-color: rgba(192,132,252,0.4);
+}
+.filter-btn.active {
+  color: #0a0a0f;
+  background: var(--purple);
+  border-color: var(--purple);
+}
+.exemplar {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--green);
+  border-radius: 0 6px 6px 0;
+  padding: 1.3rem 1.5rem;
+  margin-bottom: 1rem;
+  transition: opacity 0.25s, transform 0.25s;
+}
+.exemplar.hidden { display: none; }
+.exemplar-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.7rem;
+}
+.exemplar-criterion {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--green);
+  background: var(--green-bg);
+  border: 1px solid var(--green-border);
+  padding: 0.22rem 0.55rem;
+  border-radius: 3px;
+}
+.exemplar-band {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+}
+.exemplar-text {
+  text-align: left;
+  margin-bottom: 0.9rem;
+}
+.exemplar-text blockquote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.02rem;
+  color: var(--text);
+  line-height: 1.5;
+  padding-left: 0;
+  margin: 0 0 0.4rem;
+}
+.exemplar-text blockquote strong { font-weight: 700; color: #fff; font-style: italic; }
+.exemplar-source {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text-dim);
+  font-weight: 300;
+}
+.exemplar-source em { color: var(--text); font-style: italic; }
+.exemplar-move {
+  background: rgba(0,0,0,0.18);
+  padding: 0.8rem 1rem;
+  border-radius: 4px;
+  font-size: 0.88rem;
+  color: var(--text-dim);
+}
+.exemplar-move strong { color: var(--text); font-weight: 600; }
+.exemplar.contrast { border-left-color: var(--red); }
+.exemplar.contrast .exemplar-criterion { color: var(--red); background: var(--red-bg); border-color: var(--red-border); }
+.exemplar.cautionary { border-left-color: var(--gold); }
+.exemplar.cautionary .exemplar-criterion { color: var(--gold); background: rgba(232,197,71,0.10); border-color: rgba(232,197,71,0.30); }
+
+/* ─────────────────────────────────────────────────────────────────────
+   UNIT 3 CHECKLIST
+   ───────────────────────────────────────────────────────────────────── */
+.checklist {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.4rem 1.6rem;
+}
+.checklist-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed var(--border);
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s;
+}
+.checklist-row:last-child { border-bottom: none; }
+.checklist-row input { display: none; }
+.checklist-row .box {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
+  background: var(--bg-input);
+  flex-shrink: 0;
+  margin-top: 4px;
+  position: relative;
+  transition: all 0.2s;
+}
+.checklist-row input:checked + .box {
+  background: var(--green);
+  border-color: var(--green);
+}
+.checklist-row input:checked + .box::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #0a0a0f;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+.checklist-row .text {
+  font-size: 0.92rem;
+  color: var(--text);
+  line-height: 1.55;
+}
+.checklist-row input:checked ~ .text {
+  color: var(--text-muted);
+  text-decoration: line-through;
+  text-decoration-color: var(--text-muted);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   SECTION-INTRO MARKERS (Section One / Section Two intros)
+   ───────────────────────────────────────────────────────────────────── */
+.section-intro {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.2rem 1.4rem;
+  margin-bottom: 1.4rem;
+}
+.section-intro p {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  margin-bottom: 0.6rem;
+  font-weight: 300;
+}
+.section-intro p:last-child { margin-bottom: 0; }
+.section-intro strong { color: var(--text); font-weight: 600; }
+.criterion-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.6rem;
+  margin-top: 0.9rem;
+}
+.criterion-pill {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.55rem 0.7rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  text-align: center;
+}
+.criterion-pill strong {
+  display: block;
+  color: var(--gold);
+  font-size: 0.95rem;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 0.15rem;
+  letter-spacing: 0;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   FOOTER
+   ───────────────────────────────────────────────────────────────────── */
+.footer {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  border-top: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+.footer a {
+  color: var(--purple);
+  text-decoration: none;
+  margin-left: 0.6rem;
+}
+.footer a:hover { text-decoration: underline; }
+
+/* ─────────────────────────────────────────────────────────────────────
+   ANIMATIONS + RESPONSIVE
+   ───────────────────────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeUp 0.45s ease both; }
+
+@media (max-width: 600px) {
+  .hero { padding: 2.5rem 1.2rem 2rem; }
+  .main { padding: 1.8rem 1.2rem 3rem; }
+  .priority { grid-template-columns: 1fr; }
+  .priority-num { grid-row: auto; font-size: 1.6rem; }
+  .priority-check { grid-column: 1 / 2; }
+  .message { padding: 1.4rem 1.3rem 1.3rem; }
+  .acc-head { padding: 1rem 1.1rem; }
+  .acc-body-inner { padding: 0 1.1rem 1.1rem; padding-top: 1rem; }
+  .exemplar { padding: 1.1rem 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LOGIN OVERLAY (hidden if mpa_auth is already set in localStorage)
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <div class="login-label">Year 12 ATAR &middot; MPA</div>
+    <div class="login-title">Revision Hub</div>
+    <div class="login-sub">Enter your credentials to continue.</div>
+    <input type="text" id="user" class="login-input" placeholder="Username" autocomplete="off" autocapitalize="off" spellcheck="false">
+    <input type="password" id="pass" class="login-input" placeholder="Password" autocomplete="off">
+    <button id="loginBtn" class="login-btn">Enter</button>
+    <div id="loginError" class="login-error"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     HERO
+     ════════════════════════════════════════════════════════════════════════ -->
+<header class="hero">
+  <a href="index.html" class="back-link">&larr; Back to Revision Hub</a>
+  <div class="hero-label">Semester One Examination &middot; 2026</div>
+  <h1>Cohort Feedback &amp; <span class="em">Recalibration</span></h1>
+  <p class="hero-sub">Your first Year 12 ATAR exam paper, marked, moderated and turned into a map for Semester Two. Read the priorities, study the exemplars, work on the gaps.</p>
+  <div class="hero-meta">Year 12 ATAR &middot; Media Production &amp; Analysis &middot; Sacred Heart College</div>
+</header>
+
+<!-- Sticky quick-jump nav -->
+<nav class="quick-nav" aria-label="Quick navigation">
+  <div class="quick-nav-inner">
+    <a href="#message">Message</a>
+    <a href="#big-picture">Big picture</a>
+    <a href="#priorities">Six priorities</a>
+    <a href="#section-one">Section One</a>
+    <a href="#section-two">Section Two</a>
+    <a href="#exemplars">Exemplar bank</a>
+    <a href="#checklist">Unit 3 checklist</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       MESSAGE FROM MR CLARKE
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="message" id="message">
+    <div class="message-label">A message from Mr Clarke</div>
+    <h2>This was your first Year 12 ATAR examination &ndash; and that matters.</h2>
+    <p>The jump from Year 11 to a full ATAR paper &ndash; two and a half hours, four required responses, a marking key built on SCSA band descriptors &ndash; is a genuine step up, and you have just taken it for the first time. Read everything that follows in that light. This exam is a checkpoint, not a verdict.</p>
+    <p>As a cohort you produced some genuinely sophisticated work. There were moments in these papers that sit comfortably in the top bands. There was also a wide spread of results, which is exactly what I would expect at this stage: some of you have your analytical and theoretical tools at your fingertips already, and others are still assembling them. Both are fine.</p>
+    <p>Here is something worth holding onto. <strong>Almost every year, this cohort improves markedly between the Semester One exam and the WACE exam.</strong> Students who sit in the middle of the range now routinely climb into the upper bands by November &ndash; not through luck or raw talent, but through consistent practice and acting on feedback. Treat this page as your map for doing exactly that.</p>
+    <p class="signoff">&mdash; Mr Clarke</p>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       PART 1 — THE BIG PICTURE
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="part" id="big-picture">
+    <div class="part-label">Part 1</div>
+    <h2 class="part-title">The big picture &ndash; depth beats breadth</h2>
+    <p class="part-intro">If there is one lesson the whole cohort should take from this exam, it is this: what separated the strongest papers from the rest was not which media work you chose, or how many you referenced, but how deeply you engaged with the one in front of you.</p>
+
+    <div class="callout info">
+      <span class="callout-label">The pattern</span>
+      <p>Some of the highest-scoring papers in the cohort discussed only <em>Spirited Away</em> across all four responses. Some of the mid-range papers referenced three different media works. <strong>The difference was not breadth &ndash; it was depth.</strong> A single, well-chosen scene unpacked across several layers (camera, lighting, sound, mise-en-sc&egrave;ne, symbolism) consistently outscored three or four scenes mentioned in passing.</p>
+      <p>Before the next exam, resist the instinct to prove how much you have seen. Prove how well you can read one moment.</p>
+    </div>
+
+    <div class="callout note">
+      <span class="callout-label">A principle worth pinning above your desk</span>
+      <p><strong>Analysis means making meaning.</strong> Naming a technique is not analysis. Naming a theory is not analysis. Analysis is showing <em>how</em> a specific choice constructs a specific meaning, and <em>why</em> that matters for the question you have been asked.</p>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       PART 2 — SIX PRIORITIES (with progress tracker)
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="part" id="priorities">
+    <div class="part-label">Part 2</div>
+    <h2 class="part-title">Six priorities for Semester Two</h2>
+    <p class="part-intro">If you do nothing else with this feedback, work on these six things &ndash; roughly in order of how many marks they are worth across the cohort. Tick each one when you have started working on it; the tracker remembers your progress on this device.</p>
+
+    <div class="tracker">
+      <div class="tracker-label">Working on</div>
+      <div class="tracker-count"><span id="priorityCount">0</span> / 6</div>
+      <div class="tracker-bar"><div class="tracker-fill" id="priorityFill"></div></div>
+      <button class="tracker-reset" id="trackerReset">Reset</button>
+    </div>
+
+    <article class="priority" data-priority="1">
+      <div class="priority-num">1</div>
+      <div>
+        <div class="priority-tags"><span class="tag struct">Structural</span><span class="tag">Highest leverage</span></div>
+        <h3>Answer the whole paper</h3>
+        <p class="priority-obs">The most expensive mistakes in this exam were structural, not analytical. Two papers completed only one of the two required Section One questions, and one strong paper collapsed into dot-point notes part-way through a response when time ran out. These were not weak students &ndash; they were time-management casualties.</p>
+        <p class="priority-fix">A half-finished strong answer scores far less than two complete solid ones. Before the next exam, practise full papers to time, and rehearse a pace that gets you through all four required responses with something in reserve. This is the highest-leverage change available to most of you.</p>
+      </div>
+      <label class="priority-check">
+        <input type="checkbox" data-priority-check="1"><span class="box"></span>
+        <span class="label">I&rsquo;m working on this</span>
+      </label>
+    </article>
+
+    <article class="priority" data-priority="2">
+      <div class="priority-num">2</div>
+      <div>
+        <div class="priority-tags"><span class="tag">Describe &middot; 4 marks</span><span class="tag">Easiest fix</span></div>
+        <h3>Describe the concept &ndash; don&rsquo;t just name it</h3>
+        <p class="priority-obs">Across the cohort, the Describe sub-criterion (4 marks in Section Two) was systematically weaker than the Analyse work that followed it. The pattern was the same paper after paper: students could apply a concept well but could not first say clearly what it is.</p>
+        <p class="priority-fix">Mise-en-sc&egrave;ne, audience readings, cultural context &ndash; when the question asks you to describe the concept, <strong>define it properly before you apply it</strong>. A vague or inaccurate definition costs easy marks even when the rest of your answer shows you understand the idea in practice.</p>
+      </div>
+      <label class="priority-check">
+        <input type="checkbox" data-priority-check="2"><span class="box"></span>
+        <span class="label">I&rsquo;m working on this</span>
+      </label>
+    </article>
+
+    <article class="priority" data-priority="3">
+      <div class="priority-num">3</div>
+      <div>
+        <div class="priority-tags"><span class="tag theory">Theory</span><span class="tag">Unlocks the upper bands</span></div>
+        <h3>Learn Hall&rsquo;s encoding / decoding model properly</h3>
+        <p class="priority-obs">Six of ten papers referenced Stuart Hall, but only one applied the full typology accurately. Several got the direction reversed.</p>
+        <p class="priority-fix">Lock this down: <strong>the producer encodes a preferred meaning; the audience decodes it</strong>, and that decoding can be <strong>dominant / preferred</strong> (the audience accepts the intended meaning), <strong>negotiated</strong> (partial acceptance, modified by the audience&rsquo;s own position) or <strong>oppositional</strong> (active resistance). Name all three, get the direction right, and map each to a specific audience. This single framework unlocks the upper bands on every audience-and-interpretation question in the paper.</p>
+      </div>
+      <label class="priority-check">
+        <input type="checkbox" data-priority-check="3"><span class="box"></span>
+        <span class="label">I&rsquo;m working on this</span>
+      </label>
+    </article>
+
+    <article class="priority" data-priority="4">
+      <div class="priority-num">4</div>
+      <div>
+        <div class="priority-tags"><span class="tag">Evaluate &middot; 8 marks</span><span class="tag">Biggest opportunity</span></div>
+        <h3>Push Evaluate past assertion</h3>
+        <p class="priority-obs">No paper reached 8/8 on Evaluate, and most sat at 4 or below. This is the single biggest growth area for the cohort.</p>
+        <p class="priority-fix">Evaluate needs <strong>judgement + theory + differentiated readings</strong>. When you write an Evaluate paragraph, ask yourself three questions. How effective is this choice? For which audience, and why does another audience respond differently? What theory helps me explain that difference? If your paragraph answers only the first, you are still in Analyse territory.</p>
+      </div>
+      <label class="priority-check">
+        <input type="checkbox" data-priority-check="4"><span class="box"></span>
+        <span class="label">I&rsquo;m working on this</span>
+      </label>
+    </article>
+
+    <article class="priority" data-priority="5">
+      <div class="priority-num">5</div>
+      <div>
+        <div class="priority-tags"><span class="tag evidence">Evidence &middot; 4 marks</span></div>
+        <h3>Move your evidence from plot to scene</h3>
+        <p class="priority-obs">Many responses leaned on what happens in the story rather than how it is constructed.</p>
+        <p class="priority-fix">Train yourself to reach instinctively for the construction: shot type and angle, camera movement, lighting, the elements of mise-en-sc&egrave;ne, sound (diegetic and non-diegetic), and editing. Remember that on the modern syllabus, sound design counts as part of mise-en-sc&egrave;ne, so do not be shy about bringing audio into that discussion. <strong>Say how we see it, not just what we see.</strong></p>
+      </div>
+      <label class="priority-check">
+        <input type="checkbox" data-priority-check="5"><span class="box"></span>
+        <span class="label">I&rsquo;m working on this</span>
+      </label>
+    </article>
+
+    <article class="priority" data-priority="6">
+      <div class="priority-num">6</div>
+      <div>
+        <div class="priority-tags"><span class="tag">Habits</span></div>
+        <h3>Keep claims measured &ndash; and don&rsquo;t avoid question types</h3>
+        <p class="priority-obs">Two smaller habits. Words like &ldquo;perfectly,&rdquo; &ldquo;flawless&rdquo; or &ldquo;masterpiece&rdquo; actually <em>weaken</em> evaluative writing, because evaluation lives in nuance and trade-offs, not superlatives. And as a cohort-wide observation: <strong>not a single one of you attempted Question 5, the values question.</strong></p>
+        <p class="priority-fix">Going into an exam with a question type you have effectively ruled out narrows your options badly if your preferred questions are awkwardly worded on the day. Practise across all the question types, including the ones you instinctively avoid.</p>
+      </div>
+      <label class="priority-check">
+        <input type="checkbox" data-priority-check="6"><span class="box"></span>
+        <span class="label">I&rsquo;m working on this</span>
+      </label>
+    </article>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       PART 3 — SECTION ONE QUESTION GUIDE
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="part" id="section-one">
+    <div class="part-label">Part 3 &middot; Section One</div>
+    <h2 class="part-title">Short answer &ndash; question by question</h2>
+    <p class="part-intro">Five questions, you answered two. Section One rewards <strong>density and precision</strong>: around 15 minutes per question, 12 marks each. Expand any question below to see what it asks, what worked in the cohort, and where marks were lost.</p>
+
+    <div class="section-intro">
+      <p><strong>How the marks are built:</strong> content (6) + evidence (4) + media terminology (2) = 12 marks per question.</p>
+      <div class="criterion-grid">
+        <div class="criterion-pill"><strong>6</strong>Content</div>
+        <div class="criterion-pill"><strong>4</strong>Evidence</div>
+        <div class="criterion-pill"><strong>2</strong>Terminology</div>
+      </div>
+      <p style="margin-top:0.9rem;">Quick reminders: choose <strong>one key scene unpacked in detail</strong> rather than listing several at a surface level; tie every example back to the concept in the question; use precise, media-specific terminology (the &ldquo;background&rdquo;, &ldquo;deep focus&rdquo;, &ldquo;establishing shot&rdquo; kind &ndash; not descriptive stand-ins like &ldquo;back of frame&rdquo;); and reference your media work correctly &ndash; director&rsquo;s full name on first mention, then surname, plus year.</p>
+    </div>
+
+    <div class="controls">
+      <button class="ctrl-btn" data-expand="s1">Expand all</button>
+      <button class="ctrl-btn" data-collapse="s1">Collapse all</button>
+    </div>
+
+    <!-- Q1 -->
+    <article class="accordion" data-group="s1">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Question 1 &middot; chosen by 5 of you</div>
+          <div class="acc-title">Cultural context shapes meaning</div>
+        </div>
+        <div class="acc-marks">12 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <div class="q-stem">Discuss how cultural context shapes the meaning of a media work you have studied. Use evidence to support your answer.</div>
+        <h4>What the question asks</h4>
+        <p>Cultural context is the social, historical, political, religious and economic environment in which a work is made and received. The question is not &ldquo;what is the cultural context&rdquo; &ndash; it is <em>how</em> that context shapes meaning. You need both the context and the mechanism by which it changes what the work means.</p>
+        <h4>What the strongest responses did</h4>
+        <p>The best Q1 answers carried genuine cultural-historical knowledge and tied it to construction. One response on <em>Samson and Delilah</em> read the 2008 Apology to the Stolen Generations as &ldquo;evolutionary not revolutionary&rdquo; and used that judgement to frame how Thornton&rsquo;s social realism lands for an informed Australian audience. On <em>Spirited Away</em>, the strongest answers anchored Miyazaki&rsquo;s critique in the post-bubble Japanese economy and Shinto cosmology, then showed the encoding in one scene.</p>
+        <div class="callout exemplar">
+          <span class="callout-label">Exemplar &middot; full-marks evidence (Spirited Away)</span>
+          <p>One response built its whole answer on the opening sequence (the abandoned theme park, the piles of food, the lighting shift, the parents&rsquo; transformation), reading roughly ten distinct construction elements inside a single extended scene. <strong>That is full-marks evidence.</strong></p>
+        </div>
+        <h4>Where marks were lost</h4>
+        <div class="callout pitfall">
+          <span class="callout-label">The common slip</span>
+          <p>Naming the context and then stopping &ndash; asserting that the bubble economy &ldquo;is why&rdquo; something happens without analysing how a scene encodes it. Context at claim level, supported by plot-level rather than scene-coded evidence, caps the mark.</p>
+          <p>Accuracy note: get the year right (<em>Spirited Away</em> is 2001, not 2009). If unsure, leave it out.</p>
+        </div>
+      </div></div>
+    </article>
+
+    <!-- Q2 -->
+    <article class="accordion" data-group="s1">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Question 2 &middot; chosen by 4 of you</div>
+          <div class="acc-title">An auteur&rsquo;s personal expression in codes, conventions and techniques</div>
+        </div>
+        <div class="acc-marks">12 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <div class="q-stem">Discuss how an auteur figure&rsquo;s personal expression is reflected in the codes, conventions and techniques of a media work you have studied. Use evidence to support your answer.</div>
+        <h4>What the question asks</h4>
+        <p>Define the auteur signature &ndash; the recurring formal and thematic markers of a director &ndash; and show it living in specific codes: cinematography, mise-en-sc&egrave;ne, sound, editing. The marks are in the link between the director&rsquo;s personal vision and the technical choices on screen.</p>
+        <h4>What the strongest responses did</h4>
+        <p>This question produced one of only two full-marks short answers in the cohort &ndash; an investigation response that identified its auteur&rsquo;s signatures and tied them precisely to scene-level codes. On <em>Spirited Away</em>, the strongest answer layered cultural-historical evidence (Ukiyo-e, the Edo period, <em>ma</em>, the symphonic score) inside a single scene to evidence Miyazaki&rsquo;s authorial vision. Specialist terminology was a real strength for some &ndash; one investigation response used genuinely advanced vocabulary, naming orthochromatic film stock and a 1.19:1 aspect ratio.</p>
+        <h4>Where marks were lost</h4>
+        <div class="callout pitfall">
+          <span class="callout-label">The trap</span>
+          <p>Technical vocabulary outpacing the argument. Naming sophisticated techniques is worth little if the response does not show how they express the auteur&rsquo;s personal vision. The weaker answers described signatures without anchoring them in the director&rsquo;s recurring concerns.</p>
+        </div>
+      </div></div>
+    </article>
+
+    <!-- Q3 -->
+    <article class="accordion" data-group="s1">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Question 3 &middot; chosen by 2 of you</div>
+          <div class="acc-title">Manipulation of narrative elements communicates themes</div>
+        </div>
+        <div class="acc-marks">12 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <div class="q-stem">Discuss how the manipulation of narrative elements communicates themes in a media work you have studied. Use evidence to support your answer.</div>
+        <h4>What the question asks</h4>
+        <p>Identify the narrative element being manipulated (structure, character arc, point of view, time, resolution) and show how that manipulation communicates a <em>theme</em> &ndash; not merely an effect. The strongest move is <strong>form-as-meaning</strong>: the structure itself carrying the argument.</p>
+        <h4>What the strongest responses did</h4>
+        <p>The standout read Miyazaki&rsquo;s refusal of the Western three-act structure &ndash; his use of <em>Kish&omacr;tenketsu</em> &ndash; as itself an ideological defiance of Western cultural influence, the form of the narrative becoming the theme. That answer layered three kinds of evidence: the <em>Kish&omacr;tenketsu</em> concept, the river-spirit scene, and Miyazaki&rsquo;s own biographical river-cleaning. <strong>That synthesis is what lifts a narrative-elements answer out of structural description.</strong></p>
+        <h4>Where marks were lost</h4>
+        <div class="callout pitfall">
+          <span class="callout-label">The recurring trap</span>
+          <p>Confusing an effect with a theme. The reflective stillness produced by <em>ma</em> is an <em>effect</em>; greed, consumerism and environmentalism are <em>themes</em>. When the question asks for themes, name actual themes.</p>
+        </div>
+      </div></div>
+    </article>
+
+    <!-- Q4 -->
+    <article class="accordion" data-group="s1">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Question 4 &middot; chosen by 7 of you &middot; most popular</div>
+          <div class="acc-title">How representations are constructed</div>
+        </div>
+        <div class="acc-marks">12 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <div class="q-stem">Discuss how representations are constructed within a media work you have studied. Use evidence to support your answer.</div>
+        <h4>What the question asks</h4>
+        <p>Representation is <em>constructed</em>, not natural. The question asks <em>how</em> &ndash; through which technical and symbolic codes &ndash; a person, group, place or idea is built. Move past &ldquo;what is represented&rdquo; to &ldquo;how the construction makes meaning.&rdquo;</p>
+        <h4>What the strongest responses did</h4>
+        <p>The strongest short answer in the whole cohort sat here &ndash; an investigation response that built its entire answer on a single rehearsal scene, reading the low and mid camera angles on the antagonist, the warm low-key palette, and the framing of musical instruments as tools of discipline rather than creativity, all tied to the character&rsquo;s psychological state. <strong>Three layers, one scene, full evidence marks.</strong></p>
+        <p>On <em>Spirited Away</em>, another top response sustained a lighting contrast across scenes &ndash; warm artificial bathhouse interiors against cool natural exteriors &ndash; to track how Chihiro and No-Face are constructed.</p>
+        <h4>Where marks were lost</h4>
+        <div class="callout pitfall">
+          <span class="callout-label">Three slips that recurred</span>
+          <p><strong>1.</strong> Descriptive language standing in for media terminology (&ldquo;back of frame&rdquo; instead of &ldquo;background&rdquo; or &ldquo;deep focus&rdquo;) &ndash; the easiest way to drop the terminology mark.</p>
+          <p><strong>2.</strong> Leaning on a single mise-en-sc&egrave;ne element (costume alone) when costume, lighting, performance and sound could all be shown working together.</p>
+          <p><strong>3.</strong> Evidence at plot level (&ldquo;we see X happen&rdquo;) rather than at the level of how the shot is built.</p>
+        </div>
+      </div></div>
+    </article>
+
+    <!-- Q5 — the unattempted one -->
+    <article class="accordion" data-group="s1">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Question 5 &middot; <span style="color:var(--red);">not attempted by anyone</span></div>
+          <div class="acc-title">Values influence audience interpretation</div>
+        </div>
+        <div class="acc-marks">12 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <div class="q-stem">Discuss how the values presented in a media work you have studied influence the interpretation of an audience. Use evidence to support your answer.</div>
+        <div class="callout pitfall">
+          <span class="callout-label">Why this one matters</span>
+          <p>This is the gap worth closing before the next exam. Going into an exam with a question type you have effectively ruled out narrows your options badly if your preferred questions are awkwardly worded on the day. The good news: the content overlaps heavily with the cultural-context and audience-reading questions you did attempt, so it is well within reach.</p>
+        </div>
+        <h4>A four-step approach to get you started</h4>
+        <p><strong>1. Define values clearly.</strong> The beliefs and principles a work privileges &ndash; cultural, ethical, social, political, environmental &ndash; and distinguish them from themes.</p>
+        <p><strong>2. Identify the dominant values in your chosen work.</strong> Respect for Country, kinship and resilient love in <em>Samson and Delilah</em>; environmental stewardship, hard work and female agency in <em>Spirited Away</em>.</p>
+        <p><strong>3. Show how those values are encoded</strong> &ndash; through character behaviour, narrative resolution, mise-en-sc&egrave;ne and the selection of detail.</p>
+        <p><strong>4. Bring in audience theory</strong> (Hall&rsquo;s encoding / decoding) to show how audiences in different cultural positions accept, modify or resist those values. This is what makes it a values-and-audience question rather than just a values question.</p>
+        <div class="callout note">
+          <span class="callout-label">Mantra for Q5</span>
+          <p><strong>Define, locate, encode, then read across audiences.</strong></p>
+        </div>
+      </div></div>
+    </article>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       PART 4 — SECTION TWO QUESTION GUIDE
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="part" id="section-two">
+    <div class="part-label">Part 4 &middot; Section Two</div>
+    <h2 class="part-title">Extended answer &ndash; question by question</h2>
+    <p class="part-intro">Five questions, you answered two. Section Two is where the paper is won or lost: <strong>46 of your 70 raw marks, weighted to 70% of the written exam.</strong> Across all of them, Construct, Describe and Analyse were generally solid &ndash; Evaluate was the consistent ceiling.</p>
+
+    <div class="section-intro">
+      <p><strong>How each Section Two question is built</strong> &ndash; from four dot points totalling 23 marks. Notice that Analyse and Evaluate together are worth 16 of the 23: budget your time accordingly.</p>
+      <div class="criterion-grid">
+        <div class="criterion-pill"><strong>3</strong>Construct</div>
+        <div class="criterion-pill"><strong>4</strong>Describe</div>
+        <div class="criterion-pill"><strong>8</strong>Analyse</div>
+        <div class="criterion-pill"><strong>8</strong>Evaluate</div>
+      </div>
+      <p style="margin-top:0.9rem;">Scaffold your extended responses (introduction, paragraphed argument, conclusion) and make sure each of the four dot points is clearly addressed &ndash; use headings if it helps you keep track.</p>
+    </div>
+
+    <div class="controls">
+      <button class="ctrl-btn" data-expand="s2">Expand all</button>
+      <button class="ctrl-btn" data-collapse="s2">Collapse all</button>
+    </div>
+
+    <!-- Q6 -->
+    <article class="accordion" data-group="s2">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Question 6 &middot; chosen by 4 of you</div>
+          <div class="acc-title">Auteur figure and media art</div>
+        </div>
+        <div class="acc-marks">23 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <div class="q-stem">Construct an overview of a media work that demonstrates an auteur figure&rsquo;s personal expression (3). Describe the features and characteristics of media art (4). Analyse how an auteur figure uses codes, conventions and techniques to produce media art (8). Evaluate the cultural and artistic benefits of media art (8).</div>
+        <h4>What worked</h4>
+        <p>The Analyse sub-criterion produced strong work. One response anchored Miyazaki&rsquo;s authorial vision in a Ukiyo-e &ldquo;dual philosophy&rdquo; and Edo-period context, framed through <em>Cahiers du cin&eacute;ma</em> and the <em>politique des auteurs</em>; another brought cross-film evidence (the wider live-action remake trend) to an investigation auteur.</p>
+        <div class="callout info">
+          <span class="callout-label">For the Describe mark, name the actual features of media art</span>
+          <p>Strong authorial vision; departure from mainstream codes and conventions; style used as meaning; theme or concept prioritised over plot; art-house or festival reception.</p>
+        </div>
+        <h4>Where marks were lost</h4>
+        <div class="callout pitfall">
+          <span class="callout-label">Evaluate was the weakest part of this question</span>
+          <p>&ldquo;Media art provides a lot of value,&rdquo; asserted several ways, is not evaluation. The cultural and artistic benefits have to be argued: transmission of cultural knowledge, representation of marginalised perspectives, the expansion of a national cinema, recognition through awards and critical reception. <strong>Name the benefit, then judge it.</strong></p>
+        </div>
+      </div></div>
+    </article>
+
+    <!-- Q7 -->
+    <article class="accordion" data-group="s2">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Question 7 &middot; chosen by 4 of you &middot; top extended answer sat here</div>
+          <div class="acc-title">Cultural context shapes the construction of themes</div>
+        </div>
+        <div class="acc-marks">23 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <div class="q-stem">Construct an overview of a media work in which cultural context shapes the construction of themes (3). Describe the concept of cultural context (4). Analyse how a director&rsquo;s agenda influences the choice of codes, conventions and techniques to convey themes (8). Evaluate how the construction of themes can challenge or reinforce audience values (8).</div>
+        <h4>What worked</h4>
+        <p>The top response tracked No-Face&rsquo;s transformation as a sustained visual argument &ndash; translucent, then a &ldquo;monstrous and lumpy opaque creature,&rdquo; then translucent again &ndash; setting the warm artificial bathhouse against cool natural light to dramatise a Western, capitalist greed, with film dialogue folded in as evidence.</p>
+        <p>The Analyse sub-criterion is the engine of this question: <strong>pin the director&rsquo;s agenda, then show it driving specific code choices.</strong> One response established Thornton&rsquo;s agenda externally via the Sorry Speech and read the ice-cream scene&rsquo;s depth of field; another did a bilingual reading of the Japanese signage in <em>Spirited Away</em>.</p>
+        <h4>Where marks were lost</h4>
+        <div class="callout pitfall">
+          <span class="callout-label">Evaluate, capped by partial theory</span>
+          <p>The best Q7 evaluations named the value at stake and mapped at least one reading position correctly, but <strong>only a complete Hall typology &ndash; dominant, negotiated and oppositional readings mapped to specific audiences &ndash; reaches the top of the band.</strong></p>
+        </div>
+      </div></div>
+    </article>
+
+    <!-- Q8 -->
+    <article class="accordion" data-group="s2">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Question 8 &middot; chosen by 2 of you &middot; both strong</div>
+          <div class="acc-title">Manipulation of narrative elements</div>
+        </div>
+        <div class="acc-marks">23 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <div class="q-stem">Construct an overview of a media work that manipulates narrative elements (3). Describe the overall impact of these narrative elements on the meaning conveyed (4). Analyse how a media producer manipulates narrative elements (8). Evaluate how the manipulation challenges or reinforces audience expectations (8).</div>
+        <h4>What worked</h4>
+        <p>The standout made a genuine climax-theory move on an investigation text &ndash; reading how the director relocates the climax from the expected action to its consequence (a character&rsquo;s private breakdown rather than the dramatic event itself), with a vibrant-to-faded colour reading and setting used as a psychological mirror.</p>
+        <p>The other systematically mapped <em>Spirited Away</em>&rsquo;s <em>Kish&omacr;tenketsu</em> four-part structure and earned its Construct mark in full <strong>by naming the precise manipulation (<em>Kish&omacr;tenketsu</em> plus <em>ma</em>) rather than summarising plot.</strong></p>
+        <h4>Where marks were lost</h4>
+        <div class="callout pitfall">
+          <span class="callout-label">Evaluate again</span>
+          <p>Strong on identifying and analysing the manipulation, lighter on judging how it lands differently for audiences trained on Western three-act expectations versus those who read the structure as intentional and meaningful.</p>
+        </div>
+      </div></div>
+    </article>
+
+    <!-- Q9 -->
+    <article class="accordion" data-group="s2">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Question 9 &middot; chosen by 5 of you &middot; joint most popular</div>
+          <div class="acc-title">Aesthetics shape meaning</div>
+        </div>
+        <div class="acc-marks">23 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <div class="q-stem">Construct an overview of a media work in which aesthetics play a critical role in shaping meaning (3). Describe the concept of mise-en-sc&egrave;ne (4). Analyse how the manipulation of aesthetics conveys meaning (8). Evaluate how the manipulation of aesthetics shapes audience interpretation (8).</div>
+        <h4>What worked</h4>
+        <p>The Analyse work here was consistently strong: scene-level aesthetic close-reading on <em>Spirited Away</em> (the Yubaba and bathhouse contrast) and on <em>Samson and Delilah</em> (reading dialogue omission as Indigenous voice-loss, with a depth-of-field parallelism). One response made a genuinely sophisticated Describe move by adapting mise-en-sc&egrave;ne for animation &ndash; recognising that there is no physical camera or lens, and reframing the camera-as-pen idea as the paintbrush of visual art.</p>
+        <h4>Where marks were lost</h4>
+        <div class="callout pitfall">
+          <span class="callout-label">The Describe sub-criterion &ndash; the clearest describe-vs-analyse gap</span>
+          <p>Several responses applied mise-en-sc&egrave;ne superbly in the Analyse section but could not first define it accurately &ndash; one strong paper sat at 2/4 on Describe with an inaccurate definition while scoring 7/8 on the Analyse that immediately followed. <strong>Define the concept properly before you apply it</strong> &ndash; the marks are right there for the taking.</p>
+        </div>
+      </div></div>
+    </article>
+
+    <!-- Q10 -->
+    <article class="accordion" data-group="s2">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Question 10 &middot; chosen by 5 of you &middot; joint most popular</div>
+          <div class="acc-title">Audience interpretation and cultural context</div>
+        </div>
+        <div class="acc-marks">23 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <div class="q-stem">Construct an overview of a media work where audience interpretation is influenced by cultural context (3). Describe the concept of audience readings (4). Analyse how cultural context can influence the interpretation of a media work (8). Evaluate how a media theory supports or explains the audience&rsquo;s interpretation (8).</div>
+        <h4>What worked</h4>
+        <p>The single strongest extended answer in the first half of the cohort sat here &ndash; <strong>the only response to apply Hall&rsquo;s full typology accurately</strong>, with the producer correctly encoding and audiences decoding along dominant, negotiated and oppositional lines, each mapped to a specific cultural position and evidenced with the Kami spirits and the river-spirit scene. That is the model for both the Describe (audience readings) and the Evaluate (media theory) sub-criteria.</p>
+        <h4>Where marks were lost</h4>
+        <div class="callout pitfall">
+          <span class="callout-label">Hall, mostly</span>
+          <p>Of the responses that reached for the model, several reversed the direction (having the audience encode), several named &ldquo;decoding theory&rdquo; without unpacking the typology, and one gestured at active versus passive without the standard dominant / negotiated / oppositional terms.</p>
+          <p>This is the highest-leverage fix in the paper: <strong>get the direction right, name all three positions, and map each to an audience.</strong></p>
+        </div>
+      </div></div>
+    </article>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       PART 5 — EXEMPLAR BANK
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="part" id="exemplars">
+    <div class="part-label">Part 5</div>
+    <h2 class="part-title">Exemplar bank &ndash; the moves that earned the marks</h2>
+    <p class="part-intro">These are real extracts from your own cohort&rsquo;s papers, kept anonymous. Each one shows a higher-band criterion being hit. Study them as models of the moves you are aiming for. Filter by sub-criterion to drill into a specific area.</p>
+
+    <div class="filter-bar" role="tablist" aria-label="Filter exemplars by sub-criterion">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="construct">Construct &middot; 3</button>
+      <button class="filter-btn" data-filter="describe">Describe &middot; 4</button>
+      <button class="filter-btn" data-filter="analyse">Analyse &middot; 8</button>
+      <button class="filter-btn" data-filter="evaluate">Evaluate &middot; 8</button>
+      <button class="filter-btn" data-filter="content">Content &middot; S1</button>
+      <button class="filter-btn" data-filter="evidence">Evidence &middot; S1</button>
+      <button class="filter-btn" data-filter="terminology">Terminology &middot; S1</button>
+    </div>
+
+    <!-- ============ CONSTRUCT (3 marks) ============ -->
+    <article class="exemplar" data-cat="construct">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Construct &middot; 3/3</span>
+        <span class="exemplar-band">Q7 &middot; Spirited Away</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;No media work exists within a vacuum, separate from the influence of the cultural contexts of the time, with the themes of every media work being shaped by this context.&rdquo;</blockquote>
+        <div class="exemplar-source">Opens conceptually before naming the work, the director, the year &ndash; and ties the work straight to the question (&ldquo;intrinsically tied to the cultural context of Japan&rdquo;), naming actual themes (respecting nature, capitalism, spirituality), not effects.</div>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> Engage the question&rsquo;s specific angle in the first line, not just the media work in general.</div>
+    </article>
+
+    <article class="exemplar" data-cat="construct">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Construct &middot; 3/3</span>
+        <span class="exemplar-band">Q8 &middot; Little Women (Gerwig)</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;&hellip;the primary one which [a]ffects others being her use of non-linear narrative structure. Through her manipulation of the setting element of time, she visually passes between childhood and young adulthood &hellip;&rdquo;</blockquote>
+        <div class="exemplar-source">Names the precise manipulation rather than summarising plot.</div>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> On the narrative-elements question, the Construct mark is secured by naming exactly <em>what</em> is being manipulated &ndash; not by retelling the story.</div>
+    </article>
+
+    <article class="exemplar" data-cat="construct">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Construct &middot; 3/3</span>
+        <span class="exemplar-band">Q6 &middot; Spirited Away</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;Hayao Miyazaki is often styled as an auteur figure by many due to his distinct personal vision and consistent pattern of themes across multiple bodies of work.&rdquo;</blockquote>
+        <div class="exemplar-source">Opens with the auteur signature (recurring themes across a body of work) after framing the question through the <em>Cahiers du cin&eacute;ma</em> idea that &ldquo;the camera is like a pen to an author.&rdquo;</div>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> The Construct sentence does double duty &ndash; theory frame + auteur signature, in one breath.</div>
+    </article>
+
+    <article class="exemplar" data-cat="construct">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Construct &middot; 3/3</span>
+        <span class="exemplar-band">Q9 &middot; Spirited Away</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;The aesthetic features beyond the camera help define the meaning and purpose intended by a director, shaping the portrayal of subtextual themes that critique the complexities of a modern society.&rdquo;</blockquote>
+        <div class="exemplar-source">Frames the work around the aesthetics-shaping-meaning relationship before naming it &ndash; the exact angle the question asks for.</div>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> Build the Construct around the relationship the question is testing, not around the film.</div>
+    </article>
+
+    <!-- ============ DESCRIBE (4 marks) ============ -->
+    <article class="exemplar" data-cat="describe">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Describe &middot; 4/4</span>
+        <span class="exemplar-band">Q9 &middot; Spirited Away &middot; the standout</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;Mise-en-sc&egrave;ne refers to all the elements beyond the scope of the camera lens &hellip; In relation to Miyazaki&rsquo;s &lsquo;Spirited Away,&rsquo; an animation, without the presence of a physical camera and lens, [it] refers to the &hellip; drawn/modelled artwork &hellip; that characterise a film&rsquo;s unique style.&rdquo;</blockquote>
+        <div class="exemplar-source">Defines the concept, adapts it to the form (an animation has no physical lens), then extends the metaphor &ndash; mise-en-sc&egrave;ne defined &ldquo;by both the pen/paintbrush of the visual art, and directorial intent.&rdquo;</div>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> <em>Define &ndash; adapt &ndash; extend.</em> The cohort&rsquo;s weakest sub-criterion, reached at full marks by genuinely thinking about what the concept means for this particular work.</div>
+    </article>
+
+    <article class="exemplar" data-cat="describe">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Describe &middot; 4/4</span>
+        <span class="exemplar-band">Q7 &middot; cultural context</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;&hellip;not only is the audience influenced [in] their interpretation &hellip; but also how the creators of the media [work] itself are influenced by their own experiences, national cultures, beliefs and values in the creation of the work &hellip;&rdquo;</blockquote>
+        <div class="exemplar-source">A complete, two-sided definition &ndash; production side and reception side both named.</div>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> Most of the cohort described only one side of cultural context. Naming both production-side influence and reception-side influence is the difference between an outline and a description.</div>
+    </article>
+
+    <article class="exemplar contrast" data-cat="describe">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Describe &middot; 2/4 &middot; contrast</span>
+        <span class="exemplar-band">Q9 &middot; mise-en-sc&egrave;ne</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;[Mise-en-sc&egrave;ne is] anything [that appears] within a specific media work, offering some sort of deeper meaning to the shot &hellip;&rdquo;</blockquote>
+        <div class="exemplar-source">A paragraph before a 7/8 Analyse, this collapses mise-en-sc&egrave;ne into codes-and-symbolism rather than the staging-before-the-camera definition.</div>
+      </div>
+      <div class="exemplar-move"><strong>The lesson:</strong> Pair this with the 4/4 above &ndash; the same skill, applied well moments later. The marks here are lost to <em>definition</em>, not understanding. This is exactly the easy improvement Priority 2 is targeting.</div>
+    </article>
+
+    <!-- ============ ANALYSE (8 marks) ============ -->
+    <article class="exemplar" data-cat="analyse">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Analyse &middot; 8/8 &middot; Route A</span>
+        <span class="exemplar-band">Q7 &middot; Spirited Away</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;[No-Face,] initially a simple translucent shape, [has] turned into a &lsquo;lot <strong>more monstrous and lumpy</strong> opaque creature&rsquo; as his greed has turned him gluttonous &hellip; [he is] shown in long-shots back to his normal translucent form in the cool natural lighting &hellip; &lsquo;the bathhouse made him crazy.&rsquo;&rdquo;</blockquote>
+        <div class="exemplar-source">One character&rsquo;s visual design tracked as a continuous argument &ndash; translucent to opaque to translucent &ndash; with shot scale, the warm-artificial / cool-natural lighting contrast, setting and dialogue all stacked onto the single thread and pointed at the theme.</div>
+      </div>
+      <div class="exemplar-move"><strong>Route A &ndash; sustained scene-level visual reading.</strong> You do not need a theory to reach 8/8. You can get there by reading one element extraordinarily well.</div>
+    </article>
+
+    <article class="exemplar" data-cat="analyse">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Analyse &middot; 8/8 &middot; Route A</span>
+        <span class="exemplar-band">Q8 &middot; Little Women</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;The climax itself is manipulated to be a much <strong>more quiet</strong> moment of inner conflict &hellip; not &hellip; the point of action, but rather the result of the action &hellip; once there were vibrant painted vines &hellip; now they are faded and dark &hellip; lit by the cool sombre lighting of adulthood.&rdquo;</blockquote>
+        <div class="exemplar-source">A genuine conceptual claim &ndash; the climax relocated from the event to its consequence &ndash; evidenced through a setting used as a psychological mirror and a vibrant-to-faded colour reading.</div>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> Make a real conceptual claim about how the work is built (a &ldquo;climax-theory&rdquo; move here), then evidence it across multiple aesthetic registers.</div>
+    </article>
+
+    <article class="exemplar" data-cat="analyse">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Analyse &middot; 8/8 &middot; Route B</span>
+        <span class="exemplar-band">Q6 and Q9 &middot; Spirited Away</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;[Ukiyo-e&rsquo;s] philosophy [focused] on [a] duality of &lsquo;fantasy as pleasure&rsquo; and &lsquo;reality as grief.&rsquo; Miyazaki intentionally harnesses &hellip; the pseudo pleasure of &lsquo;ukiyo-e&rsquo;s&rsquo; philosophy, relating the concept back to the &hellip; consumerism &hellip; that society has adopted.&rdquo;</blockquote>
+        <div class="exemplar-source">Genuine cultural-historical scaffolding (Ukiyo-e, the Edo period, <em>Cahiers du cin&eacute;ma</em>) integrated with scene-level evidence &ndash; the &ldquo;credit cards and cash&rdquo; dialogue, the score paired with <em>ma</em>.</div>
+      </div>
+      <div class="exemplar-move"><strong>Route B &ndash; theoretical and cultural-historical scaffolding.</strong> The deliberate counterpart to Route A. External knowledge integrated <em>with</em> the scene, not bolted beside it.</div>
+    </article>
+
+    <article class="exemplar" data-cat="analyse">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Analyse &middot; 7/8</span>
+        <span class="exemplar-band">Q9 &middot; Samson and Delilah</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;The shots are extensively sustained &hellip; lacking music and amplifying [diegetic] sound &hellip; the audience is forced to observe the substance abuse &hellip; because of the cinema v&eacute;rit&eacute; aspect of cinematography.&rdquo;</blockquote>
+        <div class="exemplar-source">Aesthetics read through social realism: cinema v&eacute;rit&eacute;, naturalistic lighting and non-professional actors denying &ldquo;the cinematic distance typically settled in traditional Hollywood media.&rdquo;</div>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> Aesthetics tied to audience positioning, with named tradition (social realism) and named technique (cinema v&eacute;rit&eacute;). Strong, audience-aware analysis.</div>
+    </article>
+
+    <!-- ============ EVALUATE (8 marks) — the cohort's ceiling ============ -->
+    <article class="exemplar" data-cat="evaluate">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Evaluate &middot; 6/8 &middot; only full Hall typology</span>
+        <span class="exemplar-band">Q10 &middot; Spirited Away</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;The auteur encoded one specific meaning to employ a specific response, [whilst] audience interpretation of the inferred meaning may not always be apparent.&rdquo;</blockquote>
+        <div class="exemplar-source">All three positions, mapped to cultural audiences with the direction correct: <strong>dominant</strong> (the critique of globalisation), <strong>negotiated</strong> (&ldquo;a bildungsroman fantasy, with no deeper motives but to entertain&rdquo;) and <strong>oppositional</strong>.</div>
+      </div>
+      <div class="exemplar-move"><strong>What capped it at 6:</strong> it <em>demonstrates</em> the theory more than it <em>judges</em> it. Add an explicit verdict on how well Hall explains the reception, and it climbs.</div>
+    </article>
+
+    <article class="exemplar" data-cat="evaluate">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Evaluate &middot; 7/8 &middot; explicit conditional judgement</span>
+        <span class="exemplar-band">Q7 &middot; Spirited Away</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;Miyazaki challenges the values of this Western opulence through the juxtaposition &hellip; however he is only able to challenge audience [who] recognise his construction.&rdquo;</blockquote>
+        <div class="exemplar-source">Judges effectiveness as audience-dependent &ndash; Japanese audiences decode the challenge, Western audiences reach only a negotiated reading.</div>
+      </div>
+      <div class="exemplar-move"><strong>What capped it at 7:</strong> partial typology (two positions, not three). Genuine judgement + a third reading position = 8.</div>
+    </article>
+
+    <article class="exemplar" data-cat="evaluate">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Evaluate &middot; 7/8 &middot; challenge AND reinforce</span>
+        <span class="exemplar-band">Q8 &middot; Little Women</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;&hellip;the girl getting the [guy]&rdquo; replaced with &ldquo;&lsquo;the girl getting her book&rsquo; &hellip; <strong>challeng</strong>[<strong>ing</strong>] audience&rsquo;s expectations of what a happy resolution is.&rdquo;</blockquote>
+        <div class="exemplar-source">Argues both directions &ndash; the warm conventional ending reinforces expectation while the Alcott-based ending subverts it &ndash; with a named effect (&ldquo;mildly jarring and confusing&rdquo;).</div>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> When the question says &ldquo;challenge OR reinforce,&rdquo; argue both. Genuine context, grounded judgement; a theory layer would lift it to 8.</div>
+    </article>
+
+    <article class="exemplar cautionary" data-cat="evaluate">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Evaluate &middot; cautionary tale</span>
+        <span class="exemplar-band">Q6 (2/8) and Q9 (4/8)</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;[Media art] has a lasting impact that resonates through the rest of time.&rdquo;</blockquote>
+        <div class="exemplar-source">Q6 sits under a top-band Analyse but asserts rather than judges. Q9 is the rung up &ndash; Hall named, direction correct, &ldquo;negotiated reading&rdquo; applied to a differentiated audience &ndash; but one typology term and light judgement cap it at 4.</div>
+      </div>
+      <div class="exemplar-move"><strong>The staircase:</strong> asserted (2) &rarr; one position (4) &rarr; full typology demonstrated (6) &rarr; explicit judgement <em>across</em> positions (8). This is exactly what Priority 4 is targeting.</div>
+    </article>
+
+    <article class="exemplar" data-cat="evaluate">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">How to reach 8/8 &middot; teaching pair</span>
+        <span class="exemplar-band">Combine the two halves</span>
+      </div>
+      <div class="exemplar-text">
+        <div class="exemplar-source">Place the Q10 exemplar (full typology, lighter judgement) and the Q7 exemplar (explicit judgement, two positions) next to each other. <strong>The 8/8 Evaluate is the two halves combined</strong>: full typology, mapped to audiences, with an explicit verdict on how effectively the construction works for each.</div>
+      </div>
+      <div class="exemplar-move"><strong>Try it:</strong> Take one Evaluate paragraph you wrote in this exam. Rewrite it adding (a) the missing reading position and (b) one explicit verdict sentence on which audience the construction works best for. That is the 8/8 shape.</div>
+    </article>
+
+    <!-- ============ SECTION ONE: CONTENT (6 marks) ============ -->
+    <article class="exemplar" data-cat="content">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Content &middot; 5/6</span>
+        <span class="exemplar-band">Q4 &middot; Whiplash</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;Representations in media are not a mere reflection of reality but rather a reconstruct[ion]. A producer selects or filters certain aspects of reality <strong>in order to</strong> promote a certain &hellip; message to their intended audiences.&rdquo;</blockquote>
+        <div class="exemplar-source">Opens with a clear definition, then discusses how the concept operates rather than recounting plot.</div>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> <em>Define, then discuss.</em> This is the shape strong S1 content takes &ndash; concept first, mechanism second, evidence third.</div>
+    </article>
+
+    <!-- ============ SECTION ONE: EVIDENCE (4 marks) ============ -->
+    <article class="exemplar" data-cat="evidence">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Evidence &middot; 4/4 &middot; the marquee single-scene answer</span>
+        <span class="exemplar-band">Q4 &middot; Whiplash</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;[Fletcher is depicted through] low, mid camera angles &hellip; compared to Neeman who is depicted by close up shots &hellip; the dark-lit, [warm] colour palette &hellip; instruments, sheet music and music stands become controlled tools of discipline as opposed to an opportunity for creative development.&rdquo;</blockquote>
+        <div class="exemplar-source">The whole answer is one scene (&ldquo;roughly 26 to 28 minutes&rdquo;) read in three layers &ndash; camera, the power imbalance those angles build, and mise-en-sc&egrave;ne &ndash; every layer returned to Neeman&rsquo;s psychological state. The strongest short answer in the cohort.</div>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> One scene, three layers, every layer pointed back at the concept. This is the single-scene-in-layers method at full strength.</div>
+    </article>
+
+    <article class="exemplar" data-cat="evidence">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Evidence &middot; 4/4 &middot; one scene, ~10 elements</span>
+        <span class="exemplar-band">Q1 &middot; Spirited Away</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;&hellip;they believe to be an abandoned theme park &hellip; piles of food &hellip; he&rsquo;ll pay &hellip; with his credit card, [as he] begins to gluttonously fill his face &hellip; only to find they have turned into pigs &hellip;&rdquo;</blockquote>
+        <div class="exemplar-source">The opening sequence read across roughly ten construction elements, all as &ldquo;Miyazaki&rsquo;s representation of Western over-consumption.&rdquo;</div>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> Pick a dense, layered opening scene and unpack it almost element by element &ndash; not summarised as plot, but read as construction.</div>
+    </article>
+
+    <article class="exemplar" data-cat="evidence">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Evidence &middot; 4/4 &middot; multi-scene, multi-modal</span>
+        <span class="exemplar-band">Q4 &middot; Spirited Away</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;[Chihiro is] a completely &lsquo;normal&rsquo; &hellip; <strong>ten year old</strong> girl &hellip; [No-Face] becomes corrupted by greed &hellip; angrily chasing her in the warm artificial lighting of the bathhouse &hellip; [then] the cool natural lighting &hellip; he is shown in long-shots to have lost his gluttony.&rdquo;</blockquote>
+        <div class="exemplar-source">Two constructed representations carried across scenes, sustained on the warm-artificial / cool-natural lighting contrast.</div>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> When you do go multi-scene, find <em>one thread</em> (here: the lighting contrast) that holds the whole answer together.</div>
+    </article>
+
+    <article class="exemplar" data-cat="evidence">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Evidence &middot; 4/4 &middot; layered within one scene</span>
+        <span class="exemplar-band">Q2 &middot; Spirited Away</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;Take the train scene &hellip; a symphony of strings &hellip; akin to the &lsquo;Ukiyo-e&rsquo; art style of the Edo Period &hellip; Paired with Miyazaki&rsquo;s signature contemplative pause &hellip; a Japanese concept of &lsquo;Ma.&rsquo;&rdquo;</blockquote>
+        <div class="exemplar-source">Score, art-historical style and the &ldquo;Ma&rdquo; pause all layered inside a single scene to evidence the auteur&rsquo;s personal vision.</div>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> Layer different <em>kinds</em> of evidence (score + art history + cultural concept) inside one scene rather than reaching for three different scenes.</div>
+    </article>
+
+    <article class="exemplar" data-cat="evidence">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Evidence &middot; 4/4 &middot; form as meaning</span>
+        <span class="exemplar-band">Q3 &middot; Spirited Away</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;Miyazaki subverts the expected &hellip; conventions of &hellip; Hollywood, adopting an East-Asian 4-act structure known as <strong>Kishotenketsu</strong> &hellip; [it] represents his defiance to Western culture as a whole &hellip; built upon Miyazaki&rsquo;s own personal experience cleaning a river.&rdquo;</blockquote>
+        <div class="exemplar-source">Three layers &ndash; the <em>Kish&omacr;tenketsu</em> concept, the river-spirit cleansing scene, and the biographical river-cleaning &ndash; with the structure itself becoming the argument.</div>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> Form-as-meaning. Where you can, argue that the <em>shape</em> of the work is itself a theme statement.</div>
+    </article>
+
+    <article class="exemplar" data-cat="evidence">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Evidence &middot; 3/4 &middot; the 3-to-4 boundary</span>
+        <span class="exemplar-band">Q1 &middot; Samson and Delilah</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;&hellip;the scene at roughly 1:02 &hellip; where Delilah observes two lighter skinned girls enjoy their ice cream &hellip; the scene framing, and the pullback &hellip; [shows] the difference between Delilah and these other teenage girls &hellip; a direct result of cultural imperialism.&rdquo;</blockquote>
+        <div class="exemplar-source">Well chosen and scene-anchored, but built on fewer stacked codes than the 4/4 answers.</div>
+      </div>
+      <div class="exemplar-move"><strong>The lesson:</strong> This is what 3 looks like &ndash; one good scene, anchored well, but with fewer construction layers stacked on top. Add one or two more codes (lighting? sound? mise-en-sc&egrave;ne element?) and it tips into 4.</div>
+    </article>
+
+    <!-- ============ SECTION ONE: TERMINOLOGY (2 marks) ============ -->
+    <article class="exemplar" data-cat="terminology">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Terminology &middot; 2/2 vs the common slip</span>
+        <span class="exemplar-band">Q4 &middot; Whiplash</span>
+      </div>
+      <div class="exemplar-text">
+        <div class="exemplar-source">
+          The 2/2 paper was consistently media-specific: &ldquo;codes and conventions&rdquo;, &ldquo;mise-en-sc&egrave;ne&rdquo;, &ldquo;camera angles&rdquo;, &ldquo;colour palette&rdquo;, &ldquo;power dynamic&rdquo;. The mark is most often dropped to descriptive stand-ins like &ldquo;back of frame&rdquo; instead of &ldquo;background&rdquo; or &ldquo;deep focus&rdquo;.
+        </div>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> If you can replace a phrase with a more technical one, do it. &ldquo;Back of frame&rdquo; &rarr; &ldquo;background&rdquo;. &ldquo;Shot from low down&rdquo; &rarr; &ldquo;low-angle shot&rdquo;. &ldquo;Music&rdquo; &rarr; &ldquo;non-diegetic score&rdquo;. Two marks, very gettable.</div>
+    </article>
+
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       PART 6 — UNIT 3 CHECKLIST FOR SUCCESS
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="part" id="checklist">
+    <div class="part-label">Part 6</div>
+    <h2 class="part-title">Unit 3 checklist for success</h2>
+    <p class="part-intro">For each media work you intend to use, make sure you can confidently recall and &ndash; more importantly &ndash; apply the following. Responses grounded in this knowledge consistently move into the higher bands. Tick each item when you feel confident; the checklist remembers your progress on this device.</p>
+
+    <div class="checklist">
+      <label class="checklist-row"><input type="checkbox" data-checklist="1"><span class="box"></span><span class="text">Director&rsquo;s full name and the year of release.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="2"><span class="box"></span><span class="text">The director&rsquo;s agenda, with evidence from interviews or industry context.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="3"><span class="box"></span><span class="text">Cultural and production context &ndash; and <em>why it matters for meaning</em>.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="4"><span class="box"></span><span class="text">Target audience, profiled specifically (niche, mainstream, subcultural).</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="5"><span class="box"></span><span class="text">Audience response across the full Hall typology (preferred, negotiated, oppositional).</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="6"><span class="box"></span><span class="text">Themes and values &ndash; distinguished from mere effects or moods.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="7"><span class="box"></span><span class="text">Narrative structure (linear, non-linear, episodic, cyclical, <em>Kish&omacr;tenketsu</em>).</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="8"><span class="box"></span><span class="text">Key technologies and stylistic techniques.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="9"><span class="box"></span><span class="text">Aesthetic features linked to genre, representation and value systems.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="10"><span class="box"></span><span class="text">At least two key scenes you can read in detail &ndash; mise-en-sc&egrave;ne, cinematography, editing, colour, sound and pacing.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="11"><span class="box"></span><span class="text">A media theory you can <em>apply</em>, not just name (encoding/decoding, active audience, semiotic constructivism).</span></label>
+    </div>
+
+    <div class="callout note" style="margin-top:1.5rem;">
+      <span class="callout-label">A note on themes</span>
+      <p>An <em>effect</em> is not a <em>theme</em>. The reflective stillness produced by <em>ma</em> is an effect; greed, consumerism, environmentalism and female agency are themes. Make sure that when a question asks about themes, you are naming actual themes.</p>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       CLOSING MESSAGE FROM MR CLARKE
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="message" style="margin-top:3.5rem;margin-bottom:1rem;">
+    <div class="message-label">Final thoughts</div>
+    <h2>The path is the same whether you are aiming to move from a C to a B, a B to an A, or an A to something higher still.</h2>
+    <p>Deepen your understanding of the key concepts. Practise applying them to specific scenes. Attempt past questions under timed conditions. Submit practice responses and act on the feedback. The students who improve most across the year are, without exception, the ones who do this consistently rather than occasionally.</p>
+    <p>WACE is a process, not a moment, and this exam is a checkpoint on the way &ndash; not the destination. You have plenty of time, and history is firmly on your side: this cohort almost always finishes far stronger than it starts.</p>
+    <p style="font-weight:500;">Let&rsquo;s get to work.</p>
+    <p class="signoff">&mdash; Mr Clarke</p>
+  </section>
+
+</main>
+
+<!-- ────────────────────────────────────────────────────────────────────
+     FOOTER
+     ──────────────────────────────────────────────────────────────────── -->
+<footer class="footer">
+  Sacred Heart College &middot; Year 12 ATAR Media Production &amp; Analysis &middot; Semester One 2026
+  <a href="index.html">&larr; Back to Revision Hub</a>
+</footer>
+
+<!-- ────────────────────────────────────────────────────────────────────
+     SCRIPTS
+     ──────────────────────────────────────────────────────────────────── -->
+<script>
+/* ─────────── AUTH (shared with the hub via the mpa_auth localStorage key) ─────────── */
+(async function authGate() {
+  const overlay = document.getElementById('loginOverlay');
+  const userInput = document.getElementById('user');
+  const passInput = document.getElementById('pass');
+  const btn = document.getElementById('loginBtn');
+  const errEl = document.getElementById('loginError');
+
+  // SHA-256 hashes of the credentials (the plaintext never appears here)
+  const USER_HASH = 'd5506c3f045a27380f2508acbd828833f4d247e7aefa5ba08555169df92bcebf';
+  const PASS_HASH = '410caa78609084c279d26bc9185da6d2c3c793d9948e1361b7c31415f930cbb7';
+
+  async function sha256(text) {
+    const buf = new TextEncoder().encode(text);
+    const hash = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  if (localStorage.getItem('mpa_auth') === 'true') {
+    overlay.classList.remove('visible');
+    document.body.style.overflow = '';
+    return;
+  }
+
+  overlay.classList.add('visible');
+  document.body.style.overflow = 'hidden';
+
+  async function tryLogin() {
+    errEl.textContent = '';
+    const u = (userInput.value || '').trim();
+    const p = passInput.value || '';
+    if (!u || !p) { errEl.textContent = 'Please enter both fields.'; return; }
+    const [uh, ph] = await Promise.all([sha256(u), sha256(p)]);
+    if (uh === USER_HASH && ph === PASS_HASH) {
+      localStorage.setItem('mpa_auth', 'true');
+      overlay.classList.remove('visible');
+      document.body.style.overflow = '';
+    } else {
+      errEl.textContent = 'Incorrect username or password.';
+      passInput.value = '';
+      passInput.focus();
+    }
+  }
+
+  btn.addEventListener('click', tryLogin);
+  [userInput, passInput].forEach(el => el.addEventListener('keydown', e => {
+    if (e.key === 'Enter') tryLogin();
+  }));
+  setTimeout(() => userInput.focus(), 80);
+})();
+
+/* ─────────── ACCORDIONS ─────────── */
+document.querySelectorAll('.accordion').forEach(acc => {
+  const head = acc.querySelector('.acc-head');
+  const body = acc.querySelector('.acc-body');
+  head.addEventListener('click', () => {
+    const isOpen = acc.classList.toggle('open');
+    body.style.maxHeight = isOpen ? body.scrollHeight + 'px' : '0';
+  });
+});
+// Expand / collapse-all controls
+document.querySelectorAll('[data-expand]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const group = btn.getAttribute('data-expand');
+    document.querySelectorAll(`.accordion[data-group="${group}"]`).forEach(acc => {
+      acc.classList.add('open');
+      const body = acc.querySelector('.acc-body');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    });
+  });
+});
+document.querySelectorAll('[data-collapse]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const group = btn.getAttribute('data-collapse');
+    document.querySelectorAll(`.accordion[data-group="${group}"]`).forEach(acc => {
+      acc.classList.remove('open');
+      acc.querySelector('.acc-body').style.maxHeight = '0';
+    });
+  });
+});
+// Recompute on resize so open accordions don't get clipped
+window.addEventListener('resize', () => {
+  document.querySelectorAll('.accordion.open .acc-body').forEach(b => {
+    b.style.maxHeight = b.scrollHeight + 'px';
+  });
+});
+
+/* ─────────── SIX PRIORITIES TRACKER (localStorage) ─────────── */
+const PRIORITY_KEY = 'mpa_exam_s1_2026_priorities';
+function loadPriorities() {
+  try { return JSON.parse(localStorage.getItem(PRIORITY_KEY) || '{}'); } catch { return {}; }
+}
+function savePriorities(state) {
+  localStorage.setItem(PRIORITY_KEY, JSON.stringify(state));
+}
+function updatePriorityUI() {
+  const state = loadPriorities();
+  let count = 0;
+  document.querySelectorAll('[data-priority-check]').forEach(cb => {
+    const id = cb.getAttribute('data-priority-check');
+    const checked = !!state[id];
+    cb.checked = checked;
+    const card = cb.closest('.priority');
+    card.classList.toggle('done', checked);
+    if (checked) count++;
+  });
+  document.getElementById('priorityCount').textContent = count;
+  document.getElementById('priorityFill').style.width = (count / 6 * 100) + '%';
+}
+document.querySelectorAll('[data-priority-check]').forEach(cb => {
+  cb.addEventListener('change', () => {
+    const state = loadPriorities();
+    state[cb.getAttribute('data-priority-check')] = cb.checked;
+    savePriorities(state);
+    updatePriorityUI();
+  });
+});
+document.getElementById('trackerReset').addEventListener('click', () => {
+  if (confirm('Reset the priorities tracker on this device?')) {
+    localStorage.removeItem(PRIORITY_KEY);
+    updatePriorityUI();
+  }
+});
+updatePriorityUI();
+
+/* ─────────── UNIT 3 CHECKLIST (localStorage) ─────────── */
+const CHECK_KEY = 'mpa_exam_s1_2026_unit3_checklist';
+function loadChecklist() {
+  try { return JSON.parse(localStorage.getItem(CHECK_KEY) || '{}'); } catch { return {}; }
+}
+function saveChecklist(state) {
+  localStorage.setItem(CHECK_KEY, JSON.stringify(state));
+}
+function applyChecklist() {
+  const state = loadChecklist();
+  document.querySelectorAll('[data-checklist]').forEach(cb => {
+    cb.checked = !!state[cb.getAttribute('data-checklist')];
+  });
+}
+document.querySelectorAll('[data-checklist]').forEach(cb => {
+  cb.addEventListener('change', () => {
+    const state = loadChecklist();
+    state[cb.getAttribute('data-checklist')] = cb.checked;
+    saveChecklist(state);
+  });
+});
+applyChecklist();
+
+/* ─────────── EXEMPLAR FILTER ─────────── */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.getAttribute('data-filter');
+    document.querySelectorAll('.exemplar').forEach(ex => {
+      const show = cat === 'all' || ex.getAttribute('data-cat') === cat;
+      ex.classList.toggle('hidden', !show);
+    });
+  });
+});
+
+/* ─────────── SMOOTH-SCROLL FOR QUICK NAV (account for sticky bar) ─────────── */
+document.querySelectorAll('.quick-nav a').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href');
+    if (id && id.startsWith('#')) {
+      const target = document.querySelector(id);
+      if (target) {
+        e.preventDefault();
+        const top = target.getBoundingClientRect().top + window.pageYOffset - 64;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    }
+  });
+});
+</script>
+
+</body>
+</html>

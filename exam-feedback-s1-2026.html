@@ -218,6 +218,8 @@ body::before {
   overflow-x: auto;
   white-space: nowrap;
   scrollbar-width: none;
+  display: flex;
+  justify-content: center;
 }
 .quick-nav::-webkit-scrollbar { display: none; }
 .quick-nav-inner {
@@ -860,6 +862,19 @@ body::before {
 }
 
 /* ─────────────────────────────────────────────────────────────────────
+   AUDIO SECTION
+   ───────────────────────────────────────────────────────────────────── */
+.audio-section { max-width: 920px; margin: 0 auto; padding: 0 1.5rem 2rem; }
+.audio-card { background: linear-gradient(135deg, rgba(192,132,252,0.06) 0%, rgba(232,197,71,0.03) 100%); border: 1px solid rgba(192,132,252,0.18); border-radius: 10px; padding: 1.3rem 1.5rem; position: relative; }
+.audio-card::before { content: '\01F3A7'; position: absolute; top: -12px; left: 20px; background: var(--bg-deep); padding: 0 6px; font-size: 1.1rem; }
+.audio-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem; }
+.audio-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: #fff; line-height: 1.35; margin-bottom: 0.5rem; }
+.audio-desc { font-size: 0.9rem; color: var(--text-dim); line-height: 1.65; margin-bottom: 0.9rem; }
+.audio-player { width: 100%; height: 42px; border-radius: 6px; outline: none; }
+.audio-placeholder { display: flex; align-items: center; gap: 0.8rem; background: rgba(255,255,255,0.03); border: 1px dashed rgba(192,132,252,0.25); border-radius: 6px; padding: 0.8rem 1rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.08em; }
+.audio-placeholder-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+/* ─────────────────────────────────────────────────────────────────────
    FOOTER
    ───────────────────────────────────────────────────────────────────── */
 .footer {
@@ -940,6 +955,21 @@ body::before {
     <a href="#checklist">Unit 3 checklist</a>
   </div>
 </nav>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     PODCAST / AUDIO
+     ════════════════════════════════════════════════════════════════════════ -->
+<section class="audio-section">
+  <div class="audio-card">
+    <div class="audio-label">Podcast &middot; NotebookLM</div>
+    <div class="audio-title">Exam Feedback &ndash; Semester One 2026</div>
+    <p class="audio-desc">An audio walkthrough of this feedback page &mdash; the big picture patterns, six priorities, and what separates the top-band papers. Produced using Google NotebookLM. Coming soon.</p>
+    <div class="audio-placeholder">
+      <span class="audio-placeholder-icon">&#127911;</span>
+      <span>Podcast coming soon &mdash; check back shortly.</span>
+    </div>
+  </div>
+</section>
 
 <main class="main">
 

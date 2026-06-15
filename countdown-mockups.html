@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Art Film Countdown – Style Mock-ups</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #0a0a0f;
+  --bg-card: #12121a;
+  --bg-card-hover: #1a1a26;
+  --border: #2a2a3a;
+  --accent: #5b7ff5;
+  --accent-bright: #7b9aff;
+  --accent-dim: #3d5af1;
+  --gold: #e8c547;
+  --green: #4caf7d;
+  --teal: #3db8a0;
+  --pink: #f472b6;
+  --text: #e0e0ec;
+  --text-dim: #a0a0b8;
+  --text-muted: #7a7a94;
+  --film-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+  padding: 3rem 1.5rem 6rem;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: var(--film-grain);
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.35;
+}
+.wrap { max-width: 1100px; margin: 0 auto; }
+.page-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+.intro { color: var(--text-dim); font-weight: 300; max-width: 680px; margin-bottom: 2.5rem; }
+.intro b { color: var(--text); font-weight: 600; }
+
+.variant {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-card);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.variant-head { display: flex; align-items: baseline; gap: 0.8rem; margin-bottom: 1.6rem; flex-wrap: wrap; }
+.variant-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--pink);
+  text-transform: uppercase;
+}
+.variant-name { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: #fff; }
+.variant-note { font-size: 0.82rem; color: var(--text-muted); width: 100%; }
+.stage {
+  min-height: 150px;
+  border-radius: 10px;
+  background:
+    radial-gradient(ellipse at 70% 20%, rgba(91,127,245,0.05), transparent 60%),
+    var(--bg-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+}
+
+/* ───────────────────────────────────────── */
+/* VARIANT 1 — Subtle floating pill          */
+/* ───────────────────────────────────────── */
+.cd-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  background: rgba(18,18,26,0.92);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 0.6rem 1.1rem;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.45);
+  backdrop-filter: blur(8px);
+}
+.cd-pill .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--pink);
+  box-shadow: 0 0 10px var(--pink);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+.cd-pill .pill-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.cd-pill .pill-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+.cd-pill .pill-time b { color: var(--pink); font-weight: 600; }
+
+/* ───────────────────────────────────────── */
+/* VARIANT 2 — Digit blocks card             */
+/* ───────────────────────────────────────── */
+.cd-blocks {
+  background: rgba(18,18,26,0.92);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.1rem 1.3rem;
+  box-shadow: 0 10px 34px rgba(0,0,0,0.5);
+}
+.cd-blocks .bl-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pink);
+  margin-bottom: 0.7rem;
+  display: flex; align-items: center; gap: 0.45rem;
+}
+.cd-blocks .bl-label::before { content:'🎬'; font-size:0.8rem; }
+.cd-blocks .bl-row { display: flex; gap: 0.5rem; }
+.cd-blocks .unit { text-align: center; min-width: 52px; }
+.cd-blocks .unit .num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.3rem 0;
+  line-height: 1.1;
+}
+.cd-blocks .unit .cap {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 0.35rem;
+}
+
+/* ───────────────────────────────────────── */
+/* VARIANT 3 — Minimal corner badge          */
+/* ───────────────────────────────────────── */
+.cd-min {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.5rem 0.9rem;
+  cursor: default;
+  transition: border-color 0.3s, background 0.3s;
+}
+.cd-min:hover { border-color: var(--pink); background: rgba(244,114,182,0.06); }
+.cd-min .m-num { font-family:'Playfair Display',serif; font-weight:700; font-size:1.15rem; color: var(--pink); }
+.cd-min .m-text { font-size: 0.82rem; color: var(--text-dim); }
+
+/* ───────────────────────────────────────── */
+/* VARIANT 4 — Progress ring                 */
+/* ───────────────────────────────────────── */
+.cd-ring {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  background: rgba(18,18,26,0.92);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.8rem 1.2rem 0.8rem 0.9rem;
+  box-shadow: 0 10px 34px rgba(0,0,0,0.5);
+}
+.cd-ring svg { display:block; }
+.cd-ring .ring-bg { stroke: var(--border); }
+.cd-ring .ring-fg { stroke: var(--pink); stroke-linecap: round; transition: stroke-dashoffset 1s linear; filter: drop-shadow(0 0 4px rgba(244,114,182,0.5)); }
+.cd-ring .ring-num {
+  font-family:'Playfair Display',serif; font-weight:700;
+  fill:#fff; font-size:15px; text-anchor:middle;
+}
+.cd-ring .r-label { font-family:'JetBrains Mono',monospace; font-size:0.58rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--text-muted); }
+.cd-ring .r-title { font-family:'Playfair Display',serif; color:#fff; font-size:1rem; margin-top:0.15rem; }
+.cd-ring .r-sub { font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--pink); margin-top:0.2rem; }
+
+/* ───────────────────────────────────────── */
+/* VARIANT 5 — Top banner strip              */
+/* ───────────────────────────────────────── */
+.cd-banner {
+  width: 100%;
+  background: linear-gradient(90deg, rgba(244,114,182,0.08), rgba(91,127,245,0.05));
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--pink);
+  border-radius: 8px;
+  padding: 0.7rem 1.2rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+}
+.cd-banner .b-left { display:flex; align-items:center; gap:0.7rem; }
+.cd-banner .b-icon { font-size: 1.1rem; }
+.cd-banner .b-title { font-weight:600; color:var(--text); font-size:0.92rem; }
+.cd-banner .b-title span { color: var(--text-muted); font-weight:400; font-size:0.82rem; }
+.cd-banner .b-time { font-family:'JetBrains Mono',monospace; font-size:0.9rem; color:var(--pink); font-weight:500; }
+
+.foot { color: var(--text-muted); font-size: 0.85rem; margin-top: 2.5rem; text-align:center; }
+.foot b { color: var(--pink); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="page-label">Design Preview · Internal</div>
+  <h1>Art Film Countdown — Style Mock-ups</h1>
+  <p class="intro">Five live-ticking styles counting down to the <b>Art Film submission: Friday 18 September 2026</b>. They all share the hub's palette, fonts and film-grain. Tell me which number you like (and where it should sit), and I'll wire that one onto the index hub plus every other page in a consistent floating position.</p>
+
+  <div class="variant">
+    <div class="variant-head">
+      <span class="variant-num">Style 01</span>
+      <span class="variant-name">Subtle floating pill</span>
+      <span class="variant-note">Most discreet. Sits bottom-right, follows on every page. Pulsing dot draws a gentle glance.</span>
+    </div>
+    <div class="stage">
+      <div class="cd-pill">
+        <span class="dot"></span>
+        <div>
+          <div class="pill-label">Art Film due</div>
+          <div class="pill-time" id="cd1">— d — h — m — s</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="variant">
+    <div class="variant-head">
+      <span class="variant-num">Style 02</span>
+      <span class="variant-name">Digit blocks</span>
+      <span class="variant-note">Classic countdown feel with separated day/hour/min/sec tiles. A bit more presence — good as a hub feature card.</span>
+    </div>
+    <div class="stage">
+      <div class="cd-blocks">
+        <div class="bl-label">Art Film Submission</div>
+        <div class="bl-row">
+          <div class="unit"><div class="num" id="cd2d">—</div><div class="cap">Days</div></div>
+          <div class="unit"><div class="num" id="cd2h">—</div><div class="cap">Hrs</div></div>
+          <div class="unit"><div class="num" id="cd2m">—</div><div class="cap">Min</div></div>
+          <div class="unit"><div class="num" id="cd2s">—</div><div class="cap">Sec</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="variant">
+    <div class="variant-head">
+      <span class="variant-num">Style 03</span>
+      <span class="variant-name">Minimal corner badge</span>
+      <span class="variant-note">Quietest option — just days remaining as a phrase. Expands subtly on hover. Counts days only.</span>
+    </div>
+    <div class="stage">
+      <div class="cd-min">
+        <span class="m-num" id="cd3">—</span>
+        <span class="m-text">days until your Art Film is due</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="variant">
+    <div class="variant-head">
+      <span class="variant-num">Style 04</span>
+      <span class="variant-name">Progress ring</span>
+      <span class="variant-note">Shows days left inside a ring that fills as the deadline nears — a visual "how far along the term" cue.</span>
+    </div>
+    <div class="stage">
+      <div class="cd-ring">
+        <svg width="58" height="58" viewBox="0 0 58 58">
+          <circle class="ring-bg" cx="29" cy="29" r="25" fill="none" stroke-width="4"/>
+          <circle class="ring-fg" id="cd4ring" cx="29" cy="29" r="25" fill="none" stroke-width="4"
+                  transform="rotate(-90 29 29)" stroke-dasharray="157" stroke-dashoffset="157"/>
+          <text class="ring-num" id="cd4num" x="29" y="34">—</text>
+        </svg>
+        <div>
+          <div class="r-label">Art Film</div>
+          <div class="r-title">Submission</div>
+          <div class="r-sub" id="cd4sub">— days left</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="variant">
+    <div class="variant-head">
+      <span class="variant-num">Style 05</span>
+      <span class="variant-name">Top banner strip</span>
+      <span class="variant-note">Full-width bar that sits under the hero/header. Most visible — hard to miss, still tasteful.</span>
+    </div>
+    <div class="stage">
+      <div class="cd-banner">
+        <div class="b-left">
+          <span class="b-icon">🎬</span>
+          <span class="b-title">Art Film Submission <span>· Fri 18 Sep 2026</span></span>
+        </div>
+        <span class="b-time" id="cd5">— days · — hrs · — min</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="foot">All five point to the same target: <b>Friday 18 September 2026</b>. Default submission time set to 11:59pm — easily changed (e.g. to a class time). Pick a style + position and I'll roll it out site-wide.</p>
+</div>
+
+<script>
+// Target: Friday 18 September 2026, 23:59 local time. Adjust time as needed.
+const TARGET = new Date(2026, 8, 18, 23, 59, 0).getTime();
+// Term anchor for the progress ring (start of the count window) — Term 3 start approx.
+const RING_START = new Date(2026, 6, 20, 0, 0, 0).getTime();
+const RING_CIRC = 2 * Math.PI * 25;
+
+function pad(n){ return String(n).padStart(2,'0'); }
+
+function tick(){
+  const now = Date.now();
+  let diff = TARGET - now;
+  const past = diff <= 0;
+  if (past) diff = 0;
+
+  const days  = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins  = Math.floor((diff % 3600000) / 60000);
+  const secs  = Math.floor((diff % 60000) / 1000);
+
+  // Style 1
+  document.getElementById('cd1').innerHTML = past
+    ? '<b>Submitted! 🎉</b>'
+    : `<b>${days}</b>d ${pad(hours)}h ${pad(mins)}m ${pad(secs)}s`;
+
+  // Style 2
+  document.getElementById('cd2d').textContent = days;
+  document.getElementById('cd2h').textContent = pad(hours);
+  document.getElementById('cd2m').textContent = pad(mins);
+  document.getElementById('cd2s').textContent = pad(secs);
+
+  // Style 3
+  document.getElementById('cd3').textContent = past ? '0' : days;
+
+  // Style 4
+  document.getElementById('cd4num').textContent = past ? '0' : days;
+  document.getElementById('cd4sub').textContent = past ? 'Due today!' : `${days} days left`;
+  const total = TARGET - RING_START;
+  const elapsed = Math.min(Math.max(now - RING_START, 0), total);
+  const frac = total > 0 ? elapsed / total : 1;
+  document.getElementById('cd4ring').setAttribute('stroke-dashoffset', String(RING_CIRC * (1 - frac)));
+
+  // Style 5
+  document.getElementById('cd5').textContent = past
+    ? 'Submitted — great work!'
+    : `${days} days · ${pad(hours)} hrs · ${pad(mins)} min`;
+}
+tick();
+setInterval(tick, 1000);
+</script>
+</body>
+</html>

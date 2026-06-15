@@ -8,10 +8,10 @@
   "use strict";
 
   // ── Configuration ──────────────────────────────────────────
-  // Target: Friday 18 September 2026, 23:59 local time.
-  // (Month is 0-indexed: 8 = September.) Adjust the time if the
-  // submission is due at a specific class period.
-  var TARGET = new Date(2026, 8, 18, 23, 59, 0).getTime();
+  // Target: Friday 18 September 2026, 3:10pm local time
+  // (end of Period 6 / end of school day).
+  // (Month is 0-indexed: 8 = September.)
+  var TARGET = new Date(2026, 8, 18, 15, 10, 0).getTime();
   var LABEL = "Art Film due";
   var DONE_TEXT = "Art Film submitted 🎉"; // 🎉
   var STORAGE_KEY = "artFilmCountdownCollapsed";

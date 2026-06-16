@@ -8,10 +8,13 @@
   "use strict";
 
   // ── Configuration ──────────────────────────────────────────
-  // Target: Friday 18 September 2026, 3:10pm local time
+  // Target: Friday 18 September 2026, 3:10pm Western Australia time
   // (end of Period 6 / end of school day).
+  // Pinned to AWST (UTC+8, no daylight saving) via a fixed UTC
+  // instant, so the countdown reads correctly regardless of the
+  // viewer's device timezone. 3:10pm AWST = 07:10 UTC.
   // (Month is 0-indexed: 8 = September.)
-  var TARGET = new Date(2026, 8, 18, 15, 10, 0).getTime();
+  var TARGET = Date.UTC(2026, 8, 18, 7, 10, 0);
   var LABEL = "Art Film due";
   var DONE_TEXT = "Art Film submitted 🎉"; // 🎉
   var STORAGE_KEY = "artFilmCountdownCollapsed";

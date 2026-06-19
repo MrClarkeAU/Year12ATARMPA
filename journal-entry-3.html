@@ -808,24 +808,6 @@ body::before {
 <body>
 
 <!-- ═════════ LOGIN OVERLAY ═════════ -->
-<div class="login-overlay" id="loginOverlay">
-  <div class="login-box">
-    <div class="login-label">Year 12 ATAR · MPA</div>
-    <div class="login-title">Revision Hub</div>
-    <div class="login-hint">Enter the credentials provided by Mr Clarke to access the essay guide.</div>
-    <div class="login-field">
-      <label for="loginUser">Username</label>
-      <input type="text" id="loginUser" autocomplete="off" autocapitalize="off" autocorrect="off">
-    </div>
-    <div class="login-field">
-      <label for="loginPass">Password</label>
-      <input type="password" id="loginPass" autocomplete="off">
-    </div>
-    <button class="login-btn" id="loginBtn">Enter</button>
-    <div class="login-error hidden" id="loginError">Incorrect username or password. Try again.</div>
-  </div>
-</div>
-
 <!-- ═════════ SITE CONTENT ═════════ -->
 <div class="site-content" id="siteContent">
 
@@ -1411,55 +1393,16 @@ function updateProgress() {
   document.getElementById('progressDone').classList.toggle('visible', locked === total);
 }
 
-// ═════════ AUTH ═════════
-(function () {
-  'use strict';
-  const VALID_USER_HASH = 'd5506c3f045a27380f2508acbd828833f4d247e7aefa5ba08555169df92bcebf';
-  const VALID_PASS_HASH = '410caa78609084c279d26bc9185da6d2c3c793d9948e1361b7c31415f930cbb7';
-  const AUTH_KEY = 'mpa_auth';
-
-  async function sha256(str) {
-    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-  }
-
-  const overlay  = document.getElementById('loginOverlay');
-  const content  = document.getElementById('siteContent');
-  const userIn   = document.getElementById('loginUser');
-  const passIn   = document.getElementById('loginPass');
-  const btn      = document.getElementById('loginBtn');
-  const errMsg   = document.getElementById('loginError');
-
-  function unlock() {
-    overlay.classList.add('hidden');
-    content.classList.add('visible');
-    localStorage.setItem(AUTH_KEY, 'true');
-    init();
-  }
-
-  // If already authenticated on this device (hub or other pages), skip the login
-  if (localStorage.getItem(AUTH_KEY) === 'true') {
-    unlock();
-  }
-
-  async function attempt() {
-    const userHash = await sha256(userIn.value);
-    const passHash = await sha256(passIn.value);
-    if (userHash === VALID_USER_HASH && passHash === VALID_PASS_HASH) {
-      unlock();
-    } else {
-      errMsg.classList.remove('hidden');
-      passIn.value = '';
-      passIn.focus();
-    }
-  }
-
-  btn.addEventListener('click', attempt);
-  userIn.addEventListener('keydown', (e) => { if (e.key === 'Enter') passIn.focus(); });
-  passIn.addEventListener('keydown', (e) => { if (e.key === 'Enter') attempt(); });
-  userIn.addEventListener('input', () => errMsg.classList.add('hidden'));
-  passIn.addEventListener('input', () => errMsg.classList.add('hidden'));
-})();
+// ═════════ AUTH GUARD ═════════
+// The login lives on the hub (index.html). If the student hasn't signed in
+// there on this device, send them back to do so; otherwise reveal the page.
+// No second password prompt — the hub login covers the whole site.
+if (localStorage.getItem('mpa_auth') !== 'true') {
+  window.location.href = 'index.html';
+} else {
+  document.getElementById('siteContent').classList.add('visible');
+  init();
+}
 
 // ═════════ INIT ═════════
 function init() {

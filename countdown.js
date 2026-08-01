@@ -61,7 +61,7 @@
   root.setAttribute("aria-live", "off");
   root.innerHTML =
       '<div class="afc-pill" role="button" tabindex="0" '
-    + 'title="Art Film submission — Fri 18 Sep 2026 (click to collapse)">'
+    + 'title="Art Film submission — Fri 18 Sep 2026, 3:10pm AWST · school days only (click to collapse)">'
     +   '<span class="afc-dot"></span>'
     +   '<div class="afc-body">'
     +     '<div class="afc-label">' + LABEL + '</div>'
@@ -73,16 +73,33 @@
   function pad(n) { return String(n).padStart(2, "0"); }
 
   var timeEl;
+  var AWST_OFFSET = 8 * 3600 * 1000;
   function tick() {
-    var diff = TARGET - Date.now();
-    if (diff <= 0) {
+    var now = Date.now();
+    if (now >= TARGET) {
       timeEl.innerHTML = "<b>" + DONE_TEXT + "</b>";
       return false; // stop ticking
     }
-    var days = Math.floor(diff / 86400000);
-    var hours = Math.floor((diff % 86400000) / 3600000);
-    var mins = Math.floor((diff % 3600000) / 60000);
-    var secs = Math.floor((diff % 60000) / 1000);
+    // Count only weekdays (Mon–Fri in AWST) between now and target.
+    // Weekend hours are skipped so the "days" figure reflects school days.
+    var weekdayMs = 0;
+    var cursor = now;
+    while (cursor < TARGET) {
+      var awst = new Date(cursor + AWST_OFFSET);
+      var dow = awst.getUTCDay(); // 0=Sun … 6=Sat, evaluated against AWST calendar
+      var endOfAwstDayUtc = Date.UTC(
+        awst.getUTCFullYear(),
+        awst.getUTCMonth(),
+        awst.getUTCDate() + 1
+      ) - AWST_OFFSET;
+      var stop = Math.min(endOfAwstDayUtc, TARGET);
+      if (dow !== 0 && dow !== 6) weekdayMs += stop - cursor;
+      cursor = stop;
+    }
+    var days = Math.floor(weekdayMs / 86400000);
+    var hours = Math.floor((weekdayMs % 86400000) / 3600000);
+    var mins = Math.floor((weekdayMs % 3600000) / 60000);
+    var secs = Math.floor((weekdayMs % 60000) / 1000);
     timeEl.innerHTML = "<b>" + days + "</b>d " + pad(hours) + "h " + pad(mins) + "m " + pad(secs) + "s";
     return true;
   }

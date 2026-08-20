@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wartime Propaganda &ndash; Short Response Feedback | Year 12 ATAR MPA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #0a0a0f;
+  --bg-card: #12121a;
+  --bg-card-hover: #1a1a26;
+  --bg-input: #1e1e2a;
+  --border: #2a2a3a;
+  --border-glow: #3d5af1;
+  --accent: #5b7ff5;
+  --accent-bright: #7b9aff;
+  --accent-dim: #3d5af1;
+  --gold: #e8c547;
+  --gold-dim: #c4a535;
+  --green: #4caf7d;
+  --green-bg: rgba(76,175,125,0.10);
+  --green-border: rgba(76,175,125,0.35);
+  --red: #e05565;
+  --red-bg: rgba(224,85,101,0.08);
+  --red-border: rgba(224,85,101,0.30);
+  --purple: #c084fc;
+  --purple-bg: rgba(192,132,252,0.10);
+  --purple-border: rgba(192,132,252,0.30);
+  --teal: #3db8a0;
+  --text: #e0e0ec;
+  --text-dim: #a0a0b8;
+  --text-muted: #7a7a94;
+  --film-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  --error: #f06565;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: var(--film-grain);
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.35;
+}
+
+/* ── LOGIN OVERLAY ── */
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--bg-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2rem;
+}
+.login-overlay.hidden { display: none; }
+.login-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(192,132,252,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.login-box {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+.login-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 0.6rem;
+}
+.login-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: #fff;
+  margin-bottom: 0.4rem;
+}
+.login-sub {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  margin-bottom: 1.6rem;
+  font-weight: 300;
+}
+.login-field {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.7rem 0.9rem;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.92rem;
+  border-radius: 4px;
+  margin-bottom: 0.7rem;
+  transition: border-color 0.2s;
+  outline: none;
+}
+.login-field:focus { border-color: var(--purple); }
+.login-btn {
+  width: 100%;
+  background: var(--purple);
+  color: #0a0a0f;
+  border: none;
+  padding: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 0.3rem;
+  transition: background 0.2s, transform 0.1s;
+}
+.login-btn:hover { background: #d4a3ff; }
+.login-btn:active { transform: translateY(1px); }
+.login-error {
+  margin-top: 0.8rem;
+  font-size: 0.78rem;
+  color: var(--error);
+  min-height: 1.1rem;
+  transition: opacity 0.3s;
+}
+.login-error.hidden { opacity: 0; }
+
+.site-content { display: none; }
+.site-content.visible { display: block; }
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  text-align: center;
+  padding: 3.5rem 1.5rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(232,197,71,0.05) 0%, transparent 100%);
+}
+.back-link {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-bottom: 1.6rem;
+  transition: color 0.2s;
+}
+.back-link:hover { color: var(--gold); }
+.hero-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.9rem;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.7rem, 4.5vw, 2.6rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+.hero h1 .em { font-style: italic; color: var(--gold); font-weight: 400; }
+.hero-sub {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  max-width: 620px;
+  margin: 0 auto 0.5rem;
+  font-weight: 300;
+}
+.hero-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin-top: 0.9rem;
+}
+
+/* ── QUICK NAV ── */
+.quick-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,10,15,0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.7rem 1.5rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+  display: flex;
+  justify-content: center;
+}
+.quick-nav::-webkit-scrollbar { display: none; }
+.quick-nav-inner { display: inline-flex; gap: 0.4rem; align-items: center; }
+.quick-nav a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  transition: all 0.2s;
+}
+.quick-nav a:hover {
+  color: var(--gold);
+  border-color: rgba(232,197,71,0.4);
+  background: rgba(232,197,71,0.08);
+}
+
+/* ── LAYOUT ── */
+.main { max-width: 920px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+.part { margin-bottom: 3.2rem; scroll-margin-top: 80px; }
+.part-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.6rem;
+}
+.part-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem;
+  color: #fff;
+  margin-bottom: 0.4rem;
+  line-height: 1.25;
+}
+.part-intro {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  margin-bottom: 1.8rem;
+  font-weight: 300;
+  max-width: 720px;
+}
+
+/* ── CALLOUTS ── */
+.callout {
+  border-left: 3px solid;
+  padding: 1.1rem 1.3rem;
+  border-radius: 0 4px 4px 0;
+  margin: 1.2rem 0;
+  font-size: 0.93rem;
+}
+.callout p + p { margin-top: 0.7rem; }
+.callout-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.callout.info { background: rgba(91,127,245,0.07); border-color: var(--accent); }
+.callout.info .callout-label { color: var(--accent-bright); }
+.callout.pitfall { background: var(--red-bg); border-color: var(--red); }
+.callout.pitfall .callout-label { color: var(--red); }
+.callout.win { background: var(--green-bg); border-color: var(--green); }
+.callout.win .callout-label { color: var(--green); }
+.callout.note { background: var(--purple-bg); border-color: var(--purple); }
+.callout.note .callout-label { color: var(--purple); }
+
+/* ── MESSAGE ── */
+.message {
+  background: linear-gradient(180deg, rgba(232,197,71,0.10) 0%, rgba(232,197,71,0.03) 100%);
+  border: 1px solid rgba(232,197,71,0.28);
+  border-radius: 6px;
+  padding: 1.8rem 1.8rem 1.6rem;
+  margin-bottom: 3rem;
+  position: relative;
+}
+.message-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.7rem;
+}
+.message h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  color: #fff;
+  margin-bottom: 0.8rem;
+  line-height: 1.3;
+}
+.message p { font-size: 0.95rem; color: var(--text); font-weight: 300; margin-bottom: 0.8rem; }
+.message p:last-child { margin-bottom: 0; }
+.message .signoff {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--gold);
+  margin-top: 1rem;
+}
+
+/* ── TRACKER ── */
+.tracker {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.1rem 1.3rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.tracker-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+.tracker-count { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); font-weight: 700; }
+.tracker-bar { flex: 1; min-width: 140px; height: 6px; background: var(--bg-input); border-radius: 3px; overflow: hidden; }
+.tracker-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--accent-bright)); border-radius: 3px; width: 0%; transition: width 0.4s ease; }
+.tracker-reset {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.6rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tracker-reset:hover { color: var(--gold); border-color: var(--gold); }
+
+/* ── PRIORITY CARDS ── */
+.priority {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.4rem 1.5rem;
+  margin-bottom: 1rem;
+  transition: border-color 0.25s, background 0.25s;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem 1.2rem;
+  align-items: start;
+}
+.priority.done {
+  background: linear-gradient(180deg, rgba(232,197,71,0.06) 0%, var(--bg-card) 100%);
+  border-color: rgba(232,197,71,0.35);
+}
+.priority-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  grid-row: 1 / 3;
+  opacity: 0.85;
+}
+.priority h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: #fff;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 0.4rem;
+}
+.priority-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.6rem; }
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  background: rgba(232,197,71,0.10);
+  color: var(--gold);
+  border: 1px solid rgba(232,197,71,0.20);
+}
+.tag.struct { background: rgba(91,127,245,0.10); color: var(--accent-bright); border-color: rgba(91,127,245,0.20); }
+.tag.theory { background: rgba(192,132,252,0.10); color: var(--purple); border-color: rgba(192,132,252,0.25); }
+.tag.evidence { background: rgba(76,175,125,0.10); color: var(--green); border-color: rgba(76,175,125,0.25); }
+.priority-obs { color: var(--text-dim); font-size: 0.92rem; font-style: italic; margin-bottom: 0.7rem; font-weight: 300; }
+.priority-fix { color: var(--text); font-size: 0.93rem; }
+.priority-check {
+  grid-column: 1 / 3;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+}
+.priority-check input { display: none; }
+.priority-check .box {
+  width: 18px; height: 18px;
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
+  background: var(--bg-input);
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.2s;
+}
+.priority-check input:checked + .box { background: var(--gold); border-color: var(--gold); }
+.priority-check input:checked + .box::after {
+  content: '\2713';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  color: #0a0a0f; font-weight: 700; font-size: 0.85rem;
+}
+.priority-check .label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--text-dim); }
+.priority.done .priority-check .label { color: var(--gold); }
+
+/* ── ACCORDION ── */
+.controls { display: flex; gap: 0.5rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+.ctrl-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 0.45rem 0.8rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.ctrl-btn:hover { color: var(--gold); border-color: rgba(232,197,71,0.4); }
+.accordion {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 0.7rem;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.accordion.open { border-color: rgba(232,197,71,0.35); }
+.acc-head {
+  padding: 1.1rem 1.4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  user-select: none;
+  transition: background 0.2s;
+}
+.acc-head:hover { background: var(--bg-card-hover); }
+.acc-titlewrap { flex: 1; min-width: 0; }
+.acc-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.3rem;
+}
+.acc-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #fff; font-weight: 700; line-height: 1.35; }
+.acc-marks {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  background: rgba(232,197,71,0.12);
+  color: var(--gold);
+  padding: 0.25rem 0.55rem;
+  border-radius: 3px;
+  border: 1px solid rgba(232,197,71,0.2);
+  flex-shrink: 0;
+}
+.acc-chev { width: 14px; height: 14px; flex-shrink: 0; position: relative; transition: transform 0.25s; color: var(--text-muted); }
+.acc-chev::before {
+  content: '';
+  position: absolute; top: 4px; left: 2px;
+  width: 8px; height: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+.accordion.open .acc-chev { transform: rotate(180deg); color: var(--gold); }
+.acc-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+.acc-body-inner { padding: 0 1.4rem 1.4rem; border-top: 1px solid var(--border); padding-top: 1.2rem; }
+.acc-body-inner p { margin-bottom: 0.8rem; font-size: 0.93rem; }
+.acc-body-inner p:last-child { margin-bottom: 0; }
+.acc-body-inner h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 1.2rem 0 0.6rem;
+}
+.acc-body-inner h4:first-child { margin-top: 0; }
+.q-stem {
+  background: var(--bg-input);
+  border-left: 2px solid var(--gold);
+  padding: 0.8rem 1rem;
+  border-radius: 0 4px 4px 0;
+  font-style: italic;
+  color: var(--text);
+  font-size: 0.92rem;
+  margin-bottom: 1rem;
+}
+.q-stats { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--text-muted); margin-bottom: 1rem; letter-spacing: 0.05em; }
+
+/* ── EXEMPLARS ── */
+.filter-bar { display: flex; gap: 0.4rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.filter-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.85rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn:hover { color: var(--gold); border-color: rgba(232,197,71,0.4); }
+.filter-btn.active { color: #0a0a0f; background: var(--gold); border-color: var(--gold); }
+.exemplar {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--green);
+  border-radius: 0 6px 6px 0;
+  padding: 1.3rem 1.5rem;
+  margin-bottom: 1rem;
+  transition: opacity 0.25s, transform 0.25s;
+}
+.exemplar.hidden { display: none; }
+.exemplar-head { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.7rem; }
+.exemplar-criterion {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--green);
+  background: var(--green-bg);
+  border: 1px solid var(--green-border);
+  padding: 0.22rem 0.55rem;
+  border-radius: 3px;
+}
+.exemplar-band { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--gold); }
+.exemplar-text { text-align: left; margin-bottom: 0.9rem; }
+.exemplar-text blockquote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.02rem;
+  color: var(--text);
+  line-height: 1.5;
+  margin: 0 0 0.4rem;
+}
+.exemplar-text blockquote strong { font-weight: 700; color: #fff; font-style: italic; }
+.exemplar-move { background: rgba(0,0,0,0.18); padding: 0.8rem 1rem; border-radius: 4px; font-size: 0.88rem; color: var(--text-dim); }
+.exemplar-move strong { color: var(--text); font-weight: 600; }
+.exemplar.contrast { border-left-color: var(--red); }
+.exemplar.contrast .exemplar-criterion { color: var(--red); background: var(--red-bg); border-color: var(--red-border); }
+.exemplar.cautionary { border-left-color: var(--gold); }
+.exemplar.cautionary .exemplar-criterion { color: var(--gold); background: rgba(232,197,71,0.10); border-color: rgba(232,197,71,0.30); }
+
+/* ── CHECKLIST ── */
+.checklist { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 1.4rem 1.6rem; }
+.checklist-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed var(--border);
+  cursor: pointer;
+  user-select: none;
+}
+.checklist-row:last-child { border-bottom: none; }
+.checklist-row input { display: none; }
+.checklist-row .box {
+  width: 16px; height: 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
+  background: var(--bg-input);
+  flex-shrink: 0;
+  margin-top: 4px;
+  position: relative;
+  transition: all 0.2s;
+}
+.checklist-row input:checked + .box { background: var(--green); border-color: var(--green); }
+.checklist-row input:checked + .box::after {
+  content: '\2713';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  color: #0a0a0f; font-weight: 700; font-size: 0.75rem;
+}
+.checklist-row .text { font-size: 0.92rem; color: var(--text); line-height: 1.55; }
+.checklist-row .text .term { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: var(--gold); }
+.checklist-row input:checked ~ .text { color: var(--text-muted); text-decoration: line-through; text-decoration-color: var(--text-muted); }
+
+/* ── SECTION INTRO ── */
+.section-intro { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 1.2rem 1.4rem; margin-bottom: 1.4rem; }
+.section-intro p { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 0.6rem; font-weight: 300; }
+.section-intro p:last-child { margin-bottom: 0; }
+.section-intro strong { color: var(--text); font-weight: 600; }
+.criterion-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.6rem; margin-top: 0.9rem; }
+.criterion-pill {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.55rem 0.7rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  text-align: center;
+}
+.criterion-pill strong {
+  display: block;
+  color: var(--gold);
+  font-size: 0.95rem;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 0.15rem;
+  letter-spacing: 0;
+}
+
+/* ── CHAIN DIAGRAM ── */
+.chain { display: flex; align-items: stretch; gap: 0.5rem; flex-wrap: wrap; margin: 1.2rem 0; }
+.chain-step {
+  flex: 1;
+  min-width: 150px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 0.9rem 1rem;
+}
+.chain-step .n {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 0.35rem;
+}
+.chain-step .t { font-size: 0.88rem; color: var(--text); line-height: 1.5; }
+.chain-step.miss { border-color: var(--red-border); background: var(--red-bg); }
+.chain-step.miss .n { color: var(--red); }
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  border-top: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 600px) {
+  .hero { padding: 2.5rem 1.2rem 2rem; }
+  .main { padding: 1.8rem 1.2rem 3rem; }
+  .priority { grid-template-columns: 1fr; }
+  .priority-num { grid-row: auto; font-size: 1.6rem; }
+  .priority-check { grid-column: 1 / 2; }
+  .message { padding: 1.4rem 1.3rem 1.3rem; }
+  .acc-head { padding: 1rem 1.1rem; }
+  .acc-body-inner { padding: 0 1.1rem 1.1rem; padding-top: 1rem; }
+  .exemplar { padding: 1.1rem 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LOGIN OVERLAY
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <div class="login-label">Year 12 ATAR &middot; Media Production &amp; Analysis</div>
+    <div class="login-title">Revision Hub</div>
+    <p class="login-sub">Enter the credentials provided by Mr&nbsp;Clarke to access your revision resources.</p>
+    <input type="text" class="login-field" id="loginUser" placeholder="Username" autocomplete="off" spellcheck="false">
+    <input type="password" class="login-field" id="loginPass" placeholder="Password" autocomplete="off">
+    <button class="login-btn" id="loginBtn">Enter</button>
+    <div class="login-error hidden" id="loginError">Incorrect username or password. Try again.</div>
+  </div>
+</div>
+
+<div class="site-content" id="siteContent">
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     HERO
+     ════════════════════════════════════════════════════════════════════════ -->
+<header class="hero">
+  <a href="index.html" class="back-link">&larr; Back to Revision Hub</a>
+  <div class="hero-label">Unit 4 &middot; Power and Persuasion &middot; Task 4</div>
+  <h1>Wartime Propaganda &ndash; <span class="em">Short Responses</span></h1>
+  <p class="hero-sub">Your journal entry marked and moderated. One diagnosis, four fixes, and the sentences from your own cohort that show what the top band actually looks like.</p>
+  <div class="hero-meta">Formative &middot; 18 marks &middot; Year 12 ATAR MPA &middot; Sacred Heart College</div>
+</header>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     MESSAGE FROM MR CLARKE
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="message" id="message" style="max-width:800px;margin:2rem auto 0;">
+  <div class="message-label">A message from Mr Clarke</div>
+  <h2>This one was formative &ndash; which is exactly why it is worth reading carefully.</h2>
+  <p>This task does not look like an exam question, and it will not appear in this form in November. Four short responses climbing from 2 marks to 8, ten posters on a single sheet, one lesson to write it &ndash; that is a diagnostic, not a rehearsal. So do not read your mark as a prediction of anything.</p>
+  <p>Read it instead as a very clean X-ray of one specific skill: <strong>can you explain how persuasion actually works?</strong> Strip away the film knowledge, the theory, the essay structure, and that is all this task tested. It is also the single thing every Unit 4 question &ndash; and the Bowling for Columbine essay coming next &ndash; is built on top of.</p>
+  <p>The good news is that as a cohort you can already <em>see</em> the persuasion. You spotted fear, transfer, euphemism and bandwagon accurately and you found real evidence for them. What most of you have not yet built is the habit of explaining the <em>process</em> in between. That is a fixable habit, not a talent, and this page is about how to fix it.</p>
+  <p class="signoff">&mdash; Mr Clarke</p>
+</div>
+
+<!-- Sticky quick-jump nav -->
+<nav class="quick-nav" aria-label="Quick navigation">
+  <div class="quick-nav-inner">
+    <a href="#diagnosis">The diagnosis</a>
+    <a href="#fixes">Four fixes</a>
+    <a href="#questions">Question by question</a>
+    <a href="#exemplars">Exemplar bank</a>
+    <a href="#toolkit">Sentence toolkit</a>
+    <a href="#repertoire">Technique repertoire</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       PART 1 — THE DIAGNOSIS
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="part" id="diagnosis">
+    <div class="part-label">Part 1</div>
+    <h2 class="part-title">The diagnosis &ndash; the missing middle</h2>
+    <p class="part-intro">Almost every mark lost on this task, across every question, comes back to one habit. You name what is in the poster, then you state what the audience feels &ndash; and you leave out the step in between that explains why one produces the other.</p>
+
+    <div class="chain">
+      <div class="chain-step">
+        <span class="n">Step 1 &middot; you did this</span>
+        <span class="t">Name the technique and quote the evidence. <em>&ldquo;Poster 7 uses fear &ndash; the caricatures loom over a burning forest.&rdquo;</em></span>
+      </div>
+      <div class="chain-step miss">
+        <span class="n">Step 2 &middot; the missing middle</span>
+        <span class="t">Explain the <strong>process</strong>. Why does that image do anything to anyone? What does it make the viewer think, assume or fear?</span>
+      </div>
+      <div class="chain-step">
+        <span class="n">Step 3 &middot; you did this</span>
+        <span class="t">State the outcome. <em>&ldquo;This creates fear and encourages hate towards Germany and Japan.&rdquo;</em></span>
+      </div>
+    </div>
+
+    <div class="callout pitfall">
+      <span class="callout-label">What assertion sounds like</span>
+      <p>These are all real sentences from this cohort&rsquo;s papers. Every one of them jumps from evidence straight to outcome:</p>
+      <p><em>&ldquo;This creates fear.&rdquo;</em> &nbsp;&middot;&nbsp; <em>&ldquo;The swastika is a key symbol used to revive feelings of patriotism.&rdquo;</em> &nbsp;&middot;&nbsp; <em>&ldquo;This simple yet effective slogan might make the viewer evoke patriotism.&rdquo;</em> &nbsp;&middot;&nbsp; <em>&ldquo;The depiction of flags and military attire persuades audiences to believe the Nazi regime is superior.&rdquo;</em></p>
+      <p>Each one is <strong>true</strong>. None of them is <strong>analysis</strong>. A marker cannot award the explanation marks for a claim that the poster simply works.</p>
+    </div>
+
+    <div class="callout win">
+      <span class="callout-label">What the process sounds like</span>
+      <p>Also from this cohort. Notice that each one has a middle:</p>
+      <p><em>&ldquo;The intentional selection of softer words like &lsquo;stop him&rsquo; instead of &lsquo;kill him&rsquo; &hellip; persuades the audience that atrocities committed in war are minimal and necessary.&rdquo;</em></p>
+      <p><em>&ldquo;When a group is displayed as a vast majority, it is more likely to cause the viewer to question the righteousness of their own belief, in return for a sense of belonging.&rdquo;</em></p>
+      <p>Softer word &rarr; killing reframed as routine work &rarr; moral resistance drops. Crowd &rarr; conformity pressure &rarr; belief traded for belonging. <strong>That is the middle.</strong></p>
+    </div>
+
+    <div class="callout note">
+      <span class="callout-label">Why this matters more than the mark</span>
+      <p>There is a second finding underneath the first. <strong>Almost nobody evaluated.</strong> Q4 asked you to evaluate, and across the whole cohort no response weighed one technique against another, considered an audience the poster might fail on, or qualified a claim.</p>
+      <p>Those two findings are the same finding. If you cannot say <em>how</em> a technique works, you have nothing to weigh when asked <em>how well</em> it works. Fix the middle and evaluation becomes available to you. Skip it and your judgements will float free of the evidence.</p>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       PART 2 — FOUR FIXES
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="part" id="fixes">
+    <div class="part-label">Part 2</div>
+    <h2 class="part-title">Four fixes, in order of value</h2>
+    <p class="part-intro">Roughly ordered by how many marks each one cost the cohort. Tick each one when you have started working on it &ndash; the tracker remembers your progress on this device.</p>
+
+    <div class="tracker">
+      <div class="tracker-label">Working on</div>
+      <div class="tracker-count"><span id="priorityCount">0</span> / 4</div>
+      <div class="tracker-bar"><div class="tracker-fill" id="priorityFill"></div></div>
+      <button class="tracker-reset" id="trackerReset">Reset</button>
+    </div>
+
+    <article class="priority" data-priority="1">
+      <div class="priority-num">1</div>
+      <div>
+        <div class="priority-tags"><span class="tag">Highest value</span><span class="tag evidence">Every question</span></div>
+        <h3>Write the middle of the chain</h3>
+        <p class="priority-obs">The most common single fault in the set. A technique is named, evidence is quoted, and the effect is asserted &ndash; with no account of the mechanism connecting them.</p>
+        <p class="priority-fix">After every observation you make, force yourself to write <strong>&ldquo;which means&hellip;&rdquo;</strong> or <strong>&ldquo;so the viewer&hellip;&rdquo;</strong> before you are allowed to name the emotion. If you cannot complete that sentence, you have not yet understood the technique &ndash; you have only recognised it.</p>
+      </div>
+      <label class="priority-check">
+        <input type="checkbox" data-priority-check="1"><span class="box"></span>
+        <span class="label">I&rsquo;m working on this</span>
+      </label>
+    </article>
+
+    <article class="priority" data-priority="2">
+      <div class="priority-num">2</div>
+      <div>
+        <div class="priority-tags"><span class="tag theory">Terminology</span><span class="tag">Easiest fix</span></div>
+        <h3>Name the technique from the repertoire</h3>
+        <p class="priority-obs">Three responses built a whole answer on something that is not a propaganda technique &ndash; &ldquo;call to action&rdquo;, &ldquo;direct address&rdquo;, &ldquo;mobilisation in a crisis&rdquo;. In every case the persuasion had been identified correctly and simply given the wrong label.</p>
+        <p class="priority-fix">&ldquo;Direct address&rdquo; is a mode of address. &ldquo;Call to action&rdquo; describes what a poster <em>asks for</em>, not how it persuades. The techniques you needed were sitting on your sheet: <strong>fear</strong> and <strong>selection</strong> would each have earned the mark. Learn the eight main techniques and the six guidelines by name &ndash; there is a checklist at the bottom of this page.</p>
+      </div>
+      <label class="priority-check">
+        <input type="checkbox" data-priority-check="2"><span class="box"></span>
+        <span class="label">I&rsquo;m working on this</span>
+      </label>
+    </article>
+
+    <article class="priority" data-priority="3">
+      <div class="priority-num">3</div>
+      <div>
+        <div class="priority-tags"><span class="tag">Evaluate &middot; 8 marks</span><span class="tag">Biggest ceiling</span></div>
+        <h3>Push into judgement</h3>
+        <p class="priority-obs">Q4 asked you to evaluate. No response in the cohort reached full marks on that criterion. Explaining what a technique does is analysis; the question wanted you to go a step further.</p>
+        <p class="priority-fix">An evaluation needs three moves: a <strong>judgement</strong> (&ldquo;the fear appeal does more of the work than the assertion&rdquo;), a <strong>reason</strong> grounded in the poster, and a <strong>limit</strong> (&ldquo;though for a viewer already committed to the war it adds little&rdquo;). Watch for the giveaway &ndash; if your paragraph only says what happens to &ldquo;the audience&rdquo;, you are still in analysis.</p>
+      </div>
+      <label class="priority-check">
+        <input type="checkbox" data-priority-check="3"><span class="box"></span>
+        <span class="label">I&rsquo;m working on this</span>
+      </label>
+    </article>
+
+    <article class="priority" data-priority="4">
+      <div class="priority-num">4</div>
+      <div>
+        <div class="priority-tags"><span class="tag struct">Structural</span><span class="tag">Cheap marks</span></div>
+        <h3>Answer all of it, and read the limits</h3>
+        <p class="priority-obs">One paper left Q4 entirely blank and another left Q3 blank &ndash; between them, twelve marks unattempted. Two more responses stopped mid-question or collapsed into dot points. Four papers referenced five or six posters when the task said a maximum of four.</p>
+        <p class="priority-fix">Q4 alone is worth 8 of the 18 marks &ndash; more than Q1 and Q2 combined. Budget for it before you polish anything else, and if time is short, write four rough sentences rather than none. And take the instruction line seriously: <strong>a maximum of four posters</strong> is part of the task, not a suggestion.</p>
+      </div>
+      <label class="priority-check">
+        <input type="checkbox" data-priority-check="4"><span class="box"></span>
+        <span class="label">I&rsquo;m working on this</span>
+      </label>
+    </article>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       PART 3 — QUESTION BY QUESTION
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="part" id="questions">
+    <div class="part-label">Part 3</div>
+    <h2 class="part-title">Question by question</h2>
+    <p class="part-intro">Expand any question to see what it was really asking, what the strongest responses did, and where the marks went. Cohort averages are shown against each one.</p>
+
+    <div class="section-intro">
+      <p><strong>How the task was built:</strong> the mark weighting tells you how to spend your time. Q4 is worth as much as the other three put together.</p>
+      <div class="criterion-grid">
+        <div class="criterion-pill"><strong>2</strong>Q1 &middot; Identify</div>
+        <div class="criterion-pill"><strong>4</strong>Q2 &middot; Explain</div>
+        <div class="criterion-pill"><strong>4</strong>Q3 &middot; Contrast</div>
+        <div class="criterion-pill"><strong>8</strong>Q4 &middot; Evaluate</div>
+      </div>
+      <p style="margin-top:0.9rem;">Cohort mean overall: <strong>13.6 / 18</strong>. The spread was wide &ndash; from 7 to 17 &ndash; and almost all of that spread came from Q4.</p>
+    </div>
+
+    <div class="controls">
+      <button class="ctrl-btn" data-expand="q">Expand all</button>
+      <button class="ctrl-btn" data-collapse="q">Collapse all</button>
+    </div>
+
+    <!-- Q1 -->
+    <article class="accordion" data-group="q">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Question 1 &middot; cohort average 1.8 / 2</div>
+          <div class="acc-title">Identify the value, attitude or belief the creators are trying to alter</div>
+        </div>
+        <div class="acc-marks">2 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <div class="q-stem">Identify the value, attitude or belief the creators of two posters are trying to alter. (2 marks)</div>
+        <h4>What the question asks</h4>
+        <p>One mark per poster. The trap is the word <em>alter</em>. You are not being asked what the poster shows, what it asks for, or what side it is on &ndash; you are being asked what the creator wants to change <strong>inside the viewer&rsquo;s head</strong>. A value, an attitude or a belief. Name it as one.</p>
+        <h4>What the strongest responses did</h4>
+        <p>The best answers went past the slogan to the belief underneath it, and some went one step further to what the belief was used to justify. One response read &ldquo;Long live Germany&rdquo; as a belief in Aryan racial superiority and then linked that belief to expansionism. Another identified that poster 6 wants a viewer to place a pacifist desire for peace <em>second</em>, behind a &ldquo;brief and necessary job&rdquo; &ndash; that is a value being displaced, precisely stated.</p>
+        <h4>Where marks were lost</h4>
+        <div class="callout pitfall">
+          <span class="callout-label">The one slip</span>
+          <p>Stating the poster&rsquo;s position instead of the audience&rsquo;s. &ldquo;Source nine is anti-Nazi&rdquo; tells a marker where the poster stands; it does not say what the creator wants the viewer to start or stop believing. Same for answers that only restated a slogan.</p>
+          <p>Also: a single blended sentence covering both posters cannot earn both marks. Write two sentences, one per poster.</p>
+        </div>
+      </div></div>
+    </article>
+
+    <!-- Q2 -->
+    <article class="accordion" data-group="q">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Question 2 &middot; cohort average 3.6 / 4</div>
+          <div class="acc-title">Explain how two posters used the same propaganda technique</div>
+        </div>
+        <div class="acc-marks">4 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <div class="q-stem">Explain how two posters have employed the same propaganda technique to influence their audience. (4 marks)</div>
+        <h4>What the question asks</h4>
+        <p>Four separable things: <strong>name</strong> one technique common to both, <strong>evidence it in poster A</strong>, <strong>evidence it in poster B</strong>, and <strong>explain the effect on the audience</strong>. Miss any one and you cap yourself at three.</p>
+        <h4>What the strongest responses did</h4>
+        <p>The cohort handled this one securely. Fear was the dominant choice and was generally well evidenced. One response defined transfer properly before applying it, then tracked it through the Nazi flag, the eagle and Hitler&rsquo;s stature before pivoting across the world to Uncle Sam&rsquo;s red, white and blue &ndash; and made the mechanism explicit, that symbols which alone &ldquo;may mean a multitude of things&rdquo; are funnelled back into a single feeling. Another read the two shadowy figures as a &ldquo;common enemy&rdquo; and argued that externalising a human into an enemy diminishes the immorality of killing.</p>
+        <h4>Where marks were lost</h4>
+        <div class="callout pitfall">
+          <span class="callout-label">Terminology, not analysis</span>
+          <p>Every mark lost on this question was the naming mark, and every one of those was the same mistake: the right observation with the wrong label. &ldquo;Call to action&rdquo;, &ldquo;direct address&rdquo; and &ldquo;mobilisation in a crisis&rdquo; are not propaganda techniques.</p>
+          <p>Also watch evidence thinness. Quoting a single pronoun &ndash; &ldquo;him&rdquo; &ndash; is not enough to evidence a technique in a poster.</p>
+        </div>
+      </div></div>
+    </article>
+
+    <!-- Q3 -->
+    <article class="accordion" data-group="q">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Question 3 &middot; cohort average 3.3 / 4</div>
+          <div class="acc-title">Contrast the use of symbolic codes in two posters</div>
+        </div>
+        <div class="acc-marks">4 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <div class="q-stem">Contrast the use of symbolic codes in two posters. (4 marks)</div>
+        <h4>What the question asks</h4>
+        <p>Symbolic codes only &ndash; setting, costume, props, colour, gesture, facial expression, iconography. The command word is <strong>contrast</strong>, and it carries its own mark. Describing two posters side by side is not contrasting them; you have to name the difference and say what it does.</p>
+        <h4>What the strongest responses did</h4>
+        <p>This produced the two best pieces of writing in the set. One response tracked a single symbol &ndash; the swastika &ndash; across two posters and argued it appeared in &ldquo;opposing value and quantity&rdquo;: concealed once among the reds of an American poster because it is an offensive symbol on American soil, then multiplied across dozens of high-contrast flags on a German street. Same symbol, opposite deployment.</p>
+        <p>Another pushed the contrast up a level, distinguishing not just two symbols but two <em>kinds</em> of symbol: Uncle Sam a fictional character who stands in for the people, Hitler a real man who became a symbol &ndash; and landed it on the emotions each targets, hope against resolve.</p>
+        <div class="callout win">
+          <span class="callout-label">The move worth stealing</span>
+          <p>Both of those answers found a <strong>shared axis</strong> and then split it. Same symbol, opposite quantity. Same purpose, opposite emotion. That structure builds a contrast automatically &ndash; and it is far stronger than &ldquo;poster A does this, poster B does that.&rdquo;</p>
+        </div>
+        <h4>Where marks were lost</h4>
+        <div class="callout pitfall">
+          <span class="callout-label">Running out of road</span>
+          <p>The largest single loss on this question was an answer that analysed one poster in rich detail, then stopped &ndash; the second poster never arrived and no contrast was drawn. If time is tight, <strong>write the contrast sentence first</strong> and hang your evidence off it.</p>
+          <p>One paper did not attempt this question at all. Four marks for a rough attempt is always worth taking.</p>
+        </div>
+      </div></div>
+    </article>
+
+    <!-- Q4 -->
+    <article class="accordion" data-group="q">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Question 4 &middot; cohort average 4.9 / 8 &middot; where the spread came from</div>
+          <div class="acc-title">Detailed analysis of one poster, evaluating techniques and codes</div>
+        </div>
+        <div class="acc-marks">8 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <div class="q-stem">Provide a detailed analysis of one poster, evaluating the creator&rsquo;s use of two propaganda techniques and two typical media codes to persuade the audience to change their values, attitudes, beliefs or behaviour. (8 marks)</div>
+        <h4>What the question asks</h4>
+        <p>Count the required parts: <strong>two techniques</strong>, <strong>two media codes</strong>, an <strong>evaluation</strong>, and an explicit link to the <strong>value, attitude, belief or behaviour</strong> being targeted. Four things, and a plan that gives each of them a share of your time.</p>
+        <h4>What the strongest responses did</h4>
+        <p>The best Q4 answers explained the psychology rather than the poster. One argued that bandwagon works by appealing to &ldquo;the innate human desire to conform and find safety in numbers&rdquo;, so that a viewer facing an apparent majority trades the righteousness of their own belief for a sense of belonging. Another read the reduction of soldiering to a &ldquo;job&rdquo; as concealing the reality of the role in order to lower the barrier to enlisting.</p>
+        <p>Note what those two have in common: neither is really about a flag or a slogan. Both are about <strong>what happens inside the viewer</strong>.</p>
+        <h4>Where marks were lost</h4>
+        <div class="callout pitfall">
+          <span class="callout-label">Three ways this question leaked marks</span>
+          <p><strong>1. One technique carried, one abandoned.</strong> Several responses developed their first technique properly and then named a second and left it &ndash; sometimes mid-sentence. Two half-explained techniques score less than you think.</p>
+          <p><strong>2. Codes discussed but never named as codes.</strong> Crowds, flags, slogans, uniforms and lighting appeared in plenty of answers without ever being called composition, colour, symbolic or written codes. If the question names a category, use its vocabulary.</p>
+          <p><strong>3. No evaluation at all.</strong> The most common ceiling. See fix three above.</p>
+        </div>
+        <div class="callout info">
+          <span class="callout-label">Context check</span>
+          <p>Poster 6 &ndash; &ldquo;Stop him and the job&rsquo;s done&rdquo; &ndash; is a Second World War poster depicting a <strong>Japanese</strong> soldier. It was read across the cohort as Vietnamese and as Chinese, and one otherwise excellent answer built its symbolic reading on the star as a communist emblem. If you are not certain of a context, analyse the construction and leave the history out.</p>
+        </div>
+      </div></div>
+    </article>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       PART 4 — EXEMPLAR BANK
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="part" id="exemplars">
+    <div class="part-label">Part 4</div>
+    <h2 class="part-title">Exemplar bank &ndash; sentences from your own cohort</h2>
+    <p class="part-intro">All of these were written in one lesson by people sitting in your class. Filter by what you want to work on, read the sentence, then read the note on what makes it work &ndash; or not.</p>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="mechanism">Mechanism</button>
+      <button class="filter-btn" data-filter="contrast">Contrast</button>
+      <button class="filter-btn" data-filter="identify">Identify</button>
+      <button class="filter-btn" data-filter="warn">Watch out</button>
+    </div>
+
+    <article class="exemplar" data-cat="mechanism">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Mechanism &middot; bandwagon</span>
+        <span class="exemplar-band">Q4</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;The bandwagon technique encourages the viewer to align themselves with the dominantly portrayed view or group by appealing to the <strong>innate human desire to conform and find safety in numbers</strong>. When a group is displayed as a vast majority, it is more likely to cause the viewer to question the righteousness of their own belief, in return for a sense of belonging or social acceptance.&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> this explains the technique, not the poster. Crowd &rarr; conformity pressure &rarr; self-doubt &rarr; belief traded for belonging. Four steps, and the viewer is a person rather than &ldquo;the audience&rdquo;. This is the standard the whole cohort should be aiming at.</div>
+    </article>
+
+    <article class="exemplar" data-cat="mechanism">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Mechanism &middot; euphemism</span>
+        <span class="exemplar-band">Q4</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;The intentional selection of softer words like &lsquo;stop him&rsquo; instead of &lsquo;kill him&rsquo; and &lsquo;job&rsquo;s done&rsquo; instead of &lsquo;killing done&rsquo; is utilised to persuade the audience that <strong>atrocities committed in war are minimal and necessary</strong>.&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> the word choice is not just noticed, it is set against the word that was avoided. Naming the alternative the creator <em>rejected</em> is one of the fastest ways to prove a choice was deliberate.</div>
+    </article>
+
+    <article class="exemplar" data-cat="mechanism">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Mechanism &middot; transfer</span>
+        <span class="exemplar-band">Q2</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;The waving flag of Nazi Germany, the eagle shining down from above, the resilient stature of Hitler himself &ndash; <strong>iconography that on their own may mean a multitude of things</strong> &ndash; ties it back down to patriotism.&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> this response defined transfer before using it, then showed the mechanism &ndash; symbols that are individually vague being funnelled into one feeling. Definition first, application second, is a habit worth keeping for the essay.</div>
+    </article>
+
+    <article class="exemplar" data-cat="contrast">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Contrast &middot; symbolic codes</span>
+        <span class="exemplar-band">Q3</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;A symbol shared between the posters is the swastika &hellip; Poster 7 uses it once, subtly, along the hat of a crudely depicted German &hellip; concealed in the mix of reds, as it&rsquo;s an offensive symbol in American territory. <strong>Sharing this symbol but in opposing value and quantity</strong> is the pro-Nazi poster 10, proudly displaying swastikas on Hitler&rsquo;s uniform as well as dozens of flags.&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> one symbol, two deployments. Finding a shared axis and then splitting it generates the contrast for you &ndash; and the reasoning about <em>why</em> it is concealed on American soil is genuine contextual analysis.</div>
+    </article>
+
+    <article class="exemplar" data-cat="contrast">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Contrast &middot; kinds of symbol</span>
+        <span class="exemplar-band">Q3</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;Whilst Hitler was a real person and the actual leader of Nazi Germany, now also a symbol to inspire his own people, <strong>Uncle Sam is a fictional character</strong> &hellip; instead of representing a leader he represents the people &hellip; whilst poster 10 is hopeful &hellip; poster 2 is more serious &hellip; evoking resolve rather than hope.&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> the contrast is pushed to a second level. Not just &ldquo;these two symbols differ&rdquo; but &ldquo;these are different <em>types</em> of symbol, and so they target different emotions.&rdquo; That is what lifts a contrast into the top band.</div>
+    </article>
+
+    <article class="exemplar" data-cat="identify">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Identify &middot; belief and consequence</span>
+        <span class="exemplar-band">Q1</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;&lsquo;Long live Germany&rsquo; emphasises the belief that &lsquo;pure Germans&rsquo;, also known as the Aryan race, is far more superior than any other race or religion; therefore they feel encouraged to dominate anyone deemed less superior, <strong>which was achieved through expansionism</strong>.&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> slogan &rarr; belief &rarr; what the belief was used to justify. A two-mark question does not need this much, but the habit of chasing an idea to its consequence is exactly what the eight-mark questions reward.</div>
+    </article>
+
+    <article class="exemplar cautionary" data-cat="warn">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Watch out &middot; assertion</span>
+        <span class="exemplar-band">Q4</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;This <strong>simple yet effective</strong> slogan might make the viewer evoke patriotism as a value and therefore forcing them to consider or join the Nazi Party.&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>What is missing:</strong> why does a vague, agreeable phrase work? Glittering generalities function precisely <em>because</em> a word like &ldquo;Germany&rdquo; means something slightly different to every person reading it, so everyone fills it with their own version. Say that, and the same sentence earns its marks.</div>
+    </article>
+
+    <article class="exemplar contrast" data-cat="warn">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Watch out &middot; wrong label</span>
+        <span class="exemplar-band">Q2</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;Both posters emphasise a <strong>&lsquo;call to action&rsquo;</strong>. This technique employs significant codes and symbols which aim to persuade an audience to think or act in a certain way.&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>What is missing:</strong> a real technique. The observation underneath is sound &ndash; and the same response went on to explain how &ldquo;I want you&rdquo; and &ldquo;Men!&rdquo; create a personalised responsibility, which is good work. It just needed a name from the sheet attached to it.</div>
+    </article>
+
+    <article class="exemplar contrast" data-cat="warn">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Watch out &middot; position, not belief</span>
+        <span class="exemplar-band">Q1</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;Source nine is <strong>anti-Nazi</strong>.&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>What is missing:</strong> the audience. This says where the poster stands, not what it wants a viewer to start or stop believing. One extra clause &ndash; &ldquo;&hellip; and works to replace any sense of shared humanity with disgust&rdquo; &ndash; turns it into an answer.</div>
+    </article>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       PART 5 — SENTENCE TOOLKIT
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="part" id="toolkit">
+    <div class="part-label">Part 5</div>
+    <h2 class="part-title">Sentence toolkit</h2>
+    <p class="part-intro">Two patterns. Learn them, use them until they stop feeling like scaffolding, then discard the scaffolding.</p>
+
+    <div class="callout info">
+      <span class="callout-label">Pattern 1 &middot; the mechanism sentence</span>
+      <p>The creator uses <strong>[technique]</strong>, seen in <strong>[specific evidence]</strong>, which works by <strong>[the process &ndash; what it makes the viewer assume, fear, want or identify with]</strong>, so that the viewer <strong>[the shift in value, attitude, belief or behaviour]</strong>.</p>
+      <p style="color:var(--text-dim);font-size:0.88rem;">The third clause is the one you have been leaving out. It is also the one carrying the marks.</p>
+    </div>
+
+    <div class="callout note">
+      <span class="callout-label">Pattern 2 &middot; the evaluation sentence</span>
+      <p><strong>Judgement:</strong> Of the two, the fear appeal does more of the persuasive work &hellip;</p>
+      <p><strong>Reason:</strong> &hellip; because it operates instantly through the image, before the viewer has read a word, whereas the assertion only lands once the slogan has been processed &hellip;</p>
+      <p><strong>Limit:</strong> &hellip; though for a viewer already committed to enlisting, the fear appeal adds little and the assertion&rsquo;s promise of a quick, finished &ldquo;job&rdquo; is the more useful reassurance.</p>
+      <p style="color:var(--text-dim);font-size:0.88rem;">Judgement, reason, limit. If your paragraph has no limit in it, you have probably not evaluated.</p>
+    </div>
+
+    <div class="callout win">
+      <span class="callout-label">Two habits from the top of this cohort</span>
+      <p><strong>Name the road not taken.</strong> &ldquo;&lsquo;Stop him&rsquo; instead of &lsquo;kill him&rsquo;&rdquo; proves the choice was deliberate. Ask yourself what the creator could have done and did not.</p>
+      <p><strong>Find a shared axis, then split it.</strong> For any contrast question, look for the one thing both texts have in common and show how each uses it differently. Same symbol, opposite quantity. Same goal, opposite emotion.</p>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       PART 6 — TECHNIQUE REPERTOIRE
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="part" id="repertoire">
+    <div class="part-label">Part 6</div>
+    <h2 class="part-title">Technique repertoire &ndash; know these by name</h2>
+    <p class="part-intro">Straight from your propaganda techniques sheet. You do not need to memorise definitions word for word, but you do need to be able to name the right one under time pressure and say how it works. Tick each one you could explain to someone else right now.</p>
+
+    <div class="checklist">
+      <label class="checklist-row"><input type="checkbox" data-checklist="1"><span class="box"></span><span class="text"><span class="term">Bandwagon</span> &ndash; everyone is doing this, so should you. Works on the fear of being left out.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="2"><span class="box"></span><span class="text"><span class="term">Testimonial</span> &ndash; a respected or famous figure lends their credibility to a cause.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="3"><span class="box"></span><span class="text"><span class="term">Plain folks</span> &ndash; the leader or cause is made to look ordinary, grassroots, one of us.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="4"><span class="box"></span><span class="text"><span class="term">Transfer</span> &ndash; borrowing the feeling attached to a respected symbol and attaching it to something else.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="5"><span class="box"></span><span class="text"><span class="term">Fear</span> &ndash; present a dreaded outcome, then supply the behaviour that avoids it.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="6"><span class="box"></span><span class="text"><span class="term">Glittering generalities</span> &ndash; a virtue word everyone approves of but nobody defines the same way.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="7"><span class="box"></span><span class="text"><span class="term">Name-calling</span> &ndash; tying a person or cause to a widely disliked image. The inverse of glittering generalities.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="8"><span class="box"></span><span class="text"><span class="term">Logical fallacy</span> &ndash; true premises, twisted conclusion.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="9"><span class="box"></span><span class="text"><span class="term">Euphemism</span> &ndash; softer wording that shrinks the moral weight of what is being described.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="10"><span class="box"></span><span class="text"><span class="term">Rewards</span> &ndash; the benefit promised in exchange for compliance.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="11"><span class="box"></span><span class="text"><span class="term">Pinpointing the enemy</span> &ndash; naming an enemy, real or invented, to unify a group and direct its aggression outwards.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="12"><span class="box"></span><span class="text"><span class="term">Assertion</span> &ndash; bold statements made in place of argument. Rarely defends the case, simply declares it.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="13"><span class="box"></span><span class="text"><span class="term">Selection</span> &ndash; choosing only the facts that suit the purpose, and omitting the rest.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="14"><span class="box"></span><span class="text"><span class="term">Repetition</span> &ndash; say it often enough and it starts to feel true.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="15"><span class="box"></span><span class="text"><span class="term">Lying</span> and <span class="term">rhetorical questions</span> &ndash; the two remaining guidelines. Know what they are before you reach for them.</span></label>
+    </div>
+
+    <div class="callout note" style="margin-top:1.4rem;">
+      <span class="callout-label">And the codes, while you are here</span>
+      <p><strong>Technical codes</strong> &ndash; framing, camera angle, composition, lighting, focus. <strong>Symbolic codes</strong> &ndash; colour, setting, costume, props, gesture, facial expression, iconography. <strong>Written codes</strong> &ndash; slogan, typography, font size, capitalisation, language choice.</p>
+      <p>Q4 asked for two typical media codes and several of you supplied them without ever using those words. Name the category. It costs nothing and it is worth marks.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  Year 12 ATAR MPA &middot; Sacred Heart College &middot; 2026<br>
+  <span style="color:#5a5a6e;">Resources developed by David Clarke &middot; Media Production &amp; Analysis</span>
+</footer>
+
+</div><!-- end .site-content -->
+
+<!-- ══════════════════════════════════════════ -->
+<!-- AUTH SCRIPT – SHA-256 hashed credentials  -->
+<!-- ══════════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  const VALID_USER_HASH = 'd5506c3f045a27380f2508acbd828833f4d247e7aefa5ba08555169df92bcebf';
+  const VALID_PASS_HASH = '410caa78609084c279d26bc9185da6d2c3c793d9948e1361b7c31415f930cbb7';
+  const STORAGE_KEY = 'mpa_auth';
+
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  const overlay = document.getElementById('loginOverlay');
+  const content = document.getElementById('siteContent');
+  const userIn  = document.getElementById('loginUser');
+  const passIn  = document.getElementById('loginPass');
+  const btn     = document.getElementById('loginBtn');
+  const errMsg  = document.getElementById('loginError');
+
+  function unlock() {
+    overlay.classList.add('hidden');
+    content.classList.add('visible');
+    localStorage.setItem(STORAGE_KEY, 'true');
+  }
+
+  if (localStorage.getItem(STORAGE_KEY) === 'true') { unlock(); }
+
+  async function attempt() {
+    const userHash = await sha256(userIn.value);
+    const passHash = await sha256(passIn.value);
+    if (userHash === VALID_USER_HASH && passHash === VALID_PASS_HASH) {
+      unlock();
+    } else {
+      errMsg.classList.remove('hidden');
+      passIn.value = '';
+      passIn.focus();
+    }
+  }
+
+  btn.addEventListener('click', attempt);
+  userIn.addEventListener('keydown', e => { if (e.key === 'Enter') passIn.focus(); });
+  passIn.addEventListener('keydown', e => { if (e.key === 'Enter') attempt(); });
+  userIn.addEventListener('input', () => errMsg.classList.add('hidden'));
+  passIn.addEventListener('input', () => errMsg.classList.add('hidden'));
+})();
+</script>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PAGE INTERACTIONS                         -->
+<!-- ══════════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── Accordions ── */
+  function setOpen(acc, open) {
+    const body = acc.querySelector('.acc-body');
+    if (open) {
+      acc.classList.add('open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    } else {
+      acc.classList.remove('open');
+      body.style.maxHeight = '0px';
+    }
+  }
+
+  document.querySelectorAll('.accordion').forEach(acc => {
+    acc.querySelector('.acc-head').addEventListener('click', () => {
+      setOpen(acc, !acc.classList.contains('open'));
+    });
+  });
+
+  document.querySelectorAll('[data-expand]').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.accordion[data-group="' + b.dataset.expand + '"]')
+        .forEach(a => setOpen(a, true));
+    });
+  });
+  document.querySelectorAll('[data-collapse]').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.accordion[data-group="' + b.dataset.collapse + '"]')
+        .forEach(a => setOpen(a, false));
+    });
+  });
+
+  // Keep open accordions correctly sized if the window changes
+  window.addEventListener('resize', () => {
+    document.querySelectorAll('.accordion.open').forEach(acc => {
+      const body = acc.querySelector('.acc-body');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    });
+  });
+
+  /* ── Priority tracker ── */
+  const PRIORITY_KEY = 'mpa_prop_priorities';
+  const pChecks = document.querySelectorAll('[data-priority-check]');
+  const pCount  = document.getElementById('priorityCount');
+  const pFill   = document.getElementById('priorityFill');
+
+  function loadJSON(key) {
+    try { return JSON.parse(localStorage.getItem(key)) || {}; }
+    catch (e) { return {}; }
+  }
+  function saveJSON(key, obj) {
+    try { localStorage.setItem(key, JSON.stringify(obj)); } catch (e) {}
+  }
+
+  function refreshPriorities() {
+    let done = 0;
+    pChecks.forEach(c => {
+      const card = c.closest('.priority');
+      if (c.checked) { done++; card.classList.add('done'); }
+      else { card.classList.remove('done'); }
+    });
+    pCount.textContent = done;
+    pFill.style.width = (done / pChecks.length * 100) + '%';
+  }
+
+  const pState = loadJSON(PRIORITY_KEY);
+  pChecks.forEach(c => {
+    if (pState[c.dataset.priorityCheck]) c.checked = true;
+    c.addEventListener('change', () => {
+      const s = loadJSON(PRIORITY_KEY);
+      s[c.dataset.priorityCheck] = c.checked;
+      saveJSON(PRIORITY_KEY, s);
+      refreshPriorities();
+    });
+  });
+  refreshPriorities();
+
+  document.getElementById('trackerReset').addEventListener('click', () => {
+    pChecks.forEach(c => { c.checked = false; });
+    saveJSON(PRIORITY_KEY, {});
+    refreshPriorities();
+  });
+
+  /* ── Repertoire checklist ── */
+  const LIST_KEY = 'mpa_prop_checklist';
+  const lState = loadJSON(LIST_KEY);
+  document.querySelectorAll('[data-checklist]').forEach(c => {
+    if (lState[c.dataset.checklist]) c.checked = true;
+    c.addEventListener('change', () => {
+      const s = loadJSON(LIST_KEY);
+      s[c.dataset.checklist] = c.checked;
+      saveJSON(LIST_KEY, s);
+    });
+  });
+
+  /* ── Exemplar filter ── */
+  const fBtns = document.querySelectorAll('.filter-btn');
+  const exemplars = document.querySelectorAll('.exemplar[data-cat]');
+  fBtns.forEach(b => {
+    b.addEventListener('click', () => {
+      fBtns.forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      const f = b.dataset.filter;
+      exemplars.forEach(ex => {
+        ex.classList.toggle('hidden', f !== 'all' && ex.dataset.cat !== f);
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

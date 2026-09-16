@@ -1,0 +1,2293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Journal Entry 6 &ndash; Bowling for Columbine / Waltz with Bashir Answer Guide | Year 12 ATAR MPA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #0a0a0f;
+  --bg-card: #12121a;
+  --bg-card-hover: #1a1a26;
+  --bg-input: #1e1e2a;
+  --border: #2a2a3a;
+  --border-glow: #3d5af1;
+  --accent: #5b7ff5;
+  --accent-bright: #7b9aff;
+  --accent-dim: #3d5af1;
+  --gold: #e8c547;
+  --gold-dim: #c4a535;
+  --green: #4caf7d;
+  --green-bg: rgba(76,175,125,0.10);
+  --green-border: rgba(76,175,125,0.35);
+  --red: #e05565;
+  --red-bg: rgba(224,85,101,0.08);
+  --red-border: rgba(224,85,101,0.30);
+  --purple: #c084fc;
+  --purple-bg: rgba(192,132,252,0.10);
+  --purple-border: rgba(192,132,252,0.30);
+  --teal: #3db8a0;
+  --teal-bg: rgba(61,184,160,0.10);
+  --teal-border: rgba(61,184,160,0.32);
+  --text: #e0e0ec;
+  --text-dim: #a0a0b8;
+  --text-muted: #7a7a94;
+  --film-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  --error: #f06565;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: var(--film-grain);
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.35;
+}
+
+/* ── LOGIN OVERLAY ── */
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--bg-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2rem;
+}
+.login-overlay.hidden { display: none; }
+.login-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(232,197,71,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.login-box {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+.login-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.6rem;
+}
+.login-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: #fff;
+  margin-bottom: 0.4rem;
+}
+.login-sub {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  margin-bottom: 1.6rem;
+  font-weight: 300;
+}
+.login-field {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.7rem 0.9rem;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.92rem;
+  border-radius: 4px;
+  margin-bottom: 0.7rem;
+  transition: border-color 0.2s;
+  outline: none;
+}
+.login-field:focus { border-color: var(--gold); }
+.login-btn {
+  width: 100%;
+  background: var(--gold);
+  color: #0a0a0f;
+  border: none;
+  padding: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 0.3rem;
+  transition: background 0.2s, transform 0.1s;
+}
+.login-btn:hover { background: #f5d76a; }
+.login-btn:active { transform: translateY(1px); }
+.login-error {
+  margin-top: 0.8rem;
+  font-size: 0.78rem;
+  color: var(--error);
+  min-height: 1.1rem;
+  transition: opacity 0.3s;
+}
+.login-error.hidden { opacity: 0; }
+
+.site-content { display: none; }
+.site-content.visible { display: block; }
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  text-align: center;
+  padding: 3.5rem 1.5rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(232,197,71,0.05) 0%, transparent 100%);
+}
+.back-link {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-bottom: 1.6rem;
+  transition: color 0.2s;
+}
+.back-link:hover { color: var(--gold); }
+.hero-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.9rem;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.7rem, 4.5vw, 2.6rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+.hero h1 .em { font-style: italic; color: var(--gold); font-weight: 400; }
+.hero-sub {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  max-width: 660px;
+  margin: 0 auto 0.5rem;
+  font-weight: 300;
+}
+.hero-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin-top: 0.9rem;
+}
+
+/* ── QUICK NAV ── */
+.quick-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,10,15,0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.7rem 1.5rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+  display: flex;
+  justify-content: center;
+}
+.quick-nav::-webkit-scrollbar { display: none; }
+.quick-nav-inner { display: inline-flex; gap: 0.4rem; align-items: center; }
+.quick-nav a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  transition: all 0.2s;
+}
+.quick-nav a:hover {
+  color: var(--gold);
+  border-color: rgba(232,197,71,0.4);
+  background: rgba(232,197,71,0.08);
+}
+
+/* ── LAYOUT ── */
+.main { max-width: 920px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+.part { margin-bottom: 3.2rem; scroll-margin-top: 80px; }
+.part-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.6rem;
+}
+.part-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem;
+  color: #fff;
+  margin-bottom: 0.4rem;
+  line-height: 1.25;
+}
+.part-intro {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  margin-bottom: 1.8rem;
+  font-weight: 300;
+  max-width: 720px;
+}
+.sub-head {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: #fff;
+  margin: 2rem 0 0.6rem;
+  line-height: 1.3;
+}
+
+/* ── CALLOUTS ── */
+.callout {
+  border-left: 3px solid;
+  padding: 1.1rem 1.3rem;
+  border-radius: 0 4px 4px 0;
+  margin: 1.2rem 0;
+  font-size: 0.93rem;
+}
+.callout p + p { margin-top: 0.7rem; }
+.callout-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.callout.info { background: rgba(91,127,245,0.07); border-color: var(--accent); }
+.callout.info .callout-label { color: var(--accent-bright); }
+.callout.pitfall { background: var(--red-bg); border-color: var(--red); }
+.callout.pitfall .callout-label { color: var(--red); }
+.callout.win { background: var(--green-bg); border-color: var(--green); }
+.callout.win .callout-label { color: var(--green); }
+.callout.note { background: var(--purple-bg); border-color: var(--purple); }
+.callout.note .callout-label { color: var(--purple); }
+.callout.teal { background: var(--teal-bg); border-color: var(--teal); }
+.callout.teal .callout-label { color: var(--teal); }
+
+/* ── MESSAGE ── */
+.message {
+  background: linear-gradient(180deg, rgba(232,197,71,0.10) 0%, rgba(232,197,71,0.03) 100%);
+  border: 1px solid rgba(232,197,71,0.28);
+  border-radius: 6px;
+  padding: 1.8rem 1.8rem 1.6rem;
+  margin-bottom: 3rem;
+  position: relative;
+}
+.message-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.7rem;
+}
+.message h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  color: #fff;
+  margin-bottom: 0.8rem;
+  line-height: 1.3;
+}
+.message p { font-size: 0.95rem; color: var(--text); font-weight: 300; margin-bottom: 0.8rem; }
+.message p:last-child { margin-bottom: 0; }
+.message .signoff {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--gold);
+  margin-top: 1rem;
+}
+
+/* ── HEADLINE STATS ── */
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 0.8rem; margin: 1.4rem 0 1.6rem; }
+.stat {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  text-align: center;
+}
+.stat .big {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+.stat .cap {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+.stat.hot { border-color: rgba(224,85,101,0.35); background: linear-gradient(180deg, var(--red-bg) 0%, var(--bg-card) 100%); }
+.stat.hot .big { color: var(--red); }
+
+/* ── TRACKER ── */
+.tracker {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.1rem 1.3rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.tracker-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+.tracker-count { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); font-weight: 700; }
+.tracker-bar { flex: 1; min-width: 140px; height: 6px; background: var(--bg-input); border-radius: 3px; overflow: hidden; }
+.tracker-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--accent-bright)); border-radius: 3px; width: 0%; transition: width 0.4s ease; }
+.tracker-reset {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.6rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tracker-reset:hover { color: var(--gold); border-color: var(--gold); }
+
+/* ── PRIORITY CARDS ── */
+.priority {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.4rem 1.5rem;
+  margin-bottom: 1rem;
+  transition: border-color 0.25s, background 0.25s;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem 1.2rem;
+  align-items: start;
+}
+.priority.done {
+  background: linear-gradient(180deg, rgba(232,197,71,0.06) 0%, var(--bg-card) 100%);
+  border-color: rgba(232,197,71,0.35);
+}
+.priority-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  grid-row: 1 / 3;
+  opacity: 0.85;
+}
+.priority h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: #fff;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 0.4rem;
+}
+.priority-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.6rem; }
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  background: rgba(232,197,71,0.10);
+  color: var(--gold);
+  border: 1px solid rgba(232,197,71,0.20);
+}
+.tag.struct { background: rgba(91,127,245,0.10); color: var(--accent-bright); border-color: rgba(91,127,245,0.20); }
+.tag.theory { background: rgba(192,132,252,0.10); color: var(--purple); border-color: rgba(192,132,252,0.25); }
+.tag.evidence { background: rgba(76,175,125,0.10); color: var(--green); border-color: rgba(76,175,125,0.25); }
+.priority-obs { color: var(--text-dim); font-size: 0.92rem; font-style: italic; margin-bottom: 0.7rem; font-weight: 300; }
+.priority-fix { color: var(--text); font-size: 0.93rem; }
+.priority-fix + .priority-fix { margin-top: 0.7rem; }
+.priority-check {
+  grid-column: 1 / 3;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+}
+.priority-check input { display: none; }
+.priority-check .box {
+  width: 18px; height: 18px;
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
+  background: var(--bg-input);
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.2s;
+}
+.priority-check input:checked + .box { background: var(--gold); border-color: var(--gold); }
+.priority-check input:checked + .box::after {
+  content: '\2713';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  color: #0a0a0f; font-weight: 700; font-size: 0.85rem;
+}
+.priority-check .label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--text-dim); }
+.priority.done .priority-check .label { color: var(--gold); }
+
+/* ── ACCORDION ── */
+.controls { display: flex; gap: 0.5rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+.ctrl-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 0.45rem 0.8rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.ctrl-btn:hover { color: var(--gold); border-color: rgba(232,197,71,0.4); }
+.accordion {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 0.7rem;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.accordion.open { border-color: rgba(232,197,71,0.35); }
+.acc-head {
+  padding: 1.1rem 1.4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  user-select: none;
+  transition: background 0.2s;
+}
+.acc-head:hover { background: var(--bg-card-hover); }
+.acc-titlewrap { flex: 1; min-width: 0; }
+.acc-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.3rem;
+}
+.acc-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #fff; font-weight: 700; line-height: 1.35; }
+.acc-marks {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  background: rgba(232,197,71,0.12);
+  color: var(--gold);
+  padding: 0.25rem 0.55rem;
+  border-radius: 3px;
+  border: 1px solid rgba(232,197,71,0.2);
+  flex-shrink: 0;
+}
+.acc-chev { width: 14px; height: 14px; flex-shrink: 0; position: relative; transition: transform 0.25s; color: var(--text-muted); }
+.acc-chev::before {
+  content: '';
+  position: absolute; top: 4px; left: 2px;
+  width: 8px; height: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+.accordion.open .acc-chev { transform: rotate(180deg); color: var(--gold); }
+.acc-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+.acc-body-inner { padding: 0 1.4rem 1.4rem; border-top: 1px solid var(--border); padding-top: 1.2rem; }
+.acc-body-inner p { margin-bottom: 0.8rem; font-size: 0.93rem; }
+.acc-body-inner p:last-child { margin-bottom: 0; }
+.acc-body-inner h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 1.4rem 0 0.6rem;
+}
+.acc-body-inner h4:first-child { margin-top: 0; }
+.acc-body-inner ul { margin: 0 0 0.9rem 1.1rem; font-size: 0.93rem; }
+.acc-body-inner li { margin-bottom: 0.45rem; }
+.q-stem {
+  background: var(--bg-input);
+  border-left: 2px solid var(--gold);
+  padding: 0.8rem 1rem;
+  border-radius: 0 4px 4px 0;
+  font-style: italic;
+  color: var(--text);
+  font-size: 0.92rem;
+  margin-bottom: 1rem;
+}
+.q-stem .marks { font-style: normal; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--gold); }
+
+/* ── BAND TABLES ── */
+.band-wrap { overflow-x: auto; margin: 1rem 0 1.2rem; -webkit-overflow-scrolling: touch; }
+table.band {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.87rem;
+  min-width: 460px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+table.band th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.57rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-align: left;
+  padding: 0.65rem 0.9rem;
+  background: var(--bg-input);
+  border-bottom: 1px solid var(--border);
+  font-weight: 500;
+}
+table.band td {
+  padding: 0.65rem 0.9rem;
+  border-bottom: 1px dashed var(--border);
+  color: var(--text-dim);
+  vertical-align: top;
+  line-height: 1.5;
+}
+table.band tr:last-child td { border-bottom: none; }
+table.band td.mk {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--gold);
+  width: 1%;
+  white-space: nowrap;
+  text-align: center;
+}
+table.band td strong { color: var(--text); font-weight: 600; }
+table.band tr.top td { background: rgba(232,197,71,0.06); }
+table.band tr.top td.mk { color: var(--gold); }
+table.band tr.low td.mk { color: var(--text-muted); }
+
+/* ── LADDER COMPARISON ── */
+.ladder { margin: 1.4rem 0; }
+.ladder-row {
+  display: grid;
+  grid-template-columns: 1fr 64px 64px;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.55rem 0.9rem;
+  border-bottom: 1px dashed var(--border);
+  background: var(--bg-card);
+}
+.ladder-row:first-of-type { border-radius: 6px 6px 0 0; }
+.ladder-row:last-of-type { border-bottom: none; border-radius: 0 0 6px 6px; }
+.ladder-head {
+  background: var(--bg-input);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.ladder-head span { text-align: center; }
+.ladder-head span:first-child { text-align: left; }
+.ladder-verb { font-size: 0.93rem; color: var(--text); }
+.ladder-verb em { color: var(--text-muted); font-size: 0.8rem; font-style: normal; display: block; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em; }
+.ladder-mark {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 4px;
+  padding: 0.15rem 0;
+}
+.ladder-mark.a { color: var(--accent-bright); background: rgba(91,127,245,0.10); }
+.ladder-mark.e { color: var(--purple); background: rgba(192,132,252,0.10); }
+.ladder-mark.none { color: var(--text-muted); background: transparent; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; }
+.ladder-note { font-size: 0.88rem; color: var(--text-dim); margin-top: 0.9rem; }
+.ladder-wrap { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+
+/* ── EVIDENCE LEVELS ── */
+.levels { display: grid; gap: 0.8rem; margin: 1.3rem 0; }
+.level {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--red);
+  border-radius: 0 6px 6px 0;
+  padding: 1.2rem 1.4rem;
+}
+.level.two { border-left-color: var(--gold); }
+.level.three { border-left-color: var(--green); background: linear-gradient(180deg, rgba(76,175,125,0.06) 0%, var(--bg-card) 100%); }
+.level-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--red);
+  display: block;
+  margin-bottom: 0.55rem;
+}
+.level.two .level-tag { color: var(--gold); }
+.level.three .level-tag { color: var(--green); }
+.level blockquote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--text);
+  line-height: 1.55;
+  margin: 0 0 0.7rem;
+  border: none;
+  padding: 0;
+}
+.level blockquote strong { color: #fff; font-weight: 700; }
+.level .verdict { font-size: 0.89rem; color: var(--text-dim); }
+.level .verdict strong { color: var(--text); font-weight: 600; }
+
+/* ── STRIKE TEST WIDGET ── */
+.strike-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 1.3rem 1.5rem; margin: 1.2rem 0; }
+.strike-item { padding: 0.85rem 0; border-bottom: 1px dashed var(--border); }
+.strike-item:last-of-type { border-bottom: none; }
+.strike-sentence { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; color: var(--text); line-height: 1.5; }
+.strike-sentence .kw { color: var(--gold); font-weight: 700; transition: all 0.35s; }
+.strike-box.struck .strike-sentence .kw { color: var(--red); text-decoration: line-through; opacity: 0.4; }
+.strike-result {
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+  font-size: 0.89rem;
+  color: var(--text-dim);
+}
+.strike-box.struck .strike-result { max-height: 200px; opacity: 1; margin-top: 0.6rem; }
+.strike-result .left { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text); display: block; margin-bottom: 0.3rem; }
+.strike-result.fail .left { color: var(--red); }
+.strike-result.pass .left { color: var(--green); }
+.strike-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #0a0a0f;
+  background: var(--gold);
+  border: none;
+  padding: 0.55rem 1rem;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-top: 1rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.strike-btn:hover { background: #f5d76a; }
+
+/* ── CONCEPT SORTER ── */
+.sorter { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 1.4rem 1.5rem; margin: 1.3rem 0; }
+.sorter-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.sorter-prompt { font-size: 0.93rem; color: var(--text-dim); }
+.sorter-score { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--gold); white-space: nowrap; }
+.sort-item { padding: 0.9rem 0; border-bottom: 1px dashed var(--border); }
+.sort-item:last-of-type { border-bottom: none; }
+.sort-term { font-family: 'Playfair Display', serif; font-size: 1.02rem; color: #fff; margin-bottom: 0.55rem; }
+.sort-opts { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.sort-opt {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.7rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+.sort-opt:hover:not(:disabled) { color: var(--gold); border-color: rgba(232,197,71,0.45); }
+.sort-opt.correct { background: var(--green); border-color: var(--green); color: #0a0a0f; font-weight: 600; }
+.sort-opt.wrong { background: var(--red-bg); border-color: var(--red); color: var(--red); }
+.sort-opt:disabled { cursor: default; }
+.sort-fb {
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+  font-size: 0.88rem; color: var(--text-dim);
+  border-left: 2px solid var(--green);
+  padding-left: 0.8rem;
+}
+.sort-fb.show { max-height: 220px; opacity: 1; margin-top: 0.7rem; }
+.sorter-reset {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-muted); background: none; border: 1px solid var(--border);
+  padding: 0.4rem 0.7rem; border-radius: 3px; cursor: pointer; margin-top: 1rem; transition: all 0.2s;
+}
+.sorter-reset:hover { color: var(--gold); border-color: var(--gold); }
+
+/* ── READING POSITIONS ── */
+.positions { display: grid; gap: 0.8rem; margin: 1.2rem 0; }
+.position {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.1rem 1.3rem;
+  border-top: 2px solid var(--accent);
+}
+.position.neg { border-top-color: var(--gold); }
+.position.opp { border-top-color: var(--purple); }
+.position-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--accent-bright); display: block; margin-bottom: 0.4rem;
+}
+.position.neg .position-name { color: var(--gold); }
+.position.opp .position-name { color: var(--purple); }
+.position h5 { font-family: 'Playfair Display', serif; font-size: 1.02rem; color: #fff; font-weight: 700; margin-bottom: 0.4rem; }
+.position p { font-size: 0.9rem; color: var(--text-dim); }
+.position .stands-on {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-muted); margin-top: 0.6rem; display: block;
+  padding-top: 0.6rem; border-top: 1px dashed var(--border);
+}
+.position .stands-on b { color: var(--text-dim); font-weight: 500; }
+
+/* ── EXEMPLARS ── */
+.filter-bar { display: flex; gap: 0.4rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.filter-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.85rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn:hover { color: var(--gold); border-color: rgba(232,197,71,0.4); }
+.filter-btn.active { color: #0a0a0f; background: var(--gold); border-color: var(--gold); }
+.exemplar {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--green);
+  border-radius: 0 6px 6px 0;
+  padding: 1.3rem 1.5rem;
+  margin-bottom: 1rem;
+  transition: opacity 0.25s, transform 0.25s;
+}
+.exemplar.hidden { display: none; }
+.exemplar-head { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.7rem; }
+.exemplar-criterion {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--green);
+  background: var(--green-bg);
+  border: 1px solid var(--green-border);
+  padding: 0.22rem 0.55rem;
+  border-radius: 3px;
+}
+.exemplar-band { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--gold); }
+.exemplar-text { text-align: left; margin-bottom: 0.9rem; }
+.exemplar-text blockquote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.02rem;
+  color: var(--text);
+  line-height: 1.55;
+  margin: 0 0 0.7rem;
+}
+.exemplar-text blockquote:last-child { margin-bottom: 0; }
+.exemplar-text blockquote strong { font-weight: 700; color: #fff; font-style: italic; }
+.exemplar-move { background: rgba(0,0,0,0.18); padding: 0.8rem 1rem; border-radius: 4px; font-size: 0.88rem; color: var(--text-dim); }
+.exemplar-move strong { color: var(--text); font-weight: 600; }
+.exemplar.contrast { border-left-color: var(--red); }
+.exemplar.contrast .exemplar-criterion { color: var(--red); background: var(--red-bg); border-color: var(--red-border); }
+.exemplar.cautionary { border-left-color: var(--gold); }
+.exemplar.cautionary .exemplar-criterion { color: var(--gold); background: rgba(232,197,71,0.10); border-color: rgba(232,197,71,0.30); }
+
+/* ── CHECKLIST ── */
+.checklist { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 1.4rem 1.6rem; }
+.checklist + .checklist { margin-top: 1rem; }
+.checklist-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.8rem; display: block;
+}
+.checklist-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed var(--border);
+  cursor: pointer;
+  user-select: none;
+}
+.checklist-row:last-child { border-bottom: none; }
+.checklist-row input { display: none; }
+.checklist-row .box {
+  width: 16px; height: 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
+  background: var(--bg-input);
+  flex-shrink: 0;
+  margin-top: 4px;
+  position: relative;
+  transition: all 0.2s;
+}
+.checklist-row input:checked + .box { background: var(--green); border-color: var(--green); }
+.checklist-row input:checked + .box::after {
+  content: '\2713';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  color: #0a0a0f; font-weight: 700; font-size: 0.75rem;
+}
+.checklist-row .text { font-size: 0.92rem; color: var(--text); line-height: 1.55; }
+.checklist-row .text .term { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: var(--gold); }
+.checklist-row input:checked ~ .text { color: var(--text-muted); text-decoration: line-through; text-decoration-color: var(--text-muted); }
+
+/* ── SECTION INTRO ── */
+.section-intro { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 1.2rem 1.4rem; margin-bottom: 1.4rem; }
+.section-intro p { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 0.6rem; font-weight: 300; }
+.section-intro p:last-child { margin-bottom: 0; }
+.section-intro strong { color: var(--text); font-weight: 600; }
+.criterion-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.6rem; margin-top: 0.9rem; }
+.criterion-pill {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.55rem 0.7rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  text-align: center;
+}
+.criterion-pill.hot { border-color: rgba(224,85,101,0.35); background: var(--red-bg); }
+.criterion-pill.hot strong { color: var(--red); }
+.criterion-pill strong {
+  display: block;
+  color: var(--gold);
+  font-size: 0.95rem;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 0.15rem;
+  letter-spacing: 0;
+}
+
+/* ── CHAIN DIAGRAM ── */
+.chain { display: flex; align-items: stretch; gap: 0.5rem; flex-wrap: wrap; margin: 1.2rem 0; }
+.chain-step {
+  flex: 1;
+  min-width: 150px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 0.9rem 1rem;
+}
+.chain-step .n {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 0.35rem;
+}
+.chain-step .t { font-size: 0.88rem; color: var(--text); line-height: 1.5; }
+.chain-step.miss { border-color: var(--red-border); background: var(--red-bg); }
+.chain-step.miss .n { color: var(--red); }
+
+/* ── FILM BADGE ── */
+.film-badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  background: var(--teal-bg);
+  color: var(--teal);
+  border: 1px solid var(--teal-border);
+  vertical-align: middle;
+}
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  border-top: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+.footer .note { display: block; margin-top: 0.8rem; font-size: 0.6rem; color: #5a5a6e; line-height: 1.8; max-width: 620px; margin-left: auto; margin-right: auto; letter-spacing: 0.06em; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 600px) {
+  .hero { padding: 2.5rem 1.2rem 2rem; }
+  .main { padding: 1.8rem 1.2rem 3rem; }
+  .priority { grid-template-columns: 1fr; }
+  .priority-num { grid-row: auto; font-size: 1.6rem; }
+  .priority-check { grid-column: 1 / 2; }
+  .message { padding: 1.4rem 1.3rem 1.3rem; }
+  .acc-head { padding: 1rem 1.1rem; }
+  .acc-body-inner { padding: 0 1.1rem 1.1rem; padding-top: 1rem; }
+  .exemplar { padding: 1.1rem 1.2rem; }
+  .ladder-row { grid-template-columns: 1fr 48px 48px; padding: 0.5rem 0.7rem; }
+  .ladder-mark { font-size: 1.05rem; }
+  .level { padding: 1.1rem 1.2rem; }
+  .sorter, .strike-box { padding: 1.2rem 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LOGIN OVERLAY
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <div class="login-label">Year 12 ATAR &middot; Media Production &amp; Analysis</div>
+    <div class="login-title">Revision Hub</div>
+    <p class="login-sub">Enter the credentials provided by Mr&nbsp;Clarke to access your revision resources.</p>
+    <input type="text" class="login-field" id="loginUser" placeholder="Username" autocomplete="off" spellcheck="false">
+    <input type="password" class="login-field" id="loginPass" placeholder="Password" autocomplete="off">
+    <button class="login-btn" id="loginBtn">Enter</button>
+    <div class="login-error hidden" id="loginError">Incorrect username or password. Try again.</div>
+  </div>
+</div>
+
+<div class="site-content" id="siteContent">
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     HERO
+     ════════════════════════════════════════════════════════════════════════ -->
+<header class="hero">
+  <a href="index.html" class="back-link">&larr; Back to Revision Hub</a>
+  <div class="hero-label">Unit 4 &middot; Power and Persuasion &middot; Journal Entry 6</div>
+  <h1><em>Bowling for Columbine</em> or <em>Waltz with Bashir</em> &ndash; <span class="em">Answer Guide</span></h1>
+  <p class="hero-sub">Fifty minutes, two questions, four bullets worth 3, 4, 8 and 8 marks. Your responses marked and moderated criterion by criterion against the marking key &ndash; plus the full Question&nbsp;2 route through <em>Waltz with Bashir</em> that nobody took.</p>
+  <div class="hero-meta">In-class response &middot; 23 marks &middot; 9 responses moderated &middot; Sacred Heart College</div>
+</header>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     MESSAGE FROM MR CLARKE
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="message" id="message" style="max-width:800px;margin:2rem auto 0;">
+  <div class="message-label">A message from Mr Clarke</div>
+  <h2>You know these media works well. What went wrong was what you did with what you knew.</h2>
+  <p>Seven of you took Question 1. Two took Question 2. Everything on this page comes out of moderating those nine responses criterion by criterion against the marking key, so every claim here is about work you actually wrote.</p>
+  <p>Here is the single most useful fact to come out of marking this task. <strong>The Analyse and Evaluate bullets carry sixteen of the twenty-three marks, and they accounted for almost nine-tenths of the marks the cohort lost.</strong> Construct and Describe went comparatively well. If you want to move up a grade on the next extended response, nothing else you could work on comes close to the value of those two bullets.</p>
+  <p>The second most useful fact: almost everything that cost marks was a <em>habit</em>, not a knowledge gap. The film knowledge is there. The habits are fixable, they are listed in Part 2, and they are worth more to you between now and November than another rewatch.</p>
+  <p class="signoff">&mdash; Mr Clarke</p>
+</div>
+
+<!-- Sticky quick-jump nav -->
+<nav class="quick-nav" aria-label="Quick navigation">
+  <div class="quick-nav-inner">
+    <a href="#start">Start here</a>
+    <a href="#habits">Four habits</a>
+    <a href="#evidence">Evidence levels</a>
+    <a href="#q1">Question 1</a>
+    <a href="#q2">Question 2</a>
+    <a href="#exemplars">Moves bank</a>
+    <a href="#terminology">Terminology</a>
+    <a href="#checklist">Before you hand it in</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       PART 1 — START HERE
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="part" id="start">
+    <div class="part-label">Part 1</div>
+    <h2 class="part-title">Start here &ndash; where the marks actually went</h2>
+    <p class="part-intro">Before you read anything else on this page, look at how the twenty-three marks are distributed and where the cohort lost them. The two facts do not match, and that mismatch is the whole story of this task.</p>
+
+    <div class="stat-row">
+      <div class="stat"><span class="big">23</span><span class="cap">Marks available<br>3 &middot; 4 &middot; 8 &middot; 8</span></div>
+      <div class="stat hot"><span class="big">16</span><span class="cap">Of those marks sit in<br>Analyse &amp; Evaluate</span></div>
+      <div class="stat hot"><span class="big">~90%</span><span class="cap">Of all marks lost<br>came from those two</span></div>
+      <div class="stat"><span class="big">50</span><span class="cap">Minutes<br>for all four bullets</span></div>
+    </div>
+
+    <div class="section-intro">
+      <p><strong>How the task was built.</strong> Four bullets, climbing in both weight and cognitive demand. The last two are worth more than the first two put together, twice over.</p>
+      <div class="criterion-grid">
+        <div class="criterion-pill"><strong>3</strong>Construct</div>
+        <div class="criterion-pill"><strong>4</strong>Describe</div>
+        <div class="criterion-pill hot"><strong>8</strong>Analyse</div>
+        <div class="criterion-pill hot"><strong>8</strong>Evaluate</div>
+      </div>
+      <p style="margin-top:0.9rem;">Construct and Describe went comparatively well across the cohort &ndash; Describe was the <em>strongest</em> criterion on this task, which is a genuine reversal from Semester One where it was the systematic weak spot. Whatever changed in how you are approaching definitional questions, it worked. Keep doing it.</p>
+    </div>
+
+    <div class="callout note">
+      <span class="callout-label">Read this page in this order</span>
+      <p><strong>Part 2</strong> is the four habits that cost the most, ranked. <strong>Part 3</strong> is the three levels of evidence &ndash; the single most useful distinction in this guide, and the one most of you thought you had already cleared. <strong>Parts 4 and 5</strong> work bullet by bullet through each question. <strong>Part 6</strong> is the exemplar bank. Finish on <strong>Part 8</strong>, the ninety-second pre-submission check.</p>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       PART 2 — THE FOUR HABITS
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="part" id="habits">
+    <div class="part-label">Part 2</div>
+    <h2 class="part-title">The four habits that cost the most</h2>
+    <p class="part-intro">Ranked by how many marks each one cost the cohort. None of these is a knowledge problem. Tick each one when you have started working on it &ndash; the tracker remembers your progress on this device.</p>
+
+    <div class="tracker">
+      <div class="tracker-label">Working on</div>
+      <div class="tracker-count"><span id="priorityCount">0</span> / 4</div>
+      <div class="tracker-bar"><div class="tracker-fill" id="priorityFill"></div></div>
+      <button class="tracker-reset" id="trackerReset">Reset</button>
+    </div>
+
+    <article class="priority" data-priority="1">
+      <div class="priority-num">1</div>
+      <div>
+        <div class="priority-tags"><span class="tag">Most expensive</span><span class="tag evidence">Every bullet</span></div>
+        <h3>Naming a topic where the question asks for a concept</h3>
+        <p class="priority-obs">The single most expensive habit across the cohort, and it turned up in every bullet. Gun violence is an <strong>issue</strong>, not an ideology. Gun ownership is a <strong>practice</strong>, not a value. &ldquo;Equality&rdquo;, &ldquo;empathy&rdquo; and &ldquo;truth&rdquo; are <strong>virtues</strong>, not the values this documentary contests.</p>
+        <p class="priority-fix">An ideology is a <strong>system of belief</strong>. A value is <strong>something a person holds to be worth protecting</strong>. When a question asks for one of those, the mark is for naming the concept &ndash; not the subject matter it attaches to. Use the strike test below, and drill the sorter underneath it until the distinction is automatic.</p>
+      </div>
+      <label class="priority-check">
+        <input type="checkbox" data-priority-check="1"><span class="box"></span>
+        <span class="label">I&rsquo;m working on this</span>
+      </label>
+    </article>
+
+    <article class="priority" data-priority="2">
+      <div class="priority-num">2</div>
+      <div>
+        <div class="priority-tags"><span class="tag struct">Structural</span><span class="tag">Caps the top bands</span></div>
+        <h3>Answering the four bullets as four separate questions</h3>
+        <p class="priority-obs">The four bullets are <strong>one argument that builds</strong>. The point of view you analyse in bullet 3 is the ideological position you established in bullet 1. The values you evaluate in bullet 4 are the ones you defined in bullet 2.</p>
+        <p class="priority-fix">Where a response treated each bullet as a standalone question, the later criteria had nothing to attach to and could not reach the upper bands however well written they were. Plan the argument once, then let each bullet do its share of it.</p>
+      </div>
+      <label class="priority-check">
+        <input type="checkbox" data-priority-check="2"><span class="box"></span>
+        <span class="label">I&rsquo;m working on this</span>
+      </label>
+    </article>
+
+    <article class="priority" data-priority="3">
+      <div class="priority-num">3</div>
+      <div>
+        <div class="priority-tags"><span class="tag evidence">Evidence</span><span class="tag">Five vs seven</span></div>
+        <h3>Pointing at evidence instead of producing it</h3>
+        <p class="priority-obs">This was everywhere, and it is the difference between a five and a seven. <em>&ldquo;The disturbing imagery of the Columbine High School massacre&hellip;&rdquo;</em> &ndash; which imagery? The cafeteria security camera footage? The 911 audio? The photographs of the victims?</p>
+        <p class="priority-fix">Naming the <em>category</em> of evidence is not evidence. Naming the <em>instance</em> is. The same applies to &ldquo;archival footage&rdquo;, &ldquo;the animation&rdquo;, &ldquo;interviews&rdquo; and &ldquo;satire&rdquo;. Each of those is a container. <strong>The marks are for what is inside it.</strong></p>
+      </div>
+      <label class="priority-check">
+        <input type="checkbox" data-priority-check="3"><span class="box"></span>
+        <span class="label">I&rsquo;m working on this</span>
+      </label>
+    </article>
+
+    <article class="priority" data-priority="4">
+      <div class="priority-num">4</div>
+      <div>
+        <div class="priority-tags"><span class="tag theory">Analytical stance</span><span class="tag">Top band only</span></div>
+        <h3>Being persuaded by the media work instead of analysing it</h3>
+        <p class="priority-obs">Several responses reported the film&rsquo;s own rhetorical self-presentation as fact: that Moore is &ldquo;evaluating from both sides&rdquo;, or presenting &ldquo;only facts instead of personal opinions&rdquo;. He is doing neither.</p>
+        <p class="priority-fix">The film is <em>built</em> to produce that impression, and noticing how it is built is the analysis. Repeating it is evidence that the technique worked on you. The sharpest version of this in the whole cohort: one response described a cut as &ldquo;confirming&rdquo; an encounter to be legitimate. The cut is not confirming anything &ndash; it is <strong>manufacturing the appearance of confirmation</strong>. That is the observation the criterion rewards.</p>
+      </div>
+      <label class="priority-check">
+        <input type="checkbox" data-priority-check="4"><span class="box"></span>
+        <span class="label">I&rsquo;m working on this</span>
+      </label>
+    </article>
+
+    <!-- ── THE STRIKE TEST ── -->
+    <h3 class="sub-head">The strike test</h3>
+    <p style="color:var(--text-dim);font-size:0.93rem;margin-bottom:0.4rem;">Delete the word &ldquo;ideology&rdquo; or &ldquo;values&rdquo; from your sentence and read what is left. If the sentence collapses, you named a topic. Press the button and watch it happen.</p>
+
+    <div class="strike-box" id="strikeBox">
+      <div class="strike-item">
+        <div class="strike-sentence">&ldquo;Moore challenges audience <span class="kw">values</span> on gun ownership.&rdquo;</div>
+        <div class="strike-result fail">
+          <span class="left">&rarr; &ldquo;challenges audience gun ownership&rdquo;</span>
+          Gun ownership is a practice, not a value. The sentence collapses, so it was never naming one. <strong>Fix:</strong> &ldquo;challenges the audience value of <em>security through firearm ownership</em>&rdquo;.
+        </div>
+      </div>
+      <div class="strike-item">
+        <div class="strike-sentence">&ldquo;Moore challenges the <span class="kw">ideology</span> of American gun violence.&rdquo;</div>
+        <div class="strike-result fail">
+          <span class="left">&rarr; &ldquo;challenges American gun violence&rdquo;</span>
+          Gun violence is a phenomenon, an issue. The paragraph only <em>looked</em> like it had done the job because an ideology-shaped noun was sitting in the ideology-shaped slot. <strong>Fix:</strong> &ldquo;the ideology <em>that an armed citizen is a free citizen</em>&rdquo;.
+        </div>
+      </div>
+      <div class="strike-item">
+        <div class="strike-sentence">&ldquo;The media work challenges the dominant American <span class="kw">ideology</span> that an armed citizen is a free and safe citizen.&rdquo;</div>
+        <div class="strike-result pass">
+          <span class="left">&rarr; &ldquo;challenges that an armed citizen is a free and safe citizen&rdquo;</span>
+          Still stands up. A belief is being named, not a subject. <strong>This one passes.</strong>
+        </div>
+      </div>
+      <button class="strike-btn" id="strikeBtn">Apply the strike test</button>
+    </div>
+
+    <!-- ── CONCEPT SORTER ── -->
+    <h3 class="sub-head">Ideology, value, or neither?</h3>
+    <p style="color:var(--text-dim);font-size:0.93rem;margin-bottom:0.4rem;">Habit 1 cost more marks than anything else on this task. Ten seconds each. Pick a category and the answer explains itself.</p>
+
+    <div class="sorter" id="sorter">
+      <div class="sorter-head">
+        <span class="sorter-prompt">Classify each one as it would function in <em>your</em> response.</span>
+        <span class="sorter-score" id="sorterScore">0 / 8 correct</span>
+      </div>
+      <div id="sorterItems"></div>
+      <button class="sorter-reset" id="sorterReset">Reset</button>
+    </div>
+
+    <div class="callout win">
+      <span class="callout-label">Keep these two lists</span>
+      <p><strong>The ideologies in <em>Bowling for Columbine</em>:</strong> the belief that an armed citizen is a free citizen; self-reliance and distrust of state protection; American exceptionalism; constitutionalism and the Second Amendment as identity rather than law; the patriarchal duty of the man who protects his family; and the fear&ndash;security ideology, that safety comes from personal firepower. Behind all of them sits individualism and freedom.</p>
+      <p><strong>The values:</strong> freedom, self-reliance, personal responsibility, security through firearm ownership, the sanctity of human life, community responsibility. Those are the things Moore is working on.</p>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       PART 3 — THE THREE LEVELS OF EVIDENCE
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="part" id="evidence">
+    <div class="part-label">Part 3</div>
+    <h2 class="part-title">The three levels of evidence</h2>
+    <p class="part-intro">This is the most useful distinction in the whole guide. Most responses sat at level two and thought they were at level three. Here is the same example &ndash; the James Nichols interview &ndash; written all three ways.</p>
+
+    <div class="levels">
+      <div class="level one">
+        <span class="level-tag">Level 1 &middot; Plot recall</span>
+        <blockquote>&ldquo;Moore interviews James Nichols, a pro-gun ideologist and the brother of a convicted terrorist.&rdquo;</blockquote>
+        <p class="verdict">This is <strong>what happens</strong> in the media work. It is not evidence for a construction criterion at all.</p>
+      </div>
+      <div class="level two">
+        <span class="level-tag">Level 2 &middot; Content recall</span>
+        <blockquote>&ldquo;Nichols speaks rapidly and seems agitated, which makes him look unstable.&rdquo;</blockquote>
+        <p class="verdict">Better, because there is an effect attached. But you are describing <strong>a person</strong>, not a producer&rsquo;s decisions. This is where most of the cohort sat.</p>
+      </div>
+      <div class="level three">
+        <span class="level-tag">Level 3 &middot; Construction &mdash; this is where the marks are</span>
+        <blockquote>&ldquo;The interview is staged in Nichols&rsquo; own kitchen, and the mise-en-sc&egrave;ne does the work before he has spoken: the room is a mess, old newspapers and plates of food strewn through the frame. Moore then cuts repeatedly to close-ups that isolate Nichols&rsquo; darting eyes and constant rocking, and the frenetic pace of his speech is left unsmoothed by the edit. <strong>Where to film, what to keep in frame, when to cut in, what to leave in the audio &ndash; every one of these is a producer&rsquo;s choice</strong>, and together they construct a representation of mental instability that invites the audience to discount whatever he says.&rdquo;</blockquote>
+        <p class="verdict">That third version is the standard. It is adapted from a 2025 WACE script that scored very highly, and it is worth noticing that it contains <strong>not a single word about what Nichols actually says</strong>.</p>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <span class="callout-label">The four questions that get you to level 3</span>
+      <p>Ask these of every example you use: <strong>What did the producer choose? What did they leave out? What did they put next to what? How is it framed and cut?</strong></p>
+      <p>If your sentence answers none of those, you are at level 1 or 2 &ndash; however confident it sounds.</p>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       PART 4 — QUESTION 1
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="part" id="q1">
+    <div class="part-label">Part 4</div>
+    <h2 class="part-title">Question 1 &ndash; bullet by bullet <span class="film-badge">Bowling for Columbine</span></h2>
+    <p class="part-intro">Seven of the nine responses took this question. Expand any bullet for what it was really asking, the band descriptors in full, where the marks leaked, and a model paragraph at the target band.</p>
+
+    <div class="section-intro">
+      <p><strong>The question as it was set:</strong></p>
+      <div class="q-stem" style="margin-bottom:0.5rem;"><strong>Construct</strong> an overview of a media work that challenges dominant ideologies. <span class="marks">(3)</span></div>
+      <div class="q-stem" style="margin-bottom:0.5rem;"><strong>Describe</strong> the concept of ideology. <span class="marks">(4)</span></div>
+      <div class="q-stem" style="margin-bottom:0.5rem;"><strong>Analyse</strong> how a media producer uses persuasive techniques to construct a point of view. <span class="marks">(8)</span></div>
+      <div class="q-stem" style="margin-bottom:0;"><strong>Evaluate</strong> how persuasive techniques in a media work can challenge or reinforce audience values. <span class="marks">(8)</span></div>
+    </div>
+
+    <div class="controls">
+      <button class="ctrl-btn" data-expand="q1">Expand all</button>
+      <button class="ctrl-btn" data-collapse="q1">Collapse all</button>
+    </div>
+
+    <!-- BULLET 1 -->
+    <article class="accordion" data-group="q1">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Bullet 1 &middot; the cohort&rsquo;s most consistent structural failure</div>
+          <div class="acc-title">Construct an overview of a media work that challenges dominant ideologies</div>
+        </div>
+        <div class="acc-marks">3 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <h4>The two-part rule</h4>
+        <p>The cause of failure here was identical nearly every time: <strong>responses did one half of the job and not the other.</strong> Some established the media work beautifully and never named an ideology. Others named the ideology precisely and never told the marker what the documentary actually is or covers. A 3 needs both, and the ones who scored 3 did both.</p>
+
+        <div class="band-wrap">
+          <table class="band">
+            <tr><th>Mark</th><th>What it takes</th></tr>
+            <tr class="top"><td class="mk">3</td><td><strong>Constructs an overview.</strong> The media work is established &ndash; what it is, what it covers, how it is made &ndash; <strong>and</strong> the specific dominant ideology it challenges is named, with the challenge as the organising idea.</td></tr>
+            <tr><td class="mk">2</td><td><strong>Provides relevant comments.</strong> Accurate and relevant, but one half is missing, implied, or generalised.</td></tr>
+            <tr class="low"><td class="mk">1</td><td><strong>Limited or superficial comment.</strong> Topic or plot summary; the question&rsquo;s angle is not engaged.</td></tr>
+          </table>
+        </div>
+
+        <h4>Two ways to lose the mark</h4>
+        <div class="callout pitfall">
+          <span class="callout-label">1 &middot; Naming the subject matter instead of the ideology</span>
+          <p>&ldquo;Moore challenges the ideology of American gun violence&rdquo; &ndash; gun violence is a phenomenon, not an ideology. The paragraph looks like it has done the job because an ideology-shaped noun is sitting in the ideology-shaped slot. Run the strike test in Part 2 over your own opening sentence.</p>
+        </div>
+        <div class="callout pitfall">
+          <span class="callout-label">2 &middot; Attributing the challenge to the director rather than the media work</span>
+          <p>&ldquo;Michael Moore challenges the dominant ideology&hellip;&rdquo; &ndash; the question asks about a <em>media work</em> that challenges dominant ideologies. A documentary is a constructed object: shot, cut, scored and sequenced. Writing only about what its director believes moves the frame off construction at exactly the point you should be establishing it &ndash; and it predicts the evidence problem that follows in bullets 3 and 4.</p>
+        </div>
+
+        <h4>What a 3 looks like</h4>
+        <div class="exemplar-text">
+          <blockquote>&ldquo;<em>Bowling for Columbine</em> (Moore, 2002) is a participatory documentary that investigates the causes of American gun violence through the 1999 Columbine High School shooting and the culture surrounding it. The media work challenges the dominant American ideology that <strong>an armed citizen is a free and safe citizen</strong> &ndash; a belief rooted in individualism, self-reliance and the constitutional right to bear arms, and one which presents itself as common sense rather than as belief. Through selection, omission, juxtaposition and satire, the documentary relocates the cause of gun violence away from individual pathology and towards a culture of fear manufactured and circulated by news media, government and commerce.&rdquo;</blockquote>
+        </div>
+        <div class="exemplar-move"><strong>What that paragraph does in three sentences:</strong> establishes the work and its form; names the ideology <em>and</em> what it rests on; states the nature of the challenge. It could not preface any other question &ndash; which is the test of whether an overview is really an overview.</div>
+      </div></div>
+    </article>
+
+    <!-- BULLET 2 -->
+    <article class="accordion" data-group="q1">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Bullet 2 &middot; the cohort&rsquo;s strongest criterion</div>
+          <div class="acc-title">Describe the concept of ideology</div>
+        </div>
+        <div class="acc-marks">4 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <div class="callout win">
+          <span class="callout-label">This went better than expected</span>
+          <p>Describe was the cohort&rsquo;s strongest criterion on this task &ndash; a genuine reversal from Semester One, where it was the systematic weak spot. Whatever changed in how you are approaching definitional questions, it worked.</p>
+        </div>
+
+        <h4>The four features</h4>
+        <p>A full-mark description of ideology contains four things. Most responses had two.</p>
+        <ul>
+          <li><strong>Shared and collective</strong> &ndash; held by a group or a society, not an individual opinion.</li>
+          <li><strong>Naturalised</strong> &ndash; it appears as common sense, as &ldquo;just the way things are&rdquo;, rather than as a belief that could be otherwise. <em>This is the feature that distinguishes ideology from opinion, and it is the one most often missing.</em></li>
+          <li><strong>Circulated through institutions</strong> &ndash; media, government, education, commerce. Ideologies are not simply held; they are reproduced.</li>
+          <li><strong>Serving particular interests</strong> &ndash; ideologies are not neutral. They benefit somebody.</li>
+        </ul>
+
+        <div class="band-wrap">
+          <table class="band">
+            <tr><th>Mark</th><th>What it takes</th></tr>
+            <tr class="top"><td class="mk">4</td><td><strong>Describes the concept.</strong> A shared system of beliefs and values, naturalised as the norm, circulated through institutions including the media, serving particular interests.</td></tr>
+            <tr><td class="mk">3</td><td><strong>Outlines the concept.</strong> The group dimension and one or two further features, with naturalisation or interests missing.</td></tr>
+            <tr><td class="mk">2</td><td><strong>Limited or superficial comment.</strong> &ldquo;Ideology is what people believe&rdquo;, plus an example.</td></tr>
+            <tr class="low"><td class="mk">1</td><td><strong>Identifies elements.</strong> Names a belief or an <em>-ism</em> without defining the concept.</td></tr>
+          </table>
+        </div>
+
+        <h4>The trap</h4>
+        <div class="callout pitfall">
+          <span class="callout-label">Defining by applying</span>
+          <p>The bullet asks for the <em>concept</em>. Describing American gun ideology is <strong>applying</strong> the concept, not defining it. Several responses gave one thin clause of definition and then spent the rest of the paragraph on the film. <strong>Define first, in its own right, then illustrate.</strong></p>
+        </div>
+        <div class="callout info">
+          <span class="callout-label">Also worth getting straight</span>
+          <p>Ideology and <em>dominant</em> ideology are not the same thing. An ideology does not have to be widely accepted. A dominant one is. Say both.</p>
+        </div>
+
+        <h4>What a 4 looks like</h4>
+        <div class="exemplar-text">
+          <blockquote>&ldquo;An ideology is a <strong>shared system of beliefs, values and assumptions held by a group or society</strong>, which organises how its members understand the world and what they take to be normal. Its defining characteristic is that it does not present itself as a belief at all: a dominant ideology is <strong>naturalised</strong>, appearing as common sense rather than as one position among several. Ideologies are <strong>circulated and reproduced through institutions</strong> &ndash; news media, government, education and commerce &ndash; and they are never neutral, because the assumptions they naturalise <strong>serve some interests more than others</strong>. In the United States the belief that firearm ownership guarantees personal security functions ideologically in exactly this way: it is held across the culture, treated as self-evident rather than arguable, reinforced through news coverage, advertising and children&rsquo;s play, and profitable to the industries that depend on it.&rdquo;</blockquote>
+        </div>
+        <div class="exemplar-move"><strong>The move:</strong> all four features are defined in the abstract across three sentences, and only then does the film&rsquo;s context arrive &ndash; as illustration, not as substitute. Notice the last sentence walks back through all four features in order.</div>
+      </div></div>
+    </article>
+
+    <!-- BULLET 3 -->
+    <article class="accordion" data-group="q1">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Bullet 3 &middot; 8 marks &middot; half the reason for the spread</div>
+          <div class="acc-title">Analyse how a media producer uses persuasive techniques to construct a point of view</div>
+        </div>
+        <div class="acc-marks">8 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <h4>What &ldquo;analyse&rdquo; means here</h4>
+        <p>Every band descriptor on this ladder combines three things: the <strong>cognitive verb</strong>, the <strong>evidence quality</strong>, and the <strong>terminology register</strong>. <strong>The weakest of the three caps your mark.</strong> You cannot compensate for a thin argument with detailed examples, and you cannot compensate for vague examples with impressive vocabulary.</p>
+
+        <div class="band-wrap">
+          <table class="band">
+            <tr><th>Mark</th><th>Verb</th><th>Evidence</th><th>Terminology</th></tr>
+            <tr class="top"><td class="mk">8</td><td><strong>Analyses</strong></td><td>insightful and relevant</td><td>sophisticated</td></tr>
+            <tr class="top"><td class="mk">7</td><td><strong>Discusses in detail</strong></td><td>detailed, appropriate and relevant</td><td>advanced</td></tr>
+            <tr><td class="mk">6</td><td>Discusses</td><td>detailed</td><td>refined</td></tr>
+            <tr><td class="mk">5</td><td>Explains</td><td>relevant</td><td>relevant</td></tr>
+            <tr><td class="mk">4</td><td>Describes</td><td>evidence from the media work</td><td>relevant</td></tr>
+            <tr><td class="mk">3</td><td>Outlines</td><td>some</td><td>some appropriate</td></tr>
+            <tr class="low"><td class="mk">2</td><td>Limited or superficial comments</td><td>limited or superficial</td><td>simple</td></tr>
+            <tr class="low"><td class="mk">1</td><td>Identifies a technique</td><td>none</td><td>limited or irrelevant</td></tr>
+          </table>
+        </div>
+
+        <h4>Breadth of instance beats breadth of technique</h4>
+        <div class="callout info">
+          <span class="callout-label">Choose depth</span>
+          <p>A response that names <strong>six techniques with no located example</strong> scores badly. A response that pursues <strong>one technique family across six located examples</strong>, and then says what the pattern adds up to, can score at the very top.</p>
+        </div>
+
+        <h4>The technique bank</h4>
+        <p><strong>Selection and omission</strong> &ndash; the strongest single lens on this film, and the one that rewards depth most. The Charlton Heston sequence is the showcase: the &ldquo;from my cold dead hands&rdquo; clip is intercut with the Denver rally speech as though they are one address. It is not. That footage was recorded a year later at an unrelated event, and the clips Moore uses are assembled from seven separate sentences. Watch Heston&rsquo;s suit change between shots. Moore also omits the passages where Heston expresses regret and confirms the rally was scaled back.</p>
+        <p><strong>Juxtaposition and the smash cut</strong> &ndash; the Lockheed Martin sequence. A spokesperson denies any connection between the intercontinental ballistic missiles built on the edge of Littleton and the violence at Columbine; Moore cuts straight from that denial into the &ldquo;What a Wonderful World&rdquo; montage of American military interventions abroad, each labelled on screen with location, date and death toll. <em>The argument is made entirely through arrangement. No narration is required.</em></p>
+        <p><strong>Animation and visual rhetoric</strong> &ndash; &ldquo;A Brief History of the United States of America&rdquo; traces American gun culture to white fear of Black Americans and draws a direct line from the Ku Klux Klan to the NRA. The comedic register is doing the work: it simplifies a contested historical claim into something an audience will accept in ninety seconds.</p>
+        <p><strong>Diegetic against non-diegetic sound</strong> &ndash; the 911 calls, the surveillance footage and the interview responses are diegetic and authenticate the material as real; the music and narration are non-diegetic and direct how you are meant to feel about it. <em>The credibility of the first is used to carry the argument of the second.</em> This is one of the most sophisticated observations available on this film and almost nobody reached it.</p>
+        <p><strong>Persona and the &ldquo;plain folks&rdquo; appeal</strong> &ndash; the baseball cap, the loose shirt, the hands in pockets, the deliberate air of being intimidated. Moore constructs himself as an ordinary American so that his conclusions arrive as common sense rather than as argument. This is a named propaganda technique, and using its name earns terminology credit.</p>
+        <p><strong>Pinpointing the enemy</strong> &ndash; a diffuse social problem is reduced to identifiable antagonists: the NRA, Heston, K-Mart. Giving an audience something to be against unites them, and a united audience questions less.</p>
+        <p><strong>Testimonial, transfer, card stacking, bandwagon, fear appeal, exaggeration, satire and irony</strong> &ndash; all present, all nameable, all worth knowing by name.</p>
+
+        <h4>The pattern is the argument</h4>
+        <p>This is the move that separates a very good response from an outstanding one, and <strong>nobody in the cohort made it.</strong> Analysing three or four instances of selection is good. Noticing what the <em>pattern</em> of selection amounts to is better, because it turns a list of examples into a thesis. Look at who Moore chooses to film and how each is framed:</p>
+        <ul>
+          <li><strong>James Nichols</strong> &ndash; filmed in a squalid kitchen, cut in close-up on darting eyes, speech left frantic.</li>
+          <li><strong>The police officer</strong> who strapped a gun to a beagle &ndash; included as an anecdote for no reason other than to make law enforcement look ridiculous.</li>
+          <li><strong>Charlton Heston</strong> &ndash; the only articulate pro-gun figure, and even he is cut into aggression and single-mindedness.</li>
+          <li><strong>Barry Glassner, the taxi drivers, ordinary family folk</strong> &ndash; anti-gun voices, all articulate, composed and entirely normal.</li>
+          <li><strong>Marilyn Manson</strong> &ndash; the most divisive figure in the film, presented calm, thoughtful and educated.</li>
+        </ul>
+        <div class="callout win">
+          <span class="callout-label">The structural claim</span>
+          <p>Every pro-gun interviewee is constructed as unstable or foolish. Every anti-gun interviewee is constructed as reasonable. <strong>That is not six separate decisions &ndash; it is a single sustained casting strategy</strong>, and stating it as such is a structural claim about the media work rather than a list of observations about it.</p>
+          <p>The Manson inclusion is the keystone: by making the culture&rsquo;s designated lunatic the most reasonable person on screen, Moore implies that the people blaming him are the mad ones.</p>
+        </div>
+
+        <h4>What separates a 6 from a 7</h4>
+        <p>A 6 discusses two or three techniques with detailed evidence. A 7 does that <em>and</em> shows the <strong>mechanism</strong> &ndash; not merely that the technique produces an effect, but how the construction produces it. The strongest response in the cohort reached 7 by noticing Heston&rsquo;s suit changes between shots and using that to expose the edit. That is not recall about the film; it is <em>reading the frame for the evidence of its own construction</em>.</p>
+        <p>What stopped it going higher was scope: it pursued one technique across one subject. The pattern claim above is what turns the same technique into a top-band answer.</p>
+
+        <h4>What a 7 looks like</h4>
+        <div class="exemplar-text">
+          <blockquote>&ldquo;Moore&rsquo;s most sustained persuasive strategy is selection, and it operates less through any single sequence than through <strong>a casting pattern maintained across the whole media work</strong>. Every pro-gun interviewee is constructed as unstable or foolish: James Nichols is filmed in a squalid kitchen and cut in close-up on his darting eyes and constant rocking; a police officer is included solely to recount strapping a gun to a beagle. Every anti-gun voice &ndash; Barry Glassner, taxi drivers, ordinary family folk &ndash; is composed, articulate and entirely unremarkable. The keystone is Marilyn Manson, the figure the culture had already designated a lunatic, whom Moore presents as the calmest and most thoughtful person on screen, so that the audience concludes the people blaming him are the irrational ones.&rdquo;</blockquote>
+          <blockquote>&ldquo;The Heston material shows the same strategy operating <strong>at the level of the cut</strong>. Moore presents Heston raising a rifle and declaring his guns will be taken &lsquo;from my cold dead hands&rsquo;, positioning this as the NRA&rsquo;s response to Columbine, and the edit invites the viewer to read it as continuous with the Denver rally address. It is not: that footage was recorded a year later at an unrelated event, Heston is wearing a different suit between shots, and the clips are assembled from seven separate sentences. Moore compounds this by omitting the passages in which Heston expresses regret and confirms the rally was scaled back. By reducing a diffuse ideology to identifiable antagonists and then constructing each of them as irrational, Moore gives his audience someone to be against &ndash; and an audience that has been handed a target is far less likely to interrogate the position it has been handed with it.&rdquo;</blockquote>
+        </div>
+        <div class="exemplar-move"><strong>The move:</strong> paragraph one makes the structural claim and evidences it across five located instances. Paragraph two drops to a single sequence and reads the frame itself for proof of the edit. Pattern, then mechanism &ndash; and both are about producer decisions, never about what anyone says.</div>
+      </div></div>
+    </article>
+
+    <!-- BULLET 4 -->
+    <article class="accordion" data-group="q1">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Bullet 4 &middot; roughly half of all marks lost on this task</div>
+          <div class="acc-title">Evaluate how persuasive techniques can challenge or reinforce audience values</div>
+        </div>
+        <div class="acc-marks">8 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <div class="callout pitfall">
+          <span class="callout-label">Where the cohort lost most heavily</span>
+          <p>Evaluate accounted for roughly half of all marks lost on this task, and the reason is specific and fixable: <strong>most responses answered bullet 4 with a second bullet 3.</strong> They produced more analysis of construction where the criterion asked for a judgement about effect.</p>
+        </div>
+
+        <div class="callout note">
+          <span class="callout-label">The diagnostic question</span>
+          <p>Read your final paragraph and ask: does this contain a <strong>judgement</strong>, or only a <strong>mechanism</strong>? If it explains <em>how</em> a technique works, that is analysis, and it belongs in bullet 3. Bullet 4 asks <strong>whether it worked, on whom, and what that tells us.</strong></p>
+        </div>
+
+        <h4>Remember the ladder sits one verb lower</h4>
+        <div class="band-wrap">
+          <table class="band">
+            <tr><th>Mark</th><th>Verb</th><th>Evidence</th><th>Terminology</th></tr>
+            <tr class="top"><td class="mk">8</td><td><strong>Evaluates</strong></td><td>insightful and relevant</td><td>sophisticated</td></tr>
+            <tr class="top"><td class="mk">7</td><td><strong>Analyses</strong></td><td>detailed, appropriate and relevant</td><td>refined</td></tr>
+            <tr><td class="mk">6</td><td>Discusses in detail</td><td>detailed</td><td>advanced</td></tr>
+            <tr><td class="mk">5</td><td>Discusses</td><td>relevant</td><td>relevant</td></tr>
+            <tr><td class="mk">4</td><td>Explains</td><td>evidence from the media work</td><td>relevant</td></tr>
+            <tr><td class="mk">3</td><td>Describes</td><td>some</td><td>some appropriate</td></tr>
+            <tr class="low"><td class="mk">2</td><td>Outlines</td><td>limited or superficial</td><td>simple</td></tr>
+            <tr class="low"><td class="mk">1</td><td>Identifies</td><td>none</td><td>limited or irrelevant</td></tr>
+          </table>
+        </div>
+        <p>&ldquo;Describes&rdquo; earns <strong>4</strong> on Analyse but only <strong>3</strong> on Evaluate. That is deliberate: evaluation is the higher-order skill. There is a side-by-side comparison of the two ladders directly below this accordion.</p>
+
+        <h4>The structural gate &ndash; the upper bands need both of these</h4>
+        <p><strong>1. Theoretical scaffolding.</strong> Hall&rsquo;s encoding and decoding is the natural fit, and the cohort used it far better than in Semester One. Two cautions. First, <em>apply</em> it rather than naming it &ndash; a sentence that says &ldquo;according to Hall&rsquo;s theory&rdquo; and then stops has gestured at theory, not used it. Second, get the typology right:</p>
+        <ul>
+          <li><strong>Dominant</strong> (or preferred) &ndash; the audience accepts the meaning the producer encoded.</li>
+          <li><strong>Negotiated</strong> &ndash; the audience broadly accepts it but modifies it against their own experience.</li>
+          <li><strong>Oppositional</strong> &ndash; the audience <em>understands the preferred meaning perfectly well and rejects it</em>, decoding from a contrary frame.</li>
+        </ul>
+        <div class="callout pitfall">
+          <span class="callout-label">The one term the cohort consistently mangled</span>
+          <p>Oppositional does <strong>not</strong> mean &ldquo;reads it differently&rdquo; or &ldquo;gets something else out of it&rdquo;. It means the viewer has decoded the preferred meaning accurately <em>and refused it</em>.</p>
+        </div>
+
+        <p><strong>2. Differentiated reading positions.</strong> The strongest responses run all three, and give each one <em>different material from the media work to stand on</em>. Naming three positions and supporting them with the same example is not differentiation.</p>
+        <div class="positions">
+          <div class="position">
+            <span class="position-name">Dominant / preferred</span>
+            <h5>The viewer accepts what Moore encoded</h5>
+            <p>Built on the systematic discrediting of pro-gun voices. An audience without prior knowledge has nothing inside the film to disturb the impression.</p>
+            <span class="stands-on"><b>Stands on:</b> the casting pattern &middot; the Heston edit</span>
+          </div>
+          <div class="position neg">
+            <span class="position-name">Negotiated</span>
+            <h5>Broadly accepts, but modifies against experience</h5>
+            <p>Built on the Kayla Rolland material. An audience can accept that gun violence is a problem while re-reading the perpetrator as a victim of poverty, absent parenting and a Welfare-to-Work programme that removed his mother from the home.</p>
+            <span class="stands-on"><b>Stands on:</b> the Kayla Rolland sequence</span>
+          </div>
+          <div class="position opp">
+            <span class="position-name">Oppositional</span>
+            <h5>Understands the preferred meaning &mdash; and refuses it</h5>
+            <p>Built on what Moore left out. This is the position that requires the viewer to bring knowledge the film withheld, and it is the one place researched material outside the media work earns marks.</p>
+            <span class="stands-on"><b>Stands on:</b> the omissions &middot; the record outside the film</span>
+          </div>
+        </div>
+
+        <h4>Where outside research belongs</h4>
+        <p>The Analyse criterion asks for evidence from the media work. The <strong>resistant reading does not, and cannot</strong>, because it is by definition constructed from what the viewer knows that the film chose not to show.</p>
+        <p>This is the one place in the response where researched material outside the media work earns marks rather than wasting them. For the Kayla Rolland sequence, Moore omits that the six-year-old shooter&rsquo;s father was in prison, that the boy was living in a crackhouse where his uncle traded guns for drugs, that he had a documented history of behavioural incidents including stabbing another student with a pencil, and that he had threatened Kayla the day before.</p>
+        <div class="callout info">
+          <span class="callout-label">Two cautions on using material like this</span>
+          <p><strong>Deploy it in the evaluation, not the analysis</strong> &ndash; it is evidence about the gap between the film and the record, not about construction.</p>
+          <p><strong>Do not let it collapse into &ldquo;Moore is a liar&rdquo;</strong> &ndash; the strongest version holds both truths at once: that these details are themselves rooted in the societal injustices Moore is describing, <em>and</em> that withholding them removes layers of accountability the audience needed in order to understand the event.</p>
+        </div>
+
+        <h4>Three judgements available to you</h4>
+        <div class="callout win">
+          <span class="callout-label">1 &middot; On efficacy and audience knowledge</span>
+          <p>The film&rsquo;s persuasive power is <strong>inversely proportional to what the viewer already knows</strong>. It is extremely effective on an audience that does not seek out corroborating information, and progressively less effective the more context the viewer holds. There is a real irony worth stating: the film depends for its effect on precisely the passive, under-informed audience condition that it criticises the mass media for producing.</p>
+        </div>
+        <div class="callout win">
+          <span class="callout-label">2 &middot; On arrangement versus fabrication &ndash; and the case that tests it</span>
+          <p>The usual judgement is that Moore&rsquo;s manipulation lies in <em>arrangement</em> rather than <em>invention</em>: the interviews and archival footage are genuine, and the distortion occurs through selection, omission, ordering and juxtaposition. That holds across most of the media work, and it is a more sophisticated criticism than accusing him of making things up.</p>
+          <p>But do not stop there, because the Heston sequence is <strong>the case where the distinction breaks</strong>. Clips drawn from seven separate sentences, recorded a year later at a different event, are not authentic material arranged suggestively &ndash; they are an utterance assembled from parts, and Heston never delivered it. <em>Identifying the point at which a general rule fails is a stronger evaluative move than applying the rule</em>, and it is available to you here.</p>
+        </div>
+        <div class="callout win">
+          <span class="callout-label">3 &middot; On discourse versus attitude</span>
+          <p>The film has demonstrably contributed to a shared <strong>discourse</strong> about gun ownership &ndash; it changed how the issue is discussed, especially outside the United States &ndash; while having had comparatively little effect on the pre-established <strong>attitudes</strong> of Americans who already held a position. Shifting the conversation and shifting beliefs are different achievements, and distinguishing them is exactly the kind of judgement the top band is looking for.</p>
+        </div>
+
+        <h4>The universal-decodability trap</h4>
+        <div class="callout pitfall">
+          <span class="callout-label">These cap your mark where it costs most</span>
+          <p><em>&ldquo;Moore convinces the audience that&hellip;&rdquo;</em> &nbsp;&middot;&nbsp; <em>&ldquo;this makes audiences want to change society&rdquo;</em> &nbsp;&middot;&nbsp; <em>&ldquo;a masterpiece&rdquo;</em>.</p>
+          <p>Every one of these claims that <strong>all viewers decode the media work identically</strong>, which is the opposite of what the criterion asks. If a sentence in your final paragraph could not survive the question &ldquo;which audience?&rdquo;, rewrite it.</p>
+        </div>
+
+        <h4>What a 6&ndash;7 looks like</h4>
+        <div class="exemplar-text">
+          <blockquote>&ldquo;The techniques Moore employs challenge the values of self-reliance and security-through-ownership that underpin the pro-gun position, but <strong>whether that challenge succeeds depends almost entirely on what the viewer brings to the film</strong>. An audience with limited prior knowledge of the NRA is positioned to decode the preferred reading: the Heston sequence constructs a callous antagonist, and there is nothing within the media work itself to disturb that impression. A viewer who knows the material well decodes it very differently. Recognising that the &lsquo;cold dead hands&rsquo; footage has been lifted from a separate speech, this audience <strong>understands precisely what Moore intends and refuses it</strong> &ndash; an oppositional reading in Hall&rsquo;s sense &ndash; and may leave the documentary with their pro-gun position hardened, because the manipulation appears to confirm that the case against them requires distortion to be made. This is the central limit of Moore&rsquo;s method: the persuasive power of the film depends on a comparatively uninformed audience, which is precisely the audience condition the documentary itself attributes to the American mass media. The film has succeeded in shaping how gun ownership is discussed, particularly beyond the United States; it has been markedly less successful at changing the minds of the Americans whose values it set out to challenge.&rdquo;</blockquote>
+        </div>
+        <div class="exemplar-move"><strong>The move:</strong> every sentence after the first is a judgement, not a mechanism. Two reading positions each stand on different material. Hall is <em>used</em>, not cited. And the final sentence separates discourse from attitude &ndash; a genuine evaluative distinction, delivered in a single clause.</div>
+      </div></div>
+    </article>
+
+    <!-- LADDER COMPARISON -->
+    <h3 class="sub-head">The two ladders, side by side</h3>
+    <p style="color:var(--text-dim);font-size:0.93rem;margin-bottom:0.4rem;">Same verbs, shifted by one. This is the clearest picture of why bullet 4 cost the cohort so much: writing at the level that earns a 6 on Analyse earns only a 5 on Evaluate, and the analysis that would have scored 8 tops out at 7.</p>
+
+    <div class="ladder">
+      <div class="ladder-wrap">
+        <div class="ladder-row ladder-head">
+          <span>Cognitive verb in the descriptor</span><span>Analyse</span><span>Evaluate</span>
+        </div>
+        <div class="ladder-row"><span class="ladder-verb">Evaluates<em>judgement about effect</em></span><span class="ladder-mark none">&ndash;</span><span class="ladder-mark e">8</span></div>
+        <div class="ladder-row"><span class="ladder-verb">Analyses<em>mechanism of construction</em></span><span class="ladder-mark a">8</span><span class="ladder-mark e">7</span></div>
+        <div class="ladder-row"><span class="ladder-verb">Discusses in detail</span><span class="ladder-mark a">7</span><span class="ladder-mark e">6</span></div>
+        <div class="ladder-row"><span class="ladder-verb">Discusses</span><span class="ladder-mark a">6</span><span class="ladder-mark e">5</span></div>
+        <div class="ladder-row"><span class="ladder-verb">Explains</span><span class="ladder-mark a">5</span><span class="ladder-mark e">4</span></div>
+        <div class="ladder-row"><span class="ladder-verb">Describes</span><span class="ladder-mark a">4</span><span class="ladder-mark e">3</span></div>
+        <div class="ladder-row"><span class="ladder-verb">Outlines</span><span class="ladder-mark a">3</span><span class="ladder-mark e">2</span></div>
+        <div class="ladder-row"><span class="ladder-verb">Identifies<em>no evidence</em></span><span class="ladder-mark a">1</span><span class="ladder-mark e">1</span></div>
+      </div>
+      <p class="ladder-note"><strong>Read it this way:</strong> to score the same mark on bullet 4 as on bullet 3, you have to write one rung higher. Answering bullet 4 with a second bullet 3 is therefore not a neutral choice &ndash; it is an automatic one-mark penalty on eight marks, before the marker has assessed anything else. On Analyse, a 2 is &ldquo;limited or superficial comments&rdquo;; on Evaluate, that band has already moved up to &ldquo;outlines&rdquo;.</p>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       PART 5 — QUESTION 2
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="part" id="q2">
+    <div class="part-label">Part 5</div>
+    <h2 class="part-title">Question 2 &ndash; the route nobody took <span class="film-badge">Waltz with Bashir</span></h2>
+    <p class="part-intro">No one attempted Question 2 with <em>Waltz with Bashir</em> in this task. Both students who chose Question 2 used <em>Bowling for Columbine</em> instead. That is worth knowing, because <strong>Moore&rsquo;s film does not satisfy this question.</strong></p>
+
+    <div class="callout pitfall">
+      <span class="callout-label">The qualifier that decides everything</span>
+      <p>Question 2 asks about an <strong>&ldquo;alternative, experimental or non-commercial&rdquo;</strong> media work. &ldquo;Alternative&rdquo; describes <em>where a media work sits in relation to mainstream production and distribution</em>. It does <strong>not</strong> mean &ldquo;oppositional in argument&rdquo; or &ldquo;unconventional in style&rdquo;.</p>
+      <p><em>Bowling for Columbine</em> had major studio distribution, won an Academy Award and was, at the time, the highest-grossing documentary ever made. Participatory mode is one of the established documentary modes, not a departure from them. A media work can be radical in its politics and entirely mainstream in its form and distribution &ndash; and this one is.</p>
+      <p><strong>Why it costs so much:</strong> defining &ldquo;alternative&rdquo; by stance and then using your own definition to license the choice is the trap, and it bleeds marks across <em>all four bullets</em>, because every band descriptor in Question 2 is qualified by that phrase.</p>
+    </div>
+
+    <h3 class="sub-head">Why <em>Waltz with Bashir</em> qualifies</h3>
+    <div class="chain">
+      <div class="chain-step">
+        <span class="n">Form</span>
+        <span class="t">An <strong>animated documentary</strong>. Not rotoscoped, as is often assumed &ndash; the animators used Flash combined with cut-out animation over four years, built from filmed interviews that were scripted, re-recorded and then drawn.</span>
+      </div>
+      <div class="chain-step">
+        <span class="n">Mode</span>
+        <span class="t"><strong>Reflexive</strong> &ndash; the film is about the act of recovering memory and shows its own investigative process. <strong>Performative</strong> &ndash; Folman&rsquo;s own unreliable memory is the vehicle for the truth claim rather than an obstacle to it.</span>
+      </div>
+      <div class="chain-step">
+        <span class="n">Production position</span>
+        <span class="t">Israeli, Hebrew-language, roughly a <strong>two-million-dollar budget</strong>, produced by a small independent consortium.</span>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="ctrl-btn" data-expand="q2">Expand all</button>
+      <button class="ctrl-btn" data-collapse="q2">Collapse all</button>
+    </div>
+
+    <!-- Q2 BULLET 1 -->
+    <article class="accordion" data-group="q2">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Bullet 1</div>
+          <div class="acc-title">Construct an overview of an alternative media work</div>
+        </div>
+        <div class="acc-marks">3 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <p>Three jobs, not two this time. Establish the media work, <strong>and</strong> name what makes it alternative, <strong>and</strong> name the dominant perspective it challenges.</p>
+        <div class="callout win">
+          <span class="callout-label">The move that lifts it</span>
+          <p><strong>Connect the form to the challenge.</strong> Animating recovered memory is what allows the film to contest an account that the historical record had settled. The alternative form is not a stylistic footnote &ndash; it is the reason the challenge is possible at all. Say that in the overview and every later bullet has something to build on.</p>
+        </div>
+      </div></div>
+    </article>
+
+    <!-- Q2 BULLET 2 -->
+    <article class="accordion" data-group="q2">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Bullet 2 &middot; the baseline is compulsory</div>
+          <div class="acc-title">Describe dominant perceptions presented in mainstream media</div>
+        </div>
+        <div class="acc-marks">4 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <div class="callout pitfall">
+          <span class="callout-label">Read the bullet exactly</span>
+          <p>This bullet asks what <strong>mainstream media presented</strong> &ndash; not what the alternative work says. A response that describes only the alternative work&rsquo;s perspective, leaving the mainstream account implied, <strong>cannot pass the middle of the ladder.</strong></p>
+        </div>
+        <p>For <em>Waltz with Bashir</em>: the settled mainstream account of the 1982 Lebanon War and the Sabra and Shatila massacre, in which some 2,000 civilians were killed, positions the killings as a Phalangist atrocity and Israeli forces as <strong>bystanders</strong> rather than as participants in the conditions that enabled it.</p>
+        <p><strong>The order to write it in:</strong> describe that account &rarr; attribute it to mainstream coverage &rarr; <em>then</em> let the film contest it.</p>
+      </div></div>
+    </article>
+
+    <!-- Q2 BULLET 3 -->
+    <article class="accordion" data-group="q2">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Bullet 3 &middot; the codes must be the alternative ones</div>
+          <div class="acc-title">Analyse the use of alternative codes and conventions</div>
+        </div>
+        <div class="acc-marks">8 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <div class="callout pitfall">
+          <span class="callout-label">The qualifier again</span>
+          <p>The codes you analyse must be the <strong>alternative</strong> ones. A competent reading of a conventional technique does not serve this criterion however good it is.</p>
+        </div>
+
+        <h4>Colour as an epistemic marker</h4>
+        <p>Colour tells you <em>what kind of truth</em> you are looking at: desaturated realism for the talking-head interviews, washed-out brown for the 1973 Yom Kippur War, blue for the Second World War, and an orange-grey scheme that signals the <strong>factical</strong> against a monochromatic grey that signals the <strong>factual</strong>. The motivator scene &ndash; soldiers rising naked from a flare-lit sea off Beirut &ndash; appears at the eighth minute and again in full at the sixtieth, and the colour shift is the only clue that resolves it.</p>
+
+        <h4>Sound against image</h4>
+        <p>Soldiers surf under fire and fire RPGs at civilians while &ldquo;Yesterday I Bombed Beirut&rdquo; plays. Frenkel dances his &ldquo;insane waltz&rdquo; with a machine gun through a Beirut street to Chopin&rsquo;s Waltz in C-sharp minor. <em>The disjunction between uplifting score and atrocity charges each sequence with irony and makes the argument about the absurdity of war without stating it.</em></p>
+
+        <h4>Reflexivity</h4>
+        <p>The trauma specialist describes a soldier who survived combat by watching it through an imaginary camera until, confronted with a field of slaughtered horses, the camera broke. <strong>The film is describing its own method</strong> &ndash; and inviting you to ask whether animation is doing for the viewer what the imaginary camera did for the soldier.</p>
+
+        <h4>The rupture into live action</h4>
+        <div class="callout win">
+          <span class="callout-label">The single most analysable decision in the media work</span>
+          <p>The closing seconds hold on Folman&rsquo;s face, then cut to <strong>real footage</strong> of the women whose voices have been superimposed on the animation. Sound bridges the transition &ndash; the film&rsquo;s only use of location audio over animated images &ndash; and the cut is deliberately sharp.</p>
+          <p>Why it matters: <em>it withdraws the animation&rsquo;s protection at exactly the moment the viewer most needs it.</em></p>
+        </div>
+      </div></div>
+    </article>
+
+    <!-- Q2 BULLET 4 -->
+    <article class="accordion" data-group="q2">
+      <div class="acc-head">
+        <div class="acc-titlewrap">
+          <div class="acc-meta">Bullet 4 &middot; understanding of an event, not values</div>
+          <div class="acc-title">Evaluate the effect on audience understanding</div>
+        </div>
+        <div class="acc-marks">8 marks</div>
+        <div class="acc-chev"></div>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <div class="callout info">
+          <span class="callout-label">Keep the object straight</span>
+          <p>The object here is audience <strong>understanding of an event</strong> &ndash; what the audience comes to know or believe &ndash; <em>not</em> values. That is the difference between this bullet and Question 1&rsquo;s bullet 4. Do not import the wrong one.</p>
+        </div>
+
+        <h4>The strongest available line runs through representation</h4>
+        <p>The Palestinians in this film have <strong>no names and no speech</strong>; they are anonymous, and the camera lingers on dead faces. The victims of <em>Waltz with Bashir</em> are the Israeli soldiers: it is their anguish, confusion and guilt that the film humanises across ninety minutes.</p>
+        <p>In the closing live-action footage a woman screams &ldquo;my son, my son&rdquo; and &ldquo;take photos, take photos&rdquo; in Arabic &ndash; and <strong>her words are not subtitled.</strong> That is a directorial choice.</p>
+
+        <div class="callout note">
+          <span class="callout-label">The judgement to put to the marker</span>
+          <p>Does the film <em>challenge</em> audience understanding of Sabra and Shatila, or does it <em>reinforce</em> an account in which Israeli memory is the story and Palestinian suffering is its backdrop?</p>
+          <p>The film&rsquo;s own psychologist supplies the line to read it against: <em>&ldquo;we don&rsquo;t go to places we don&rsquo;t want to; memory takes us where we want to go.&rdquo;</em> Read against the grain, the remembering this film undertakes may not take its audience anywhere they would truly rather not go.</p>
+        </div>
+        <p>That is a genuine evaluative judgement, it is supported by located evidence, and <strong>it is available to any student who has watched the last three minutes carefully.</strong></p>
+      </div></div>
+    </article>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       PART 6 — THE MOVES BANK
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="part" id="exemplars">
+    <div class="part-label">Part 6</div>
+    <h2 class="part-title">The moves bank</h2>
+    <p class="part-intro">Every transferable move in this guide, pulled out of its paragraph and stated so you can use it on a different media work in November. Filter by the criterion you want to work on.</p>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="construct">Construct</button>
+      <button class="filter-btn" data-filter="describe">Describe</button>
+      <button class="filter-btn" data-filter="analyse">Analyse</button>
+      <button class="filter-btn" data-filter="evaluate">Evaluate</button>
+      <button class="filter-btn" data-filter="warn">Watch out</button>
+    </div>
+
+    <article class="exemplar" data-cat="construct">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Construct</span>
+        <span class="exemplar-band">Bullet 1</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;Could this paragraph preface any other question?&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> an overview that would work as the opening of any essay on that film is not an overview &ndash; it is a synopsis. A real overview establishes the work <em>and</em> names the specific ideology, with the challenge as the organising idea, so that it could only introduce <em>this</em> question.</div>
+    </article>
+
+    <article class="exemplar" data-cat="construct">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Construct &middot; framing</span>
+        <span class="exemplar-band">Bullet 1</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;The <strong>media work</strong> challenges&hellip;&rdquo; &mdash; not &ldquo;Michael Moore challenges&hellip;&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> make the constructed object the subject of your sentence, not the director. A documentary is shot, cut, scored and sequenced. Putting the work in the subject position keeps you on construction from the first line &ndash; and the responses that started with the director kept drifting off construction in bullets 3 and 4.</div>
+    </article>
+
+    <article class="exemplar" data-cat="describe">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Describe</span>
+        <span class="exemplar-band">Bullet 2</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;Define first, in its own right. Then illustrate.&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> describing American gun ideology is <em>applying</em> the concept, not defining it. Write the concept in the abstract &ndash; shared, naturalised, institutionally circulated, interest-serving &ndash; and only then reach for the film. The illustration should walk back through the features in the same order.</div>
+    </article>
+
+    <article class="exemplar" data-cat="analyse">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Analyse &middot; evidence</span>
+        <span class="exemplar-band">Bullet 3</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;What did the producer <strong>choose</strong>, what did they <strong>leave out</strong>, what did they put <strong>next to</strong> what, and how is it <strong>framed and cut</strong>?&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> four questions that convert level-2 content recall into level-3 construction evidence. If your sentence answers none of them, you are describing the film rather than analysing it &ndash; however confident it sounds.</div>
+    </article>
+
+    <article class="exemplar" data-cat="analyse">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Analyse &middot; the top-band move</span>
+        <span class="exemplar-band">Bullet 3 &middot; 8</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;That is not six separate decisions &ndash; it is <strong>a single sustained casting strategy</strong>.&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> state what the <em>pattern</em> of your examples amounts to. Several instances plus a structural claim beats several instances alone, because it turns a list into a thesis. Nobody in the cohort made this move &ndash; it is the cleanest available route from a 7 to an 8.</div>
+    </article>
+
+    <article class="exemplar" data-cat="analyse">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Analyse &middot; mechanism</span>
+        <span class="exemplar-band">Bullet 3 &middot; 6&rarr;7</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;Heston is wearing <strong>a different suit between shots</strong>.&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> read the frame for the evidence of its own construction. This is not recall about the film &ndash; it is a detail visible on screen that exposes the edit. It is what took the strongest response in the cohort from a 6 to a 7.</div>
+    </article>
+
+    <article class="exemplar" data-cat="evaluate">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Evaluate &middot; the gate</span>
+        <span class="exemplar-band">Bullet 4</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;Does this contain a <strong>judgement</strong>, or only a <strong>mechanism</strong>?&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> the diagnostic to run over your final paragraph. If it explains <em>how</em> a technique works, that is analysis and it belongs in bullet 3. Bullet 4 asks whether it worked, on whom, and what that tells us. Answering bullet 4 with a second bullet 3 is a one-mark penalty on eight marks before anything else is assessed.</div>
+    </article>
+
+    <article class="exemplar" data-cat="evaluate">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Evaluate &middot; differentiation</span>
+        <span class="exemplar-band">Bullet 4</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;Three reading positions, and <strong>different material from the media work</strong> under each one.&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> naming dominant, negotiated and oppositional and supporting all three with the same example is not differentiation. Dominant stands on the casting pattern; negotiated on Kayla Rolland; oppositional on the omissions. Different evidence per position is what the upper bands are actually checking for.</div>
+    </article>
+
+    <article class="exemplar" data-cat="evaluate">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Evaluate &middot; sophistication</span>
+        <span class="exemplar-band">Bullet 4 &middot; 8</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;The Heston sequence is <strong>the case where the distinction breaks</strong>.&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> establish a general rule &ndash; Moore manipulates through arrangement, not invention &ndash; then identify the point at which your own rule fails. <em>Finding the exception to your own argument is a stronger evaluative move than applying the argument</em>, and it reads as sophistication rather than inconsistency.</div>
+    </article>
+
+    <article class="exemplar" data-cat="evaluate">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Evaluate &middot; distinguishing achievements</span>
+        <span class="exemplar-band">Bullet 4 &middot; 8</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;It changed the <strong>discourse</strong>. It did not change the <strong>attitudes</strong>.&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>The move:</strong> split one vague success claim into two different achievements and rate them separately. Shifting how an issue is discussed and shifting what people believe are not the same thing, and saying so is exactly the kind of judgement the top band rewards.</div>
+    </article>
+
+    <article class="exemplar cautionary" data-cat="warn">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Watch out &middot; universal decodability</span>
+        <span class="exemplar-band">Bullet 4</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;Moore convinces <strong>the audience</strong> that&hellip;&rdquo; &nbsp;&middot;&nbsp; &ldquo;this makes <strong>audiences</strong> want to change society&rdquo; &nbsp;&middot;&nbsp; &ldquo;a masterpiece&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>What is wrong:</strong> each one claims all viewers decode the media work identically &ndash; the opposite of what the criterion asks. Test every sentence in your final paragraph against the question <em>&ldquo;which audience?&rdquo;</em> If it cannot survive that, rewrite it.</div>
+    </article>
+
+    <article class="exemplar contrast" data-cat="warn">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Watch out &middot; persuaded, not analysing</span>
+        <span class="exemplar-band">Bullet 3</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;The cut <strong>confirms</strong> the encounter to be legitimate.&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>What is wrong:</strong> the cut is not confirming anything &ndash; it is <em>manufacturing the appearance</em> of confirmation. Reporting the film&rsquo;s own rhetorical self-presentation as fact (&ldquo;evaluating from both sides&rdquo;, &ldquo;only facts, not opinions&rdquo;) is evidence that the technique worked on you. Noticing how the impression is built is the analysis.</div>
+    </article>
+
+    <article class="exemplar contrast" data-cat="warn">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Watch out &middot; the container</span>
+        <span class="exemplar-band">Every bullet</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;The disturbing imagery of the Columbine High School massacre&hellip;&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>What is wrong:</strong> which imagery? The cafeteria security camera footage, the 911 audio, the photographs of the victims? &ldquo;Archival footage&rdquo;, &ldquo;the animation&rdquo;, &ldquo;interviews&rdquo; and &ldquo;satire&rdquo; are all containers. The marks are for what is inside them.</div>
+    </article>
+
+    <article class="exemplar contrast" data-cat="warn">
+      <div class="exemplar-head">
+        <span class="exemplar-criterion">Watch out &middot; Hall&rsquo;s typology</span>
+        <span class="exemplar-band">Bullet 4</span>
+      </div>
+      <div class="exemplar-text">
+        <blockquote>&ldquo;An oppositional reading is when the audience <strong>gets something else out of it</strong>.&rdquo;</blockquote>
+      </div>
+      <div class="exemplar-move"><strong>What is wrong:</strong> the one term the cohort consistently mangled. Oppositional means the viewer <em>understands the preferred meaning perfectly well and rejects it</em>, decoding from a contrary frame. &ldquo;Reads it differently&rdquo; is closer to negotiated &ndash; and naming a theory you have misdefined costs more than not naming it.</div>
+    </article>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       PART 7 — TERMINOLOGY BANK
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="part" id="terminology">
+    <div class="part-label">Part 7</div>
+    <h2 class="part-title">Terminology bank</h2>
+    <p class="part-intro">Use these because they are <strong>precise</strong>, not because they sound impressive. A term used loosely earns nothing &ndash; and on these two bullets, terminology register is one of the three things that caps your mark. Tick each one you could explain to someone else right now.</p>
+
+    <div class="checklist">
+      <span class="checklist-title">Documentary modes</span>
+      <label class="checklist-row"><input type="checkbox" data-checklist="m1"><span class="box"></span><span class="text"><span class="term">Expository</span> &ndash; addresses the viewer directly, usually through narration, and argues a case.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="m2"><span class="box"></span><span class="text"><span class="term">Observational</span> &ndash; the camera watches without intervening.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="m3"><span class="box"></span><span class="text"><span class="term">Participatory</span> &ndash; the filmmaker is in the film and their interaction is part of the material. <em>Bowling for Columbine</em>.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="m4"><span class="box"></span><span class="text"><span class="term">Reflexive</span> &ndash; the film shows its own process of construction. <em>Waltz with Bashir</em>.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="m5"><span class="box"></span><span class="text"><span class="term">Performative</span> &ndash; the filmmaker&rsquo;s own subjective experience is the vehicle for the truth claim. <em>Waltz with Bashir</em>.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="m6"><span class="box"></span><span class="text"><span class="term">Poetic</span> &ndash; organised by mood, rhythm and association rather than by argument.</span></label>
+    </div>
+
+    <div class="checklist">
+      <span class="checklist-title">Construction</span>
+      <label class="checklist-row"><input type="checkbox" data-checklist="c1"><span class="box"></span><span class="text"><span class="term">Selection</span> and <span class="term">omission</span> &ndash; what was included, and what the record contains that the film left out.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="c2"><span class="box"></span><span class="text"><span class="term">Juxtaposition</span> &ndash; meaning generated by what is placed next to what.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="c3"><span class="box"></span><span class="text"><span class="term">Smash cut</span> &middot; <span class="term">J-cut</span> &middot; <span class="term">montage</span> &ndash; name the edit, not just &ldquo;the editing&rdquo;.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="c4"><span class="box"></span><span class="text"><span class="term">B-roll</span> &middot; <span class="term">actuality footage</span> &middot; <span class="term">archival footage</span> &ndash; three different claims to authenticity.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="c5"><span class="box"></span><span class="text"><span class="term">Diegetic</span> and <span class="term">non-diegetic sound</span> &ndash; inside the world of the film, or laid over it. The credibility of one can be used to carry the argument of the other.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="c6"><span class="box"></span><span class="text"><span class="term">Voice-over</span> &middot; <span class="term">mise-en-sc&egrave;ne</span> (which includes sound design) &middot; <span class="term">framing</span> &middot; <span class="term">composition</span>.</span></label>
+    </div>
+
+    <div class="checklist">
+      <span class="checklist-title">Propaganda techniques &mdash; all present in <em>Bowling for Columbine</em></span>
+      <label class="checklist-row"><input type="checkbox" data-checklist="p1"><span class="box"></span><span class="text"><span class="term">Plain folks</span> &ndash; the cap, the loose shirt, the hands in pockets. Conclusions arrive as common sense rather than as argument.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="p2"><span class="box"></span><span class="text"><span class="term">Pinpointing the enemy</span> &ndash; a diffuse social problem reduced to the NRA, Heston, K-Mart. A united audience questions less.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="p3"><span class="box"></span><span class="text"><span class="term">Transfer</span> &middot; <span class="term">testimonial</span> &ndash; borrowed feeling, borrowed credibility.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="p4"><span class="box"></span><span class="text"><span class="term">Card stacking</span> &ndash; only the evidence that suits the case. The formal name for what selection and omission achieve together.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="p5"><span class="box"></span><span class="text"><span class="term">Bandwagon</span> &middot; <span class="term">glittering generalities</span> &middot; <span class="term">fear appeal</span>.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="p6"><span class="box"></span><span class="text"><span class="term">Exaggeration</span> &middot; <span class="term">repetition</span> &middot; <span class="term">satire</span> &middot; <span class="term">irony</span>.</span></label>
+    </div>
+
+    <div class="checklist">
+      <span class="checklist-title">Audience and ideology</span>
+      <label class="checklist-row"><input type="checkbox" data-checklist="a1"><span class="box"></span><span class="text"><span class="term">Dominant</span>, <span class="term">negotiated</span> and <span class="term">oppositional readings</span> &ndash; and the difference between oppositional and &ldquo;reads it differently&rdquo;.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="a2"><span class="box"></span><span class="text"><span class="term">Preferred meaning</span> &middot; <span class="term">encoding and decoding</span> &ndash; Hall. Apply it; do not merely cite it.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="a3"><span class="box"></span><span class="text"><span class="term">Naturalisation</span> &ndash; the feature that distinguishes an ideology from an opinion.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="a4"><span class="box"></span><span class="text"><span class="term">Hegemony</span> &ndash; dominance maintained by consent rather than by force.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="a5"><span class="box"></span><span class="text"><span class="term">Cultivation theory</span> &middot; <span class="term">agenda-setting</span> &ndash; two accounts of long-run media influence.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-checklist="a6"><span class="box"></span><span class="text"><span class="term">Active</span> and <span class="term">passive audiences</span> &middot; <span class="term">resistant reading</span> &ndash; the resistant reading is the one place outside research earns marks.</span></label>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────────────────
+       PART 8 — BEFORE YOU HAND IT IN
+       ────────────────────────────────────────────────────────────────── -->
+  <section class="part" id="checklist">
+    <div class="part-label">Part 8</div>
+    <h2 class="part-title">Before you hand it in</h2>
+    <p class="part-intro">Seven questions. They take ninety seconds and they are worth several marks. Run them in this order &ndash; the first three are cheap, the last four are where the eight-mark bullets live.</p>
+
+    <div class="tracker">
+      <div class="tracker-label">Checked</div>
+      <div class="tracker-count"><span id="finalCount">0</span> / 7</div>
+      <div class="tracker-bar"><div class="tracker-fill" id="finalFill"></div></div>
+      <button class="tracker-reset" id="finalReset">Reset</button>
+    </div>
+
+    <div class="checklist">
+      <label class="checklist-row"><input type="checkbox" data-final="1"><span class="box"></span><span class="text"><strong>1. Have I named an ideology, or a topic?</strong> Apply the strike test &ndash; delete the word &ldquo;ideology&rdquo; or &ldquo;values&rdquo; and see whether the sentence survives.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-final="2"><span class="box"></span><span class="text"><strong>2. Do my four bullets build one argument?</strong> Is the point of view in bullet 3 the one I established in bullet 1? Are the values in bullet 4 the ones I defined in bullet 2?</span></label>
+      <label class="checklist-row"><input type="checkbox" data-final="3"><span class="box"></span><span class="text"><strong>3. Can I point to a specific moment for every technique I have named?</strong> Not a category &ndash; a moment.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-final="4"><span class="box"></span><span class="text"><strong>4. Is my evidence about construction, or about what happens?</strong> What was chosen, cut, framed, omitted?</span></label>
+      <label class="checklist-row"><input type="checkbox" data-final="5"><span class="box"></span><span class="text"><strong>5. Have I said what the pattern of my examples adds up to?</strong> Several instances plus a structural claim beats several instances alone.</span></label>
+      <label class="checklist-row"><input type="checkbox" data-final="6"><span class="box"></span><span class="text"><strong>6. Does my final paragraph contain a judgement, or only another mechanism?</strong></span></label>
+      <label class="checklist-row"><input type="checkbox" data-final="7"><span class="box"></span><span class="text"><strong>7. Have I named audience positions and given each one different material to stand on?</strong></span></label>
+    </div>
+
+    <div class="callout note" style="margin-top:1.4rem;">
+      <span class="callout-label">And if you are taking Question 2</span>
+      <p>One more, before all seven: <strong>is my media work actually alternative, experimental or non-commercial &ndash; in its production and distribution, not in its politics?</strong> Every band descriptor in Question 2 is qualified by that phrase. Get it wrong and the ceiling drops on all four bullets at once.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  Year 12 ATAR MPA &middot; Sacred Heart College &middot; 2026<br>
+  <span style="color:#5a5a6e;">Journal Entry 6 Answer Guide &middot; <em>Bowling for Columbine</em> (Moore, 2002) &middot; <em>Waltz with Bashir</em> (Folman, 2008)</span>
+  <span class="note">Exemplar paragraphs in this guide are written to illustrate the band descriptors and are not extracts from work submitted for this task. The level-3 evidence model and the pattern-of-selection material are adapted from a 2025 WACE candidate response that scored very highly on this media work.</span>
+</footer>
+
+</div><!-- end .site-content -->
+
+<!-- ══════════════════════════════════════════ -->
+<!-- AUTH SCRIPT – SHA-256 hashed credentials  -->
+<!-- ══════════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  const VALID_USER_HASH = 'd5506c3f045a27380f2508acbd828833f4d247e7aefa5ba08555169df92bcebf';
+  const VALID_PASS_HASH = '410caa78609084c279d26bc9185da6d2c3c793d9948e1361b7c31415f930cbb7';
+  const STORAGE_KEY = 'mpa_auth';
+
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  const overlay = document.getElementById('loginOverlay');
+  const content = document.getElementById('siteContent');
+  const userIn  = document.getElementById('loginUser');
+  const passIn  = document.getElementById('loginPass');
+  const btn     = document.getElementById('loginBtn');
+  const errMsg  = document.getElementById('loginError');
+
+  function unlock() {
+    overlay.classList.add('hidden');
+    content.classList.add('visible');
+    localStorage.setItem(STORAGE_KEY, 'true');
+  }
+
+  if (localStorage.getItem(STORAGE_KEY) === 'true') { unlock(); }
+
+  async function attempt() {
+    const userHash = await sha256(userIn.value);
+    const passHash = await sha256(passIn.value);
+    if (userHash === VALID_USER_HASH && passHash === VALID_PASS_HASH) {
+      unlock();
+    } else {
+      errMsg.classList.remove('hidden');
+      passIn.value = '';
+      passIn.focus();
+    }
+  }
+
+  btn.addEventListener('click', attempt);
+  userIn.addEventListener('keydown', e => { if (e.key === 'Enter') passIn.focus(); });
+  passIn.addEventListener('keydown', e => { if (e.key === 'Enter') attempt(); });
+  userIn.addEventListener('input', () => errMsg.classList.add('hidden'));
+  passIn.addEventListener('input', () => errMsg.classList.add('hidden'));
+})();
+</script>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PAGE INTERACTIONS                         -->
+<!-- ══════════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  function loadJSON(key) {
+    try { return JSON.parse(localStorage.getItem(key)) || {}; }
+    catch (e) { return {}; }
+  }
+  function saveJSON(key, obj) {
+    try { localStorage.setItem(key, JSON.stringify(obj)); } catch (e) {}
+  }
+
+  /* ── Accordions ── */
+  function setOpen(acc, open) {
+    const body = acc.querySelector('.acc-body');
+    if (open) {
+      acc.classList.add('open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    } else {
+      acc.classList.remove('open');
+      body.style.maxHeight = '0px';
+    }
+  }
+
+  document.querySelectorAll('.accordion').forEach(acc => {
+    acc.querySelector('.acc-head').addEventListener('click', () => {
+      setOpen(acc, !acc.classList.contains('open'));
+    });
+  });
+
+  document.querySelectorAll('[data-expand]').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.accordion[data-group="' + b.dataset.expand + '"]')
+        .forEach(a => setOpen(a, true));
+    });
+  });
+  document.querySelectorAll('[data-collapse]').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.accordion[data-group="' + b.dataset.collapse + '"]')
+        .forEach(a => setOpen(a, false));
+    });
+  });
+
+  // Keep open accordions correctly sized if the window changes
+  function resizeOpen() {
+    document.querySelectorAll('.accordion.open').forEach(acc => {
+      const body = acc.querySelector('.acc-body');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    });
+  }
+  window.addEventListener('resize', resizeOpen);
+
+  /* ── Habit tracker ── */
+  const PRIORITY_KEY = 'mpa_je6_habits';
+  const pChecks = document.querySelectorAll('[data-priority-check]');
+  const pCount  = document.getElementById('priorityCount');
+  const pFill   = document.getElementById('priorityFill');
+
+  function refreshPriorities() {
+    let done = 0;
+    pChecks.forEach(c => {
+      const card = c.closest('.priority');
+      if (c.checked) { done++; card.classList.add('done'); }
+      else { card.classList.remove('done'); }
+    });
+    pCount.textContent = done;
+    pFill.style.width = (done / pChecks.length * 100) + '%';
+  }
+
+  const pState = loadJSON(PRIORITY_KEY);
+  pChecks.forEach(c => {
+    if (pState[c.dataset.priorityCheck]) c.checked = true;
+    c.addEventListener('change', () => {
+      const s = loadJSON(PRIORITY_KEY);
+      s[c.dataset.priorityCheck] = c.checked;
+      saveJSON(PRIORITY_KEY, s);
+      refreshPriorities();
+    });
+  });
+  refreshPriorities();
+
+  document.getElementById('trackerReset').addEventListener('click', () => {
+    pChecks.forEach(c => { c.checked = false; });
+    saveJSON(PRIORITY_KEY, {});
+    refreshPriorities();
+  });
+
+  /* ── Terminology checklist ── */
+  const LIST_KEY = 'mpa_je6_terminology';
+  const lState = loadJSON(LIST_KEY);
+  document.querySelectorAll('[data-checklist]').forEach(c => {
+    if (lState[c.dataset.checklist]) c.checked = true;
+    c.addEventListener('change', () => {
+      const s = loadJSON(LIST_KEY);
+      s[c.dataset.checklist] = c.checked;
+      saveJSON(LIST_KEY, s);
+    });
+  });
+
+  /* ── Final checklist ── */
+  const FINAL_KEY = 'mpa_je6_final';
+  const fChecks = document.querySelectorAll('[data-final]');
+  const fCount  = document.getElementById('finalCount');
+  const fFill   = document.getElementById('finalFill');
+
+  function refreshFinal() {
+    let done = 0;
+    fChecks.forEach(c => { if (c.checked) done++; });
+    fCount.textContent = done;
+    fFill.style.width = (done / fChecks.length * 100) + '%';
+  }
+
+  const fState = loadJSON(FINAL_KEY);
+  fChecks.forEach(c => {
+    if (fState[c.dataset.final]) c.checked = true;
+    c.addEventListener('change', () => {
+      const s = loadJSON(FINAL_KEY);
+      s[c.dataset.final] = c.checked;
+      saveJSON(FINAL_KEY, s);
+      refreshFinal();
+    });
+  });
+  refreshFinal();
+
+  document.getElementById('finalReset').addEventListener('click', () => {
+    fChecks.forEach(c => { c.checked = false; });
+    saveJSON(FINAL_KEY, {});
+    refreshFinal();
+  });
+
+  /* ── Moves bank filter ── */
+  const fBtns = document.querySelectorAll('.filter-btn');
+  const exemplars = document.querySelectorAll('.exemplar[data-cat]');
+  fBtns.forEach(b => {
+    b.addEventListener('click', () => {
+      fBtns.forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      const f = b.dataset.filter;
+      exemplars.forEach(ex => {
+        ex.classList.toggle('hidden', f !== 'all' && ex.dataset.cat !== f);
+      });
+    });
+  });
+
+  /* ── Strike test ── */
+  const strikeBox = document.getElementById('strikeBox');
+  const strikeBtn = document.getElementById('strikeBtn');
+  strikeBtn.addEventListener('click', () => {
+    const on = strikeBox.classList.toggle('struck');
+    strikeBtn.textContent = on ? 'Reset the sentences' : 'Apply the strike test';
+    setTimeout(resizeOpen, 450);
+  });
+
+  /* ── Concept sorter ── */
+  const SORT_ITEMS = [
+    {
+      term: 'Gun violence',
+      answer: 'neither',
+      fb: 'An <strong>issue</strong> – a phenomenon the documentary is about. It is not a system of belief and it is not something anyone holds to be worth protecting. This exact substitution was the single most expensive error on the task.'
+    },
+    {
+      term: 'Gun ownership',
+      answer: 'neither',
+      fb: 'A <strong>practice</strong>. The value underneath it is <em>security through firearm ownership</em> – name that instead, and the strike test passes.'
+    },
+    {
+      term: '“An armed citizen is a free citizen”',
+      answer: 'ideology',
+      fb: 'A <strong>system of belief</strong> about how freedom and safety are secured, naturalised as common sense across a culture. This is the dominant ideology <em>Bowling for Columbine</em> sets out to challenge.'
+    },
+    {
+      term: 'Self-reliance',
+      answer: 'value',
+      fb: 'A <strong>value</strong> – something held to be worth protecting. Watch the overlap: <em>self-reliance and distrust of state protection</em> functions as an ideology because it is a whole system of belief about the state. The value is the single thing prized; the ideology is the structure it sits inside.'
+    },
+    {
+      term: 'Empathy',
+      answer: 'neither',
+      fb: 'A <strong>virtue</strong>. Along with “equality” and “truth”, this was offered repeatedly as a value the documentary contests. It is not one of the values this film works on – and a marker cannot award a mark for a virtue in a values slot.'
+    },
+    {
+      term: 'American exceptionalism',
+      answer: 'ideology',
+      fb: 'An <strong>ideology</strong>. Shared, naturalised, circulated through news media, government and education, and it serves particular interests. All four features of the concept are present.'
+    },
+    {
+      term: 'The sanctity of human life',
+      answer: 'value',
+      fb: 'A <strong>value</strong>, and one of the six Moore is working on – alongside freedom, personal responsibility, security through firearm ownership, self-reliance and community responsibility.'
+    },
+    {
+      term: 'Constitutionalism – the Second Amendment as identity rather than law',
+      answer: 'ideology',
+      fb: 'An <strong>ideology</strong>. Note what makes it one: not the amendment itself, but the belief system that converts a legal clause into a marker of who you are. Naming it at that level of precision is what a 3 on bullet 1 requires.'
+    }
+  ];
+
+  const LABELS = { ideology: 'Ideology', value: 'Value', neither: 'Neither' };
+  const SORT_KEY = 'mpa_je6_sorter';
+  const itemsWrap = document.getElementById('sorterItems');
+  const scoreEl = document.getElementById('sorterScore');
+
+  function renderSorter(state) {
+    itemsWrap.innerHTML = '';
+    SORT_ITEMS.forEach((item, i) => {
+      const row = document.createElement('div');
+      row.className = 'sort-item';
+
+      const term = document.createElement('div');
+      term.className = 'sort-term';
+      term.innerHTML = item.term;
+      row.appendChild(term);
+
+      const opts = document.createElement('div');
+      opts.className = 'sort-opts';
+      ['ideology', 'value', 'neither'].forEach(key => {
+        const b = document.createElement('button');
+        b.className = 'sort-opt';
+        b.type = 'button';
+        b.textContent = LABELS[key];
+        b.dataset.key = key;
+        b.addEventListener('click', () => answer(i, key));
+        opts.appendChild(b);
+      });
+      row.appendChild(opts);
+
+      const fb = document.createElement('div');
+      fb.className = 'sort-fb';
+      fb.innerHTML = item.fb;
+      row.appendChild(fb);
+
+      itemsWrap.appendChild(row);
+
+      if (state[i]) { paint(i, state[i]); }
+    });
+    updateScore(state);
+  }
+
+  function paint(i, chosen) {
+    const row = itemsWrap.children[i];
+    const item = SORT_ITEMS[i];
+    row.querySelectorAll('.sort-opt').forEach(b => {
+      b.disabled = true;
+      if (b.dataset.key === item.answer) b.classList.add('correct');
+      else if (b.dataset.key === chosen) b.classList.add('wrong');
+    });
+    row.querySelector('.sort-fb').classList.add('show');
+  }
+
+  function updateScore(state) {
+    let correct = 0, done = 0;
+    SORT_ITEMS.forEach((item, i) => {
+      if (state[i]) { done++; if (state[i] === item.answer) correct++; }
+    });
+    scoreEl.textContent = correct + ' / ' + SORT_ITEMS.length + ' correct'
+      + (done && done < SORT_ITEMS.length ? ' · ' + (SORT_ITEMS.length - done) + ' to go' : '');
+  }
+
+  function answer(i, key) {
+    const state = loadJSON(SORT_KEY);
+    if (state[i]) return;
+    state[i] = key;
+    saveJSON(SORT_KEY, state);
+    paint(i, key);
+    updateScore(state);
+  }
+
+  renderSorter(loadJSON(SORT_KEY));
+
+  document.getElementById('sorterReset').addEventListener('click', () => {
+    saveJSON(SORT_KEY, {});
+    renderSorter({});
+  });
+})();
+</script>
+<script src="countdown.js?v=weekdays" defer></script>
+
+</body>
+</html>

@@ -362,6 +362,56 @@ body::before {
 .stat.hot { border-color: rgba(224,85,101,0.35); background: linear-gradient(180deg, var(--red-bg) 0%, var(--bg-card) 100%); }
 .stat.hot .big { color: var(--red); }
 
+/* ── PODCAST ── */
+.audio-section {
+  max-width: 800px;
+  margin: 2rem auto 0;
+}
+.audio-card {
+  background: linear-gradient(135deg, rgba(91,127,245,0.05) 0%, rgba(232,197,71,0.03) 100%);
+  border: 1px solid rgba(91,127,245,0.15);
+  border-radius: 10px;
+  padding: 1.3rem 1.5rem;
+  position: relative;
+}
+.audio-card::before {
+  content: '\01F3A7';
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: var(--bg-deep);
+  padding: 0 6px;
+  font-size: 1.1rem;
+}
+.audio-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.3rem;
+}
+.audio-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.35;
+  margin-bottom: 0.5rem;
+}
+.audio-desc {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.65;
+  margin-bottom: 0.9rem;
+}
+.audio-player {
+  width: 100%;
+  height: 42px;
+  border-radius: 6px;
+  outline: none;
+}
+
 /* ── TRACKER ── */
 .tracker {
   background: var(--bg-card);
@@ -986,6 +1036,8 @@ table.band tr.low td.mk { color: var(--text-muted); }
   .priority-num { grid-row: auto; font-size: 1.6rem; }
   .priority-check { grid-column: 1 / 2; }
   .message { padding: 1.4rem 1.3rem 1.3rem; }
+  .audio-section { margin-left: 1.2rem; margin-right: 1.2rem; }
+  .audio-card { padding: 1.2rem 1.2rem; }
   .acc-head { padding: 1rem 1.1rem; }
   .acc-body-inner { padding: 0 1.1rem 1.1rem; padding-top: 1rem; }
   .exemplar { padding: 1.1rem 1.2rem; }
@@ -1036,6 +1088,21 @@ table.band tr.low td.mk { color: var(--text-muted); }
   <p>Here is the single most useful fact to come out of marking this task. <strong>The Analyse and Evaluate bullets carry sixteen of the twenty-three marks, and they accounted for almost nine-tenths of the marks the cohort lost.</strong> Construct and Describe went comparatively well. If you want to move up a grade on the next extended response, nothing else you could work on comes close to the value of those two bullets.</p>
   <p>The second most useful fact: almost everything that cost marks was a <em>habit</em>, not a knowledge gap. The film knowledge is there. The habits are fixable, they are listed in Part 2, and they are worth more to you between now and November than another rewatch.</p>
   <p class="signoff">&mdash; Mr Clarke</p>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     PODCAST
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="audio-section">
+  <div class="audio-card">
+    <div class="audio-label">Podcast &middot; NotebookLM</div>
+    <div class="audio-title">Documentary Construction for Your Media Exam</div>
+    <p class="audio-desc">A discussion of how documentary is built &ndash; selection, omission, juxtaposition and the persuasive techniques behind <em>Bowling for Columbine</em> and <em>Waltz with Bashir</em> &ndash; and what that means for the way you write about construction under exam conditions. Ideal if you prefer to learn by listening.</p>
+    <audio class="audio-player" controls preload="metadata">
+      <source src="Documentary_Construction_for_Your_Media_Exam%20compressed.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
 </div>
 
 <!-- Sticky quick-jump nav -->

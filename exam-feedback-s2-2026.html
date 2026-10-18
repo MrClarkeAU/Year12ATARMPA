@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semester Two Exam 2026 &ndash; Cohort Feedback | Year 12 ATAR MPA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg-deep: #0a0a0f;
+  --bg-card: #12121a;
+  --bg-card-hover: #1a1a26;
+  --bg-input: #1e1e2a;
+  --border: #2a2a3a;
+  --border-glow: #3d5af1;
+  --accent: #5b7ff5;
+  --accent-bright: #7b9aff;
+  --accent-dim: #3d5af1;
+  --gold: #e8c547;
+  --gold-dim: #c4a535;
+  --green: #4caf7d;
+  --green-bg: rgba(76,175,125,0.10);
+  --green-border: rgba(76,175,125,0.35);
+  --red: #e05565;
+  --red-bg: rgba(224,85,101,0.08);
+  --red-border: rgba(224,85,101,0.30);
+  --purple: #c084fc;
+  --purple-bg: rgba(192,132,252,0.10);
+  --purple-border: rgba(192,132,252,0.30);
+  --teal: #3db8a0;
+  --text: #e0e0ec;
+  --text-dim: #a0a0b8;
+  --text-muted: #7a7a94;
+  --film-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  --error: #f06565;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: var(--film-grain);
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.35;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   LOGIN OVERLAY (matches the rest of the hub)
+   ───────────────────────────────────────────────────────────────────── */
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--bg-deep);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2rem;
+}
+.login-overlay.visible { display: flex; }
+.login-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(192,132,252,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.login-box {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+.login-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 0.6rem;
+}
+.login-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: #fff;
+  margin-bottom: 0.4rem;
+}
+.login-sub {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  margin-bottom: 1.6rem;
+  font-weight: 300;
+}
+.login-input {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.7rem 0.9rem;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.92rem;
+  border-radius: 4px;
+  margin-bottom: 0.7rem;
+  transition: border-color 0.2s;
+}
+.login-input:focus { outline: none; border-color: var(--purple); }
+.login-btn {
+  width: 100%;
+  background: var(--purple);
+  color: #0a0a0f;
+  border: none;
+  padding: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 0.3rem;
+  transition: background 0.2s, transform 0.1s;
+}
+.login-btn:hover { background: #d4a3ff; }
+.login-btn:active { transform: translateY(1px); }
+.login-error {
+  margin-top: 0.8rem;
+  font-size: 0.78rem;
+  color: var(--error);
+  min-height: 1.1rem;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   HERO
+   ───────────────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  text-align: center;
+  padding: 3.5rem 1.5rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(192,132,252,0.05) 0%, transparent 100%);
+}
+.back-link {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-bottom: 1.6rem;
+  transition: color 0.2s;
+}
+.back-link:hover { color: var(--purple); }
+.hero-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 0.9rem;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.7rem, 4.5vw, 2.6rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+.hero h1 .em {
+  font-style: italic;
+  color: var(--purple);
+  font-weight: 400;
+}
+.hero-sub {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  max-width: 620px;
+  margin: 0 auto 0.5rem;
+  font-weight: 300;
+}
+.hero-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin-top: 0.9rem;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   STICKY QUICK NAV
+   ───────────────────────────────────────────────────────────────────── */
+.quick-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,10,15,0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.7rem 1.5rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+  display: flex;
+  justify-content: center;
+}
+.quick-nav::-webkit-scrollbar { display: none; }
+.quick-nav-inner {
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+.quick-nav a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  transition: all 0.2s;
+}
+.quick-nav a:hover {
+  color: var(--purple);
+  border-color: rgba(192,132,252,0.4);
+  background: var(--purple-bg);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   MAIN LAYOUT
+   ───────────────────────────────────────────────────────────────────── */
+.main {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.part {
+  margin-bottom: 3.2rem;
+  scroll-margin-top: 80px;
+}
+.part-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 0.6rem;
+}
+.part-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem;
+  color: #fff;
+  margin-bottom: 0.4rem;
+  line-height: 1.25;
+}
+.part-intro {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  margin-bottom: 1.8rem;
+  font-weight: 300;
+  max-width: 720px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   CALLOUTS — four styles
+   ───────────────────────────────────────────────────────────────────── */
+.callout {
+  border-left: 3px solid;
+  padding: 1.1rem 1.3rem;
+  border-radius: 0 4px 4px 0;
+  margin: 1.2rem 0;
+  font-size: 0.93rem;
+}
+.callout p + p { margin-top: 0.7rem; }
+.callout-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.callout.info { background: rgba(91,127,245,0.07); border-color: var(--accent); }
+.callout.info .callout-label { color: var(--accent-bright); }
+.callout.pitfall { background: var(--red-bg); border-color: var(--red); }
+.callout.pitfall .callout-label { color: var(--red); }
+.callout.exemplar { background: var(--green-bg); border-color: var(--green); }
+.callout.exemplar .callout-label { color: var(--green); }
+.callout.note { background: var(--purple-bg); border-color: var(--purple); }
+.callout.note .callout-label { color: var(--purple); }
+
+/* ─────────────────────────────────────────────────────────────────────
+   MESSAGE FROM MR CLARKE (top-of-page note callout, decorated)
+   ───────────────────────────────────────────────────────────────────── */
+.message {
+  background: linear-gradient(180deg, rgba(192,132,252,0.10) 0%, rgba(192,132,252,0.04) 100%);
+  border: 1px solid var(--purple-border);
+  border-radius: 6px;
+  padding: 1.8rem 1.8rem 1.6rem;
+  margin-bottom: 3rem;
+  position: relative;
+}
+.message-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 0.7rem;
+}
+.message h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  color: #fff;
+  margin-bottom: 0.8rem;
+  line-height: 1.3;
+}
+.message p {
+  font-size: 0.95rem;
+  color: var(--text);
+  font-weight: 300;
+  margin-bottom: 0.8rem;
+}
+.message p:last-child { margin-bottom: 0; }
+.message .signoff {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--purple);
+  margin-top: 1rem;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   PROGRESS BAR (priorities tracker)
+   ───────────────────────────────────────────────────────────────────── */
+.tracker {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.1rem 1.3rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.tracker-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+.tracker-count {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: var(--purple);
+  font-weight: 700;
+}
+.tracker-bar {
+  flex: 1;
+  min-width: 140px;
+  height: 6px;
+  background: var(--bg-input);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.tracker-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--purple), var(--accent-bright));
+  border-radius: 3px;
+  width: 0%;
+  transition: width 0.4s ease;
+}
+.tracker-reset {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.6rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tracker-reset:hover { color: var(--purple); border-color: var(--purple); }
+
+/* ─────────────────────────────────────────────────────────────────────
+   PRIORITY CARDS
+   ───────────────────────────────────────────────────────────────────── */
+.priority {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.4rem 1.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+  transition: border-color 0.25s, background 0.25s;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem 1.2rem;
+  align-items: start;
+}
+.priority.done {
+  background: linear-gradient(180deg, rgba(192,132,252,0.06) 0%, var(--bg-card) 100%);
+  border-color: rgba(192,132,252,0.35);
+}
+.priority-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--purple);
+  line-height: 1;
+  grid-row: 1 / 3;
+  opacity: 0.85;
+}
+.priority-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.priority h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: #fff;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 0.4rem;
+}
+.priority-tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.6rem;
+}
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  background: rgba(232,197,71,0.10);
+  color: var(--gold);
+  border: 1px solid rgba(232,197,71,0.20);
+}
+.tag.struct { background: rgba(91,127,245,0.10); color: var(--accent-bright); border-color: rgba(91,127,245,0.20); }
+.tag.theory { background: rgba(192,132,252,0.10); color: var(--purple); border-color: rgba(192,132,252,0.25); }
+.tag.evidence { background: rgba(76,175,125,0.10); color: var(--green); border-color: rgba(76,175,125,0.25); }
+.priority-obs {
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  font-style: italic;
+  margin-bottom: 0.7rem;
+  font-weight: 300;
+}
+.priority-fix {
+  color: var(--text);
+  font-size: 0.93rem;
+}
+.priority-check {
+  grid-column: 1 / 3;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+}
+.priority-check input { display: none; }
+.priority-check .box {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
+  background: var(--bg-input);
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.2s;
+}
+.priority-check input:checked + .box {
+  background: var(--purple);
+  border-color: var(--purple);
+}
+.priority-check input:checked + .box::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #0a0a0f;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.priority-check .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+}
+.priority.done .priority-check .label {
+  color: var(--purple);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   ACCORDION (question cards)
+   ───────────────────────────────────────────────────────────────────── */
+.controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+  flex-wrap: wrap;
+}
+.ctrl-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 0.45rem 0.8rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.ctrl-btn:hover {
+  color: var(--purple);
+  border-color: rgba(192,132,252,0.4);
+}
+
+.accordion {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 0.7rem;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.accordion.open { border-color: rgba(192,132,252,0.35); }
+.acc-head {
+  padding: 1.1rem 1.4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  user-select: none;
+  transition: background 0.2s;
+}
+.acc-head:hover { background: var(--bg-card-hover); }
+.acc-titlewrap { flex: 1; min-width: 0; }
+.acc-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 0.3rem;
+}
+.acc-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: #fff;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.acc-marks {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  background: rgba(232,197,71,0.12);
+  color: var(--gold);
+  padding: 0.25rem 0.55rem;
+  border-radius: 3px;
+  border: 1px solid rgba(232,197,71,0.2);
+  flex-shrink: 0;
+}
+.acc-chev {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  position: relative;
+  transition: transform 0.25s;
+  color: var(--text-muted);
+}
+.acc-chev::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 2px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+.accordion.open .acc-chev { transform: rotate(180deg); color: var(--purple); }
+.acc-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+.acc-body-inner {
+  padding: 0 1.4rem 1.4rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.2rem;
+}
+.acc-body-inner p { margin-bottom: 0.8rem; font-size: 0.93rem; }
+.acc-body-inner p:last-child { margin-bottom: 0; }
+.acc-body-inner h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin: 1.2rem 0 0.6rem;
+}
+.acc-body-inner h4:first-child { margin-top: 0; }
+.q-stem {
+  background: var(--bg-input);
+  border-left: 2px solid var(--purple);
+  padding: 0.8rem 1rem;
+  border-radius: 0 4px 4px 0;
+  font-style: italic;
+  color: var(--text);
+  font-size: 0.92rem;
+  margin-bottom: 1rem;
+}
+.q-stats {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   EXEMPLAR BANK
+   ───────────────────────────────────────────────────────────────────── */
+.filter-bar {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.85rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn:hover {
+  color: var(--purple);
+  border-color: rgba(192,132,252,0.4);
+}
+.filter-btn.active {
+  color: #0a0a0f;
+  background: var(--purple);
+  border-color: var(--purple);
+}
+.exemplar {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--green);
+  border-radius: 0 6px 6px 0;
+  padding: 1.3rem 1.5rem;
+  margin-bottom: 1rem;
+  transition: opacity 0.25s, transform 0.25s;
+}
+.exemplar.hidden { display: none; }
+.exemplar-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.7rem;
+}
+.exemplar-criterion {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--green);
+  background: var(--green-bg);
+  border: 1px solid var(--green-border);
+  padding: 0.22rem 0.55rem;
+  border-radius: 3px;
+}
+.exemplar-band {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+}
+.exemplar-text {
+  text-align: left;
+  margin-bottom: 0.9rem;
+}
+.exemplar-text blockquote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.02rem;
+  color: var(--text);
+  line-height: 1.5;
+  padding-left: 0;
+  margin: 0 0 0.4rem;
+}
+.exemplar-text blockquote strong { font-weight: 700; color: #fff; font-style: italic; }
+.exemplar-source {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text-dim);
+  font-weight: 300;
+}
+.exemplar-source em { color: var(--text); font-style: italic; }
+.exemplar-move {
+  background: rgba(0,0,0,0.18);
+  padding: 0.8rem 1rem;
+  border-radius: 4px;
+  font-size: 0.88rem;
+  color: var(--text-dim);
+}
+.exemplar-move strong { color: var(--text); font-weight: 600; }
+.exemplar.contrast { border-left-color: var(--red); }
+.exemplar.contrast .exemplar-criterion { color: var(--red); background: var(--red-bg); border-color: var(--red-border); }
+.exemplar.cautionary { border-left-color: var(--gold); }
+.exemplar.cautionary .exemplar-criterion { color: var(--gold); background: rgba(232,197,71,0.10); border-color: rgba(232,197,71,0.30); }
+
+/* ─────────────────────────────────────────────────────────────────────
+   UNIT 3 CHECKLIST
+   ───────────────────────────────────────────────────────────────────── */
+.checklist {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.4rem 1.6rem;
+}
+.checklist-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed var(--border);
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s;
+}
+.checklist-row:last-child { border-bottom: none; }
+.checklist-row input { display: none; }
+.checklist-row .box {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
+  background: var(--bg-input);
+  flex-shrink: 0;
+  margin-top: 4px;
+  position: relative;
+  transition: all 0.2s;
+}
+.checklist-row input:checked + .box {
+  background: var(--green);
+  border-color: var(--green);
+}
+.checklist-row input:checked + .box::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #0a0a0f;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+.checklist-row .text {
+  font-size: 0.92rem;
+  color: var(--text);
+  line-height: 1.55;
+}
+.checklist-row input:checked ~ .text {
+  color: var(--text-muted);
+  text-decoration: line-through;
+  text-decoration-color: var(--text-muted);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   SECTION-INTRO MARKERS (Section One / Section Two intros)
+   ───────────────────────────────────────────────────────────────────── */
+.section-intro {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.2rem 1.4rem;
+  margin-bottom: 1.4rem;
+}
+.section-intro p {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  margin-bottom: 0.6rem;
+  font-weight: 300;
+}
+.section-intro p:last-child { margin-bottom: 0; }
+.section-intro strong { color: var(--text); font-weight: 600; }
+.criterion-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.6rem;
+  margin-top: 0.9rem;
+}
+.criterion-pill {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.55rem 0.7rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  text-align: center;
+}
+.criterion-pill strong {
+  display: block;
+  color: var(--gold);
+  font-size: 0.95rem;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 0.15rem;
+  letter-spacing: 0;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   AUDIO SECTION
+   ───────────────────────────────────────────────────────────────────── */
+.audio-section { max-width: 800px; margin: 2rem auto 0; }
+.audio-card { background: linear-gradient(135deg, rgba(192,132,252,0.06) 0%, rgba(232,197,71,0.03) 100%); border: 1px solid rgba(192,132,252,0.18); border-radius: 10px; padding: 1.3rem 1.5rem; position: relative; }
+.audio-card::before { content: '\01F3A7'; position: absolute; top: -12px; left: 20px; background: var(--bg-deep); padding: 0 6px; font-size: 1.1rem; }
+.audio-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem; }
+.audio-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: #fff; line-height: 1.35; margin-bottom: 0.5rem; }
+.audio-desc { font-size: 0.9rem; color: var(--text-dim); line-height: 1.65; margin-bottom: 0.9rem; }
+.audio-player { width: 100%; height: 42px; border-radius: 6px; outline: none; }
+.audio-placeholder { display: flex; align-items: center; gap: 0.8rem; background: rgba(255,255,255,0.03); border: 1px dashed rgba(192,132,252,0.25); border-radius: 6px; padding: 0.8rem 1rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.08em; }
+.audio-placeholder-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+/* ─────────────────────────────────────────────────────────────────────
+   FOOTER
+   ───────────────────────────────────────────────────────────────────── */
+.footer {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  border-top: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+.footer a {
+  color: var(--purple);
+  text-decoration: none;
+  margin-left: 0.6rem;
+}
+.footer a:hover { text-decoration: underline; }
+
+/* ─────────────────────────────────────────────────────────────────────
+   ANIMATIONS + RESPONSIVE
+   ───────────────────────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeUp 0.45s ease both; }
+
+@media (max-width: 600px) {
+  .hero { padding: 2.5rem 1.2rem 2rem; }
+  .main { padding: 1.8rem 1.2rem 3rem; }
+  .priority { grid-template-columns: 1fr; }
+  .priority-num { grid-row: auto; font-size: 1.6rem; }
+  .priority-check { grid-column: 1 / 2; }
+  .message { padding: 1.4rem 1.3rem 1.3rem; }
+  .acc-head { padding: 1rem 1.1rem; }
+  .acc-body-inner { padding: 0 1.1rem 1.1rem; padding-top: 1rem; }
+  .exemplar { padding: 1.1rem 1.2rem; }
+}
+
+/* ── Forward link into the Semester Two Study Guide ── */
+.s2guide-card { display: block; text-decoration: none; color: inherit; background: linear-gradient(135deg, rgba(160,115,217,0.10), rgba(160,115,217,0.03)); border: 1px solid rgba(160,115,217,0.35); border-left: 3px solid var(--purple); border-radius: 8px; padding: 1.15rem 1.35rem; margin: 1.6rem 0; transition: transform 0.15s, border-color 0.2s, background 0.2s; }
+.s2guide-card:hover { transform: translateY(-2px); border-color: var(--purple); background: linear-gradient(135deg, rgba(160,115,217,0.16), rgba(160,115,217,0.05)); }
+.s2guide-label { display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--purple); margin-bottom: 0.45rem; }
+.s2guide-title { font-size: 1.02rem; font-weight: 700; color: var(--text); margin-bottom: 0.35rem; line-height: 1.4; }
+.s2guide-text { font-size: 0.9rem; color: var(--text-dim); line-height: 1.65; }
+.s2guide-go { display: inline-block; margin-top: 0.6rem; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.08em; color: #c98ee5; }
+
+/* ══════════ START-HERE ROUTER ══════════ */
+.router { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem 1.6rem; margin: 1.4rem 0; }
+.router-q { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--purple); margin-bottom: 0.9rem; }
+.router-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.55rem; }
+.router-opt { background: var(--bg-input); border: 1px solid var(--border); border-radius: 6px; padding: 0.75rem 0.9rem; cursor: pointer; text-align: left; font-family: 'Source Sans 3', sans-serif; font-size: 0.9rem; color: var(--text-dim); transition: all 0.18s; line-height: 1.4; }
+.router-opt:hover { border-color: rgba(192,132,252,0.45); color: var(--text); background: var(--bg-card-hover); }
+.router-opt.active { border-color: var(--purple); background: var(--purple-bg); color: var(--text); }
+.router-opt span { display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-top: 0.28rem; }
+.router-opt.active span { color: var(--purple); }
+.router-out { display: none; margin-top: 1.3rem; padding-top: 1.3rem; border-top: 1px solid var(--border); }
+.router-out.visible { display: block; animation: fadeIn 0.35s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.router-means { font-size: 1rem; color: var(--text); margin-bottom: 0.4rem; font-weight: 600; }
+.router-detail { font-size: 0.93rem; color: var(--text-dim); margin-bottom: 1rem; }
+.router-go { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; }
+.router-links { display: flex; flex-direction: column; gap: 0.45rem; }
+.router-link { display: flex; align-items: baseline; gap: 0.6rem; background: var(--bg-input); border: 1px solid var(--border); border-left: 2px solid var(--purple); border-radius: 0 5px 5px 0; padding: 0.65rem 0.9rem; text-decoration: none; transition: all 0.18s; }
+.router-link:hover { border-color: var(--purple); background: var(--bg-card-hover); transform: translateX(2px); }
+.router-link b { color: var(--text); font-size: 0.92rem; font-weight: 600; }
+.router-link i { font-style: normal; color: var(--text-dim); font-size: 0.86rem; }
+.router-link .arrow { margin-left: auto; color: var(--purple); font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; flex-shrink: 0; }
+
+/* ══════════ CHARTS ══════════ */
+.chart { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 1.3rem 1.5rem; margin: 1.1rem 0; }
+.chart-title { font-size: 0.97rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
+.chart-sub { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.1rem; }
+.chart-rows { display: flex; flex-direction: column; gap: 0.5rem; }
+.chart-row { display: grid; grid-template-columns: 136px 1fr auto; align-items: center; gap: 0.75rem; }
+.chart-key { font-size: 0.85rem; color: var(--text-dim); text-align: right; line-height: 1.3; }
+.chart-track { position: relative; height: 18px; background: rgba(255,255,255,0.035); border-radius: 3px; overflow: visible; }
+.chart-fill { height: 100%; background: #5b7ff5; border-radius: 3px 4px 4px 3px; min-width: 0; transition: width 0.6s cubic-bezier(0.4,0,0.2,1); }
+.chart-val { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text); min-width: 42px; text-align: right; }
+.chart-row.flag .chart-val { color: var(--red); }
+.chart-note { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); margin-left: 0.5rem; }
+.chart-foot { font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem; padding-top: 0.85rem; border-top: 1px solid var(--border); }
+.chart-foot strong { color: var(--text-dim); }
+.chart-row:hover .chart-fill { filter: brightness(1.18); }
+.chart-row[data-tip] { cursor: default; }
+@media (max-width: 560px) {
+  .chart-row { grid-template-columns: 104px 1fr auto; gap: 0.5rem; }
+  .chart-key { font-size: 0.78rem; }
+}
+
+/* ══════════ STAT STRIP ══════════ */
+.statstrip { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.7rem; margin: 1.3rem 0; }
+.statbox { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 1rem 1.1rem; text-align: center; }
+.statbox b { display: block; font-family: 'Playfair Display', serif; font-size: 1.85rem; font-weight: 700; color: var(--gold); line-height: 1.1; }
+.statbox b.accent { color: var(--accent-bright); }
+.statbox b.red { color: var(--red); }
+.statbox span { display: block; font-size: 0.8rem; color: var(--text-dim); margin-top: 0.3rem; line-height: 1.45; }
+
+/* ══════════ TEXT-FIT TABLE ══════════ */
+.fit-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+.fit-table th { background: var(--bg-input); color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid var(--border); font-weight: 500; }
+.fit-table td { padding: 0.65rem 0.8rem; border-bottom: 1px solid var(--border); color: var(--text-dim); vertical-align: top; }
+.fit-table tr:last-child td { border-bottom: none; }
+.fit-table td.fam { color: var(--text); font-weight: 600; }
+.fit-table em { font-style: italic; color: var(--text); }
+@media (max-width: 620px) {
+  .fit-table, .fit-table tbody, .fit-table tr, .fit-table td { display: block; width: 100%; }
+  .fit-table thead { display: none; }
+  .fit-table tr { border-bottom: 1px solid var(--border); padding: 0.6rem 0; }
+  .fit-table td { border: none; padding: 0.2rem 0; }
+  .fit-table td.fam { font-size: 0.95rem; margin-bottom: 0.15rem; }
+}
+
+/* ══════════ HUB SIGNPOST ══════════ */
+.hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0.7rem; margin: 1.2rem 0; }
+.hub-link { display: block; background: var(--bg-card); border: 1px solid var(--border); border-top: 2px solid var(--purple); border-radius: 6px; padding: 1rem 1.15rem; text-decoration: none; transition: all 0.18s; }
+.hub-link:hover { transform: translateY(-2px); border-color: var(--purple); background: var(--bg-card-hover); }
+.hub-link b { display: block; color: var(--text); font-size: 0.93rem; font-weight: 600; margin-bottom: 0.25rem; }
+.hub-link i { font-style: normal; display: block; color: var(--text-dim); font-size: 0.84rem; line-height: 1.55; }
+.hub-link u { display: inline-block; text-decoration: none; margin-top: 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--purple); }
+</style>
+</head>
+<body>
+
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <div class="login-label">Year 12 ATAR &middot; MPA</div>
+    <div class="login-title">Revision Hub</div>
+    <div class="login-sub">Enter your credentials to continue.</div>
+    <input type="text" id="user" class="login-input" placeholder="Username" autocomplete="off" autocapitalize="off" spellcheck="false">
+    <input type="password" id="pass" class="login-input" placeholder="Password" autocomplete="off">
+    <button id="loginBtn" class="login-btn">Enter</button>
+    <div id="loginError" class="login-error"></div>
+  </div>
+</div>
+
+
+<header class="hero">
+  <a href="index.html" class="back-link">&larr; Back to Revision Hub</a>
+  <div class="hero-label">Semester Two Examination &middot; 2026</div>
+  <h1>Cohort Feedback &amp; <span class="em">the Road to WACE</span></h1>
+  <p class="hero-sub">Your last full paper before the one that counts, marked and moderated. Find your lowest row, work its fix, and use the weeks you have left on the two criteria that are still holding you back.</p>
+  <div class="hero-meta">Year 12 ATAR &middot; Media Production &amp; Analysis &middot; Sacred Heart College</div>
+</header>
+
+<div class="message" id="message" style="max-width:800px;margin:2rem auto 0;">
+  <div class="message-label">A message from Mr Clarke</div>
+  <h2>The class averaged 70.8%. Section One was clearly stronger than Section Two &ndash; and that gap is where your remaining WACE marks are.</h2>
+  <p>Section One came in at <strong>76%</strong>, Section Two at <strong>69%</strong>. Because Section Two carries seventy per cent of the written exam, that is not a small difference. One extra mark there is worth more than one extra mark in Section One.</p>
+  <p>This guide is deliberately short. It covers what happened on <em>this</em> paper and what to do in the weeks before WACE. <strong>The heavy lifting is already built</strong> &ndash; the Evaluate clinic, the text dossiers, the theory bank, the syllabus map and mock mode are all in the Semester Two Study Guide, and the three levels of evidence are in the Journal Entry&nbsp;6 guide. At this point almost everything has been taught. What is left is using it.</p>
+  <p>So this page does one job: it tells you what this paper showed, and then sends you to the exact part of the Hub that fixes it. <strong>Have your marking key open as you read.</strong> The shaded row in each rubric is the descriptor you reached; the row above it is your target.</p>
+  <p class="signoff">&mdash; Mr Clarke</p>
+</div>
+
+<nav class="quick-nav">
+  <div class="quick-nav-inner">
+    <a href="#start">Start here</a>
+    <a href="#paper">The paper</a>
+    <a href="#marks">Where the marks went</a>
+    <a href="#well">What you did well</a>
+    <a href="#choices">Your choices</a>
+    <a href="#lessons">Four lessons</a>
+    <a href="#open">Still open</a>
+    <a href="#examples">Examples</a>
+    <a href="#questions">Question by question</a>
+    <a href="#before">Before WACE</a>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ════════ PART 1 · START HERE ════════ -->
+<section class="part" id="start">
+  <div class="part-label">Part One &middot; Do this first</div>
+  <h2 class="part-title">Start here &ndash; find your lowest row</h2>
+  <p class="part-intro">Look across your four marking keys and find the criterion where your shaded row sits furthest from the top. That is your first job. Pick it below and this page will tell you what it usually means and exactly where in the Hub to go.</p>
+
+  <div class="router">
+    <div class="router-q">My lowest criterion was&hellip;</div>
+    <div class="router-opts" id="routerOpts"></div>
+    <div class="router-out" id="routerOut"></div>
+  </div>
+
+  <div class="callout pitfall">
+    <span class="callout-label">Before any of that</span>
+    <p>If a question you answered <strong>scored zero or was unfinished</strong>, that comes first &ndash; it costs more than any single criterion. Work out whether it was time, question choice, or not having a route ready, and fix that before you polish anything else.</p>
+  </div>
+</section>
+
+<!-- ════════ PART 2 · THE PAPER ════════ -->
+<section class="part" id="paper">
+  <div class="part-label">Part Two</div>
+  <h2 class="part-title">The paper at a glance</h2>
+  <p class="part-intro">Same shape as WACE: two and a half hours plus ten minutes&rsquo; reading, four responses chosen from ten questions. Nothing about November&rsquo;s structure will surprise you.</p>
+
+  <div class="statstrip">
+    <div class="statbox"><b>70.8%</b><span>class average</span></div>
+    <div class="statbox"><b class="accent">76%</b><span>Section One</span></div>
+    <div class="statbox"><b class="red">69%</b><span>Section Two &ndash; worth 70%</span></div>
+    <div class="statbox"><b>39</b><span>responses marked</span></div>
+  </div>
+
+  <div class="criterion-grid">
+    <div class="criterion-pill"><strong>2 of 5</strong>Section One &middot; 2 &times; 12 = 24 marks &middot; 30% &middot; 15 min each</div>
+    <div class="criterion-pill"><strong>2 of 5</strong>Section Two &middot; 2 &times; 23 = 46 marks &middot; 70% &middot; 60 min each</div>
+    <div class="criterion-pill"><strong>6 &middot; 4 &middot; 2</strong>Section One: Content, Evidence, Terminology</div>
+    <div class="criterion-pill"><strong>3 &middot; 4 &middot; 8 &middot; 8</strong>Section Two: Construct, Describe, Analyse, Evaluate</div>
+  </div>
+
+  <div class="callout info">
+    <span class="callout-label">How your result was calculated</span>
+    <p>(Section One &divide; 24 &times; 30) + (Section Two &divide; 46 &times; 70).</p>
+    <p>Because Section Two carries 70%, <strong>one extra mark there is worth more than one extra mark in Section One</strong>. That arithmetic is the reason the rest of this page concentrates on Analyse and Evaluate.</p>
+  </div>
+</section>
+
+<!-- ════════ PART 3 · WHERE THE MARKS WENT ════════ -->
+<section class="part" id="marks">
+  <div class="part-label">Part Three</div>
+  <h2 class="part-title">Where the marks went</h2>
+  <p class="part-intro">Class averages by criterion, as a percentage of what each one was worth. Read the two charts together: the first two bullets of Section Two are now genuine strengths, and the last two are where the paper was lost.</p>
+
+  <div class="chart">
+    <div class="chart-title">Section One &middot; average 76%</div>
+    <div class="chart-sub">Content is out of 6, Evidence out of 4, Terminology out of 2.</div>
+    <div class="chart-rows" id="chartS1"></div>
+    <div class="chart-foot">Section One is in good shape. <strong>The difference between 9/12 and 12/12 was almost always one scene unpacked in depth versus a whole film summarised.</strong></div>
+  </div>
+
+  <div class="chart">
+    <div class="chart-title">Section Two &middot; average 69%</div>
+    <div class="chart-sub">Each bullet as a percentage of its own mark allocation.</div>
+    <div class="chart-rows" id="chartS2"></div>
+    <div class="chart-foot">Construct and Describe have been fixed &ndash; a genuine reversal from Semester One, when Describe was the weakest bullet. <strong>Analyse and Evaluate carry 16 of the 23 marks</strong>, and they are sitting thirty points below the two that are working.</div>
+  </div>
+
+  <div class="callout note">
+    <span class="callout-label">What one band is worth</span>
+    <p>Moving up <strong>one band on Analyse and Evaluate in both Section Two answers</strong> is worth 4 raw marks &ndash; about <strong>6% on your final result</strong>. There is no other change available to you that is worth as much for as little.</p>
+  </div>
+</section>
+
+<!-- ════════ PART 4 · WHAT YOU DID WELL ════════ -->
+<section class="part" id="well">
+  <div class="part-label">Part Four</div>
+  <h2 class="part-title">What you did well</h2>
+  <p class="part-intro">Describe and Construct are now genuine strengths. That is a reversal from Semester One, and it is worth naming before anything else &ndash; it is the evidence that the rest of this is fixable too.</p>
+
+  <div class="callout exemplar">
+    <span class="callout-label">Five things this paper got right</span>
+    <p><strong>Overviews were tight.</strong> Most Construct responses named the work, director, year and the question&rsquo;s concept in three to five sentences, without plot dumping.</p>
+    <p><strong>Concepts were defined before being applied.</strong> Bias, representation and propaganda were mostly described in the abstract first, exactly as the study guide asks.</p>
+    <p><strong>Terminology was secure.</strong> Section One terminology averaged 87%. Diegetic and non-diegetic sound, juxtaposition, mise-en-sc&egrave;ne and framing were all used accurately.</p>
+    <p><strong>The best evidence was construction-level.</strong> The strongest papers read details most viewers miss &ndash; the shop signs in the abandoned theme park, the CCTV montage&rsquo;s running time, the architecture of the bathhouse.</p>
+    <p><strong>Texts beyond the core two paid off.</strong> Responses on <em>Samson and Delilah</em>, a print advertising campaign, <em>Whiplash</em> and your own production were among the most original on the paper.</p>
+  </div>
+</section>
+
+<!-- ════════ PART 5 · WHICH QUESTIONS YOU CHOSE ════════ -->
+<section class="part" id="choices">
+  <div class="part-label">Part Five</div>
+  <h2 class="part-title">Which questions you chose</h2>
+  <p class="part-intro">Thirty-nine responses across ten questions. The shape of this chart is itself a finding.</p>
+
+  <div class="chart">
+    <div class="chart-title">Responses per question</div>
+    <div class="chart-sub">Each student answered two in each section.</div>
+    <div class="chart-rows" id="chartQ"></div>
+    <div class="chart-foot">Questions&nbsp;4 and&nbsp;10 were the default choices. <strong>Nobody attempted Question&nbsp;9</strong>, and Question&nbsp;3 &ndash; your own production, where you own the evidence &ndash; was taken once.</div>
+  </div>
+
+  <div class="callout pitfall">
+    <span class="callout-label">Why the zero matters</span>
+    <p>Question&nbsp;9 asked about technical and symbolic codes. <strong>It is not a hard question; it simply was not rehearsed.</strong> Both it and Question&nbsp;3 are standard WACE families. If either is set in November and your planned question is not, you need a route ready &ndash; see Part&nbsp;Six, lesson four.</p>
+  </div>
+</section>
+
+<!-- ════════ PART 6 · FOUR LESSONS ════════ -->
+<section class="part" id="lessons">
+  <div class="part-label">Part Six</div>
+  <h2 class="part-title">What this paper showed</h2>
+  <p class="part-intro">Four lessons are new to this exam. The first matters most &ndash; by some distance.</p>
+
+  <div class="priority">
+    <div class="priority-head">
+      <div class="priority-num">1</div>
+      <h3>You have six texts &ndash; use them</h3>
+      <div class="priority-tags"><span class="tag struct">Highest value</span><span class="tag evidence">Evidence</span></div>
+    </div>
+    <div class="priority-obs">
+      <p>You have studied four texts in depth &ndash; <em>Samson and Delilah</em>, <em>Spirited Away</em>, <em>Bowling for Columbine</em> and <em>Waltz with Bashir</em> &ndash; and each of you has two more from your investigation. On this paper, <strong>33 of the 39 responses used just two of them</strong>: <em>Spirited Away</em> and <em>Bowling for Columbine</em>. <em>Samson and Delilah</em> appeared twice. <em>Waltz with Bashir</em> did not appear at all.</p>
+      <p>That cost marks in two ways. The same scenes &ndash; the Heston interview, the stink spirit, Yubaba&rsquo;s penthouse &ndash; were bent to fit questions they did not suit. And four responses drawn from the same two films made papers read as repetitive, even when each answer was sound.</p>
+    </div>
+    <div class="priority-fix">
+      <p><strong>Some texts are simply a better fit for some questions.</strong></p>
+      <table class="fit-table">
+        <thead><tr><th>Question family</th><th>Strong fits beyond the obvious</th></tr></thead>
+        <tbody>
+          <tr><td class="fam">Media art conventions, auteur</td><td><em>Waltz with Bashir</em> (animated documentary) &middot; <em>Samson and Delilah</em> &middot; your investigation auteur</td></tr>
+          <tr><td class="fam">Selection, bias, point of view</td><td><em>Waltz with Bashir</em> &ndash; whose memory, and whose voice is left unheard</td></tr>
+          <tr><td class="fam">Technical and symbolic codes</td><td><em>Samson and Delilah</em> &ndash; long takes, natural light, minimal dialogue</td></tr>
+          <tr><td class="fam">Cultural context</td><td><em>Samson and Delilah</em> &ndash; Thornton&rsquo;s Indigenous authorship</td></tr>
+          <tr><td class="fam">Your own production</td><td>Your investigation texts</td></tr>
+        </tbody>
+      </table>
+      <p>The responses that used other texts &ndash; <em>Samson and Delilah</em>, <em>Whiplash</em>, a print advertising campaign, a government road-safety campaign, your own production &ndash; were among the freshest on the paper.</p>
+    </div>
+  </div>
+
+  <div class="priority">
+    <div class="priority-head">
+      <div class="priority-num">2</div>
+      <h3>Every question has its own object</h3>
+      <div class="priority-tags"><span class="tag struct">Reading time</span></div>
+    </div>
+    <div class="priority-obs">
+      <p>The Evaluate bullets looked similar but asked different things. Question&nbsp;7 asked about the <strong>intended audience</strong>. Question&nbsp;8 asked about <strong>public understanding</strong>. Question&nbsp;10 asked about <strong>audiences from different cultural contexts</strong>. A prepared Hall paragraph answers none of them exactly.</p>
+    </div>
+    <div class="priority-fix">
+      <p><strong>The fix:</strong> underline the object in reading time and write to it. The Semester Two Study Guide makes the same point in Part&nbsp;Five &ndash; different questions point Evaluate at values, at expectations, at understanding of an event, at public understanding of an issue. They are not interchangeable.</p>
+    </div>
+  </div>
+
+  <div class="priority">
+    <div class="priority-head">
+      <div class="priority-num">3</div>
+      <h3>A mood is not a theme</h3>
+      <div class="priority-tags"><span class="tag theory">Content</span></div>
+    </div>
+    <div class="priority-obs">
+      <p>&ldquo;Peace&rdquo; or &ldquo;tension&rdquo; is an <strong>effect on the audience</strong>. A theme is an idea the work says something <em>about</em> &ndash; ambition and its cost, identity lost to consumerism.</p>
+    </div>
+    <div class="priority-fix">
+      <p><strong>The fix:</strong> if your &ldquo;theme&rdquo; is a feeling, a codes-construct-a-theme question caps your Content mark. This is the same note as the Semester One feedback, where the reflective stillness produced by <em>ma</em> was an effect and greed, consumerism and environmentalism were themes.</p>
+    </div>
+  </div>
+
+  <div class="priority">
+    <div class="priority-head">
+      <div class="priority-num">4</div>
+      <h3>No question type is safe to skip</h3>
+      <div class="priority-tags"><span class="tag struct">Structural</span></div>
+    </div>
+    <div class="priority-obs">
+      <p>Nobody attempted Question&nbsp;9 (technical and symbolic codes), and Question&nbsp;3 (your own production) was barely touched. <strong>Both are standard WACE families.</strong></p>
+      <p>This is now the third time this has come up. In the Semester One exam nobody attempted the values question. On Journal Entry&nbsp;6 nobody took the <em>Waltz with Bashir</em> route. The pattern is not coincidence &ndash; it is the cost of revising only what you expect to be asked.</p>
+    </div>
+    <div class="priority-fix">
+      <p><strong>The fix:</strong> if either is set in November and your planned question is not, you need a route ready. Part&nbsp;Ten of this page tells you how to build one for Question&nbsp;9 specifically.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ PART 7 · STILL OPEN ════════ -->
+<section class="part" id="open">
+  <div class="part-label">Part Seven</div>
+  <h2 class="part-title">Still open from earlier feedback</h2>
+  <p class="part-intro">You have now seen these three in the Semester One feedback, in the Journal Entry&nbsp;6 guide and in the study guide. If one of them is still you, it is your number one job &ndash; together they explain most of the gap between Section One and Section Two.</p>
+
+  <div class="callout pitfall">
+    <span class="callout-label">1 &middot; Evaluate stops at analysis</span>
+    <p>Test each sentence: <strong>judgement or mechanism?</strong> Analyse and Evaluate averaged 62% and 61%, against 90% for Construct. If your last paragraph explains how a technique works, that is analysis &ndash; it belongs in the bullet before.</p>
+  </div>
+
+  <div class="callout pitfall">
+    <span class="callout-label">2 &middot; Hall listed, not applied</span>
+    <p>Naming three reading positions earns little. <strong>Each needs an audience, their context, and the moment in the work that produces that reading.</strong> Example&nbsp;1 below shows exactly what that looks like at 4/8 and at 7/8.</p>
+  </div>
+
+  <div class="callout pitfall">
+    <span class="callout-label">3 &middot; Categories, not moments</span>
+    <p>&ldquo;Selection and omission&rdquo; or &ldquo;archival footage&rdquo; is a <strong>container</strong>. The marks are in the shot, the cut, and what sits next to what. This is the three-levels-of-evidence distinction from the Journal Entry&nbsp;6 guide, and it is still the most common reason an Analyse bullet stalls at 4 or 5.</p>
+  </div>
+
+  <div class="hub-grid">
+    <a href="studyguide-s2.html#evaluate" class="hub-link"><b>The Evaluate clinic</b><i>Part Three of the study guide: the five components of an 8/8, the staircase from asserted to judged, and one bullet worked at 4, 6 and 8.</i><u>&rarr; Open Part Three</u></a>
+    <a href="journal-entry-6.html" class="hub-link"><b>The three levels of evidence</b><i>Plot recall, content recall, construction &ndash; and the four questions that move an example from level two to level three.</i><u>&rarr; Open the JE6 guide</u></a>
+    <a href="studyguide-s2.html#theory" class="hub-link"><b>The theory bank</b><i>Hall applied rather than cited, with the common error and a worked sentence for each of ten theories.</i><u>&rarr; Open Part Nine</u></a>
+  </div>
+</section>
+
+<!-- ════════ PART 8 · EXAMPLES ════════ -->
+<section class="part" id="examples">
+  <div class="part-label">Part Eight</div>
+  <h2 class="part-title">Examples from the paper</h2>
+  <p class="part-intro">Both extracts come from this exam, anonymised and lightly corrected for spelling only. The first is the single most useful comparison on this page: the same film and the same bullet, written at 4/8 and at 7/8.</p>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--text);margin:2rem 0 0.3rem;">Example 1 &ndash; Evaluate at 4 and at 7</h3>
+  <div class="q-stem" style="margin-bottom:1.2rem;">Question 10 &middot; Evaluate the extent to which audiences from different cultural contexts would interpret the media work differently, using a media theory to support your reasoning. <strong>(8 marks)</strong></div>
+
+  <div class="filter-bar" id="exTabs">
+    <button class="filter-btn active" data-ex="a">Extract A &middot; 4/8</button>
+    <button class="filter-btn" data-ex="b">Extract B &middot; 7/8</button>
+    <button class="filter-btn" data-ex="c">How to reach 8/8</button>
+  </div>
+
+  <div class="exemplar" data-ex="a">
+    <div class="exemplar-head"><span class="exemplar-criterion">Evaluate &middot; 4/8</span><span class="exemplar-band">Spirited Away</span></div>
+    <div class="exemplar-text"><blockquote>An audience that may see the preferred reading is an older Japanese audience, or one similar to Hayao Miyazaki himself. They see <em>Spirited Away</em> as a coming-of-age film that criticises consumerism, pollution and identity loss. This older Japanese audience will read it this way as they have lived through similar circumstances to Miyazaki. An audience with a negotiated reading could be someone who likes watching coming-of-age films. They read <em>Spirited Away</em> as a coming-of-age film as they recognise that there is clear character development in Chihiro&hellip;</blockquote></div>
+    <div class="exemplar-move"><strong>What&rsquo;s limiting it:</strong> the reading positions are named, but &ldquo;someone who likes coming-of-age films&rdquo; is a <em>taste</em>, not a cultural context. No moment in the film produces either reading, and there is no verdict on the extent.</div>
+  </div>
+
+  <div class="exemplar hidden" data-ex="b">
+    <div class="exemplar-head"><span class="exemplar-criterion">Evaluate &middot; 7/8</span><span class="exemplar-band">Spirited Away</span></div>
+    <div class="exemplar-text"><blockquote>The dominant reading Miyazaki attempts to convey is that the class imbalance Western capitalist culture creates is not only negative, but also responsible for the oppression of traditional Japanese culture. However, some Western audiences may have a negotiated reading, missing the specifically Western difference of Yubaba, as to them it appears normal, if not a bit tacky. Their reading may still recognise the capitalist critique, but the critique of globalisation may be missed through a lack of cultural context. Some from Western cultures may even have an oppositional reading, as their cultural context aligns their values with capitalism, so they may see Yubaba as entrepreneurial and working the system to her advantage, entirely negating the critique.</blockquote></div>
+    <div class="exemplar-move"><strong>What&rsquo;s lifting it:</strong> each audience is defined by its <em>cultural context</em>, each reading is tied to a specific element (Yubaba&rsquo;s Western dress and penthouse), and the oppositional reading is taken seriously rather than dismissed. It also separates two critiques &ndash; capitalism and globalisation &ndash; and shows that one travels across cultures and the other does not.</div>
+  </div>
+
+  <div class="exemplar hidden" data-ex="c">
+    <div class="exemplar-head"><span class="exemplar-criterion">The last mark</span><span class="exemplar-band">7/8 &rarr; 8/8</span></div>
+    <div class="exemplar-text"><blockquote>The critique of greed therefore survives translation; the critique of Westernisation largely does not, which limits how far the film&rsquo;s meaning is shared.</blockquote></div>
+    <div class="exemplar-move"><strong>Say it outright.</strong> That one sentence is the verdict <em>and</em> the limit &ndash; the two components Extract&nbsp;B is missing. Everything else in Extract&nbsp;B is already there. This is what the Evaluate clinic means by &ldquo;an explicit verdict&rdquo; and &ldquo;a stated limit&rdquo;.</div>
+  </div>
+
+  <div class="callout note">
+    <span class="callout-label">Do this with your own paper</span>
+    <p>Take the Evaluate paragraph you actually wrote. Keep the analysis exactly as it is. Add <strong>a second audience with its own evidence</strong>, <strong>one verdict sentence</strong>, and <strong>one limit</strong>. That is the whole distance between Extract&nbsp;A and Extract&nbsp;B, and then between B and full marks.</p>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--text);margin:2.4rem 0 0.3rem;">Example 2 &ndash; Unpacking one scene</h3>
+  <div class="q-stem" style="margin-bottom:1.2rem;">Question 4 &middot; Discuss how a media producer has presented an issue in a media work you have studied. <strong>(12 marks &ndash; this response scored 12/12)</strong></div>
+
+  <div class="exemplar">
+    <div class="exemplar-head"><span class="exemplar-criterion">Section One &middot; 12/12</span><span class="exemplar-band">Bowling for Columbine</span></div>
+    <div class="exemplar-text"><blockquote>In the scene &ldquo;North Country Bank, Michigan &ndash; free gun with your account&rdquo;, Moore presents himself through the <strong>plain folks</strong> technique to establish trust and affinity with his audience, characterised by his casual dress, awkward countenance and &ldquo;just a normal guy&rdquo; presentation. Editorial control, selection and omission allow a neat, overly convenient narrative in the bank, omitting the actual complexity of acquiring a gun in the US. Instead, the process is shown through editing as: walk in &rarr; open account &rarr; request gun &rarr; background check &rarr; receive firearm &rarr; walk out. What would be a multiple-week process is cut into what appears to be a single day, with Moore wearing the same outfit to display continuity.</blockquote></div>
+    <div class="exemplar-move"><strong>The move:</strong> one named scene, read at the level of construction &ndash; persona, then the edit itself, then continuity in costume. The student does not say Moore &ldquo;uses editing&rdquo;; they show the six-step cut and what it leaves out. <strong>That is the difference between Level 2 and Level 3 evidence.</strong></div>
+  </div>
+</section>
+
+<!-- ════════ PART 9 · QUESTION BY QUESTION ════════ -->
+<section class="part" id="questions">
+  <div class="part-label">Part Nine</div>
+  <h2 class="part-title">Question by question</h2>
+  <p class="part-intro">What each question wanted, what the strongest responses did, and where the marks leaked. Expand any question &ndash; including the ones you did not take, because those are the routes you are missing.</p>
+
+  <div class="controls">
+    <button class="ctrl-btn" id="expandAll">Expand all</button>
+    <button class="ctrl-btn" id="collapseAll">Collapse all</button>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin:1.6rem 0 0.4rem;">Section One &middot; short answer</h3>
+  <p style="color:var(--text-dim);font-size:0.93rem;margin-bottom:1rem;">Content averaged 79%, Evidence 78% and Terminology 87%. This section went well &ndash; the gap between 9/12 and 12/12 was almost always one scene unpacked in depth versus a whole film summarised.</p>
+  <div id="accS1"></div>
+
+  <div class="callout info" style="margin-top:1.2rem;">
+    <span class="callout-label">Revise Section One with</span>
+    <p><a href="studyguide.html">The Semester One Study Guide</a> for the five-move framework, and <a href="studyguide-s2.html#sec1">Part Four of the Semester Two Study Guide</a> for the 6+4+2 anatomy, the question families and the terminology upgrades.</p>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin:2.2rem 0 0.4rem;">Section Two &middot; extended answer</h3>
+  <p style="color:var(--text-dim);font-size:0.93rem;margin-bottom:1rem;">The first two bullets are now secure. The last two are where the marks went.</p>
+  <div id="accS2"></div>
+
+  <div class="callout info" style="margin-top:1.2rem;">
+    <span class="callout-label">Revise Section Two with</span>
+    <p><a href="studyguide-s2.html#evaluate">Part Three</a> and <a href="studyguide-s2.html#sec2">Part Five</a> of the Semester Two Study Guide, and the <a href="journal-entry-6.html">Journal Entry 6 guide</a> for <em>Bowling for Columbine</em> evidence.</p>
+  </div>
+</section>
+
+<!-- ════════ PART 10 · BEFORE WACE ════════ -->
+<section class="part" id="before">
+  <div class="part-label">Part Ten</div>
+  <h2 class="part-title">Before WACE: five things to do</h2>
+  <p class="part-intro">In order. The first two are worth the most marks. Tick them off as you go &ndash; the tracker remembers your progress on this device.</p>
+
+  <div class="tracker">
+    <div class="tracker-label">Done</div>
+    <div class="tracker-count"><span id="beforeCount">0</span> / 5</div>
+    <div class="tracker-bar"><div class="tracker-fill" id="beforeFill"></div></div>
+    <button class="tracker-reset" id="beforeReset">Reset</button>
+  </div>
+
+  <div class="checklist" id="beforeList"></div>
+
+  <div class="callout note">
+    <span class="callout-label">And for everything else</span>
+    <p>Text dossiers, the theory bank, the syllabus map, the concept libraries, the route planner and mock mode are all built and waiting. Almost everything has been taught &ndash; the work left is using it.</p>
+  </div>
+
+  <div class="hub-grid">
+    <a href="studyguide-s2.html#map" class="hub-link"><b>The syllabus map</b><i>All 27 Units 3 &amp; 4 dot points, rateable red / amber / green, so your revision list is the gaps and not the topics you enjoy.</i><u>&rarr; Rate your 27</u></a>
+    <a href="studyguide-s2.html#texts" class="hub-link"><b>Text dossiers</b><i>Nine dossiers &ndash; context, agenda, scene anchors read at construction level, themes, values, audience readings, and what each text is <em>not</em> for.</i><u>&rarr; Open the dossiers</u></a>
+    <a href="studyguide-s2.html#planner" class="hub-link"><b>The route planner</b><i>Fourteen question families. Give every one at least two possible texts before November.</i><u>&rarr; Fill in your routes</u></a>
+    <a href="studyguide-s2.html#mock" class="hub-link"><b>Mock mode</b><i>Section One, Section Two or the full 150-minute paper, with self-marking against the real band ladders.</i><u>&rarr; Start the timer</u></a>
+    <a href="studyguide-s2.html#concepts" class="hub-link"><b>The Unit 4 concept library</b><i>Fourteen concepts defined for a Describe bullet, each with the distinction it gets confused with.</i><u>&rarr; Open the library</u></a>
+    <a href="past-questions.html" class="hub-link"><b>Past questions, 2018&ndash;2025</b><i>Eight years of WACE papers to rehearse on &ndash; including the question families nobody attempted.</i><u>&rarr; Open the bank</u></a>
+  </div>
+</section>
+
+<section class="message" style="margin-top:3.5rem;margin-bottom:1rem;">
+  <div class="message-label">Final thoughts</div>
+  <h2>You already know these films well.</h2>
+  <p>The marks still on the table are in <strong>using all of them</strong>, and in <strong>judging them rather than describing them</strong>. Neither of those needs another rewatch. Both need you to write something, mark it honestly against the ladder, and then write it again one band higher.</p>
+  <p>Describe was the systematic weakness in June. By Journal Entry&nbsp;6 it was your strongest criterion, and on this paper Construct came in at 90%. You have already proved, twice, that these things move when you work on them. Analyse and Evaluate are the same problem with a different name &ndash; and they are worth more.</p>
+  <p style="font-weight:500;">Let&rsquo;s get to work.</p>
+  <p class="signoff">&mdash; Mr Clarke</p>
+</section>
+
+</main>
+
+<footer class="footer">
+  Sacred Heart College &middot; Year 12 ATAR Media Production &amp; Analysis &middot; Semester Two 2026
+  <a href="index.html">&larr; Back to Revision Hub</a>
+</footer>
+
+<script>
+/* ─────────── AUTH (shared with the hub via the mpa_auth localStorage key) ─────────── */
+(async function authGate() {
+  const overlay = document.getElementById('loginOverlay');
+  const userInput = document.getElementById('user');
+  const passInput = document.getElementById('pass');
+  const btn = document.getElementById('loginBtn');
+  const errEl = document.getElementById('loginError');
+
+  // SHA-256 hashes of the credentials (the plaintext never appears here)
+  const USER_HASH = 'd5506c3f045a27380f2508acbd828833f4d247e7aefa5ba08555169df92bcebf';
+  const PASS_HASH = '410caa78609084c279d26bc9185da6d2c3c793d9948e1361b7c31415f930cbb7';
+
+  async function sha256(text) {
+    const buf = new TextEncoder().encode(text);
+    const hash = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  if (localStorage.getItem('mpa_auth') === 'true') {
+    overlay.classList.remove('visible');
+    document.body.style.overflow = '';
+    return;
+  }
+
+  overlay.classList.add('visible');
+  document.body.style.overflow = 'hidden';
+
+  async function tryLogin() {
+    errEl.textContent = '';
+    const u = (userInput.value || '').trim();
+    const p = passInput.value || '';
+    if (!u || !p) { errEl.textContent = 'Please enter both fields.'; return; }
+    const [uh, ph] = await Promise.all([sha256(u), sha256(p)]);
+    if (uh === USER_HASH && ph === PASS_HASH) {
+      localStorage.setItem('mpa_auth', 'true');
+      overlay.classList.remove('visible');
+      document.body.style.overflow = '';
+    } else {
+      errEl.textContent = 'Incorrect username or password.';
+      passInput.value = '';
+      passInput.focus();
+    }
+  }
+
+  btn.addEventListener('click', tryLogin);
+  [userInput, passInput].forEach(el => el.addEventListener('keydown', e => {
+    if (e.key === 'Enter') tryLogin();
+  }));
+  setTimeout(() => userInput.focus(), 80);
+})();
+
+/* ─────────── STORAGE ─────────── */
+var K_ROUTE = 'mpa_s2exam_route_v1';
+var K_BEFORE = 'mpa_s2exam_before_v1';
+function readJSON(k, f) { try { return JSON.parse(localStorage.getItem(k)) || f; } catch (e) { return f; } }
+function writeJSON(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+
+/* ─────────── PART 1 · START-HERE ROUTER ─────────── */
+var ROUTES = [
+  { id: 'evaluate', label: 'Evaluate', where: 'Section Two',
+    means: 'Your last paragraph explained more technique instead of making a judgement.',
+    detail: 'This is the single most expensive habit in the cohort and it has now appeared in every task marked this year. A judgement says how well the construction works, for which audience, and what that tells us. A mechanism says how it works &ndash; and that belongs in the Analyse bullet before it.',
+    links: [
+      { href: '#examples', b: 'Example 1 on this page', i: 'The same bullet at 4/8 and 7/8, and the one sentence that reaches 8.' },
+      { href: 'studyguide-s2.html#evaluate', b: 'The Evaluate clinic', i: 'Part Three of the study guide: five components, the staircase, and four moves that take a 7 to an 8.' }
+    ] },
+  { id: 'analyse', label: 'Analyse', where: 'Section Two',
+    means: 'You named techniques or categories but not specific moments.',
+    detail: '&ldquo;Selection and omission&rdquo;, &ldquo;archival footage&rdquo;, &ldquo;the editing&rdquo; &ndash; each of those is a container. The marks are in what is inside it: the shot, the cut, what sits next to what, and what was left out.',
+    links: [
+      { href: '#examples', b: 'Example 2 on this page', i: 'A 12/12 answer that shows a six-step cut rather than saying &ldquo;uses editing&rdquo;.' },
+      { href: 'journal-entry-6.html', b: 'The three levels of evidence', i: 'In the JE6 guide &ndash; plot recall, content recall, construction, and the four questions that move you up a level.' }
+    ] },
+  { id: 'describe', label: 'Describe', where: 'Section Two',
+    means: 'You defined the concept by applying it to your film.',
+    detail: 'Describing how bias works in <em>Bowling for Columbine</em> is applying the concept. The bullet asks you to define it in the abstract first &ndash; in its own right, with the feature that distinguishes it from its near neighbour &ndash; and only then illustrate.',
+    links: [
+      { href: 'studyguide-s2.html#sec2', b: '&ldquo;Define, extend, illustrate&rdquo;', i: 'Part Five of the study guide, with the band ladder and the trap that still catches people.' },
+      { href: 'studyguide-s2.html#concepts', b: 'The Unit 4 concept library', i: 'Fourteen concepts already written as abstract definitions, each with the distinction it gets confused with.' }
+    ] },
+  { id: 'content', label: 'Content', where: 'Section One',
+    means: 'You summarised a whole film instead of unpacking one scene.',
+    detail: 'The marking key rewards depth, not breadth. A response that gestures at a whole film sounds vague because it has to be. One scene, read across several codes, can demonstrate every band of the content ladder.',
+    links: [
+      { href: 'studyguide.html', b: 'The five-move framework', i: 'In the Semester One guide &ndash; frame, anchor, build the scene out, connect codes to concept, land the audience response.' },
+      { href: 'studyguide-s2.html#sec1', b: 'The 6+4+2 anatomy', i: 'Part Four of the study guide, with the eleven recurring question families.' }
+    ] },
+  { id: 'evidence', label: 'Evidence', where: 'Section One',
+    means: 'Your evidence was plot, not construction.',
+    detail: '&ldquo;We see X happen&rdquo; is what the film shows. The criterion wants what the producer <em>chose</em> &ndash; where to put the camera, what to keep in frame, when to cut, what to leave in the audio.',
+    links: [
+      { href: 'journal-entry-6.html', b: 'The three levels of evidence', i: 'In the JE6 guide &ndash; the clearest statement of this distinction you have.' },
+      { href: 'studyguide-s2.html#texts', b: 'Text dossiers', i: 'Scene anchors already read at construction level for every text you own.' }
+    ] },
+  { id: 'terminology', label: 'Terminology', where: 'Either section',
+    means: 'Descriptive stand-ins instead of precise terms.',
+    detail: '&ldquo;Music&rdquo; for non-diegetic score. &ldquo;Camera angle&rdquo; where you mean a low-angle shot. &ldquo;Back of frame&rdquo; for background or deep focus. This was your strongest Section One criterion at 87%, so if it is your lowest row it is a quick fix.',
+    links: [
+      { href: 'studyguide-s2.html#sec1', b: 'Terminology upgrades', i: 'Part Four of the study guide &ndash; a side-by-side table of the stand-in and the term that replaces it.' }
+    ] }
+];
+
+function renderRouter() {
+  var opts = document.getElementById('routerOpts');
+  opts.innerHTML = ROUTES.map(function (r) {
+    return '<button class="router-opt" data-route="' + r.id + '">' + r.label + '<span>' + r.where + '</span></button>';
+  }).join('');
+  opts.querySelectorAll('.router-opt').forEach(function (btn) {
+    btn.addEventListener('click', function () { selectRoute(btn.dataset.route, true); });
+  });
+  var saved = readJSON(K_ROUTE, null);
+  if (saved) selectRoute(saved, false);
+}
+
+function selectRoute(id, scroll) {
+  var r = ROUTES.filter(function (x) { return x.id === id; })[0];
+  if (!r) return;
+  writeJSON(K_ROUTE, id);
+  document.querySelectorAll('.router-opt').forEach(function (b) {
+    b.classList.toggle('active', b.dataset.route === id);
+  });
+  var out = document.getElementById('routerOut');
+  out.innerHTML =
+    '<div class="router-means">' + r.means + '</div>' +
+    '<div class="router-detail">' + r.detail + '</div>' +
+    '<div class="router-go">Go to</div>' +
+    '<div class="router-links">' + r.links.map(function (l) {
+      return '<a class="router-link" href="' + l.href + '"><b>' + l.b + '</b> <i>' + l.i + '</i><span class="arrow">&rarr;</span></a>';
+    }).join('') + '</div>';
+  out.classList.add('visible');
+}
+
+/* ─────────── PART 3 & 5 · CHARTS ─────────── */
+/* Single series, one hue (#5b7ff5, validated against the card surface).
+   Values are direct-labelled at the bar end, which replaces an axis. */
+var CHART_S1 = { max: 100, unit: '%', rows: [
+  { key: 'Content', val: 79, tip: 'out of 6 marks' },
+  { key: 'Evidence', val: 78, tip: 'out of 4 marks' },
+  { key: 'Terminology', val: 87, tip: 'out of 2 marks' }
+]};
+var CHART_S2 = { max: 100, unit: '%', rows: [
+  { key: 'Construct', val: 90, tip: 'out of 3 marks' },
+  { key: 'Describe', val: 81, tip: 'out of 4 marks' },
+  { key: 'Analyse', val: 62, tip: 'out of 8 marks', flag: true },
+  { key: 'Evaluate', val: 61, tip: 'out of 8 marks', flag: true }
+]};
+var CHART_Q = { max: 8, unit: '', rows: [
+  { key: 'Q1 &middot; Production context', val: 2 },
+  { key: 'Q2 &middot; Codes &rarr; theme', val: 3 },
+  { key: 'Q3 &middot; Your own production', val: 1, note: 'barely touched' },
+  { key: 'Q4 &middot; Presenting an issue', val: 7 },
+  { key: 'Q5 &middot; Theory &rarr; audience', val: 6 },
+  { key: 'Q6 &middot; Media art, auteur', val: 4 },
+  { key: 'Q7 &middot; Selection and bias', val: 5 },
+  { key: 'Q8 &middot; Propaganda, agenda', val: 3 },
+  { key: 'Q9 &middot; Technical/symbolic codes', val: 0, note: 'not attempted' },
+  { key: 'Q10 &middot; Cultural context', val: 8 }
+]};
+
+function renderChart(hostId, spec) {
+  var host = document.getElementById(hostId);
+  if (!host) return;
+  host.innerHTML = spec.rows.map(function (r) {
+    var pct = spec.max ? (r.val / spec.max) * 100 : 0;
+    var tip = r.tip ? ' title="' + r.key.replace(/&middot;/g, '-').replace(/&rarr;/g, 'to') + ': ' + r.val + spec.unit + ' (' + r.tip + ')"' : '';
+    return '<div class="chart-row' + (r.flag || r.note ? ' flag' : '') + '"' + tip + '>' +
+      '<div class="chart-key">' + r.key + '</div>' +
+      '<div class="chart-track"><div class="chart-fill" style="width:0"></div></div>' +
+      '<div class="chart-val">' + r.val + spec.unit +
+        (r.note ? '<span class="chart-note">' + r.note + '</span>' : '') + '</div>' +
+    '</div>';
+  }).join('');
+  /* animate in on first paint */
+  requestAnimationFrame(function () {
+    host.querySelectorAll('.chart-row').forEach(function (row, i) {
+      var pct = spec.max ? (spec.rows[i].val / spec.max) * 100 : 0;
+      row.querySelector('.chart-fill').style.width = pct + '%';
+    });
+  });
+}
+
+/* ─────────── PART 9 · QUESTION ACCORDIONS ─────────── */
+var Q_S1 = [
+  { n: 1, chosen: 2, title: 'Production context shapes aesthetics', marks: '12 marks',
+    stem: 'Discuss how the production context of a media work you have studied has influenced its aesthetics. Use evidence to support your answer.',
+    body: '<h4>What happened</h4><p>Context was explained confidently, but the evidence often stayed at the level of the film&rsquo;s &ldquo;style&rdquo; in general.</p>' +
+          '<h4>The fix</h4><p><strong>Name the context, then show it in one frame</strong> &ndash; lighting, palette, framing or sound. Production context is budget, technology, location, funding, crew and era; the strongest answers argue that the constraint <em>produced</em> the aesthetic rather than sitting behind it.</p>' +
+          '<div class="callout note"><span class="callout-label">A text that suits this and went unused</span><p><em>Samson and Delilah</em> &ndash; long takes, natural light and a near-silent soundtrack, all shaped by a low-budget, community-cast production.</p></div>' },
+  { n: 2, chosen: 3, title: 'Codes and conventions construct a theme', marks: '12 marks',
+    stem: 'Discuss how codes and conventions have been used to construct a theme in a media work you have studied. Use evidence to support your answer.',
+    body: '<h4>What the strongest responses did</h4><p>A print campaign and <em>Whiplash</em> tied specific codes &ndash; composition, monochrome, close-ups &ndash; to a clearly stated theme.</p>' +
+          '<h4>Where marks went</h4><p>Check your theme is <strong>an idea, not a mood</strong>. &ldquo;Peace&rdquo; and &ldquo;tension&rdquo; are effects on the audience. Ambition and its cost, identity lost to consumerism &ndash; those are themes. If your theme is a feeling, this question type caps your Content mark.</p>' },
+  { n: 3, chosen: 1, title: 'Other works inform your own production', marks: '12 marks',
+    stem: 'Discuss how the style and approach of other media works have informed the decisions you made in your own production. Refer to specific examples to support your answer.',
+    body: '<h4>Rarely chosen &ndash; and it is a gift</h4><p>You know your own decisions better than anyone. On every other question you are reconstructing someone else&rsquo;s film from memory; here you own the evidence and nobody can catch you out on detail.</p>' +
+          '<h4>The shape</h4><p><strong>Name the influence at code level</strong> (aspect ratio, black-and-white, a sound decision), <strong>say what you took and what you changed</strong>, and <strong>land the effect</strong> on your audience. Brand-level influence &ndash; &ldquo;we were inspired by his style&rdquo; &ndash; is the container problem again.</p>' +
+          '<div class="callout info"><span class="callout-label">Build it once</span><p>Part Four of the <a href="studyguide-s2.html#sec1">Semester Two Study Guide</a> has the four-part shape and a worked exemplar, plus a twenty-minute production dossier task that turns this into an answer you can write cold.</p></div>' },
+  { n: 4, chosen: 7, title: 'How a producer presents an issue', marks: '12 marks',
+    stem: 'Discuss how a media producer has presented an issue in a media work you have studied. Use evidence to support your answer.',
+    body: '<h4>The most popular question</h4><p>The full-mark answer took <strong>one sequence</strong> &ndash; the bank scene in <em>Bowling for Columbine</em> &ndash; and showed how persona, editing and dialogue framed the issue. It is reproduced in full as Example&nbsp;2 above.</p>' +
+          '<h4>Where marks went</h4><p><strong>Responses of six or seven lines cannot reach the top Content bands</strong>, however good the idea. Depth is the whole game in Section One.</p>' },
+  { n: 5, chosen: 6, title: 'A media theory explains audience response', marks: '12 marks',
+    stem: 'Discuss how a media theory can be used to explain the way an audience has responded to a media work you have studied. Use evidence to support your answer.',
+    body: '<h4>What happened</h4><p>Everyone used Hall&rsquo;s encoding/decoding. Many answers listed dominant, negotiated and oppositional readings <strong>without tying each one to a real audience and a specific moment</strong>.</p>' +
+          '<h4>The detail almost everyone missed</h4><p>The question says the audience <em>has responded</em>. That means <strong>reception evidence</strong> &ndash; box office, awards, controversy, critical response &ndash; and it is what lifts this from theory recall to explanation.</p>' +
+          '<div class="callout info"><span class="callout-label">Go to</span><p><a href="studyguide-s2.html#theory">The theory bank</a> &ndash; ten theories, each with the common error and a sentence showing it applied rather than cited.</p></div>' }
+];
+
+var Q_S2 = [
+  { n: 6, chosen: 4, title: 'Media art, auteur and representation', marks: '23 marks',
+    stem: 'Construct an overview of a media work that uses media art conventions (3) &middot; Describe the concept of representation (4) &middot; Analyse how an auteur uses codes, conventions and techniques to construct representations (8) &middot; Evaluate how the values embedded challenge or reinforce audience perceptions (8).',
+    body: '<h4>The best answer</h4><p>Read the bathhouse in <em>Spirited Away</em> <strong>floor by floor</strong>, showing the architecture becoming more Western as Chihiro climbs towards Yubaba. That is a structural claim about how the work is built, not a list of observations about it.</p>' +
+          '<h4>Where marks went</h4><p>Weaker answers defined representation as simply &ldquo;the display&rdquo; of something, and <strong>never named the media art conventions the overview bullet asks for</strong>.</p>' +
+          '<div class="callout note"><span class="callout-label">Texts that suit this and went unused</span><p><em>Waltz with Bashir</em> &ndash; an animated documentary is itself a media art convention &ndash; and <em>Samson and Delilah</em>. Both were available and neither was taken.</p></div>' },
+  { n: 7, chosen: 5, title: 'Selection processes and bias', marks: '23 marks',
+    stem: 'Construct an overview of a media work in which selection processes construct a point of view (3) &middot; Describe the concept of bias (4) &middot; Analyse how selection, emphasis and omission construct a point of view (8) &middot; Evaluate the extent to which this challenges or reinforces the values of its intended audience (8).',
+    body: '<h4>What worked</h4><p><em>Bowling for Columbine</em> throughout. Strong answers showed selection, emphasis and omission <strong>inside a scene</strong> &ndash; the Heston interview, and what is left out of the Flint case.</p>' +
+          '<h4>Where marks went</h4><p>Weaker ones named the three processes as categories and moved on. And the Evaluate bullet asks about the <strong>intended audience</strong> &ndash; split it (gun owners, undecided Americans, international viewers) and give each its own evidence.</p>' +
+          '<div class="callout pitfall"><span class="callout-label">Watch for</span><p><strong>Repeating Moore&rsquo;s framing as fact.</strong> If you write that the film &ldquo;shows&rdquo; how easy it is to get a gun, the technique has worked on you. Noticing how the impression is built is the analysis.</p></div>' },
+  { n: 8, chosen: 3, title: 'Propaganda and agenda setting', marks: '23 marks',
+    stem: 'Construct an overview of a media work that uses propaganda and/or agenda setting (3) &middot; Describe the purpose of propaganda (4) &middot; Analyse how persuasive techniques and framing shape audience perceptions (8) &middot; Evaluate the extent to which the work has influenced public understanding (8).',
+    body: '<h4>The Describe bullet was the weakest here</h4><p>Say <strong>what propaganda is for</strong> &ndash; to shape belief or action in the producer&rsquo;s interest, usually through emotion over reason &ndash; before applying it to anything.</p>' +
+          '<h4>The Evaluate object</h4><p>This one asks about <strong>public understanding</strong>, which needs evidence from beyond the work itself: reception, box office, awards, public debate. One answer used the film&rsquo;s festival reception and box office &ndash; that is exactly the right move.</p>' },
+  { n: 9, chosen: 0, title: 'Technical and symbolic codes', marks: '23 marks',
+    stem: 'Construct an overview of a media work in which production techniques are central to meaning (3) &middot; Describe the concept of technical and symbolic codes (4) &middot; Analyse how cinematography, editing and sound construct meaning (8) &middot; Evaluate the extent to which production context shaped the techniques and the meaning (8).',
+    body: '<div class="callout pitfall"><span class="callout-label">Not attempted by anyone</span><p><strong>It is not a hard question; it simply was not rehearsed.</strong> This is the gap worth closing before November, because the content overlaps almost entirely with questions you did attempt.</p></div>' +
+          '<h4>The route, ready-made</h4><p><em>Samson and Delilah</em> is ideal: long takes, natural light, a near-silent soundtrack, minimal dialogue &ndash; all shaped by its low-budget, community-cast production. That single sentence already answers the overview and sets up the Evaluate bullet.</p>' +
+          '<h4>Build it properly</h4><p>One text, one scene, <strong>three codes</strong> (camera, editing, sound), the meaning they make together, and the production context behind them. That is a complete route and it takes twenty minutes to write down.</p>' },
+  { n: 10, chosen: 8, title: 'Cultural context and audiences', marks: '23 marks',
+    stem: 'Construct an overview of a media work shaped by its cultural context (3) &middot; Describe the concept of cultural context (4) &middot; Analyse how cultural context influenced content and style (8) &middot; Evaluate the extent to which audiences from different cultural contexts would interpret it differently, using a media theory (8).',
+    body: '<h4>The most popular question</h4><p><em>Spirited Away</em> for almost everyone. The top answers <strong>linked context to construction</strong>: Shinto belief in the stink spirit sequence, Westernisation in Yubaba&rsquo;s penthouse, consumption in the pig transformation.</p>' +
+          '<h4>What separated them on Evaluate</h4><p>They gave Japanese and Western audiences <strong>different evidence each</strong>, rather than one paragraph repeating &ldquo;they may read it differently&rdquo;. Both extracts in Example&nbsp;1 above come from this question.</p>' +
+          '<h4>Where marks went</h4><p>Many answers <strong>defined cultural context by applying it to the film</strong>. Define it in the abstract first &ndash; and remember it is two-sided: the maker&rsquo;s culture shapes the work, and the viewer&rsquo;s shapes the reading.</p>' }
+];
+
+function renderAccordions(hostId, data) {
+  var host = document.getElementById(hostId);
+  if (!host) return;
+  host.innerHTML = data.map(function (q) {
+    var meta = 'Question ' + q.n + ' &middot; ' + (q.chosen === 0 ? 'not attempted' : 'chosen by ' + q.chosen + (q.chosen === 1 ? ' of you' : ' of you'));
+    return '<article class="accordion"' + (q.chosen === 0 ? ' data-zero="1"' : '') + '>' +
+      '<div class="acc-head"><div class="acc-titlewrap">' +
+        '<div class="acc-meta">' + meta + '</div>' +
+        '<div class="acc-title">' + q.title + '</div>' +
+      '</div><div class="acc-marks">' + q.marks + '</div><div class="acc-chev"></div></div>' +
+      '<div class="acc-body"><div class="acc-body-inner">' +
+        '<div class="q-stem">' + q.stem + '</div>' + q.body +
+      '</div></div></article>';
+  }).join('');
+  host.querySelectorAll('.accordion').forEach(wireAccordion);
+}
+
+function wireAccordion(acc) {
+  var head = acc.querySelector('.acc-head');
+  var body = acc.querySelector('.acc-body');
+  head.addEventListener('click', function () {
+    var open = acc.classList.toggle('open');
+    body.style.maxHeight = open ? body.scrollHeight + 'px' : 0;
+  });
+}
+function setAllAccordions(open) {
+  document.querySelectorAll('.accordion').forEach(function (acc) {
+    var body = acc.querySelector('.acc-body');
+    acc.classList.toggle('open', open);
+    body.style.maxHeight = open ? body.scrollHeight + 'px' : 0;
+  });
+}
+
+/* ─────────── PART 10 · BEFORE WACE CHECKLIST ─────────── */
+var BEFORE = [
+  'Do your <strong>&ldquo;Start here&rdquo; job</strong>. Whatever your lowest row was, work through its fix first.',
+  '<strong>Rewrite one Evaluate paragraph from this exam.</strong> Keep your analysis; add a verdict, a second audience with its own evidence, and a limit. Compare it with Example&nbsp;1 above.',
+  '<strong>Map all six texts to the question families.</strong> In the <a href="studyguide-s2.html#planner">route planner</a>, give every family at least two possible texts &ndash; and make sure <em>Waltz with Bashir</em>, <em>Samson and Delilah</em> and both investigation texts each appear somewhere.',
+  '<strong>Build a route for Question&nbsp;9.</strong> One text, one scene, three codes (camera, editing, sound), the meaning they make and the production context behind them.',
+  '<strong>Sit one full timed paper by hand</strong> in <a href="studyguide-s2.html#mock">mock mode</a>: 15 + 15 + 60 + 60 minutes, then self-mark against the band ladders. Aim to use four different texts across the four answers.'
+];
+
+function renderBefore() {
+  var host = document.getElementById('beforeList');
+  var state = readJSON(K_BEFORE, {});
+  host.innerHTML = BEFORE.map(function (t, i) {
+    return '<label class="checklist-row"><input type="checkbox" data-before="' + i + '"' +
+      (state[i] ? ' checked' : '') + '><span class="box"></span><span class="text">' + t + '</span></label>';
+  }).join('');
+  host.querySelectorAll('input[data-before]').forEach(function (cb) {
+    cb.addEventListener('change', function () {
+      var s = readJSON(K_BEFORE, {});
+      s[cb.dataset.before] = cb.checked;
+      writeJSON(K_BEFORE, s);
+      updateBefore();
+    });
+  });
+  updateBefore();
+}
+function updateBefore() {
+  var s = readJSON(K_BEFORE, {});
+  var n = BEFORE.filter(function (_, i) { return s[i]; }).length;
+  document.getElementById('beforeCount').textContent = n;
+  document.getElementById('beforeFill').style.width = (n / BEFORE.length * 100) + '%';
+}
+
+/* ─────────── EXAMPLE TABS ─────────── */
+function wireExampleTabs() {
+  var bar = document.getElementById('exTabs');
+  if (!bar) return;
+  bar.querySelectorAll('.filter-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      bar.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      document.querySelectorAll('.exemplar[data-ex]').forEach(function (ex) {
+        ex.classList.toggle('hidden', ex.dataset.ex !== btn.dataset.ex);
+      });
+    });
+  });
+}
+
+/* ─────────── INIT ─────────── */
+function initPage() {
+  renderRouter();
+  renderChart('chartS1', CHART_S1);
+  renderChart('chartS2', CHART_S2);
+  renderChart('chartQ', CHART_Q);
+  renderAccordions('accS1', Q_S1);
+  renderAccordions('accS2', Q_S2);
+  renderBefore();
+  wireExampleTabs();
+  document.getElementById('expandAll').addEventListener('click', function () { setAllAccordions(true); });
+  document.getElementById('collapseAll').addEventListener('click', function () { setAllAccordions(false); });
+  document.getElementById('beforeReset').addEventListener('click', function () {
+    writeJSON(K_BEFORE, {});
+    renderBefore();
+  });
+  window.addEventListener('resize', function () {
+    document.querySelectorAll('.accordion.open .acc-body').forEach(function (b) {
+      b.style.maxHeight = b.scrollHeight + 'px';
+    });
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initPage);
+} else {
+  initPage();
+}
+
+</script>
+<script src="countdown.js?v=weekdays" defer></script>
+<script src="backlink.js?v=1" defer></script>
+</body>
+</html>

@@ -29,6 +29,7 @@
     'studyguide.html':                  'the Semester One Study Guide',
     'studyguide-s2.html':               'the Semester Two Study Guide',
     'exam-feedback-s1-2026.html':       'the Semester One Exam Guide',
+    'exam-feedback-s2-2026.html':       'the Semester Two Exam Guide',
     'past-questions.html':              'Past Questions',
     'wartime-propaganda-feedback.html': 'the Wartime Propaganda guide',
     'journal-entry-1.html':             'the Journal Entry 1 guide',

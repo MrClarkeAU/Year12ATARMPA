@@ -215,17 +215,18 @@ body::before {
   -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border);
   padding: 0.7rem 1.5rem;
-  overflow-x: auto;
-  white-space: nowrap;
-  scrollbar-width: none;
   display: flex;
   justify-content: center;
 }
-.quick-nav::-webkit-scrollbar { display: none; }
+/* The links wrap rather than scrolling. A centred flex row that overflows
+   pushes its content off BOTH ends, and the left overflow cannot be
+   scrolled back to, which silently hid the first link on narrow screens. */
 .quick-nav-inner {
-  display: inline-flex;
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.4rem;
   align-items: center;
+  justify-content: center;
 }
 .quick-nav a {
   font-family: 'JetBrains Mono', monospace;
@@ -244,6 +245,13 @@ body::before {
   border-color: rgba(192,132,252,0.4);
   background: var(--purple-bg);
 }
+
+@media (max-width: 760px) {
+  .quick-nav { padding: 0.55rem 0.8rem; }
+  .quick-nav-inner { gap: 0.3rem; }
+  .quick-nav a { font-size: 0.58rem; letter-spacing: 0.08em; padding: 0.32rem 0.5rem; }
+}
+
 
 /* ─────────────────────────────────────────────────────────────────────
    MAIN LAYOUT

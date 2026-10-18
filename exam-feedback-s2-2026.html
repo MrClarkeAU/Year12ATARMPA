@@ -216,17 +216,18 @@ body::before {
   -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border);
   padding: 0.7rem 1.5rem;
-  overflow-x: auto;
-  white-space: nowrap;
-  scrollbar-width: none;
   display: flex;
   justify-content: center;
 }
-.quick-nav::-webkit-scrollbar { display: none; }
+/* The links wrap rather than scrolling. A centred flex row that overflows
+   pushes its content off BOTH ends, and the left overflow cannot be
+   scrolled back to, which silently hid the first link on narrow screens. */
 .quick-nav-inner {
-  display: inline-flex;
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.4rem;
   align-items: center;
+  justify-content: center;
 }
 .quick-nav a {
   font-family: 'JetBrains Mono', monospace;
@@ -245,6 +246,13 @@ body::before {
   border-color: rgba(192,132,252,0.4);
   background: var(--purple-bg);
 }
+
+@media (max-width: 760px) {
+  .quick-nav { padding: 0.55rem 0.8rem; }
+  .quick-nav-inner { gap: 0.3rem; }
+  .quick-nav a { font-size: 0.58rem; letter-spacing: 0.08em; padding: 0.32rem 0.5rem; }
+}
+
 
 /* ─────────────────────────────────────────────────────────────────────
    MAIN LAYOUT
@@ -945,6 +953,9 @@ body::before {
 .router-link i { font-style: normal; color: var(--text-dim); font-size: 0.86rem; }
 .router-link .arrow { margin-left: auto; color: var(--purple); font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; flex-shrink: 0; }
 
+.priority-obs p + p, .priority-fix p + p { margin-top: 0.65rem; }
+.priority-fix p + table, .priority-fix table + p { margin-top: 0.85rem; }
+
 /* ══════════ CHARTS ══════════ */
 .chart { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 1.3rem 1.5rem; margin: 1.1rem 0; }
 .chart-title { font-size: 0.97rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
@@ -1159,17 +1170,15 @@ body::before {
   <h2 class="part-title">What this paper showed</h2>
   <p class="part-intro">Four lessons are new to this exam. The first matters most &ndash; by some distance.</p>
 
-  <div class="priority">
-    <div class="priority-head">
-      <div class="priority-num">1</div>
-      <h3>You have six texts &ndash; use them</h3>
+  <article class="priority">
+    <div class="priority-num">1</div>
+    <div>
       <div class="priority-tags"><span class="tag struct">Highest value</span><span class="tag evidence">Evidence</span></div>
-    </div>
-    <div class="priority-obs">
+      <h3>You have six texts &ndash; use them</h3>
+      <div class="priority-obs">
       <p>You have studied four texts in depth &ndash; <em>Samson and Delilah</em>, <em>Spirited Away</em>, <em>Bowling for Columbine</em> and <em>Waltz with Bashir</em> &ndash; and each of you has two more from your investigation. On this paper, <strong>33 of the 39 responses used just two of them</strong>: <em>Spirited Away</em> and <em>Bowling for Columbine</em>. <em>Samson and Delilah</em> appeared twice. <em>Waltz with Bashir</em> did not appear at all.</p>
-      <p>That cost marks in two ways. The same scenes &ndash; the Heston interview, the stink spirit, Yubaba&rsquo;s penthouse &ndash; were bent to fit questions they did not suit. And four responses drawn from the same two films made papers read as repetitive, even when each answer was sound.</p>
-    </div>
-    <div class="priority-fix">
+      <p>That cost marks in two ways. The same scenes &ndash; the Heston interview, the stink spirit, Yubaba&rsquo;s penthouse &ndash; were bent to fit questions they did not suit. And four responses drawn from the same two films made papers read as repetitive, even when each answer was sound.</p></div>
+      <div class="priority-fix">
       <p><strong>Some texts are simply a better fit for some questions.</strong></p>
       <table class="fit-table">
         <thead><tr><th>Question family</th><th>Strong fits beyond the obvious</th></tr></thead>
@@ -1181,52 +1190,46 @@ body::before {
           <tr><td class="fam">Your own production</td><td>Your investigation texts</td></tr>
         </tbody>
       </table>
-      <p>The responses that used other texts &ndash; <em>Samson and Delilah</em>, <em>Whiplash</em>, a print advertising campaign, a government road-safety campaign, your own production &ndash; were among the freshest on the paper.</p>
+      <p>The responses that used other texts &ndash; <em>Samson and Delilah</em>, <em>Whiplash</em>, a print advertising campaign, a government road-safety campaign, your own production &ndash; were among the freshest on the paper.</p></div>
     </div>
-  </div>
+  </article>
 
-  <div class="priority">
-    <div class="priority-head">
-      <div class="priority-num">2</div>
-      <h3>Every question has its own object</h3>
+  <article class="priority">
+    <div class="priority-num">2</div>
+    <div>
       <div class="priority-tags"><span class="tag struct">Reading time</span></div>
+      <h3>Every question has its own object</h3>
+      <div class="priority-obs">
+      <p>The Evaluate bullets looked similar but asked different things. Question&nbsp;7 asked about the <strong>intended audience</strong>. Question&nbsp;8 asked about <strong>public understanding</strong>. Question&nbsp;10 asked about <strong>audiences from different cultural contexts</strong>. A prepared Hall paragraph answers none of them exactly.</p></div>
+      <div class="priority-fix">
+      <p><strong>The fix:</strong> underline the object in reading time and write to it. The Semester Two Study Guide makes the same point in Part&nbsp;Five &ndash; different questions point Evaluate at values, at expectations, at understanding of an event, at public understanding of an issue. They are not interchangeable.</p></div>
     </div>
-    <div class="priority-obs">
-      <p>The Evaluate bullets looked similar but asked different things. Question&nbsp;7 asked about the <strong>intended audience</strong>. Question&nbsp;8 asked about <strong>public understanding</strong>. Question&nbsp;10 asked about <strong>audiences from different cultural contexts</strong>. A prepared Hall paragraph answers none of them exactly.</p>
-    </div>
-    <div class="priority-fix">
-      <p><strong>The fix:</strong> underline the object in reading time and write to it. The Semester Two Study Guide makes the same point in Part&nbsp;Five &ndash; different questions point Evaluate at values, at expectations, at understanding of an event, at public understanding of an issue. They are not interchangeable.</p>
-    </div>
-  </div>
+  </article>
 
-  <div class="priority">
-    <div class="priority-head">
-      <div class="priority-num">3</div>
-      <h3>A mood is not a theme</h3>
+  <article class="priority">
+    <div class="priority-num">3</div>
+    <div>
       <div class="priority-tags"><span class="tag theory">Content</span></div>
+      <h3>A mood is not a theme</h3>
+      <div class="priority-obs">
+      <p>&ldquo;Peace&rdquo; or &ldquo;tension&rdquo; is an <strong>effect on the audience</strong>. A theme is an idea the work says something <em>about</em> &ndash; ambition and its cost, identity lost to consumerism.</p></div>
+      <div class="priority-fix">
+      <p><strong>The fix:</strong> if your &ldquo;theme&rdquo; is a feeling, a codes-construct-a-theme question caps your Content mark. This is the same note as the Semester One feedback, where the reflective stillness produced by <em>ma</em> was an effect and greed, consumerism and environmentalism were themes.</p></div>
     </div>
-    <div class="priority-obs">
-      <p>&ldquo;Peace&rdquo; or &ldquo;tension&rdquo; is an <strong>effect on the audience</strong>. A theme is an idea the work says something <em>about</em> &ndash; ambition and its cost, identity lost to consumerism.</p>
-    </div>
-    <div class="priority-fix">
-      <p><strong>The fix:</strong> if your &ldquo;theme&rdquo; is a feeling, a codes-construct-a-theme question caps your Content mark. This is the same note as the Semester One feedback, where the reflective stillness produced by <em>ma</em> was an effect and greed, consumerism and environmentalism were themes.</p>
-    </div>
-  </div>
+  </article>
 
-  <div class="priority">
-    <div class="priority-head">
-      <div class="priority-num">4</div>
-      <h3>No question type is safe to skip</h3>
+  <article class="priority">
+    <div class="priority-num">4</div>
+    <div>
       <div class="priority-tags"><span class="tag struct">Structural</span></div>
-    </div>
-    <div class="priority-obs">
+      <h3>No question type is safe to skip</h3>
+      <div class="priority-obs">
       <p>Nobody attempted Question&nbsp;9 (technical and symbolic codes), and Question&nbsp;3 (your own production) was barely touched. <strong>Both are standard WACE families.</strong></p>
-      <p>This is now the third time this has come up. In the Semester One exam nobody attempted the values question. On Journal Entry&nbsp;6 nobody took the <em>Waltz with Bashir</em> route. The pattern is not coincidence &ndash; it is the cost of revising only what you expect to be asked.</p>
+      <p>This is now the third time this has come up. In the Semester One exam nobody attempted the values question. On Journal Entry&nbsp;6 nobody took the <em>Waltz with Bashir</em> route. The pattern is not coincidence &ndash; it is the cost of revising only what you expect to be asked.</p></div>
+      <div class="priority-fix">
+      <p><strong>The fix:</strong> if either is set in November and your planned question is not, you need a route ready. Part&nbsp;Ten of this page tells you how to build one for Question&nbsp;9 specifically.</p></div>
     </div>
-    <div class="priority-fix">
-      <p><strong>The fix:</strong> if either is set in November and your planned question is not, you need a route ready. Part&nbsp;Ten of this page tells you how to build one for Question&nbsp;9 specifically.</p>
-    </div>
-  </div>
+  </article>
 </section>
 
 <!-- ════════ PART 7 · STILL OPEN ════════ -->

@@ -246,6 +246,7 @@ body::before { content: ''; position: fixed; inset: 0; background: var(--film-gr
 .tabs-bar { display: flex; background: var(--bg-card); border-bottom: 1px solid var(--border); overflow-x: auto; }
 .tabs-btn { flex: 1; min-width: 118px; background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--text-muted); padding: 0.7rem 0.6rem; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.06em; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
 .tabs-btn:hover { color: var(--text-dim); }
+@media (max-width: 420px) { .tabs-btn { min-width: 96px; font-size: 0.62rem; padding: 0.65rem 0.4rem; } }
 .tabs-btn.active { color: var(--accent-bright); border-bottom-color: var(--accent); background: rgba(91,127,245,0.05); }
 .tabs-content { display: none; padding: 1.3rem; background: var(--bg-card); }
 .tabs-content.active { display: block; }
